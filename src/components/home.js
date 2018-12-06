@@ -8,7 +8,8 @@ export default class Home extends React.Component {
         super(props);
     }
 
-    sidebarLinks = [{
+    sidebarLinks = [
+    {
         display: 'Home',
         link: '/home'
     },

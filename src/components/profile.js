@@ -11,7 +11,8 @@ export default class Profile extends React.Component {
         super(props);
     }
 
-    sidebarLinks = [{
+    sidebarLinks = [
+    {
         display: 'Home',
         link: '/home'
     },

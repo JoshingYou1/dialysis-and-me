@@ -7,7 +7,8 @@ export default class PatientEducation extends React.Component {
     super(props);    
   }
 
-    sidebarLinks = [{
+    sidebarLinks = [
+    {
         display: 'Home',
         link: '/home'
     },

@@ -9,7 +9,8 @@ export default class Appointments extends React.Component {
         super(props);
     }
 
-    sidebarLinks = [{
+    sidebarLinks = [
+    {
         display: 'Home',
         link: '/home'
     },

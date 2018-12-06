@@ -8,7 +8,8 @@ export default class LabResults extends React.Component {
         super(props);
     }
 
-    sidebarLinks = [{
+    sidebarLinks = [
+    {
         display: 'Home',
         link: '/home'
     },

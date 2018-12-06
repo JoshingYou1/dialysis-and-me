@@ -7,7 +7,8 @@ export default class Doctors extends React.Component {
         super(props);
     }
 
-    sidebarLinks = [{
+    sidebarLinks = [
+    {
         display: 'Home',
         link: '/home'
     },
@@ -65,7 +66,7 @@ export default class Doctors extends React.Component {
         return (
             <div>
                 <NavigationBar />
-                <Sidebar links={sidebarLinks}/>
+                <Sidebar links={this.sidebarLinks}/>
                 <h1></h1>
                 <section>
                     
