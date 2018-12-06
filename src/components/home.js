@@ -1,6 +1,7 @@
 import React from 'react';
 import Sidebar from './sidebar';
 import NavigationBar from './navBar';
+import {Link} from 'react-router-dom';
 
 export default class Home extends React.Component {
     constructor(props) {
