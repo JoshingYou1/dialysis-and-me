@@ -1,6 +1,7 @@
 import React from 'react';
 import Sidebar from './sidebar';
 import LabResultsList from './labResultsList';
+import LabResultsShow from './labResultsShow';
 import NavigationBar from './navBar';
 
 export default class LabResults extends React.Component {
