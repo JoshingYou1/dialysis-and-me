@@ -5,7 +5,7 @@ export default function LandingPage(props) {
         <div>
             <h1></h1>
             <h2></h2>
-            <button onClick={}>Get Started!</button>
+            <button>Get Started!</button>
         </div>
     );
 }
