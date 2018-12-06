@@ -1,6 +1,14 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import LandingPage from './landingPage';
+import Login from './login';
+import Registration from './register';
+import Home from './home';
+import PatientEducation from './patientEducation';
+import Doctors from './doctors';
+import LabResults from './labResults';
+import Appointments from './appointments';
+import Profile from './profile';
 
 import './landingPage.css';
 
