@@ -1,15 +1,14 @@
 import React from 'react';
 
 export default function Sidebar(props) {
+   const links = props.links.forEach(l => (
+    <Link to={l.link}>{l.display}</Link>
+));
+
     return (
         <div>
             <section>
-                <Link to="/home">Home</Link>
-                <Link to="/doctors">Doctors</Link>
-                <Link to="/profile">My Profile</Link>
-                <Link to="/patient-education">Patient Education</Link>
-                <Link to="/lab-results">Lab Results</Link>
-                <Link to="/appointments">Appointments</Link>
+                {links}
             </section>
         </div>
     );
