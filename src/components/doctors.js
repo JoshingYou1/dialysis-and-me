@@ -1,8 +1,9 @@
 import React from 'react';
 import NavigationBar from './navBar';
 import Sidebar from './sidebar';
+import {connect} from 'react-redux';
 
-export default class Doctors extends React.Component {
+export class Doctors extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -67,11 +68,20 @@ export default class Doctors extends React.Component {
             <div>
                 <NavigationBar />
                 <Sidebar links={this.sidebarLinks}/>
-                <h1></h1>
+                <h1>Your doctors</h1>
                 <section>
-                    
+                    <p>Sally May</p>
+                    <p>Nephrologist</p>
+                    <p>Nephrologists of Northeast Florida</p>
+                    <p>Office address:</p>
+                    <p>1 Martin Luther King Dr</p>
+                    <p>Jacksonville, FL 32281</p>
+                    <p>Phone number: 904-321-3222</p>
+                    <p>Fax number: 904-321-3411</p>
                 </section>
             </div>
         );
     }
 }
+
+export default connect()(Doctors);

@@ -1,6 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
-export default function LabResultsList(props) {
+export function LabResultsList(props) {
     return (
         <div>
             <h1></h1>
@@ -10,3 +11,5 @@ export default function LabResultsList(props) {
         </div>
     );
 }
+
+export default connect()(LabResultsList);

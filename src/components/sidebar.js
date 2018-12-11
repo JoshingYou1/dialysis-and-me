@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 
-export default function Sidebar(props) {
+export function Sidebar(props) {
    const links = props.links.forEach(l => (
     <Link to={l.link}>{l.display}</Link>
 ));
@@ -14,3 +15,5 @@ export default function Sidebar(props) {
         </div>
     );
 }
+
+export default connect()(Sidebar);

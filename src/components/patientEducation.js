@@ -1,8 +1,9 @@
 import React from 'react';
 import Sidebar from './sidebar';
 import NavigationBar from './navBar';
+import {connect} from 'react-redux';
 
-export default class PatientEducation extends React.Component {
+export class PatientEducation extends React.Component {
     constructor(props) {
     super(props);    
   }
@@ -68,10 +69,12 @@ export default class PatientEducation extends React.Component {
         <NavigationBar />
         <Sidebar links={this.sideBarLinks} />
         <section className="content-container patient-education">
-          // Patient education stuff goes in here
+          <h1>The importance of patient education</h1>
         </section>
         </div>
     
       );
   }
 }
+
+export default connect()(PatientEducation);

@@ -2,8 +2,9 @@ import React from 'react';
 import Sidebar from './sidebar';
 import NavigationBar from './navBar';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 
-export default class Home extends React.Component {
+export class Home extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -68,7 +69,7 @@ export default class Home extends React.Component {
             <div>
                 <NavigationBar />
                 <Sidebar links={this.sidebarLinks}/>
-                <h1></h1>
+                <h1>Welcome to your dashboard</h1>
                 <section>
                     <Link to="/doctors">Doctors</Link>
                     <Link to="/profile">My Profile</Link>
@@ -80,3 +81,5 @@ export default class Home extends React.Component {
         );
     }
 }
+
+export default connect()(Home);

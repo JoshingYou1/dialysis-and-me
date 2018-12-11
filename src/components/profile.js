@@ -1,12 +1,9 @@
 import React from 'react';
 import Sidebar from './sidebar';
 import NavigationBar from './navBar';
-import BasicInfo from './basicInfo';
-import ContactInfo from './contactInfo';
-import PrimaryInsuranceInfo from './primaryInsuranceInfo';
-import SecondaryInsuranceInfo from './secondaryInsuranceInfo';
+import {connect} from 'react-redux';
 
-export default class Profile extends React.Component {
+export class Profile extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -71,14 +68,13 @@ export default class Profile extends React.Component {
             <div>
                 <NavigationBar />
                 <Sidebar links={this.sidebarLinks}/>
-                <h1></h1>
+                <h1>John Smith</h1>
                 <section>
-                    <BasicInfo />
-                    <ContactInfo />
-                    <PrimaryInsuranceInfo />
-                    <SecondaryInsuranceInfo />
+                    <p>DOB: 1965</p>
                 </section>
             </div>
         );
     }
 }
+
+export default connect()(Profile);

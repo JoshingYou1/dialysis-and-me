@@ -1,6 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
-export default function Login(props) {
+export function Login(props) {
     return (
         <div>
             <h1>Login</h1>
@@ -16,3 +17,5 @@ export default function Login(props) {
         </div>
     );
 }
+
+export default connect()(Login);

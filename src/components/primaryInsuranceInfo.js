@@ -1,9 +1,12 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
-export default function PrimaryInsuranceInfo(props) {
+export function PrimaryInsuranceInfo(props) {
     return (
         <div>
 
         </div>
     );
 }
+
+export default connect()(PrimaryInsuranceInfo);

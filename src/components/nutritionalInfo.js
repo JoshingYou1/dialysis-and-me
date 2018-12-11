@@ -1,6 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
-export default function NutritionalInfo(props) {
+export function NutritionalInfo(props) {
     return (
         <div>
             <h1></h1>
@@ -10,3 +11,5 @@ export default function NutritionalInfo(props) {
         </div>
     );
 }
+
+export default connect()(NutritionalInfo);

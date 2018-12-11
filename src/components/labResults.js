@@ -3,8 +3,9 @@ import Sidebar from './sidebar';
 import LabResultsList from './labResultsList';
 import LabResultsShow from './labResultsShow';
 import NavigationBar from './navBar';
+import {connect} from 'react-redux';
 
-export default class LabResults extends React.Component {
+export class LabResults extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -76,5 +77,7 @@ export default class LabResults extends React.Component {
             </div>
         );
     }
-    
 }
+
+export default connect()(LabResults);
+

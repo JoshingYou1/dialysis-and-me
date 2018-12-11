@@ -1,10 +1,11 @@
 import React from 'react';
 import AppointmentsByMonth from './appointmentsByMonth';
-import AppointmentShow from './appointmentShow';
+import AppointmentsShow from './appointmentsShow';
 import NavigationBar from './navBar';
 import Sidebar from './sidebar';
+import {connect} from 'react-redux';
 
-export default class Appointments extends React.Component {
+export class Appointments extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -69,12 +70,14 @@ export default class Appointments extends React.Component {
             <div>
                 <NavigationBar />
                 <Sidebar links={this.sidebarLinks}/>
-                <h1></h1>
                 <section>
+                    <h1></h1>
                     <AppointmentsByMonth />
-                    <AppointmentShow />
+                    <AppointmentsShow />
                 </section>
             </div>
         );
     }
 }
+
+export default connect()(Appointments);
