@@ -1,3 +1,5 @@
+import {API_BASE_URL} from '../config';
+
 export const CHOOSE_LAB_RESULTS_DATE = 'CHOOSE_LAB_RESULTS_DATE';
 export const chooseLabResultsDate = date => ({
     type: CHOOSE_LAB_RESULTS_DATE,
