@@ -1,15 +1,17 @@
 import React from 'react';
-import {connect} from 'react-redux';
 
-export function LabResultsList(props) {
+export default function LabResultsList(props) {
+    const list = props.list.map(l => (
+        <div onClick={e => props.chooseLabResult(l.id)}>
+            {l.date}
+        </div>
+    ));
     return (
         <div>
-            <h1></h1>
+            <h1>Lab Results by Date</h1>
             <section>
-                
+                {list}
             </section>
         </div>
     );
 }
-
-export default connect()(LabResultsList);

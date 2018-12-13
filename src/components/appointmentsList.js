@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-export function AppointmentsByMonth(props) {
+export function AppointmentsList(props) {
     return (
         <div>
             <section>
@@ -11,4 +11,4 @@ export function AppointmentsByMonth(props) {
     );
 }
 
-export default connect()(AppointmentsByMonth);
+export default connect()(AppointmentsList);

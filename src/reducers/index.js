@@ -1,4 +1,4 @@
-import {CHOOSE_LAB_RESULTS_DATE, CHOOSE_APPOINTMENT_MONTH, TOGGLE_SIDEBAR} from '../actions/index';
+import {CHOOSE_LAB_RESULTS_DATE, CHOOSE_APPOINTMENT_MONTH, TOGGLE_SIDEBAR, FETCH_LAB_RESULTS_SUCCESS, FETCH_PROFILE_INFO_SUCCESS} from '../actions/index';
 
 const initialState = {
     selectedMonth: new Date().getMonth(),
@@ -22,6 +22,12 @@ export const appReducer = (state=initialState, action) => {
         return Object.assign({}, state, {
             sidebarIsVisible: action.toggle
         });
+    }
+    else if (action.type === FETCH_LAB_RESULTS_SUCCESS) {
+        return action.labResults;
+    }
+    else if (action.type === FETCH_PROFILE_INFO_SUCCESS) {
+        return action.profile
     }
     return state;
 }

@@ -2,11 +2,18 @@ import React from 'react';
 import Sidebar from './sidebar';
 import NavigationBar from './navBar';
 import {connect} from 'react-redux';
+import { fetchProfileInfo } from '../actions';
 
 export class Profile extends React.Component {
     constructor(props) {
         super(props);
     }
+
+    componentDidMount() {
+        this.props.dispatch(fetchProfileInfo(this.props.user.id));
+    }
+
+
 
     sidebarLinks = [
     {
@@ -70,11 +77,16 @@ export class Profile extends React.Component {
                 <Sidebar links={this.sidebarLinks}/>
                 <h1>John Smith</h1>
                 <section>
-                    <p>DOB: 1965</p>
+                    <p>DOB: {this.props.user.dateOfBirth}</p>
                 </section>
             </div>
         );
     }
 }
 
-export default connect()(Profile);
+const mapStateToProps = state => ({
+    user: state.user,
+    profile: state.profile
+})
+
+export default connect(mapStateToProps)(Profile);

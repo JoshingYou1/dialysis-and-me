@@ -4,10 +4,24 @@ import LabResultsList from './labResultsList';
 import LabResultsShow from './labResultsShow';
 import NavigationBar from './navBar';
 import {connect} from 'react-redux';
+import { fetchLabResults } from '../actions';
 
 export class LabResults extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        this.props.dispatch(fetchLabResults(this.props.user.id));
+    }
+
+    chooseLabResult(choice) {
+        const labResult = this.props.labResults.find(result => {
+            return result.id === choice;
+        })
+        this.setState({
+            result: labResult
+        })
     }
 
     sidebarLinks = [
@@ -66,18 +80,30 @@ export class LabResults extends React.Component {
   ];
 
     render() {
+        const list = this.props.labResults.map(l => {
+            return {
+                id: l.id,
+                date: l.date
+            };
+        });
         return (
             <div>
                 <NavigationBar />
                 <Sidebar links={this.sidebarLinks}/>
+                <h1>Lab Results</h1>
                 <section>
-                    <LabResultsList />
-                    <LabResultsShow />
+                    <LabResultsList list={list} chooseLabResult={choice => this.chooseLabResult(choice)}/>
+                    <LabResultsShow result={this.state.chosenLabResult}/>
                 </section>
             </div>
         );
     }
 }
 
-export default connect()(LabResults);
+const mapStateToProps = state => ({
+    labResults: state.labResults,
+    user: state.user
+});
+
+export default connect(mapStateToProps)(LabResults);
 

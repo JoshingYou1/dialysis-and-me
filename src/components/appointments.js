@@ -1,5 +1,5 @@
 import React from 'react';
-import AppointmentsByMonth from './appointmentsByMonth';
+import AppointmentsList from './appointmentsList';
 import AppointmentsShow from './appointmentsShow';
 import NavigationBar from './navBar';
 import Sidebar from './sidebar';
@@ -66,13 +66,19 @@ export class Appointments extends React.Component {
   ];
 
     render() {
+        const list = this.props.appointments.map(l => {
+            return {
+                id: l.id,
+                date: l.date
+            };
+        });
         return (
             <div>
                 <NavigationBar />
                 <Sidebar links={this.sidebarLinks}/>
+                <h1>Appointments</h1>
                 <section>
-                    <h1></h1>
-                    <AppointmentsByMonth />
+                    <AppointmentsList list={list} chooseAppointment={choice => this.chooseAppointment(choice)}/>
                     <AppointmentsShow />
                 </section>
             </div>
@@ -80,4 +86,9 @@ export class Appointments extends React.Component {
     }
 }
 
-export default connect()(Appointments);
+const mapStateToProps = state => ({
+    appointments: state.appointments,
+    user: state.user
+});
+
+export default connect(mapStateToProps)(Appointments);
