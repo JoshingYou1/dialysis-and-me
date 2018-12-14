@@ -10,8 +10,8 @@ export class PatientEducation extends React.Component {
 
     sidebarLinks = [
     {
-        display: 'Home',
-        link: '/home'
+        display: 'Dashboard',
+        link: '/dashboard'
     },
     {
         display: 'Appointments',

@@ -17,8 +17,8 @@ export class Profile extends React.Component {
 
     sidebarLinks = [
     {
-        display: 'Home',
-        link: '/home'
+        display: 'Dashboard',
+        link: '/dashboard'
     },
     {
         display: 'Appointments',

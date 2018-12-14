@@ -26,8 +26,8 @@ export class LabResults extends React.Component {
 
     sidebarLinks = [
     {
-        display: 'Home',
-        link: '/home'
+        display: 'Dashboard',
+        link: '/dashboard'
     },
     {
         display: 'Appointments',

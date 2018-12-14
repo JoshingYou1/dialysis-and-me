@@ -3,6 +3,10 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 export function LandingPage(props) {
+   if (props.loggedIn) {
+       return <Redirect to="/dashboard" />;
+   } 
+
     return (
         <div>
             <h1>Dialysis & Me</h1>
@@ -12,4 +16,8 @@ export function LandingPage(props) {
     );
 }
 
-export default connect()(LandingPage);
+const mapStateToProps = state => ({
+    loggedIn: state.auth.currentUser !== null
+});
+
+export default connect(mapStateToProps)(LandingPage);

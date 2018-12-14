@@ -12,8 +12,8 @@ export class Appointments extends React.Component {
 
     sidebarLinks = [
     {
-        display: 'Home',
-        link: '/home'
+        display: 'Dashboard',
+        link: '/dashboard'
     },
     {
         display: 'Appointments',

@@ -4,15 +4,15 @@ import NavigationBar from './navBar';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-export class Home extends React.Component {
+export class Dashboard extends React.Component {
     constructor(props) {
         super(props);
     }
 
     sidebarLinks = [
     {
-        display: 'Home',
-        link: '/home'
+        display: 'Dashboard',
+        link: '/dashboard'
     },
     {
         display: 'Appointments',
@@ -82,4 +82,4 @@ export class Home extends React.Component {
     }
 }
 
-export default connect()(Home);
+export default connect()(Dashboard);

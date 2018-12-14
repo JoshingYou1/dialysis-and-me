@@ -1,8 +1,8 @@
 import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import LandingPage from './landingPage';
-import {LoginForm} from './login';
-import Home from './home';
+import Login from './login';
+import Dashboard from './dashboard';
 import PatientEducation from './patientEducation';
 import Doctors from './doctors';
 import LabResults from './labResults';
@@ -21,8 +21,8 @@ export default function AppContainer(props) {
             <div className="container">
                 <main role="main">
                     <Route exact path="/" component={LandingPage} />
-                    <Route exact path="/login" component={LoginForm} />
-                    <Route exact path="/home" component={Home} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/dashboard" component={Dashboard} />
                     <Route exact path="/patient-education" component={PatientEducation} />
                     <Route exact path="/patient-education/esrd-info" component={ESRDInfo} />
                     <Route exact path="/patient-education/living-with-esrd" component={LivingWithESRD} />
