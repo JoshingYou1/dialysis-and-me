@@ -5,9 +5,6 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 export class Dashboard extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     sidebarLinks = [
     {

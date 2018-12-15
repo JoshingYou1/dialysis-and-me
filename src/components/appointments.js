@@ -6,9 +6,6 @@ import Sidebar from './sidebar';
 import {connect} from 'react-redux';
 
 export class Appointments extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     sidebarLinks = [
     {

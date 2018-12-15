@@ -7,9 +7,6 @@ import {connect} from 'react-redux';
 import { fetchLabResults } from '../actions';
 
 export class LabResults extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         this.props.dispatch(fetchLabResults(this.props.user.id));

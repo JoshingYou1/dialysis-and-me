@@ -4,9 +4,6 @@ import Sidebar from './sidebar';
 import {connect} from 'react-redux';
 
 export class Doctors extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     sidebarLinks = [
     {

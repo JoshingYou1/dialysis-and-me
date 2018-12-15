@@ -5,9 +5,6 @@ import {connect} from 'react-redux';
 import { fetchProfileInfo } from '../actions';
 
 export class Profile extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         this.props.dispatch(fetchProfileInfo(this.props.user.id));

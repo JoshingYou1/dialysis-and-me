@@ -35,7 +35,7 @@ export const fetchLabResults = patientId => dispatch => {
         .then(labResults => {
             dispatch(fetchLabResultsSuccess(labResults));
         })
-}
+};
 
 export const FETCH_PROFILE_INFO_SUCCESS = 'FETCH_PROFILE_INFO_SUCCESS';
 export const fetchProfileInfoSuccess = profile => ({
@@ -54,6 +54,6 @@ export const fetchProfileInfo = patientId => dispatch => {
         .then(profile => {
             dispatch(fetchProfileInfoSuccess(profile));
         })
-}
+};
 
 
