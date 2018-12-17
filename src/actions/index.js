@@ -1,9 +1,9 @@
 import {API_BASE_URL} from '../config';
 
-export const CHOOSE_LAB_RESULTS_DATE = 'CHOOSE_LAB_RESULTS_DATE';
-export const chooseLabResultsDate = date => ({
-    type: CHOOSE_LAB_RESULTS_DATE,
-    date
+export const SELECT_LAB_RESULTS_BY_ID = 'SELECT_LAB_RESULTS_BY_ID';
+export const selectLabResultsById = labResults => ({
+    type: SELECT_LAB_RESULTS_BY_ID,
+    labResults
 });
 
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
@@ -24,8 +24,14 @@ export const fetchLabResultsSuccess = labResults => ({
     labResults
 });
 
-export const fetchLabResults = patientId => dispatch => {
-    fetch(`${API_BASE_URL}/patients/${patientId}/lab-results`)
+export const fetchLabResults = patientId => (dispatch, getState) => {
+    fetch(`${API_BASE_URL}/api/patients/${patientId}/lab-results`,
+    {
+        method: 'GET',
+        headers: {
+            authorization: `Bearer ${getState().auth.authToken}`
+        }
+    })
         .then(res => {
             if (!res.ok) {
                 return Promise.reject(res.statusText);
@@ -33,6 +39,7 @@ export const fetchLabResults = patientId => dispatch => {
             return res.json();
         })
         .then(labResults => {
+            console.log('labResults', labResults);
             dispatch(fetchLabResultsSuccess(labResults));
         })
 };

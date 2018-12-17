@@ -3,8 +3,8 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 export function Sidebar(props) {
-   const links = props.links.map(l => (
-    <Link to={l.link}>{l.display}</Link>
+   const links = props.links.map((l, i) => (
+    <Link to={l.link} key={i}>{l.display}</Link>
 ));
 
     return (
