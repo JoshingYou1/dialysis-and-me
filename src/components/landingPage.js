@@ -9,11 +9,11 @@ export function LandingPage(props) {
    } 
 
     return (
-        <div>
+        <main role="main">
             <h1>Dialysis & Me</h1>
             <h2>Patient Portal</h2>
             <Link to="/login">Get Started!</Link>
-        </div>
+        </main>
     );
 }
 

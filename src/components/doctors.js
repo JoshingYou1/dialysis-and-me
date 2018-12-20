@@ -25,7 +25,7 @@ export class Doctors extends React.Component {
     {
         display: 'My Profile',
         link: '/profile',
-        subLinks : [
+        sublinks : [
             {
                 display: 'Contact Information',
                 link: '/profile/contact-info'
@@ -43,7 +43,7 @@ export class Doctors extends React.Component {
     {
         display: 'Patient Education',
         link: '/patient-education',
-        subLinks: [
+        sublinks: [
             {
                 display: 'ESRD Information',
                 link: '/patient-education/esrd-info'

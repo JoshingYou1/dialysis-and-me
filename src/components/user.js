@@ -5,8 +5,8 @@ export function User(props) {
     const user = props.user;
     
     return (
-        <div>
-            <p>{user.username}</p>
+        <div className="user-div">
+            <p>{user}</p>
         </div>
     );
 }

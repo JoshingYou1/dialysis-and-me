@@ -26,7 +26,7 @@ export class Dashboard extends React.Component {
     {
         display: 'My Profile',
         link: '/profile',
-        subLinks : [
+        sublinks : [
             {
                 display: 'Contact Information',
                 link: '/profile/contact-info'
@@ -44,7 +44,7 @@ export class Dashboard extends React.Component {
     {
         display: 'Patient Education',
         link: '/patient-education',
-        subLinks: [
+        sublinks: [
             {
                 display: 'ESRD Information',
                 link: '/patient-education/esrd-info'
@@ -63,17 +63,22 @@ export class Dashboard extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <NavigationBar />
                 <Sidebar links={this.sidebarLinks}/>
-                <h1>Welcome to your dashboard</h1>
-                <section>
-                    <Link to="/doctors">Doctors</Link>
-                    <Link to="/profile">My Profile</Link>
-                    <Link to="/patient-education">Patient Education</Link>
-                    <Link to="/lab-results">Lab Results</Link>
-                    <Link to="/appointments">Appointments</Link>
-                </section>
+                <main role="main">
+                    <h1>Welcome to your dashboard</h1>
+                    <section className="dashboard-links">
+                        <div className="dashboard-link-container">
+                            <p class="fa fa-user-md fa-5x" aria-hidden="true"></p>
+                            <Link className="dashboard-link" to="/doctors">Doctors</Link>
+                        </div>
+                        <Link to="/profile">My Profile</Link>
+                        <Link to="/patient-education">Patient Education</Link>
+                        <Link to="/lab-results">Lab Results</Link>
+                        <Link to="/appointments">Appointments</Link>
+                    </section>
+                </main>
             </div>
         );
     }

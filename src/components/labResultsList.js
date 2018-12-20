@@ -2,13 +2,13 @@ import React from 'react';
 
 export default function LabResultsList(props) {
     const list = props.list.map((l, i) => (
-        <div onClick={e => props.chooseLabResult(l.id)} key={i}>
+        <div onClick={e => props.chooseLabResults(l.id)} key={i}>
             {l.date}
         </div>
     ));
     return (
-        <div>
-            <h1>Lab Results by Date</h1>
+        <div className="list">
+            <h2>Lab Results by Date</h2>
             <section>
                 {list}
             </section>

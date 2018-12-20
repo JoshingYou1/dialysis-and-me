@@ -30,7 +30,9 @@ export const appReducer = (state=initialState, action) => {
         });
     }
     else if (action.type === FETCH_PROFILE_INFO_SUCCESS) {
-        return action.profile
+        return Object.assign({}, state, {
+            profile: action.profile
+        })
     }
     return state;
 }

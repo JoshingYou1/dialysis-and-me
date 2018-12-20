@@ -1,28 +1,31 @@
 import React from 'react';
 import User from './user';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
-import Login from './login';
 import requiresLogin from './requires-login';
+import { clearAuthToken } from '../local-storage';
+import {clearAuth} from '../actions/auth';
 
 export class NavigationBar extends React.Component {
+    logout() {
+        this.props.dispatch(clearAuth());
+        clearAuthToken();
+    }
 
     render() {
         return (
-            <div>
-                <nav>
+            <header>
+                <div className="header-div">
                     <User user={this.props.username}/>
-                    <Link to="/login">Sign Out</Link>
-                </nav>
-            </div>
+                    <button className="logout-button" onClick={() => this.logout()}>Log Out</button>
+                </div>
+            </header>
         );
     }
 }
 
 const mapStateToProps = state => {
-    const {currentUser} = state.auth;
     return {
-        username: currentUser.username
+        username: state.auth.currentUser.username
     };
 };
 

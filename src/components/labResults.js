@@ -13,11 +13,11 @@ export class LabResults extends React.Component {
         this.props.dispatch(fetchLabResults(this.props.user.id));
     }
 
-    chooseLabResult(choice) {
-        const labResult = this.props.labResults.find(result => {
+    chooseLabResults(choice) {
+        const labResults = this.props.labResults.find(result => {
             return result.id === choice;
         });
-        this.props.dispatch(selectLabResultsById(labResult)); 
+        this.props.dispatch(selectLabResultsById(labResults)); 
     }
 
     sidebarLinks = [
@@ -40,7 +40,7 @@ export class LabResults extends React.Component {
     {
         display: 'My Profile',
         link: '/profile',
-        subLinks : [
+        sublinks : [
             {
                 display: 'Contact Information',
                 link: '/profile/contact-info'
@@ -58,7 +58,7 @@ export class LabResults extends React.Component {
     {
         display: 'Patient Education',
         link: '/patient-education',
-        subLinks: [
+        sublinks: [
             {
                 display: 'ESRD Information',
                 link: '/patient-education/esrd-info'
@@ -76,7 +76,6 @@ export class LabResults extends React.Component {
   ];
 
     render() {
-        console.log('this.props.labResults', this.props.labResults);
         const list = this.props.labResults.map(l => {
             return {
                 id: l.id,
@@ -84,14 +83,16 @@ export class LabResults extends React.Component {
             };
         });
         return (
-            <div>
+            <div className="container">
                 <NavigationBar />
                 <Sidebar links={this.sidebarLinks}/>
-                <h1>Lab Results</h1>
-                <section>
-                    <LabResultsList list={list} chooseLabResult={choice => this.chooseLabResult(choice)}/>
-                    <LabResultsShow />
-                </section>
+                <main role="main">
+                    <h1>Lab Results</h1>
+                    <section className="grid">
+                        <LabResultsList list={list} chooseLabResults={choice => this.chooseLabResults(choice)}/>
+                        <LabResultsShow />
+                    </section>
+                </main>
             </div>
         );
     }
@@ -101,10 +102,12 @@ LabResults.defaultProps = {
     labResults: []
 };
 
-const mapStateToProps = state => ({
-    labResults: state.labResults,
-    user: state.auth.currentUser
-});
+const mapStateToProps = state => {
+    return {
+        labResults: state.app.labResults,
+        user: state.auth.currentUser
+    };
+}
 
 export default requiresLogin()(connect(mapStateToProps)(LabResults));
 
