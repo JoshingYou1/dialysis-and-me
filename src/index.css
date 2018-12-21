@@ -1,9 +1,6 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -61,8 +58,8 @@ code {
   display: grid;
 
   grid-template-areas:
-    "header header header"
-    "nav content content"
+    "header1 header2 header3"
+    "nav content1 content2"
     "footer footer footer";
 
   grid-template-columns: auto 1fr 1fr;
@@ -72,12 +69,25 @@ code {
 }
 
 header {
-  grid-area: header;
-  text-align: right;
-  align-self: stretch;
+  display: grid;
+  grid-template-areas:
+  "a b";
+  grid-template-columns: 2fr 1fr;
+  grid-column-start: header1;
+  grid-column-end: header3;
+  align-items: center;
   padding-left: 0.5em;
   padding-right: 0.5em;
   background-color: orange;
+}
+
+.a {
+  grid-area: a;
+}
+
+.b {
+  grid-area: b;
+  text-align: right;
 }
 
 nav {
@@ -98,8 +108,6 @@ nav {
 
 .nav-logo {
   height: 2em;
-  float: left;
-  margin-top: 0.25em;
 }
 
 h1 {
@@ -196,9 +204,15 @@ h1 {
 
 .desktop-hide {
   display: block;
+  background: none;
+  border: none;
+  padding: 10px;
 }
 
 .show {
+  /* display: grid;
+  grid-template-areas: "test result";
+  grid-template-columns: 1fr 1fr; */
   width: 100%;
   height: 100%;
   color: #fff;
@@ -210,6 +224,16 @@ h1 {
   z-index: 1000;
   opacity: 1;
   animation: fade 0.25s linear;
+}
+
+.test-span {
+  float: left;
+  padding-left: 3em;
+}
+
+.result-span {
+  float: right;
+  padding-right: 3em;
 }
 
 @keyframes fade {
@@ -249,7 +273,8 @@ h1 {
 
 
 main {
-  grid-area: content;
+  grid-column-start: content1;
+  grid-column-end: content2;
 }
 
 footer {

@@ -9,10 +9,13 @@ export function LabResultsShow(props) {
         return (
             <div className={"show " + (props.isLabResultsInfoShowing ? '' : 'hidden')}>
                 <section>
-                    <p>Hemoglobin: {props.chosenLabResult.hematology.hemoglobin}</p>
                     <button className="desktop-hide" onClick={() => props.dispatch(toggleLabResultsInfo(false))}>
                         <span className="fas fa-times 2x"></span>
                     </button>
+                    <p>
+                        <span className="test-span">Hemoglobin:</span>
+                        <span className="result-span">{props.chosenLabResult.hematology.hemoglobin}&nbsp;&nbsp;&nbsp;g/dL</span>
+                    </p>
                 </section>
             </div>
         );
