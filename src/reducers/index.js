@@ -1,10 +1,11 @@
-import {SELECT_LAB_RESULTS_BY_ID, CHOOSE_APPOINTMENT_MONTH, TOGGLE_SIDEBAR, FETCH_LAB_RESULTS_SUCCESS, FETCH_PROFILE_INFO_SUCCESS} from '../actions/index';
+import {SELECT_LAB_RESULTS_BY_ID, CHOOSE_APPOINTMENT_MONTH, TOGGLE_SIDEBAR, FETCH_LAB_RESULTS_SUCCESS, FETCH_PROFILE_INFO_SUCCESS, TOGGLE_LAB_RESULTS_INFO} from '../actions/index';
 
 const initialState = {
     selectedMonth: new Date().getMonth(),
     selectedLabResult: null,
-    sidebarIsVisible: true,
-    labResults: []
+    isSidebarVisible: true,
+    labResults: [],
+    isLabResultsInfoShowing: false
 };
 
 export const appReducer = (state=initialState, action) => {
@@ -21,7 +22,7 @@ export const appReducer = (state=initialState, action) => {
     }
     else if (action.type === TOGGLE_SIDEBAR) {
         return Object.assign({}, state, {
-            sidebarIsVisible: action.toggle
+            isSidebarVisible: !state.isSidebarShowing
         });
     }
     else if (action.type === FETCH_LAB_RESULTS_SUCCESS) {
@@ -32,6 +33,11 @@ export const appReducer = (state=initialState, action) => {
     else if (action.type === FETCH_PROFILE_INFO_SUCCESS) {
         return Object.assign({}, state, {
             profile: action.profile
+        })
+    }
+    else if (action.type === TOGGLE_LAB_RESULTS_INFO) {
+        return Object.assign({}, state, {
+            isLabResultsInfoShowing: action.isLabResultsInfoShowing
         })
     }
     return state;

@@ -7,9 +7,8 @@ export const selectLabResultsById = labResults => ({
 });
 
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
-export const toggleSidebar = toggle => ({
-    type: TOGGLE_SIDEBAR,
-    toggle
+export const toggleSidebar = () => ({
+    type: TOGGLE_SIDEBAR
 })
 
 export const CHOOSE_APPOINTMENT_MONTH = 'CHOOSE_APPOINTMENT_MONTH';
@@ -62,5 +61,11 @@ export const fetchProfileInfo = patientId => dispatch => {
             dispatch(fetchProfileInfoSuccess(profile));
         })
 };
+
+export const TOGGLE_LAB_RESULTS_INFO = 'TOGGLE_LAB_RESULTS_INFO';
+export const toggleLabResultsInfo = isLabResultsInfoShowing => ({
+    type: TOGGLE_LAB_RESULTS_INFO,
+    isLabResultsInfoShowing
+});
 
 

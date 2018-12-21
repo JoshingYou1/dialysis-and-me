@@ -4,7 +4,7 @@ import LabResultsList from './labResultsList';
 import LabResultsShow from './labResultsShow';
 import NavigationBar from './navBar';
 import {connect} from 'react-redux';
-import { fetchLabResults, selectLabResultsById } from '../actions';
+import { fetchLabResults, selectLabResultsById, toggleLabResultsInfo } from '../actions';
 import requiresLogin from './requires-login';
 
 export class LabResults extends React.Component {
@@ -17,7 +17,12 @@ export class LabResults extends React.Component {
         const labResults = this.props.labResults.find(result => {
             return result.id === choice;
         });
-        this.props.dispatch(selectLabResultsById(labResults)); 
+        this.props.dispatch(selectLabResultsById(labResults));
+        this.toggleLabResultsInfo();
+    }
+
+    toggleLabResultsInfo() {
+        this.props.dispatch(toggleLabResultsInfo(true));
     }
 
     sidebarLinks = [
@@ -105,7 +110,8 @@ LabResults.defaultProps = {
 const mapStateToProps = state => {
     return {
         labResults: state.app.labResults,
-        user: state.auth.currentUser
+        user: state.auth.currentUser,
+        isLabResultsInfoShowing: state.isLabResultsInfoShowing
     };
 }
 
