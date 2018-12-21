@@ -11,7 +11,7 @@ export function Login(props) {
 
     return (
         <main role="main" className="login">
-            <h1>Login</h1>
+            <img className="login-logo" src="/dialysis-and-me-logo.png" alt="Logo" aria-hidden="true"></img>
             <LoginForm />
         </main>
     );

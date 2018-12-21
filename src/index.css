@@ -13,29 +13,92 @@ code {
     monospace;
 }
 
+.logo {
+  height: 5em;
+  margin-top: 3em
+}
+
+.landing-main {
+  text-align: center;
+}
+
+.login-logo {
+  height: 5em;
+  margin-top: 3em;
+  margin-bottom: 2em;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.login {
+  display: block;
+  text-align: center;
+}
+
+.login-form {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  padding: 1em;
+  border: 1px solid gainsboro;
+  border-radius: 4px;
+}
+
+.form-input {
+  border-radius: 1px;
+}
+
+.login-button {
+  border-radius: 4px;
+  width: 100%;
+  margin-top: 1em;
+  padding: 0.4em;
+}
+
 .container {
   display: grid;
 
   grid-template-areas:
     "header header header"
-    ". content ."
+    "nav content content"
     "footer footer footer";
 
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-columns: auto 1fr 1fr;
+  grid-template-rows: 20% 1fr 20%;
 
   height: 100vh;
 }
 
 header {
   grid-area: header;
-  justify-self: right;
   text-align: right;
   align-self: center;
+  padding: 1em;
+  background-color: orange;
 }
 
 nav {
   grid-area: nav;
+  display: none;
+}
+
+.user-p {
+  margin: 0;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.nav-logo {
+  height: 2.5em;
+  float: left;
+  margin-top: 0.2em;
 }
 
 h1 {
@@ -43,28 +106,74 @@ h1 {
   margin-bottom: 2em;
 }
 
+.dashboard-h1 {
+  font-size: 1.5em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
 .dashboard-links {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   justify-items: center;
   align-items: center;
-  grid-column-gap: 50px;
   grid-row-gap: 50px;
 }
 
 .dashboard-link-container {
-  padding-left: 60px;
-  padding-right: 60px;
+  /* padding-left: 60px;
+  padding-right: 60px; */
+  text-align: center;
 }
 
 .dashboard-link {
-  text-align: center;
   padding-bottom: 20px;
   display: block;
+  text-decoration: none;
+  font-size: 0.75em;
+  margin-top: 0.5em;
 }
 
-.fa, .fa-user-md, .fa-5x {
-  margin: 0.5em;
+.fa, .fa-user-md, .fa-5x, .appointment-icon {
+  margin: 0;
+}
+
+.fa-user {
+  padding: 15px;
+  border-radius: 30px;
+  background-color: aqua;
+}
+
+.fa-book {
+  padding: 15px;
+  border-radius: 30px;
+  background-color: violet;
+}
+
+.fa-vial {
+  padding: 15px;
+  border-radius: 30px;
+  background-color: orange;
+}
+
+.fa-user-md {
+  padding: 15px;
+  border-radius: 30px;
+  background-color: greenyellow;
+}
+
+.fa-calendar-alt {
+  padding: 15px;
+  border-radius: 30px;
+  background-color: tomato;
+}
+
+.fa-5x {
+  font-size: 4em;
+}
+
+.appointment-icon {
+  height: 5em;
 }
 
 .grid {

@@ -9,7 +9,8 @@ export function LandingPage(props) {
    } 
 
     return (
-        <main role="main">
+        <main role="main" className="landing-main">
+            <img className="logo" src="/dialysis-and-me-logo.png" alt="Logo" aria-hidden="true"></img>
             <h1>Dialysis & Me</h1>
             <h2>Patient Portal</h2>
             <Link to="/login">Get Started!</Link>

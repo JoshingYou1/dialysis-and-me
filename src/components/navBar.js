@@ -14,6 +14,7 @@ export class NavigationBar extends React.Component {
     render() {
         return (
             <header>
+                <img className="nav-logo" src="/dialysis-and-me-logo.png" alt="Logo" aria-hidden="true"></img>
                 <div className="header-div">
                     <User user={this.props.username}/>
                     <button className="logout-button" onClick={() => this.logout()}>Log Out</button>

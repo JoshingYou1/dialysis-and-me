@@ -67,16 +67,28 @@ export class Dashboard extends React.Component {
                 <NavigationBar />
                 <Sidebar links={this.sidebarLinks}/>
                 <main role="main">
-                    <h1>Welcome to your dashboard</h1>
+                    <h1 className="dashboard-h1">Welcome to your dashboard</h1>
                     <section className="dashboard-links">
                         <div className="dashboard-link-container">
-                            <p class="fa fa-user-md fa-5x" aria-hidden="true"></p>
+                            <p className="fa fa-user fa-5x" aria-hidden="true"></p>
+                            <Link className="dashboard-link" to="/profile">My Profile</Link>
+                        </div>
+                        <div className="dashboard-link-container">
+                            <p className="fa fa-book fa-5x" aria-hidden="true"></p>
+                            <Link className="dashboard-link" to="/patient-education">Patient Education</Link>
+                        </div>
+                        <div className="dashboard-link-container">
+                            <p className="fa fa-vial fa-5x" aria-hidden="true"></p>
+                            <Link className="dashboard-link" to="/lab-results">Lab Results</Link>
+                        </div>
+                        <div className="dashboard-link-container">
+                            <p className="fa fa-user-md fa-5x" aria-hidden="true"></p>
                             <Link className="dashboard-link" to="/doctors">Doctors</Link>
                         </div>
-                        <Link to="/profile">My Profile</Link>
-                        <Link to="/patient-education">Patient Education</Link>
-                        <Link to="/lab-results">Lab Results</Link>
-                        <Link to="/appointments">Appointments</Link>
+                        <div className="dashboard-link-container">
+                            <p className="fa fa-calendar-alt fa-5x" aria-hidden="true"></p>
+                            <Link className="dashboard-link" to="/appointments">Appointments</Link>
+                        </div>
                     </section>
                 </main>
             </div>

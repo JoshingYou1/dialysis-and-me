@@ -6,7 +6,7 @@ export function User(props) {
     
     return (
         <div className="user-div">
-            <p>{user}</p>
+            <p className="user-p">{user}</p>
         </div>
     );
 }
