@@ -49,8 +49,14 @@ export const fetchProfileInfoSuccess = profile => ({
     profile
 });
 
-export const fetchProfileInfo = patientId => dispatch => {
-    fetch(`${API_BASE_URL}/patients/${patientId}/profile`)
+export const fetchProfileInfo = patientId => (dispatch, getState) => {
+    fetch(`${API_BASE_URL}/api/patients/${patientId}`,
+    {
+        method: 'GET',
+        headers: {
+            authorization: `Bearer ${getState().auth.authToken}`
+        }
+    })
         .then(res => {
             if (!res.ok) {
                 return Promise.reject(res.statusText);
@@ -58,6 +64,7 @@ export const fetchProfileInfo = patientId => dispatch => {
             return res.json();
         })
         .then(profile => {
+            console.log('profile', profile);
             dispatch(fetchProfileInfoSuccess(profile));
         })
 };

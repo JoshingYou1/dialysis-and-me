@@ -5,7 +5,8 @@ const initialState = {
     selectedLabResult: null,
     isSidebarVisible: true,
     labResults: [],
-    isLabResultsInfoShowing: false
+    isLabResultsInfoShowing: false,
+    profile: []
 };
 
 export const appReducer = (state=initialState, action) => {

@@ -3,14 +3,13 @@ import Sidebar from './sidebar';
 import NavigationBar from './navBar';
 import {connect} from 'react-redux';
 import { fetchProfileInfo } from '../actions';
+import requiresLogin from './requires-login';
 
 export class Profile extends React.Component {
 
     componentDidMount() {
         this.props.dispatch(fetchProfileInfo(this.props.user.id));
     }
-
-
 
     sidebarLinks = [
     {
@@ -68,22 +67,25 @@ export class Profile extends React.Component {
   ];
 
     render() {
+        console.log('profile', this.props.profile);
         return (
             <div>
                 <NavigationBar />
                 <Sidebar links={this.sidebarLinks}/>
-                <h1>John Smith</h1>
+                <h1></h1>
                 <section>
-                    <p>DOB: {this.props.user.dateOfBirth}</p>
+                    <p>DOB: {this.props.profile.dateOfBirth}</p>
                 </section>
             </div>
         );
     }
 }
 
-const mapStateToProps = state => ({
-    user: state.user,
-    profile: state.profile
-})
+const mapStateToProps = state => {
+    return {
+        user: state.auth.currentUser,
+        profile: state.app.profile
+    };
+}
 
-export default connect(mapStateToProps)(Profile);
+export default requiresLogin()(connect(mapStateToProps)(Profile));
