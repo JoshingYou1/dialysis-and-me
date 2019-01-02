@@ -7,61 +7,6 @@ import {connect} from 'react-redux';
 
 export class Appointments extends React.Component {
 
-    sidebarLinks = [
-    {
-        display: 'Dashboard',
-        link: '/dashboard'
-    },
-    {
-        display: 'Appointments',
-        link: '/appointments'
-    },
-    {
-        display: 'Doctors',
-        link: '/doctors'
-    },
-    {
-        display: 'Lab Results',
-        link: '/lab-results'
-    },
-    {
-        display: 'My Profile',
-        link: '/profile',
-        sublinks : [
-            {
-                display: 'Contact Information',
-                link: '/profile/contact-info'
-            },
-            {
-                display: 'Primary Insurance Information',
-                link: '/profile/primary-insurance-info'
-            },
-            {
-                display: 'Secondary Insurance Information',
-                link: '/profile/secondary-insurance-info'
-            }   
-        ]
-    },
-    {
-        display: 'Patient Education',
-        link: '/patient-education',
-        sublinks: [
-            {
-                display: 'ESRD Information',
-                link: '/patient-education/esrd-info'
-            },
-            {
-                display: 'Living with ESRD',
-                link:'/patient-education/living-with-esrd'
-            },
-            {
-                display: 'Nutritional Information',
-                link: '/patient-education/nutritional-info'
-            }
-        ]
-    }
-  ];
-
     render() {
         const list = this.props.appointments.map(l => {
             return {
@@ -72,7 +17,6 @@ export class Appointments extends React.Component {
         return (
             <div>
                 <NavigationBar />
-                <Sidebar links={this.sidebarLinks}/>
                 <h1>Appointments</h1>
                 <section>
                     <AppointmentsList list={list} chooseAppointment={choice => this.chooseAppointment(choice)}/>

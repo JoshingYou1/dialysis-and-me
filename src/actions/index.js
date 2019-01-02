@@ -7,8 +7,9 @@ export const selectLabResultsById = labResults => ({
 });
 
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
-export const toggleSidebar = () => ({
-    type: TOGGLE_SIDEBAR
+export const toggleSidebar = isSidebarShowing => ({
+    type: TOGGLE_SIDEBAR,
+    isSidebarShowing
 })
 
 export const CHOOSE_APPOINTMENT_MONTH = 'CHOOSE_APPOINTMENT_MONTH';
@@ -73,6 +74,18 @@ export const TOGGLE_LAB_RESULTS_INFO = 'TOGGLE_LAB_RESULTS_INFO';
 export const toggleLabResultsInfo = isLabResultsInfoShowing => ({
     type: TOGGLE_LAB_RESULTS_INFO,
     isLabResultsInfoShowing
+});
+
+export const TOGGLE_USER_INFO = 'TOGGLE_USER_INFO';
+export const toggleUserInfo = isUserInfoShowing => ({
+    type: TOGGLE_USER_INFO,
+    isUserInfoShowing
+});
+
+export const TOGGLE_SUBLINKS = 'TOGGLE_SUBLINKS';
+export const toggleSublinks = areSublinksShowing => ({
+    type: TOGGLE_SUBLINKS,
+    areSublinksShowing
 });
 
 

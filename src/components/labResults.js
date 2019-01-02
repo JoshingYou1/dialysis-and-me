@@ -6,6 +6,7 @@ import NavigationBar from './navBar';
 import {connect} from 'react-redux';
 import { fetchLabResults, selectLabResultsById, toggleLabResultsInfo } from '../actions';
 import requiresLogin from './requires-login';
+import { Footer } from './footer';
 
 export class LabResults extends React.Component {
 
@@ -25,72 +26,30 @@ export class LabResults extends React.Component {
         this.props.dispatch(toggleLabResultsInfo(true));
     }
 
-    sidebarLinks = [
-    {
-        display: 'Dashboard',
-        link: '/dashboard'
-    },
-    {
-        display: 'Appointments',
-        link: '/appointments'
-    },
-    {
-        display: 'Doctors',
-        link: '/doctors'
-    },
-    {
-        display: 'Lab Results',
-        link: '/lab-results'
-    },
-    {
-        display: 'My Profile',
-        link: '/profile',
-        sublinks : [
-            {
-                display: 'Contact Information',
-                link: '/profile/contact-info'
-            },
-            {
-                display: 'Primary Insurance Information',
-                link: '/profile/primary-insurance-info'
-            },
-            {
-                display: 'Secondary Insurance Information',
-                link: '/profile/secondary-insurance-info'
-            }   
-        ]
-    },
-    {
-        display: 'Patient Education',
-        link: '/patient-education',
-        sublinks: [
-            {
-                display: 'ESRD Information',
-                link: '/patient-education/esrd-info'
-            },
-            {
-                display: 'Living with ESRD',
-                link:'/patient-education/living-with-esrd'
-            },
-            {
-                display: 'Nutritional Information',
-                link: '/patient-education/nutritional-info'
-            }
-        ]
-    }
-  ];
-
     render() {
         const list = this.props.labResults.map(l => {
+                let resultsDate = new Date(l.date);
+                
+                let day = resultsDate.getDate();
+                if (day < 10) {
+                    day = `0${day}`
+                }
+                let month = resultsDate.getMonth() + 1;
+                if (month < 10) {
+                    month = `0${month}`;
+                }
+                const year = resultsDate.getFullYear();
+        
+                let formattedResultsDate = `${month}/${day}/${year}`;
             return {
                 id: l.id,
-                date: l.date
+                date: formattedResultsDate
             };
         });
+        
         return (
             <div className="container">
                 <NavigationBar />
-                <Sidebar links={this.sidebarLinks}/>
                 <main role="main">
                     <h1>Lab Results</h1>
                     <section className="grid">
@@ -98,6 +57,7 @@ export class LabResults extends React.Component {
                         <LabResultsShow />
                     </section>
                 </main>
+                <Footer />
             </div>
         );
     }

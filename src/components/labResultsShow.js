@@ -41,6 +41,38 @@ export function LabResultsShow(props) {
                         <span className="test-span">Creatinine:</span>
                         <span className="result-span">{props.chosenLabResult.chemistry.creatinine}</span>
                         <span className="measurement-method-span">mg/dL</span>
+
+                        <span className="test-span">Sodium:</span>
+                        <span className="result-span">{props.chosenLabResult.chemistry.sodium}</span>
+                        <span className="measurement-method-span">mEq/L</span>
+
+                        <span className="test-span">Potassium:</span>
+                        <span className="result-span">{props.chosenLabResult.chemistry.potassium}</span>
+                        <span className="measurement-method-span">mEq/L</span>
+
+                        <span className="test-span">Calcium:</span>
+                        <span className="result-span">{props.chosenLabResult.chemistry.calcium}</span>
+                        <span className="measurement-method-span">mg/dL</span>
+
+                        <span className="test-span">Phosphorus:</span>
+                        <span className="result-span">{props.chosenLabResult.chemistry.phosphorus}</span>
+                        <span className="measurement-method-span">mg/dL</span>
+
+                        <span className="test-span">Albumin:</span>
+                        <span className="result-span">{props.chosenLabResult.chemistry.albumin}</span>
+                        <span className="measurement-method-span">g/dL</span>
+
+                        <span className="test-span">Iron:</span>
+                        <span className="result-span">{props.chosenLabResult.chemistry.iron}</span>
+                        <span className="measurement-method-span">mcg/dL</span>
+
+                        <span className="test-span">Cholesterol:</span>
+                        <span className="result-span">{props.chosenLabResult.chemistry.cholesterol}</span>
+                        <span className="measurement-method-span">mg/dL</span>
+
+                        <span className="test-span">Triglycerides:</span>
+                        <span className="result-span">{props.chosenLabResult.chemistry.triglycerides}</span>
+                        <span className="measurement-method-span">mg/dL</span>
                 </section>
             </div>
         );

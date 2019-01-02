@@ -1,12 +1,13 @@
-import {SELECT_LAB_RESULTS_BY_ID, CHOOSE_APPOINTMENT_MONTH, TOGGLE_SIDEBAR, FETCH_LAB_RESULTS_SUCCESS, FETCH_PROFILE_INFO_SUCCESS, TOGGLE_LAB_RESULTS_INFO} from '../actions/index';
+import {SELECT_LAB_RESULTS_BY_ID, CHOOSE_APPOINTMENT_MONTH, TOGGLE_SIDEBAR, FETCH_LAB_RESULTS_SUCCESS, FETCH_PROFILE_INFO_SUCCESS, TOGGLE_LAB_RESULTS_INFO, TOGGLE_USER_INFO, TOGGLE_SUBLINKS} from '../actions/index';
 
 const initialState = {
     selectedMonth: new Date().getMonth(),
     selectedLabResult: null,
-    isSidebarVisible: true,
+    isSidebarShowing: false,
     labResults: [],
     isLabResultsInfoShowing: false,
-    profile: []
+    profile: [],
+    isUserInfoShowing: false
 };
 
 export const appReducer = (state=initialState, action) => {
@@ -23,7 +24,7 @@ export const appReducer = (state=initialState, action) => {
     }
     else if (action.type === TOGGLE_SIDEBAR) {
         return Object.assign({}, state, {
-            isSidebarVisible: !state.isSidebarShowing
+            isSidebarShowing: !state.isSidebarShowing
         });
     }
     else if (action.type === FETCH_LAB_RESULTS_SUCCESS) {
@@ -34,12 +35,22 @@ export const appReducer = (state=initialState, action) => {
     else if (action.type === FETCH_PROFILE_INFO_SUCCESS) {
         return Object.assign({}, state, {
             profile: action.profile
-        })
+        });
     }
     else if (action.type === TOGGLE_LAB_RESULTS_INFO) {
         return Object.assign({}, state, {
             isLabResultsInfoShowing: action.isLabResultsInfoShowing
-        })
+        });
+    }
+    else if (action.type === TOGGLE_USER_INFO) {
+        return Object.assign({}, state, {
+            isUserInfoShowing: !state.isUserInfoShowing
+        });
+    }
+    else if (action.type === TOGGLE_SUBLINKS) {
+        return Object.assign({}, state, {
+            areSublinksShowing: !state.areSublinksShowing
+        });
     }
     return state;
 }

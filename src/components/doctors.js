@@ -5,66 +5,10 @@ import {connect} from 'react-redux';
 
 export class Doctors extends React.Component {
 
-    sidebarLinks = [
-    {
-        display: 'Dashboard',
-        link: '/dashboard'
-    },
-    {
-        display: 'Appointments',
-        link: '/appointments'
-    },
-    {
-        display: 'Doctors',
-        link: '/doctors'
-    },
-    {
-        display: 'Lab Results',
-        link: '/lab-results'
-    },
-    {
-        display: 'My Profile',
-        link: '/profile',
-        sublinks : [
-            {
-                display: 'Contact Information',
-                link: '/profile/contact-info'
-            },
-            {
-                display: 'Primary Insurance Information',
-                link: '/profile/primary-insurance-info'
-            },
-            {
-                display: 'Secondary Insurance Information',
-                link: '/profile/secondary-insurance-info'
-            }   
-        ]
-    },
-    {
-        display: 'Patient Education',
-        link: '/patient-education',
-        sublinks: [
-            {
-                display: 'ESRD Information',
-                link: '/patient-education/esrd-info'
-            },
-            {
-                display: 'Living with ESRD',
-                link:'/patient-education/living-with-esrd'
-            },
-            {
-                display: 'Nutritional Information',
-                link: '/patient-education/nutritional-info'
-            }
-        ]
-    }
-  ];
-
     render() {
         return (
             <div>
                 <NavigationBar />
-                <Sidebar links={this.sidebarLinks}/>
                 <h1>Your doctors</h1>
                 <section>
                     <p>Sally May</p>
