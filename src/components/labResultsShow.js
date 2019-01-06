@@ -7,7 +7,7 @@ export function LabResultsShow(props) {
     console.log('chosenLabResult', props.chosenLabResult);
     if (props.chosenLabResult) {
         return (
-            <div className={"show " + (props.isLabResultsInfoShowing ? '' : 'hidden')}>
+            <div className={"show " + (props.isLabResultsInfoShowing ? '' : 'hidden-1')}>
                 <button className="desktop-hide" onClick={() => props.dispatch(toggleLabResultsInfo(false))}>
                     <span className="fas fa-times 2x"></span>
                 </button>
@@ -78,7 +78,7 @@ export function LabResultsShow(props) {
         );
     } else {
         return (
-            <div className="show mobile-hide">Please select a lab result</div>
+            <div className="lab-results-show-text show mobile-hide">Please select a lab result</div>
         )
     }
 }

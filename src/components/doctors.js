@@ -1,6 +1,5 @@
 import React from 'react';
 import NavigationBar from './navBar';
-import Sidebar from './sidebar';
 import {connect} from 'react-redux';
 
 export class Doctors extends React.Component {

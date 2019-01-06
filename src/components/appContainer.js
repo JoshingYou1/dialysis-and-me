@@ -56,7 +56,7 @@ export class AppContainer extends React.Component {
                 <Route exact path="/patient-education" component={PatientEducation} />
                 <Route exact path="/patient-education/esrd-info" component={ESRDInfo} />
                 <Route exact path="/patient-education/living-with-esrd" component={LivingWithESRD} />
-                <Route exact path="/patient-education/nutritional-info" component={NutritionalInfo} />
+                <Route exact path="/patient-education/eating-well-on-dialysis" component={NutritionalInfo} />
                 <Route exact path="/doctors" component={Doctors} />
                 <Route exact path="/lab-results" component={LabResults} />
                 <Route exact path="/appointments" component={Appointments} />

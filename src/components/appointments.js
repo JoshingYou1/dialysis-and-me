@@ -2,7 +2,6 @@ import React from 'react';
 import AppointmentsList from './appointmentsList';
 import AppointmentsShow from './appointmentsShow';
 import NavigationBar from './navBar';
-import Sidebar from './sidebar';
 import {connect} from 'react-redux';
 
 export class Appointments extends React.Component {

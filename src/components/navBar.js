@@ -6,7 +6,7 @@ import { clearAuthToken } from '../local-storage';
 import {clearAuth} from '../actions/auth';
 import {Link} from 'react-router-dom';
 import { toggleUserInfo, toggleSidebar } from '../actions';
-import { Sidebar } from './sidebar';
+import Sidebar from './sidebar';
 
 export class NavigationBar extends React.Component {
     logout() {
@@ -26,12 +26,12 @@ export class NavigationBar extends React.Component {
                         <span className="fas fa-sort-down"></span>
                         <span className="fas fa-user-circle"></span>
                     </div>
-                    <div className={"user-display " + (this.props.isUserInfoShowing ? "" : 'hidden')}>
+                    <div className={"user-display " + (this.props.isUserInfoShowing ? "" : 'hidden-1')}>
                         <User user={this.props.username}/>
                         <button className="logout-button" onClick={() => this.logout()}>Log Out</button>
                     </div>
                     <span className="fas fa-bars" onClick={() => this.props.dispatch(toggleSidebar())}></span>
-                    <div className={"sidebar-display " + (this.props.isSidebarShowing ? "" : 'hidden')}>
+                    <div className={"sidebar-display " + (this.props.isSidebarShowing ? "" : 'hidden-2')}>
                         <Sidebar />
                     </div>
                 </div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import Sidebar from './sidebar';
 import NavigationBar from './navBar';
 import {connect} from 'react-redux';
 import { fetchProfileInfo } from '../actions';
@@ -37,43 +36,45 @@ export class Profile extends React.Component {
         let workPhone = this.props.profile.phoneNumbers.work ? this.props.profile.phoneNumbers.work : 'N/A';
         
         return (
-            <div>
+            <div className="container">
                 <NavigationBar />
-                <h1 className="profile-h1">{this.props.profile.name.firstName} {this.props.profile.name.lastName}</h1>
-                <section className="profile-info">
+                <main role="main">
+                    <h1 className="profile-h1">{this.props.profile.name.firstName} {this.props.profile.name.lastName}</h1>
+                    <section className="profile-info">
+                        
+                        <span className="grid-c-span">Sex:</span>
+                        <span className="grid-d-span">{this.props.profile.sex}</span>
                     
-                    <span className="grid-c-span">Sex:</span>
-                    <span className="grid-d-span">{this.props.profile.sex}</span>
-                
-                
-                    <span className="grid-c-span">DOB:</span>
-                    <span className="grid-d-span">{formattedDateOfBirth}</span>
-                
-                
-                    <span className="grid-c-span">SSN:</span>
-                    <span className="grid-d-span">{this.props.profile.socialSecurityNumber}</span>
                     
-                    <h2 className="profile-h2">Address</h2>
-                    <span className="profile-span">{this.props.profile.address.street}</span>
-                    <span className="profile-span">
-                        {this.props.profile.address.city},&nbsp;
-                        {this.props.profile.address.state}&nbsp;
-                        {this.props.profile.address.zipCode}
-                    </span>
-                     
-                    <h2 className="profile-h2">Phone Numbers</h2>
-                    <span className="grid-c-span">Home:</span>
-                    <span className="grid-d-span">{homePhone}</span>
-                
-                
-                    <span className="grid-c-span">Cell:</span>
-                    <span className="grid-d-span">{cellPhone}</span>
-                
-            
-                    <span className="grid-c-span">Work:</span>
-                    <span className="grid-d-span">{workPhone}</span>
+                        <span className="grid-c-span">DOB:</span>
+                        <span className="grid-d-span">{formattedDateOfBirth}</span>
                     
-                </section>
+                    
+                        <span className="grid-c-span">SSN:</span>
+                        <span className="grid-d-span">{this.props.profile.socialSecurityNumber}</span>
+                        
+                        <h2 className="profile-h2">Address</h2>
+                        <span className="profile-span">{this.props.profile.address.street}</span>
+                        <span className="profile-span">
+                            {this.props.profile.address.city},&nbsp;
+                            {this.props.profile.address.state}&nbsp;
+                            {this.props.profile.address.zipCode}
+                        </span>
+                        
+                        <h2 className="profile-h2">Phone Numbers</h2>
+                        <span className="grid-c-span">Home:</span>
+                        <span className="grid-d-span">{homePhone}</span>
+                    
+                    
+                        <span className="grid-c-span">Cell:</span>
+                        <span className="grid-d-span">{cellPhone}</span>
+                    
+                
+                        <span className="grid-c-span">Work:</span>
+                        <span className="grid-d-span">{workPhone}</span>
+                        
+                    </section>
+                </main>
                 <Footer />
             </div>
         );
@@ -81,7 +82,6 @@ export class Profile extends React.Component {
     return (
         <div>
             <NavigationBar />
-            <Sidebar links={this.sidebarLinks}/>
             <section>Loading...</section>
         </div>
     );

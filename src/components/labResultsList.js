@@ -10,10 +10,10 @@ export default function LabResultsList(props) {
 
     
     return (
-        <div className="list">
+        <div className="lab-results-list">
             <h2>Lab Results by Date</h2>
             <section>
-                {list}
+                <p className="lab-results-list-item">{list}</p>
             </section>
         </div>
     );

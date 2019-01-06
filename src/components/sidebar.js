@@ -29,12 +29,12 @@ export function Sidebar(props) {
             link: '/profile',
             sublinks : [
                 {
-                    display: 'Dialysis Info',
-                    link: '/profile/dialysis-info'
+                    display: 'My dialysis',
+                    link: '/profile/my-dialysis'
                 },
                 {
-                    display: 'Insurance Info',
-                    link: '/profile/insurance-info'
+                    display: 'My Insurance',
+                    link: '/profile/my-insurance'
                 }  
             ]
         },
@@ -43,16 +43,16 @@ export function Sidebar(props) {
             link: '/patient-education',
             sublinks: [
                 {
-                    display: 'ESRD Info',
-                    link: '/patient-education/esrd-info'
+                    display: 'Understanding ESRD',
+                    link: '/patient-education/understanding-esrd'
                 },
                 {
                     display: 'Living with ESRD',
                     link:'/patient-education/living-with-esrd'
                 },
                 {
-                    display: 'Nutritional Info',
-                    link: '/patient-education/nutritional-info'
+                    display: 'Eating Well on Dialysis',
+                    link: '/patient-education/eating-well-on-dialysis'
                 }
             ]
         }

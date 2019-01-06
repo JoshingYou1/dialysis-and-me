@@ -1,5 +1,4 @@
 import React from 'react';
-import Sidebar from './sidebar';
 import LabResultsList from './labResultsList';
 import LabResultsShow from './labResultsShow';
 import NavigationBar from './navBar';
@@ -50,7 +49,7 @@ export class LabResults extends React.Component {
         return (
             <div className="container">
                 <NavigationBar />
-                <main role="main">
+                <main role="main" class="lab-results-main">
                     <h1>Lab Results</h1>
                     <section className="grid">
                         <LabResultsList list={list} chooseLabResults={choice => this.chooseLabResults(choice)}/>

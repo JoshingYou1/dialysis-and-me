@@ -1,5 +1,4 @@
 import React from 'react';
-import Sidebar from './sidebar';
 import NavigationBar from './navBar';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -12,7 +11,7 @@ export class Dashboard extends React.Component {
             <div className="container">
                 <NavigationBar />
                 <main role="main">
-                    <h1 className="dashboard-h1">Welcome to your dashboard</h1>
+                    <h1 className="dashboard-h1">Welcome to your dashboard!</h1>
                     <section className="dashboard-links">
                         <Link className="dashboard-link-container" to="/profile">
                             <div className="link-div">
