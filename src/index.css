@@ -4,6 +4,12 @@
 
 * {
   font-family: 'Barlow', sans-serif;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100vh;
 }
 
 body {
@@ -11,6 +17,11 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+button {
+  outline: none;
 }
 
 .logo {
@@ -58,18 +69,16 @@ body {
 }
 
 .container {
+  min-height: 100vh;
   display: grid;
 
   grid-template-areas:
     "header1 header2"
-    "breadcrumbs1 breadcrumbs2"
     "content1 content2"
     "footer1 footer2";
 
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 3.5em auto 1fr 2.5em;
-
-  height: 100vh;
+  grid-template-rows: auto 1fr auto;
 }
 
 header {
@@ -83,11 +92,13 @@ header {
   padding-left: 1em;
   padding-right: 1em;
   background-color: white;
-  position: sticky;
-  top: 0;
   border-bottom: 1px solid #eaeaea;
   box-shadow: 0 -1px 4px rgba(0,0,0,0.4);
   z-index: 2;
+  height: 3.5em;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 .a {
@@ -145,9 +156,9 @@ header {
   cursor: pointer;
 }
 
-/* .user-dropdown-div:hover {
-  color: #008099
-} */
+.fa-sort-down:hover {
+  color: #008099;
+}
 
 .fa-user-circle {
   font-size: 1.5em;
@@ -159,6 +170,10 @@ header {
   font-size: 1.5em;
   color: #7700B4;
   cursor: pointer;
+}
+
+.fa-bars:hover {
+  color: #008099;
 }
 
 .sidebar-dropdown-div {
@@ -184,7 +199,7 @@ h1 {
   font-size: 2em;
   text-align: center;
   margin-bottom: 2em;
-  margin-top: 2em;
+  margin-top: 3em;
 }
 
 .dashboard-links {
@@ -367,7 +382,7 @@ h1 {
   text-decoration: none;
 }
 
-.hidden-1 {
+.hidden-1, .hidden-3 {
   display: none;
 }
 
@@ -387,36 +402,32 @@ main {
   grid-column-start: footer1;
   grid-column-end: footer2;
   text-align: center;
-  align-self: center;
+  align-self: end;
   background-color: #7700B4;
   color: white;
+  height: 2.5em;
 }
+
+
 
 footer {
-  padding-top: 0.8em;
-  padding-bottom: 0.8em;
-  font-size: 0.9em;
+  line-height: 2.5em;
 }
 
-.profile-info {
+.basic-info-section, .primary-insurance-info-section, .secondary-insurance-info-section, .treatment-info-section {
   display: grid;
   grid-template-areas: 
     "c d";
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(10px, 250px);
   align-items: center;
-  max-width: 250px;
+  max-width: 400px;
   margin-left: auto;
   margin-right: auto;
+  grid-row-gap: 0.5em;
 }
 
-.profile-h1, .profile-h2, .profile-span {
-  grid-column-start: c;
-  grid-column-end: d;
+.basic-info-h1, .primary-insurance-info-h1, .secondary-insurance-info-h1, .treatment-info-h1 {
   text-align: center;
-}
-
-.profile-h2 {
-  text-decoration: underline;
 }
 
 .grid-c-span {
@@ -430,15 +441,64 @@ footer {
   text-align: right;
 }
 
-/* .patient-education {
-  padding-left: 15px;
-  padding-right: 15px;
-} */
+.display-section {
+  animation: fade 1s linear;
+  height: 375px;
+}
+
+.display-profile-section-button-1, .display-profile-section-button-2{
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: #7700B4;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.display-profile-section-button-1 {
+  grid-area: left;
+}
+
+.display-profile-section-button-1:hover {
+  color: #008099;
+}
+
+.display-profile-section-button-2 {
+  grid-area: right;
+}
+
+.display-profile-section-button-2:hover {
+  color: #008099;
+}
+
+.fa-long-arrow-alt-left, .fa-long-arrow-alt-right {
+  font-size: 3em;
+  margin: 0;
+}
+
+.profile-section-button-holder {
+  display: grid;
+  grid-template-areas: 
+   "left right";
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
+}
+
+.display-profile-section-button-p {
+  margin: 0;
+  font-weight: bold;
+}
 
 .breadcrumbs {
-  grid-column-start: breadcrumbs1;
-  grid-column-end: breadcrumbs2;
-  padding-top: 0.5em;
+  grid-column-start: content1;
+  grid-column-end: content2;
+  padding-top: 4em;
   padding-left: 10px;
   margin: 0;
 }
@@ -467,6 +527,10 @@ footer {
 
 .breadcrumb-span {
   font-size: 0.7em;
+}
+
+.nutritional-info-h1 {
+  margin-top: 1em;
 }
 
 .patient-education-icon {
@@ -509,6 +573,18 @@ footer {
 .patient-education-h4 {
   padding-top: 40px;
   padding-bottom: 20px;
+}
+
+.patient-education-h4-1 {
+  color: #7700B4;
+}
+
+.patient-education-h4-2 {
+  color: #FF9D14
+}
+
+.patient-education-h4-3 {
+  color: #008099;
 }
 
 .patient-education-link-p {
@@ -561,27 +637,27 @@ footer {
 }
 
 @media only screen and (min-width: 375px) {
-
   .dashboard-links {
     grid-column-gap: 3em;
     grid-row-gap: 3em;
   }
+
+  .display-section {
+    height: 390px;
+  }
 }
 
 @media only screen and (min-width: 425px) {
-
   .dashboard-links {
     grid-column-gap: 3.5em;
     grid-row-gap: 3.5em;
   }
+  .profile-section-button-holder {
+    margin-top: 1em;
+  }
 }
 
 @media (min-width: 768px) {
-  .container {
-    grid-template-rows: 5.5em auto 1fr 3.5em;
-    animation: fade 0.5s linear;
-  }
-
   header {
     border-bottom: 1px solid #eaeaea;
     box-shadow: 0 -1px 4px rgba(0,0,0,0.4);
@@ -589,12 +665,20 @@ footer {
     z-index: 2;
   }
 
+  .footer-div {
+    height: 50px;
+  }
+
+  footer {
+    line-height: 50px;
+  }
+
   .nav-logo {
-    height: 3em;
+    height: 4em;
   }
 
   .logo-span-1, .logo-span-2 {
-    font-size: 1.5em
+    font-size: 2em
   }
 
   .logo-link {
@@ -609,6 +693,18 @@ footer {
   .logo-span-2 {
     display: inline-block;
     color: #7700B4;
+  }
+
+  .fa-sort-down {
+    font-size: 1.5em;
+  }
+
+  .fa-user-circle, .fa-bars {
+    font-size: 2em;
+  }
+
+  h1 {
+    margin-top: 4em;
   }
 
   .dashboard-links {
@@ -694,6 +790,18 @@ footer {
     margin-block-start: 0.83em;
     margin-block-end: 0.83em;
   }
+
+  .breadcrumbs {
+    padding-top: 6em;
+  }
+
+  .nutritional-info-h1 {
+    margin-top: 0.5em;
+  }
+
+  .display-section {
+    height: 350px;
+  }
 }
 
 @media (min-width: 1000px) {
@@ -728,6 +836,10 @@ footer {
     position: absolute;
     bottom: 0;
     width: 100%;
+  }
+
+  .display-section {
+    height: 400px;
   }
 
 }

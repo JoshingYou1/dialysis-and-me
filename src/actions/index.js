@@ -88,4 +88,10 @@ export const toggleSublinks = areSublinksShowing => ({
     areSublinksShowing
 });
 
+export const SELECT_PROFILE_INFO_SECTION = 'SELECT_PROFILE_INFO_SECTION';
+export const selectProfileInfoSection = section => ({
+    type: SELECT_PROFILE_INFO_SECTION,
+    section
+});
+
 

@@ -1,4 +1,4 @@
-import {SELECT_LAB_RESULTS_BY_ID, CHOOSE_APPOINTMENT_MONTH, TOGGLE_SIDEBAR, FETCH_LAB_RESULTS_SUCCESS, FETCH_PROFILE_INFO_SUCCESS, TOGGLE_LAB_RESULTS_INFO, TOGGLE_USER_INFO, TOGGLE_SUBLINKS} from '../actions/index';
+import {SELECT_LAB_RESULTS_BY_ID, CHOOSE_APPOINTMENT_MONTH, TOGGLE_SIDEBAR, FETCH_LAB_RESULTS_SUCCESS, FETCH_PROFILE_INFO_SUCCESS, TOGGLE_LAB_RESULTS_INFO, TOGGLE_USER_INFO, TOGGLE_SUBLINKS, SELECT_PROFILE_INFO_SECTION} from '../actions/index';
 
 const initialState = {
     selectedMonth: new Date().getMonth(),
@@ -7,7 +7,8 @@ const initialState = {
     labResults: [],
     isLabResultsInfoShowing: false,
     profile: [],
-    isUserInfoShowing: false
+    isUserInfoShowing: false,
+    section: 0
 };
 
 export const appReducer = (state=initialState, action) => {
@@ -52,5 +53,11 @@ export const appReducer = (state=initialState, action) => {
             areSublinksShowing: !state.areSublinksShowing
         });
     }
+    else if (action.type === SELECT_PROFILE_INFO_SECTION) {
+        return Object.assign({}, state, {
+            section: action.section
+        });
+    }
+    console.log('state', state);
     return state;
 }

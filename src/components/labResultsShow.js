@@ -3,8 +3,6 @@ import {connect} from 'react-redux';
 import { toggleLabResultsInfo } from '../actions';
 
 export function LabResultsShow(props) {
-    console.log('props.isLabResultsInfoShowing', props.isLabResultsInfoShowing);
-    console.log('chosenLabResult', props.chosenLabResult);
     if (props.chosenLabResult) {
         return (
             <div className={"show " + (props.isLabResultsInfoShowing ? '' : 'hidden-1')}>
@@ -78,7 +76,9 @@ export function LabResultsShow(props) {
         );
     } else {
         return (
-            <div className="lab-results-show-text show mobile-hide">Please select a lab result</div>
+            <div className="lab-results-show-text show mobile-hide">
+                <h2>Please select a lab result</h2>
+            </div>
         )
     }
 }

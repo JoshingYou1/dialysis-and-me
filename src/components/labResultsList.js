@@ -3,9 +3,9 @@ import React from 'react';
 export default function LabResultsList(props) {
 
     const list = props.list.map((l, i) => (
-        <div onClick={e => props.chooseLabResults(l.id)} key={i}>
+        <span onClick={e => props.chooseLabResults(l.id)} key={i}>
             {l.date}
-        </div>
+        </span>
     ));
 
     

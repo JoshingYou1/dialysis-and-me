@@ -5,7 +5,7 @@ import NavigationBar from './navBar';
 import {connect} from 'react-redux';
 import { fetchLabResults, selectLabResultsById, toggleLabResultsInfo } from '../actions';
 import requiresLogin from './requires-login';
-import { Footer } from './footer';
+import Footer from './footer';
 
 export class LabResults extends React.Component {
 

@@ -51,10 +51,14 @@ export function Sidebar(props) {
                     link:'/patient-education/living-with-esrd'
                 },
                 {
-                    display: 'Eating Well on Dialysis',
-                    link: '/patient-education/eating-well-on-dialysis'
+                    display: 'Diet for Dialysis',
+                    link: '/patient-education/diet-for-dialysis'
                 }
             ]
+        },
+        {
+            display: 'About',
+            link: '/about'
         }
       ];
 

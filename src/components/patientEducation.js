@@ -49,7 +49,7 @@ export class PatientEducation extends React.Component {
                         <div className="patient-education-div-1">
                             <div className="patient-education-div-2">
                                 <img className="patient-education-icon" src="https://i.dailymail.co.uk/i/pix/2009/02/13/article-1144565-0378EAF7000005DC-599_468x465.jpg" alt="Understanding ESRD Icon"></img>
-                                <h4 className="patient-education-h4">Understanding ESRD</h4>
+                                <h4 className="patient-education-h4-1">Understanding ESRD</h4>
                                 <p className="patient-education-link-p">
                                     Detailed information on end-stage renal disease, including symptoms, diagnosis, and treatments.
                                 </p>
@@ -61,7 +61,7 @@ export class PatientEducation extends React.Component {
                         <div className="patient-education-div-1">
                             <div className="patient-education-div-2">
                                 <img className="patient-education-icon" src="https://img.freepik.com/free-photo/attractive-married-couple-posing-at-the-beach-on-a-sunny-day_13339-273994.jpg?size=338&ext=jpg" alt="Living with ESRD Icon"></img>
-                                <h4 className="patient-education-h4">Living with ESRD</h4>
+                                <h4 className="patient-education-h4-2">Living with ESRD</h4>
                                 <p className="patient-education-link-p">
                                     Enjoy your life &mdash; despite end-stage renal disease. Don't let ESRD bring you down.
                                 </p>
@@ -73,13 +73,13 @@ export class PatientEducation extends React.Component {
                         <div className="patient-education-div-1">
                             <div className="patient-education-div-2">
                                 <img className="patient-education-icon" src="https://www.nia.nih.gov/sites/default/files/2017-06/shopping-for-healthy-food-meta.jpg" alt="Eating Well on Dialysis Icon"></img>
-                                <h4 className="patient-education-h4">Diet for Dialysis</h4>
+                                <h4 className="patient-education-h4-3">Diet for Dialysis</h4>
                                 <p className="patient-education-link-p">
                                     A proper diet is crucial for individuals on dialysis due to fluid and waste accumulation in-between treatments.
                                 </p>
                             </div>
                             <div className="patient-education-div-3">
-                                <Link className="patient-education-link-3" to="/patient-education/eating-well-on-dialysis">Learn more</Link>
+                                <Link className="patient-education-link-3" to="/patient-education/diet-for-dialysis">Learn more</Link>
                             </div>
                         </div>
                     </div>

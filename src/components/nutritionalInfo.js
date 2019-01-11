@@ -37,7 +37,7 @@ export function NutritionalInfo(props) {
                             Potassium is a mineral found in practically all foods. Your body requires enough potassium to make your muscles work, but
                             too much potassium can be dangerous. High potassium levels in your blood is known as hyperkalemia. As an ESRD patient, your
                             potassium level may be too high or too low. This can cause muscle cramps, irregular heartbeat, and weakness. High potassium
-                            levels are very serious and can potentially lead to a heart attack. Consult with your dietitian about the amount of
+                            levels are very serious and can potentially lead to a heart attack. Consult your dietitian about the amount of
                             potassium you should take in each day.
                         </p>
                         <h2 className="nutritional-info-h2">Phosphorus</h2>
@@ -53,7 +53,7 @@ export function NutritionalInfo(props) {
                             poultry, fish, nuts, beans, and dairy products. Phosphorus found in animal foods is absorbed more easily than phosphorus
                             found in plant foods. Phosphorus that has been added to food in the form of an additive or preservative is found in foods
                             such as fast foods, ready to eat foods, canned and bottle beverages, enhanced meats, and most processed foods. Phosphorus
-                            from food additives is completely absorbed. Avoiding phosphorus additives can lower your intake of phosphorus. Consult with
+                            from food additives is completely absorbed. Avoiding phosphorus additives can lower your intake of phosphorus. Consult
                             your dietician about how much phosphorus you should consume on a daily basis.
                         </p>
                         
@@ -63,8 +63,8 @@ export function NutritionalInfo(props) {
                             blood. When your kidneys are no longer working, the sodium in your blood can build up. When this happens, your body holds
                             on to too much water. This can make your blood pressure too high and can cause problems during your dialysis treatments.
                             Restricting the amount of sodium you consume each day can help keep your blood pressure under control and help prevent your
-                            body from holding on to too much fluid. Consult with your dietitian to find out how much sodium you should consume each
-                            day, and consider these tips to limit sodium in your diet:
+                            body from holding on to too much fluid. Consult your dietitian about how much sodium you should consume each day, and
+                            consider these tips to limit sodium in your diet:
                         </p>
                         <ul className="nutritional-info-ul">
                             <li className="nutritional-info-li">
@@ -87,7 +87,7 @@ export function NutritionalInfo(props) {
                             make your dialysis treatments more difficult. If you need to limit fluids, you will need to cut back on how much you drink.
                             You may need to refrain from consuming foods that contain a lot of water as well. Soups and foods that melt, such as ice,
                             ice cream, and gelatin have a lot of water in them. Many fruits and vegetables have high water content was well. Consult
-                            with your dietitian about how much fluid you should take in each day. If you are under fluid control, try these tricks to
+                            your dietitian about how much fluid you should take in each day. If you are under fluid control, try these tricks to
                             quench your thirst:
                         </p>
                         <ul className="nutritional-info-ul">

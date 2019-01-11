@@ -4,17 +4,16 @@ import LandingPage from './landingPage';
 import Login from './login';
 import Dashboard from './dashboard';
 import PatientEducation from './patientEducation';
-import Doctors from './doctors';
 import LabResults from './labResults';
 import Appointments from './appointments';
 import Profile from './profile';
-import PrimaryInsuranceInfo from './primaryInsuranceInfo';
-import SecondaryInsuranceInfo from './secondaryInsuranceInfo';
 import ESRDInfo from './esrdInfo';
 import LivingWithESRD from './livingWithEsrd';
 import NutritionalInfo from './nutritionalInfo';
 import {connect} from 'react-redux';
 import {refreshAuthToken} from '../actions/auth';
+import About from './about';
+import Doctors from './doctors';
 
 
 export class AppContainer extends React.Component {
@@ -54,15 +53,14 @@ export class AppContainer extends React.Component {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/dashboard" component={Dashboard} />
                 <Route exact path="/patient-education" component={PatientEducation} />
-                <Route exact path="/patient-education/esrd-info" component={ESRDInfo} />
+                <Route exact path="/patient-education/understanding-esrd" component={ESRDInfo} />
                 <Route exact path="/patient-education/living-with-esrd" component={LivingWithESRD} />
-                <Route exact path="/patient-education/eating-well-on-dialysis" component={NutritionalInfo} />
+                <Route exact path="/patient-education/diet-for-dialysis" component={NutritionalInfo} />
                 <Route exact path="/doctors" component={Doctors} />
                 <Route exact path="/lab-results" component={LabResults} />
                 <Route exact path="/appointments" component={Appointments} />
                 <Route exact path="/profile" component={Profile} />
-                <Route exact path="/profile/primary-insurance-info" component={PrimaryInsuranceInfo} />
-                <Route exact path="/profile/secondary-insurance-info" component={SecondaryInsuranceInfo} />
+                <Route exact path="/about" component={About} />
             </div>
         );
     }
