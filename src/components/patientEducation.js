@@ -2,7 +2,7 @@ import React from 'react';
 import NavigationBar from './navBar';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import { Footer } from './footer';
+import Footer from './footer';
 
 export class PatientEducation extends React.Component {
     constructor(props) {
@@ -14,8 +14,10 @@ export class PatientEducation extends React.Component {
         <div className="container">
             <NavigationBar />
             <main role="main">
-                <section className="patient-education-section-1">
+                <div className="top-image-div-1">
                     <h1 className="patient-education-h1">Patient Education</h1>
+                </div>
+                <section className="patient-education-section-1">
                     <h2 className="patient-education-h2">Introduction</h2>
                     <p className="patient-education-p">
                         Patient education involves healthcare professionals teaching patients about their health so they may better understand their

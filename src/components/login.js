@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
-import LoginForm from './login-form';
+import LoginForm from './loginForm';
 
 export function Login(props) {
     // If we are logged in redirect straight to the user's dashboard

@@ -10,13 +10,13 @@ export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
 export const toggleSidebar = isSidebarShowing => ({
     type: TOGGLE_SIDEBAR,
     isSidebarShowing
-})
-
-export const CHOOSE_APPOINTMENT_MONTH = 'CHOOSE_APPOINTMENT_MONTH';
-export const chooseAppointmentMonth = month => ({
-    type: CHOOSE_APPOINTMENT_MONTH,
-    month
 });
+
+// export const CHOOSE_APPOINTMENT_MONTH = 'CHOOSE_APPOINTMENT_MONTH';
+// export const chooseAppointmentMonth = month => ({
+//     type: CHOOSE_APPOINTMENT_MONTH,
+//     month
+// });
 
 export const FETCH_LAB_RESULTS_SUCCESS = 'FETCH_LAB_RESULTS_SUCCESS';
 export const fetchLabResultsSuccess = labResults => ({
@@ -92,6 +92,44 @@ export const SELECT_PROFILE_INFO_SECTION = 'SELECT_PROFILE_INFO_SECTION';
 export const selectProfileInfoSection = section => ({
     type: SELECT_PROFILE_INFO_SECTION,
     section
+});
+
+export const FETCH_APPOINTMENTS_SUCCESS = 'FETCH_APPOINTMENTS_SUCCESS';
+export const fetchAppointmentsSuccess = appointments => ({
+    type: FETCH_APPOINTMENTS_SUCCESS,
+    appointments
+});
+
+export const fetchAppointments = patientId => (dispatch, getState) => {
+    fetch(`${API_BASE_URL}/api/patients/${patientId}/appointments`,
+    {
+        method: 'GET',
+        headers: {
+            authorization: `Bearer ${getState().auth.authToken}`
+        }
+    })
+        .then(res => {
+            if (!res.ok) {
+                return Promise.reject(res.statusText);
+            }
+            return res.json();
+        })
+        .then(appointments => {
+            console.log('appointments', appointments);
+            dispatch(fetchAppointmentsSuccess(appointments));
+        })
+};
+
+export const SELECT_APPOINTMENT_BY_ID = 'SELECT_APPOINTMENT_BY_ID';
+export const selectAppointmentById = appointment => ({
+    type: SELECT_APPOINTMENT_BY_ID,
+    appointment
+});
+
+export const TOGGLE_APPOINTMENT_INFO = 'TOGGLE_APPOINTMENT_INFO';
+export const toggleAppointmentInfo = isAppointmentInfoShowing => ({
+    type: TOGGLE_APPOINTMENT_INFO,
+    isAppointmentInfoShowing
 });
 
 

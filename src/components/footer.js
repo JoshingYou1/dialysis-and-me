@@ -1,7 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
 
-export function Footer(props) {
+export default function Footer(props) {
     return (
         <div className="footer-div">
             <footer>
@@ -10,5 +9,3 @@ export function Footer(props) {
         </div>
     );
 }
-
-export default connect()(Footer);

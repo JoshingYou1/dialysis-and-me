@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Doctor from './doctor';
 import { fetchProfileInfo } from '../actions';
 import requiresLogin from './requires-login';
+import NavigationBar from './navBar';
+import Footer from './footer';
 
 export class Doctors extends React.Component {
     componentDidMount() {
@@ -11,8 +13,6 @@ export class Doctors extends React.Component {
     
     render() {
         if (this.props.profile.doctors) {
-        console.log('user', )
-        console.log('this.props.profile.doctors', this.props.profile.doctors);
             const doctors = this.props.profile.doctors.map(d => {
                 return (
                     <div>
@@ -20,12 +20,22 @@ export class Doctors extends React.Component {
                     </div>
                 );
             });
+            return (
+                <div className="container">
+                    <NavigationBar />
+                    <main role="main">
+                        <h1 className="doctors-h1">Doctors</h1>
+                        {doctors}
+                    </main>
+                    <Footer />
+                </div>
+            );
         }
         return (
             <div>
-                {doctors}
+                loading...
             </div>
-        );
+        )
     }
 }
 

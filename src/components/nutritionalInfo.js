@@ -1,21 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import NavigationBar from './navBar';
-import { Footer } from './footer';
+import Footer from './footer';
 import {Link} from 'react-router-dom';
 
 export function NutritionalInfo(props) {
     return (
         <div class="container">
             <NavigationBar />
-            <ul className="breadcrumbs">
-                <li className="breadcrumb-li"><Link className="breadcrumb-link" to="/patient-education">Patient Education</Link></li>
-                <li className="breadcrumb-li">Diet and Dialysis</li>
-            </ul>
                 <main role="main">
-                    <h1 className="nutritional-info-h1">Diet for Dialysis</h1>
-                    <section className="nutritional-info">
-                        <h2>Introduction</h2>
+                    <div className="top-image-div-3">
+                        <h1 className="nutritional-info-h1">Diet for Dialysis</h1>
+                    </div>
+                    <section className="nutritional-info-section">
+                        <h2 className="nutritional-info-h2">Introduction</h2>
                         <p className="nutritional-info-p">
                             Eating healthy is super important if you have kidney failure. Good nutrition will give you the energy to perform you daily tasks
                             and help you to remain at a healthy body weight. Dialysis does some of the work that your kidneys used to do when they were healthy,
@@ -25,13 +23,14 @@ export function NutritionalInfo(props) {
                             monitoring the amount of fuild and certain nutrients you consume each day. This can help keep waste and fluid from
                             accumulating in your blood and causing issues.
                         </p>
-                        <p className="nutritional-info-p">Patients on dialysis need to limit:</p>
-                        <ul className="nutritional-info-ul">
-                            <li className="nutritional-info-li">Potassium</li>
-                            <li className="nutritional-info-li">Phosphorus</li>
-                            <li className="nutritional-info-li">Sodium</li>
-                            <li className="nutritional-info-li">Fluid</li>
-                        </ul>
+                        <p className="nutritional-info-p">Patients on dialysis need to limit:
+                            <ul className="nutritional-info-ul">
+                                <li className="nutritional-info-li">Potassium</li>
+                                <li className="nutritional-info-li">Phosphorus</li>
+                                <li className="nutritional-info-li">Sodium</li>
+                                <li className="nutritional-info-li">Fluid</li>
+                            </ul>
+                        </p>
                         <h2 className="nutritional-info-h2">Potassium</h2>
                         <p className="nutritional-info-p">
                             Potassium is a mineral found in practically all foods. Your body requires enough potassium to make your muscles work, but
@@ -65,21 +64,21 @@ export function NutritionalInfo(props) {
                             Restricting the amount of sodium you consume each day can help keep your blood pressure under control and help prevent your
                             body from holding on to too much fluid. Consult your dietitian about how much sodium you should consume each day, and
                             consider these tips to limit sodium in your diet:
+                            <ul className="nutritional-info-ul">
+                                <li className="nutritional-info-li">
+                                    Avoid adding salt to your food when cooking or at the table. Instead, consider cooking with with fresh herbs, lemon
+                                    juice, or salt-free spices.
+                                </li>
+                                <li className="nutritional-info-li">
+                                    Choose fresh or frozen vegetables as opposed to canned ones. If you do use canned vegetables, make sure to rinse them
+                                    to get rid of extra salt before cooking or eating them.
+                                </li>
+                                <li className="nutritional-info-li">Avoid processed meats, such as bacon, ham, sausage, and lunch meats.</li>
+                                <li className="nutritional-info-li">Rather than snacking on crackers and other salty foods, choose fresh fruits and vegetables.</li>
+                                <li className="nutritional-info-li">Avoid pickled foods, such as olives and pickles.</li>
+                                <li className="nutritional-info-li">Limit condiments high in sodium, such as soy sauce, BBQ sauce, and ketchup.</li>
+                            </ul>
                         </p>
-                        <ul className="nutritional-info-ul">
-                            <li className="nutritional-info-li">
-                                Avoid adding salt to your food when cooking or at the table. Instead, consider cooking with with fresh herbs, lemon
-                                juice, or salt-free spices.
-                            </li>
-                            <li className="nutritional-info-li">
-                                Choose fresh or frozen vegetables as opposed to canned ones. If you do use canned vegetables, make sure to rinse them
-                                to get rid of extra salt before cooking or eating them.
-                            </li>
-                            <li className="nutritional-info-li">Avoid processed meats, such as bacon, ham, sausage, and lunch meats.</li>
-                            <li className="nutritional-info-li">Rather than snacking on crackers and other salty foods, choose fresh fruits and vegetables.</li>
-                            <li className="nutritional-info-li">Avoid pickled foods, such as olives and pickles.</li>
-                            <li className="nutritional-info-li">Limit condiments high in sodium, such as soy sauce, BBQ sauce, and ketchup.</li>
-                        </ul>
                         <h2 className="nutritional-info-h2">Fluids</h2>
                         <p className="nutritional-info-p">
                             As an ESRD patient, fluid(water) can build up in your body between treatents. Excessive amounts of fluid in your body can
@@ -89,15 +88,15 @@ export function NutritionalInfo(props) {
                             ice cream, and gelatin have a lot of water in them. Many fruits and vegetables have high water content was well. Consult
                             your dietitian about how much fluid you should take in each day. If you are under fluid control, try these tricks to
                             quench your thirst:
+                            <ul className="nutritional-info-ul">
+                                <li className="nutritional-info-li">Chew gum.</li>
+                                <li className="nutritional-info-li">
+                                    Suck on a piece of ice, hard candy, or mints(do not forget to count the ice as fluid, and choose sugar-free candy if
+                                    you have diabetes.
+                                </li>
+                                <li className="nutritional-info-li">You could also try sucking on a reusable ice cube. It's cold, but won't add additional fluid to your body.</li>
+                            </ul>
                         </p>
-                        <ul className="nutritional-info-ul">
-                            <li className="nutritional-info-li">Chew gum.</li>
-                            <li className="nutritional-info-li">
-                                Suck on a piece of ice, hard candy, or mints(do not forget to count the ice as fluid, and choose sugar-free candy if
-                                you have diabetes.
-                            </li>
-                            <li className="nutritional-info-li">You could also try sucking on a reusable ice cube. It's cold, but won't add additional fluid to your body.</li>
-                        </ul>
                         <h2 className="nutritional-info-h2">Hemodialysis diet</h2>
                         <p className="nutritional-info-p">
                             If you are a hemodialysis patient and have treatments three times a week, limiting potassium, phosphorus, sodium, and

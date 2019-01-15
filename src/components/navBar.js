@@ -22,6 +22,13 @@ export class NavigationBar extends React.Component {
                     <span className="logo-span-1">Dialysis&</span><span className="logo-span-2">Me</span>
                 </Link>
                 <div className="header-div b">
+                    <div className="header-quick-link-container">
+                        <Link className="header-quick-link" to="/profile">Profile</Link>
+                        <Link className="header-quick-link" to="/patient-education">Patient Education</Link>
+                        <Link className="header-quick-link" to="/lab-results">Lab Results</Link>
+                        <Link className="header-quick-link" to="/doctors">Doctors</Link>
+                        <Link className="header-quick-link" to="/appointments">Appointments</Link>
+                    </div>
                     <div onClick={() => this.props.dispatch(toggleUserInfo())} className="user-dropdown-div">
                         <span className="fas fa-sort-down"></span>
                         <span className="fas fa-user-circle"></span>

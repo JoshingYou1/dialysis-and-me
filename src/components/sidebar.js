@@ -26,17 +26,7 @@ export function Sidebar(props) {
         },
         {
             display: 'My Profile',
-            link: '/profile',
-            sublinks : [
-                {
-                    display: 'My dialysis',
-                    link: '/profile/my-dialysis'
-                },
-                {
-                    display: 'My Insurance',
-                    link: '/profile/my-insurance'
-                }  
-            ]
+            link: '/profile'
         },
         {
             display: 'Patient Education',
@@ -65,14 +55,14 @@ export function Sidebar(props) {
     const links = sidebarLinks.map((l, i) => {
         if (l.sublinks) {
             return (
-            <li>
+            <li className="sidebar-list-item">
                 <Link className="sidebar-link" to={l.link} key={i}>{l.display}</Link>
                 <Sublinks parent={l.display.replace(' ', '')} sublinks={l.sublinks}/>
             </li>
             );
         }
 
-        return <li><Link className="sidebar-link" to={l.link} key={i}>{l.display}</Link></li>;
+        return <li className="sidebar-list-item"><Link className="sidebar-link" to={l.link} key={i}>{l.display}</Link></li>;
    });
 
     return (

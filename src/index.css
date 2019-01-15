@@ -112,30 +112,34 @@ header {
   z-index: 10;
 }
 
+.header-quick-link-container {
+  display: none;
+}
+
 .user-div {
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  line-height: 30px;
+  border-bottom: 1px solid white;
 }
 
 .user-p {
   margin: 0;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .user-dropdown-div {
   display: inline-block;
-  color: #7700B4
+  color: #7700B4;
+  margin-left: 15px;
 }
 
 .user-display {
-  display: grid;
   position: absolute;
   top: 110%;
   left: auto;
   z-index: 90;
-  right: 3em;
+  right: 5.5em;
   background-color: #7700B4;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
   color: white;
 }
 
@@ -145,9 +149,14 @@ header {
   padding: 0;
   cursor: pointer;
   font: inherit;
-  padding-bottom: 0.5em;
-  padding-top: 0.5em;
   color: white;
+  line-height: 30px;
+  display: block;
+  width: 100%;
+}
+
+.logout-button:hover {
+  background-color: #008099;
 }
 
 .fa-sort-down {
@@ -162,7 +171,7 @@ header {
 
 .fa-user-circle {
   font-size: 1.5em;
-  padding-right: 1em;
+  margin-right: 1em;
   cursor: pointer;
 }
 
@@ -200,6 +209,10 @@ h1 {
   text-align: center;
   margin-bottom: 2em;
   margin-top: 3em;
+}
+
+h2 {
+  font-size: 1.6em;
 }
 
 .dashboard-links {
@@ -268,12 +281,29 @@ h1 {
   padding: 0;
 }
 
-.lab-results-list {
+.lab-results-list-h2 {
+  text-decoration: underline;
+}
+
+.lab-results-list-div {
   text-align: center;
+}
+
+.lab-results-list {
+  list-style: none;
+  padding: 0;
 }
 
 .lab-results-list-item {
   cursor: pointer;
+  margin-bottom: 15px;
+  max-width: 90px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lab-results-list-item:hover {
+  text-decoration: underline;
 }
 
 .show {
@@ -312,6 +342,7 @@ h1 {
   grid-column-end: measurement-method;
   text-align: center;
   margin-top: 2em;
+  text-decoration: underline;
 }
 
 .test-span {
@@ -330,6 +361,10 @@ h1 {
   text-align: right;
 }
 
+.test-span, .result-span, .measurement-method-span {
+  padding-bottom: 0.5em;
+}
+
 @keyframes fade {
   0% {opacity: 0;}
   25% {opacity: 0.25;}
@@ -341,6 +376,20 @@ h1 {
 /* .sidebar-display-open {
 
 } */
+
+.sidebar-button {
+  margin-top: 10px;
+  padding: 0;
+  margin-left: 10px;
+  border: none;
+  background: none;
+  font-size: 1.6em;
+  cursor: pointer;
+}
+
+.fa-times:hover {
+  color: #008099
+}
 
 .sidebar-display {
   padding: 0;
@@ -361,8 +410,7 @@ h1 {
 
 .sidebar-list {
   list-style: none;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+  padding: 0;
 }
 
 .sidebar-sublinks-list {
@@ -371,15 +419,27 @@ h1 {
 }
 
 .sidebar-list-item {
-  margin-bottom: 1.5em;
+  border-top: 1px solid white;
+  padding: 0;
+  padding-left: 10px;
+  position: relative;
+  line-height: 40px;
+}
+
+.sidebar-list-item:hover {
+  background-color: #008099;
 }
 
 .sidebar-sublink {
   text-decoration: none;
+  color: white;
 }
 
 .sidebar-link {
+  display: block;
+  width: 100%;
   text-decoration: none;
+  color: white;
 }
 
 .hidden-1, .hidden-3 {
@@ -394,8 +454,6 @@ main {
   grid-column-start: content1;
   grid-column-end: content2;
   margin-bottom: 3em;
-  padding-left: 15px;
-  padding-right: 15px;
 }
 
 .footer-div {
@@ -414,7 +472,7 @@ footer {
   line-height: 2.5em;
 }
 
-.basic-info-section, .primary-insurance-info-section, .secondary-insurance-info-section, .treatment-info-section {
+.basic-info-section, .primary-insurance-info-section, .secondary-insurance-info-section, .treatment-info-section, .doctor-section {
   display: grid;
   grid-template-areas: 
     "c d";
@@ -444,6 +502,8 @@ footer {
 .display-section {
   animation: fade 1s linear;
   height: 375px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .display-profile-section-button-1, .display-profile-section-button-2{
@@ -488,6 +548,8 @@ footer {
   margin-left: auto;
   margin-right: auto;
   margin-top: 1em;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .display-profile-section-button-p {
@@ -495,48 +557,35 @@ footer {
   font-weight: bold;
 }
 
-.breadcrumbs {
-  grid-column-start: content1;
-  grid-column-end: content2;
-  padding-top: 4em;
-  padding-left: 10px;
-  margin: 0;
+.doctor-h3 {
+  grid-column-start: c;
+  grid-column-end: d;
+  text-align: center;
 }
 
-.breadcrumb-li {
-  display: inline;
-  font-size: 10px;
-}
-
-.breadcrumb-link {
-  text-decoration: none;
-}
-
-.breadcrumb-li+li:before {
-  padding: 5px;
-  content: "\003E";
-}
-
-.breadcrumb-link:hover {
-  text-decoration: underline;
-}
-
-.breadcrumb-link:visited {
-  color: inherit;
-}
-
-.breadcrumb-span {
-  font-size: 0.7em;
-}
-
-.nutritional-info-h1 {
-  margin-top: 1em;
+.top-image-div-1 {
+  background: 
+  linear-gradient(
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.4)
+  ),
+  url(http://www.ssclive.org/wp-content/uploads/2017/04/black-doctor-signs-you-were-raised-african.png);
+  width: 100%;
+  background-size: cover;
+  background-position-x: center;
+  height: 440px;
+  color: white;
 }
 
 .patient-education-icon {
   height: 144px;
   width: 144px;
   border-radius: 50%;
+}
+
+.patient-education-h1, .esrd-info-h1, .nutritional-info-h1, .living-with-esrd-h1 {
+  line-height: 440px;
+  margin: 0;
 }
 
 .patient-education-h2 {
@@ -629,11 +678,73 @@ footer {
   background-color: #00A6C7;
 }
 
-.nutritional-info-ul {
+.nutritional-info-ul, .esrd-info-ul, .living-with-esrd-ul {
   list-style-type: square;
 }
-.nutritional-info-li {
+.nutritional-info-li, .esrd-info-li, .living-with-esrd-li {
   margin-bottom: 0.4em;
+}
+
+.top-image-div-3 {
+  background: 
+  linear-gradient(
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.4)
+  ),
+  url(https://i.ytimg.com/vi/0_dvNTcQxts/maxresdefault.jpg);
+  width: 100%;
+  background-size: cover;
+  background-position: center center;
+  height: 440px;
+  color: white;
+}
+
+.nutritional-info-h2 {
+  border-bottom: 5px solid #008099;
+  padding-bottom: 10px;
+}
+
+.top-image-div-4 {
+  background: 
+  linear-gradient(
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.4)
+  ),
+  url(https://www.ncoa.org/wp-content/uploads/couple-bike-riding-cropped.jpg);
+  width: 100%;
+  background-size: cover;
+  background-position: center center;
+  height: 440px;
+  color: white;
+}
+
+.living-with-esrd-h2 {
+  border-bottom: 5px solid #FF9D14;
+  padding-bottom: 10px;
+}
+
+.top-image-div-2 {
+  background: 
+  linear-gradient(
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.4)
+  ),
+  url(http://www.chaptershealth.org/wp-content/uploads/2018/01/180112-dialysis-crop.jpg);
+  width: 100%;
+  background-size: cover;
+  background-position-x: center;
+  height: 440px;
+  color: white;
+}
+
+.esrd-info-h2 {
+  border-bottom: 5px solid #7700B4;
+  padding-bottom: 10px;
+}
+
+.patient-education-section-1, .patient-education-section-2, .nutritional-info-section, .living-with-esrd-section, .esrd-info-section {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 @media only screen and (min-width: 375px) {
@@ -663,6 +774,22 @@ footer {
     box-shadow: 0 -1px 4px rgba(0,0,0,0.4);
     height: 90px;
     z-index: 2;
+  }
+
+  h1 {
+    font-size: 2.2em;
+  }
+
+  h2 {
+    font-size: 1.8em;
+  }
+
+  .sidebar-display {
+    width: 300px;
+  }
+
+  .b {
+    align-self: center;
   }
 
   .footer-div {
@@ -697,10 +824,12 @@ footer {
 
   .fa-sort-down {
     font-size: 1.5em;
+    vertical-align: unset;
   }
 
   .fa-user-circle, .fa-bars {
     font-size: 2em;
+    vertical-align: middle;
   }
 
   h1 {
@@ -710,9 +839,9 @@ footer {
   .dashboard-links {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 1em;
-    grid-row-gap: 1em;
-    width: 700px;
+    grid-column-gap: 0.5em;
+    grid-row-gap: 0.5em;
+    width: 600px;
     margin: auto;
     padding: 0;
   }
@@ -720,10 +849,7 @@ footer {
   .dashboard-link-container {
     text-align: center;
     background-color: #7700B4;
-    padding-top: 20px;
-    padding-bottom: 20px;
     margin-bottom: 0;
-    border-radius: 4%;
   }
 
   .dashboard-link-container:hover {
@@ -731,8 +857,8 @@ footer {
   }
 
   .link-div {
-    padding-top: 2em;
-    padding-bottom: 2em;
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
   }
 
   .dashboard-link-text, .dashboard-link-container:visited {
@@ -754,6 +880,14 @@ footer {
   .lab-results-show-section {
     max-width: 300px;
     margin: auto;
+  }
+
+  .test-span {
+    font-weight: bold;
+  }
+
+  @keyframes fade {
+    0% {opacity: 1;}
   }
 
   .grid {
@@ -791,30 +925,65 @@ footer {
     margin-block-end: 0.83em;
   }
 
-  .breadcrumbs {
-    padding-top: 6em;
-  }
-
-  .nutritional-info-h1 {
-    margin-top: 0.5em;
+  .patient-education-h1, .esrd-info-h1, .nutritional-info-h1, .living-with-esrd-h1 {
+    margin-top: 90px;
   }
 
   .display-section {
     height: 350px;
   }
+
+  .lab-results-list {
+    overflow-y: scroll;
+    height: 100%;
+  }
+}
+
+@media (min-width: 950px) {
+  .header-quick-link-container {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .header-quick-link {
+    margin-left: 5px;
+    margin-right: 5px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #7700B4;
+  }
+
+  .header-quick-link {
+    transition: all 0.4s;
+    padding-bottom: 3px;
+  }
+
+  .header-quick-link:hover {
+    border-bottom: 3px solid #7700B4;
+  }
+
+  /* .fa-sort-down {
+    vertical-align: unset;
+  } */
 }
 
 @media (min-width: 1000px) {
+  .header-quick-link {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
   .lab-results-show-section {
     max-width: 350px;
   }
 
-  .patient-education-section-1 {
+  .patient-education-section-1, .nutritional-info-section, .living-with-esrd-section, .esrd-info-section {
     max-width: 1150px;
     margin: auto;
   }
 
-  .patient-education-p {
+  .patient-education-p, .nutritional-info-p, .living-with-esrd-p, .esrd-info-p {
     margin-bottom: 3em;
     font-size: 21px;
   }
@@ -838,9 +1007,12 @@ footer {
     width: 100%;
   }
 
+  .nutritional-info-li, .living-with-esrd-li, .esrd-info-li{
+    font-size: 21px;
+  }
+
   .display-section {
     height: 400px;
   }
-
 }
 

@@ -14,8 +14,9 @@ export class LabResults extends React.Component {
     }
 
     chooseLabResults(choice) {
+        console.log('choice', choice);
         const labResults = this.props.labResults.find(result => {
-            return result.id === choice;
+            return result._id === choice;
         });
         this.props.dispatch(selectLabResultsById(labResults));
         this.toggleLabResultsInfo();
@@ -26,45 +27,49 @@ export class LabResults extends React.Component {
     }
 
     render() {
-        const list = this.props.labResults.map(l => {
-                let resultsDate = new Date(l.date);
-                
-                let day = resultsDate.getDate();
-                if (day < 10) {
-                    day = `0${day}`
-                }
-                let month = resultsDate.getMonth() + 1;
-                if (month < 10) {
-                    month = `0${month}`;
-                }
-                const year = resultsDate.getFullYear();
-        
-                let formattedResultsDate = `${month}/${day}/${year}`;
-            return {
-                id: l.id,
-                date: formattedResultsDate
-            };
-        });
-        
+        if (this.props.labResults) {
+            console.log('this.props.appointments', this.props.appointments);
+            const list = this.props.labResults.map(l => {
+                    let resultsDate = new Date(l.date);
+                    
+                    let day = resultsDate.getDate();
+                    if (day < 10) {
+                        day = `0${day}`
+                    }
+                    let month = resultsDate.getMonth() + 1;
+                    if (month < 10) {
+                        month = `0${month}`;
+                    }
+                    const year = resultsDate.getFullYear();
+            
+                    let formattedResultsDate = `${month}/${day}/${year}`;
+                return {
+                    id: l._id,
+                    date: formattedResultsDate
+                };
+            });
+            
+            return (
+                <div className="container">
+                    <NavigationBar />
+                    <main role="main" className="lab-results-main">
+                        <h1>Lab Results</h1>
+                        <section className="grid">
+                            <LabResultsList list={list} chooseLabResults={choice => this.chooseLabResults(choice)}/>
+                            <LabResultsShow />
+                        </section>
+                    </main>
+                    <Footer />
+                </div>
+            );
+        }
         return (
-            <div className="container">
-                <NavigationBar />
-                <main role="main" class="lab-results-main">
-                    <h1>Lab Results</h1>
-                    <section className="grid">
-                        <LabResultsList list={list} chooseLabResults={choice => this.chooseLabResults(choice)}/>
-                        <LabResultsShow />
-                    </section>
-                </main>
-                <Footer />
+            <div>
+                Loading...
             </div>
         );
     }
 }
-
-LabResults.defaultProps = {
-    labResults: []
-};
 
 const mapStateToProps = state => {
     return {

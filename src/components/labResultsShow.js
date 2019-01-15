@@ -5,7 +5,7 @@ import { toggleLabResultsInfo } from '../actions';
 export function LabResultsShow(props) {
     if (props.chosenLabResult) {
         return (
-            <div className={"show " + (props.isLabResultsInfoShowing ? '' : 'hidden-1')}>
+            <div className={"show fade-in " + (props.isLabResultsInfoShowing ? '' : 'hidden-1')}>
                 <button className="desktop-hide" onClick={() => props.dispatch(toggleLabResultsInfo(false))}>
                     <span className="fas fa-times 2x"></span>
                 </button>
@@ -74,12 +74,13 @@ export function LabResultsShow(props) {
                 </section>
             </div>
         );
-    } else {
+    } 
+    else {
         return (
             <div className="lab-results-show-text show mobile-hide">
                 <h2>Please select a lab result</h2>
             </div>
-        )
+        );
     }
 }
 

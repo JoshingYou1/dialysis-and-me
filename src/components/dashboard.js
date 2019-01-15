@@ -2,7 +2,7 @@ import React from 'react';
 import NavigationBar from './navBar';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import { Footer } from './footer';
+import Footer from './footer';
 
 export class Dashboard extends React.Component {
 
