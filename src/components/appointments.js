@@ -3,19 +3,21 @@ import AppointmentsList from './appointmentsList';
 import AppointmentsShow from './appointmentsShow';
 import NavigationBar from './navBar';
 import {connect} from 'react-redux';
-import { fetchAppointments, selectAppointmentById, toggleAppointmentInfo } from '../actions';
+import { fetchAppointments,  toggleAppointmentInfo, selectAppointmentById } from '../actions';
 import requiresLogin from './requires-login';
+import Footer from './footer';
 
 export class Appointments extends React.Component {
     componentDidMount() {
         this.props.dispatch(fetchAppointments(this.props.user.id));
     }
 
-    chooseAppointment(choice) {
-        const appointment = this.props.appointments.find(result => {
-            return result._id === choice;
+    chooseAppointmentsByMonth(choice) {
+        const appointments = this.props.appointments.filter(result => {
+            const resultMonth = new Date(result.date).getMonth();
+            return resultMonth === choice;
         });
-        this.props.dispatch(selectAppointmentById(appointment));
+        this.props.dispatch(selectAppointmentById(appointments));
         this.toggleAppointmentInfo();
     }
 
@@ -46,13 +48,16 @@ export class Appointments extends React.Component {
                 };
             });
             return (
-                <div>
+                <div className="container">
                     <NavigationBar />
-                    <h1>Appointments</h1>
-                    <section>
-                        <AppointmentsList list={list} chooseAppointment={choice => this.chooseAppointment(choice)}/>
-                        <AppointmentsShow />
-                    </section>
+                    <main role="main">
+                        <h1>Appointments</h1>
+                        <section className="grid">
+                            <AppointmentsList list={list} chooseAppointmentsByMonth={choice => this.chooseAppointmentsByMonth(choice)}/>
+                            <AppointmentsShow />
+                        </section>
+                    </main>
+                    <Footer />
                 </div>
             );
         }

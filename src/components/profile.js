@@ -73,7 +73,7 @@ export class Profile extends React.Component {
             <div className="container">
                 <NavigationBar />
                 <main role="main">
-                    <div className={this.props.section === 0 ? 'display-section' : 'hidden-3'}>
+                    <div className={this.props.section === 0 ? 'display-section' : 'hidden-1'}>
                         <h1 className="basic-info-h1">{this.props.profile.name.firstName} {this.props.profile.name.lastName}</h1>
                         <section className="basic-info-section">
                             
@@ -110,18 +110,18 @@ export class Profile extends React.Component {
                             
                         </section>
                     </div>
-                    <div className={this.props.section === 1 ? 'display-section' : 'hidden-3'}>
+                    <div className={this.props.section === 1 ? 'display-section' : 'hidden-1'}>
                         <PrimaryInsuranceInfo />
                     </div>
-                    <div className={this.props.section === 2 ? 'display-section' : 'hidden-3'}>
+                    <div className={this.props.section === 2 ? 'display-section' : 'hidden-1'}>
                         <SecondaryInsuranceInfo />
                     </div>
-                    <div className={this.props.section === 3 ? 'display-section' : 'hidden-3'}>
+                    <div className={this.props.section === 3 ? 'display-section' : 'hidden-1'}>
                         <TreatmentInfo />
                     </div>
                     <div className="profile-section-button-holder">
                         <button
-                            className={this.props.section !== 0 ? 'display-profile-section-button-1' : 'hidden-3'}
+                            className={this.props.section !== 0 ? 'display-profile-section-button-1' : 'hidden-1'}
                             onClick={() => this.props.dispatch(selectProfileInfoSection(cards[this.props.section].previous))}
                         >
                             <p className="fas fa-long-arrow-alt-left"></p>
@@ -130,7 +130,7 @@ export class Profile extends React.Component {
                             </p>
                         </button>
                         <button
-                            className={this.props.section !== 3 ? 'display-profile-section-button-2' : 'hidden-3'}
+                            className={this.props.section !== 3 ? 'display-profile-section-button-2' : 'hidden-1'}
                             onClick={() => this.props.dispatch(selectProfileInfoSection(cards[this.props.section].next))}
                         >
                             <p className="fas fa-long-arrow-alt-right"></p>

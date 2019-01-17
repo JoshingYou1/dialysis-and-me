@@ -17,7 +17,6 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
 
 button {
@@ -285,16 +284,16 @@ h2 {
   text-decoration: underline;
 }
 
-.lab-results-list-div {
+.lab-results-list-div, .appointments-list-div {
   text-align: center;
 }
 
-.lab-results-list {
+.lab-results-list, .appointments-list {
   list-style: none;
   padding: 0;
 }
 
-.lab-results-list-item {
+.lab-results-list-item, .appointments-list-item {
   cursor: pointer;
   margin-bottom: 15px;
   max-width: 90px;
@@ -302,8 +301,9 @@ h2 {
   margin-right: auto;
 }
 
-.lab-results-list-item:hover {
+.lab-results-list-item:hover, .appointments-list-item:hover {
   text-decoration: underline;
+  color: #7700B4;
 }
 
 .show {
@@ -317,14 +317,14 @@ h2 {
   margin: 0;
   z-index: 1;
   opacity: 1;
-  animation: fade 0.25s linear;
+  animation: fade-1 0.25s linear;
 }
 
 .fa-times {
   color: white;
 }
 
-.lab-results-show-text {
+.lab-results-show-text, .appointments-show-text {
   text-align: center;
 }
 
@@ -365,7 +365,15 @@ h2 {
   padding-bottom: 0.5em;
 }
 
-@keyframes fade {
+@keyframes fade-1 {
+  0% {opacity: 0;}
+  25% {opacity: 0.25;}
+  50% {opacity: 0.50;}
+  75% {opacity: 0.75;}
+  100% {opacity: 1;}
+}
+
+@keyframes fade-2 {
   0% {opacity: 0;}
   25% {opacity: 0.25;}
   50% {opacity: 0.50;}
@@ -442,7 +450,7 @@ h2 {
   color: white;
 }
 
-.hidden-1, .hidden-3 {
+.hidden-1 {
   display: none;
 }
 
@@ -491,6 +499,7 @@ footer {
 .grid-c-span {
   grid-column-start: c;
   grid-column-end: c;
+  font-weight: bold;
 }
 
 .grid-d-span {
@@ -500,13 +509,13 @@ footer {
 }
 
 .display-section {
-  animation: fade 1s linear;
+  animation: fade-2 1s linear;
   height: 375px;
   padding-left: 15px;
   padding-right: 15px;
 }
 
-.display-profile-section-button-1, .display-profile-section-button-2{
+.display-profile-section-button-1, .display-profile-section-button-2, .display-doctor-button-1, .display-doctor-button-2 {
   background: none;
   border: none;
   padding: 0;
@@ -517,19 +526,19 @@ footer {
   margin-right: auto;
 }
 
-.display-profile-section-button-1 {
+.display-profile-section-button-1, .display-doctor-button-1 {
   grid-area: left;
 }
 
-.display-profile-section-button-1:hover {
+.display-profile-section-button-1:hover, .display-doctor-button-1:hover {
   color: #008099;
 }
 
-.display-profile-section-button-2 {
+.display-profile-section-button-2, .display-doctor-button-2 {
   grid-area: right;
 }
 
-.display-profile-section-button-2:hover {
+.display-profile-section-button-2:hover, .display-doctor-button-2:hover {
   color: #008099;
 }
 
@@ -538,7 +547,7 @@ footer {
   margin: 0;
 }
 
-.profile-section-button-holder {
+.profile-section-button-holder, .doctor-button-holder {
   display: grid;
   grid-template-areas: 
    "left right";
@@ -561,6 +570,7 @@ footer {
   grid-column-start: c;
   grid-column-end: d;
   text-align: center;
+  text-decoration: underline;
 }
 
 .top-image-div-1 {
@@ -747,6 +757,51 @@ footer {
   padding-right: 15px;
 }
 
+.doctor-display-section {
+  animation: fade-2 1s linear;
+  height: 300px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.appointments-show-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 0;
+}
+
+.appointments-show-list-item {
+  display: grid;
+  grid-template-areas: 
+    "e f";
+  grid-template-columns: minmax(10px, 250px);
+  grid-template-rows: auto;
+  max-width: 280px;
+  margin: auto;
+  padding-bottom: 50px;
+}
+
+.appointment-date-h2 {
+  grid-column-start: e;
+  grid-column-end: f;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.grid-e-span {
+  padding-bottom: 5px;
+  grid-column-start: e;
+  grid-column-end: e;
+  font-weight: bold;
+}
+
+.grid-f-span {
+  padding-bottom: 5px;
+  text-align: right;
+  grid-column-start: f;
+  grid-column-end: f;
+}
+
 @media only screen and (min-width: 375px) {
   .dashboard-links {
     grid-column-gap: 3em;
@@ -857,8 +912,8 @@ footer {
   }
 
   .link-div {
-    padding-top: 1.5em;
-    padding-bottom: 1.5em;
+    padding-top: 1.20em;
+    padding-bottom: 1.20em;
   }
 
   .dashboard-link-text, .dashboard-link-container:visited {
@@ -886,7 +941,7 @@ footer {
     font-weight: bold;
   }
 
-  @keyframes fade {
+  @keyframes fade-1 {
     0% {opacity: 1;}
   }
 
@@ -937,6 +992,11 @@ footer {
     overflow-y: scroll;
     height: 100%;
   }
+
+  .appointments-list {
+    overflow-y: scroll;
+    height: 300px;
+  }
 }
 
 @media (min-width: 950px) {
@@ -961,6 +1021,10 @@ footer {
 
   .header-quick-link:hover {
     border-bottom: 3px solid #7700B4;
+  }
+
+  .doctor-display-section {
+    height: 287px;
   }
 
   /* .fa-sort-down {
@@ -1013,6 +1077,10 @@ footer {
 
   .display-section {
     height: 400px;
+  }
+
+  .appointments-show-list-item {
+    max-width: 375px;
   }
 }
 

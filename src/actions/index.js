@@ -12,11 +12,11 @@ export const toggleSidebar = isSidebarShowing => ({
     isSidebarShowing
 });
 
-// export const CHOOSE_APPOINTMENT_MONTH = 'CHOOSE_APPOINTMENT_MONTH';
-// export const chooseAppointmentMonth = month => ({
-//     type: CHOOSE_APPOINTMENT_MONTH,
-//     month
-// });
+export const CHOOSE_APPOINTMENT_MONTH = 'CHOOSE_APPOINTMENT_MONTH';
+export const chooseAppointmentMonth = month => ({
+    type: CHOOSE_APPOINTMENT_MONTH,
+    month
+});
 
 export const FETCH_LAB_RESULTS_SUCCESS = 'FETCH_LAB_RESULTS_SUCCESS';
 export const fetchLabResultsSuccess = labResults => ({
@@ -121,15 +121,21 @@ export const fetchAppointments = patientId => (dispatch, getState) => {
 };
 
 export const SELECT_APPOINTMENT_BY_ID = 'SELECT_APPOINTMENT_BY_ID';
-export const selectAppointmentById = appointment => ({
+export const selectAppointmentById = appointments => ({
     type: SELECT_APPOINTMENT_BY_ID,
-    appointment
+    appointments
 });
 
 export const TOGGLE_APPOINTMENT_INFO = 'TOGGLE_APPOINTMENT_INFO';
 export const toggleAppointmentInfo = isAppointmentInfoShowing => ({
     type: TOGGLE_APPOINTMENT_INFO,
     isAppointmentInfoShowing
+});
+
+export const UPDATE_CURRENT_DOCTOR = 'UPDATE_CURRENT_DOCTOR';
+export const updateCurrentDoctor = doctor => ({
+    type: UPDATE_CURRENT_DOCTOR,
+    doctor
 });
 
 

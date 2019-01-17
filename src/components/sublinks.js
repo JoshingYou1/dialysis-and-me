@@ -1,14 +1,31 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import {toggleSidebar} from '../actions';
 
-export default function Sublinks(props) {
-    const sublinks = props.sublinks.map((sl, i) => {
-        console.log('props.parent', i + props.parent);
-        return <li><Link className="sidebar-sublink" to={sl.link} key={i + props.parent}>{sl.display}</Link></li>
-    });
-    return (
-        <ul className="sidebar-sublinks-list">
-            {sublinks}
-        </ul>
-    );
+export class Sublinks extends React.Component {
+    render() {
+        const sublinks = this.props.sublinks.map((sl, i) => {
+            console.log('props.parent', i + this.props.parent);
+            return (
+                <li>
+                    <Link 
+                        className="sidebar-sublink" 
+                        to={sl.link} 
+                        key={i + this.props.parent}
+                        onClick={() => this.props.dispatch(toggleSidebar())}
+                    >
+                        {sl.display}
+                    </Link>
+                </li>
+            );
+        });
+        return (
+            <ul className="sidebar-sublinks-list">
+                {sublinks}
+            </ul>
+        );
+    }
 }
+
+export default connect()(Sublinks)

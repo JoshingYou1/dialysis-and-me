@@ -1,12 +1,6 @@
 import React from 'react';
 
 export default function AppointmentsList(props) {
-    const list = props.list.map((l, i) => (
-        <li onClick={e => props.chooseAppointment(l.id)} key={i}>
-            {l.date}
-        </li>
-    ));
-
     const months = [
         {
             month: 'January',
@@ -58,11 +52,17 @@ export default function AppointmentsList(props) {
         }
     ];
     
+    const list = months.map((m, i) => (
+        <li className="appointments-list-item" onClick={e => props.chooseAppointmentsByMonth(m.index)} key={i}>
+            {m.month}
+        </li>
+    ));
+
     return (
-        <div>
-            <h2>Appointments by Month</h2>
+        <div className="appointments-list-div">
+            <h2 className="appointments-list-h2">Appointments by Month</h2>
             <section>
-                <ul>{list}</ul>
+                <ul className="appointments-list">{list}</ul>
             </section>
         </div>
     );
