@@ -16,7 +16,15 @@ import {
     CHOOSE_EDIT_APPOINTMENT,
     LOAD_APPOINTMENT_FORM_DATA,
     CREATE_APPOINTMENT_SUCCESS,
-    UPDATE_APPOINTMENT_SUCCESS
+    UPDATE_APPOINTMENT_SUCCESS,
+    CHOOSE_CREATE_DOCTOR,
+    CHOOSE_EDIT_DOCTOR,
+    CREATE_DOCTOR_SUCCESS,
+    UPDATE_DOCTOR_SUCCESS,
+    CHOOSE_EDIT_BASIC_PROFILE_INFO,
+    DELETE_APPOINTMENT_SUCCESS,
+    DELETE_DOCTOR_SUCCESS,
+    EDIT_SELECTED_APPOINTMENT_BY_ID
 } from '../actions/index';
 
 const initialState = {
@@ -33,7 +41,11 @@ const initialState = {
     areSublinksShowing: false,
     currentDoctor: 0,
     isEditAppointmentFormShowing: false,
-    isCreateAppointmentFormShowing: false
+    isCreateAppointmentFormShowing: false,
+    isCreateDoctorFormShowing: false,
+    isEditDoctorFormShowing: false,
+    isEditBasicProfileInfoShowing: false,
+    selectedAppointment: 0
 };
 
 export const appReducer = (state=initialState, action) => {
@@ -126,6 +138,46 @@ export const appReducer = (state=initialState, action) => {
     else if (action.type === UPDATE_APPOINTMENT_SUCCESS) {
         return Object.assign({}, state, {
             updatedAppointment: action.updatedAppointment
+        });
+    }
+    else if (action.type === DELETE_APPOINTMENT_SUCCESS) {
+        return Object.assign({}, state, {
+            deletedAppointment: action.deletedAppointment
+        });
+    }
+    else if (action.type === CHOOSE_CREATE_DOCTOR) {
+        return Object.assign({}, state, {
+            isCreateDoctorFormShowing: !state.isCreateDoctorFormShowing
+        });
+    }
+    else if (action.type === CHOOSE_EDIT_DOCTOR) {
+        return Object.assign({}, state, {
+            isEditDoctorFormShowing: !state.isEditDoctorFormShowing
+        });
+    }
+    else if (action.type === CREATE_DOCTOR_SUCCESS) {
+        return Object.assign({}, state, {
+            createdDoctor: action.createdDoctor
+        });
+    }
+    else if (action.type === UPDATE_DOCTOR_SUCCESS) {
+        return Object.assign({}, state, {
+            updatedDoctor: action.updatedDoctor
+        });
+    }
+    else if (action.type === DELETE_DOCTOR_SUCCESS) {
+        return Object.assign({}, state, {
+            deletedDoctor: action.deletedDoctor
+        });
+    }
+    else if (action.type === CHOOSE_EDIT_BASIC_PROFILE_INFO) {
+        return Object.assign({}, state, {
+            isEditBasicProfileInfoShowing: !state.isEditBasicProfileInfoShowing
+        });
+    }
+    else if (action.type === EDIT_SELECTED_APPOINTMENT_BY_ID) {
+        return Object.assign({}, state, {
+            selectedAppointment: action.selectedAppointment
         });
     }
     console.log('state', state);

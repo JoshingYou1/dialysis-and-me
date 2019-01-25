@@ -126,8 +126,8 @@ export const createAppointmentSuccess = createdAppointment => ({
     createdAppointment
 });
 
-export const createAppointment = (patientId, appointmentId) => (dispatch, getState) => {
-    fetch(`${API_BASE_URL}/api/patients/${patientId}/appointments/${appointmentId}`,
+export const createAppointment = (patientId) => (dispatch, getState) => {
+    fetch(`${API_BASE_URL}/api/patients/${patientId}/appointments`,
     {
         method: 'POST',
         headers: {
@@ -231,4 +231,127 @@ export const loadAppointmentFormData = loadAppointmentFormData => ({
     loadAppointmentFormData
 });
 
+export const CHOOSE_CREATE_DOCTOR = 'CHOOSE_CREATE_DOCTOR';
+export const chooseCreateDoctor = isCreateDoctorFormShowing => ({
+    type: CHOOSE_CREATE_DOCTOR,
+    isCreateDoctorFormShowing
+});
+
+export const CHOOSE_EDIT_DOCTOR = 'CHOOSE_EDIT_DOCTOR';
+export const chooseEditDoctor = isEditDoctorFormShowing => ({
+    type: CHOOSE_EDIT_DOCTOR,
+    isEditDoctorFormShowing
+});
+
+export const CREATE_DOCTOR_SUCCESS = 'CREATE_DOCTOR_SUCCESS';
+export const createDoctorSuccess = createdDoctor => ({
+    type: CREATE_DOCTOR_SUCCESS,
+    createdDoctor
+});
+
+export const createDoctor = (patientId,) => (dispatch, getState) => {
+    fetch(`${API_BASE_URL}/api/patients/${patientId}/doctors`,
+    {
+        method: 'POST',
+        headers: {
+            authorization: `Bearer ${getState().auth.authToken}`
+        }
+    })
+        .then(res => {
+            if (!res.ok) {
+                return Promise.reject(res.statusText)
+            }
+            return res.json();
+        })
+        .then(createdDoctor => {
+            dispatch(createDoctorSuccess(createdDoctor));
+        });
+};
+
+export const UPDATE_DOCTOR_SUCCESS = 'UPDATE_DOCTOR_SUCCESS';
+export const updateDoctorSuccess = updatedDoctor => ({
+    type: UPDATE_DOCTOR_SUCCESS,
+    updatedDoctor
+});
+
+export const updateDoctor = (patientId, doctorId) => (dispatch, getState) => {
+    fetch(`${API_BASE_URL}/api/patients/${patientId}/doctors/${doctorId}`,
+    {
+        method: 'PUT',
+        headers: {
+            authorization: `Bearer ${getState().auth.authToken}`
+        }
+    })
+        .then(res => {
+            if (!res.ok) {
+                return Promise.reject(res.statusText)
+            }
+            return res.json();
+        })
+        .then(updatedDoctor => {
+            dispatch(updateDoctorSuccess(updatedDoctor));
+        });
+};
+
+export const DELETE_DOCTOR_SUCCESS = 'DELETE_DOCTOR_SUCCESS';
+export const deleteDoctorSuccess = deletedDoctor => ({
+    type: DELETE_DOCTOR_SUCCESS,
+    deletedDoctor
+});
+
+export const deleteDoctor = (patientId, doctorId) => (dispatch, getState) => {
+    fetch(`${API_BASE_URL}/api/patients/${patientId}/doctors/${doctorId}`,
+    {
+        method: 'DELETE',
+        headers: {
+            authorization: `Bearer ${getState().auth.authToken}`
+        }
+    })
+        .then(res => {
+            if (!res.ok) {
+                return Promise.reject(res.statusText)
+            }
+            return res.json();
+        })
+        .then(deletedDoctor => {
+            dispatch(deleteDoctorSuccess(deletedDoctor))
+        });
+};
+
+export const CHOOSE_EDIT_BASIC_PROFILE_INFO = 'CHOOSE_EDIT_BASIC_PROFILE_INFO';
+export const chooseEditBasicProfileInfo = isEditBasicProfileInfoFormShowing => ({
+    type: CHOOSE_EDIT_BASIC_PROFILE_INFO,
+    isEditBasicProfileInfoFormShowing
+});
+
+export const UPDATE_BASIC_PROFILE_INFO_SUCCESS = 'UPDATE_BASIC_PROFILE_INFO_SUCCESS';
+export const updateBasicProfileInfoSucces = updatedBasicProfileInfo => ({
+    type: UPDATE_BASIC_PROFILE_INFO_SUCCESS,
+    updatedBasicProfileInfo
+});
+
+export const updateBasicProfileInfo = (patientId) => (dispatch, getState) => {
+    fetch(`${API_BASE_URL}/api/patients/${patientId}`,
+    {
+        method: 'PUT',
+        headers: {
+            authorization: `Bearer ${getState().auth.authToken}`
+        }
+    })
+        .then(res => {
+            if (!res.ok) {
+                return Promise.reject(res.statusText)
+            }
+            return res.json();
+        })
+        .then(updatedBasicProfileInfo => {
+            dispatch(updateBasicProfileInfoSucces(updatedBasicProfileInfo));
+        });
+};
+
+export const EDIT_SELECTED_APPOINTMENT_BY_ID = 'EDIT_SELECTED_APPOINTMENT_BY_ID';
+export const editSelectedAppointmentById = selectedAppointment => ({
+    type: EDIT_SELECTED_APPOINTMENT_BY_ID,
+    selectedAppointment
+});
 

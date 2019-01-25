@@ -54,7 +54,7 @@ export class LabResults extends React.Component {
                     <NavigationBar />
                     <main role="main" className="lab-results-main">
                         <h1>Lab Results</h1>
-                        <section className="grid">
+                        <section className="lab-results-section">
                             <LabResultsList list={list} chooseLabResults={choice => this.chooseLabResults(choice)}/>
                             <LabResultsShow />
                         </section>

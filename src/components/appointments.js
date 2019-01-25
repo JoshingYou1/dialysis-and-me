@@ -53,7 +53,7 @@ export class Appointments extends React.Component {
                     <NavigationBar />
                     <main role="main">
                         <h1>Appointments</h1>
-                        <section className="grid">
+                        <section className="appointments-section">
                             <AppointmentsList list={list} chooseAppointmentsByMonth={choice => this.chooseAppointmentsByMonth(choice)}/>
                             <AppointmentsShow />
                         </section>

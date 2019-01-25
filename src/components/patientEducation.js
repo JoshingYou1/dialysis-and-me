@@ -21,26 +21,26 @@ export class PatientEducation extends React.Component {
                     <h2 className="patient-education-h2">Introduction</h2>
                     <p className="patient-education-p">
                         Patient education involves healthcare professionals teaching patients about their health so they may better understand their
-                        condition. The overall aim of patient education is to improve individual health as well as enhance the performance of the
-                        healthcare industry as a whole. Here are some of the benefits that patient education provides:
+                        condition. The overall goal of patient education is to improve individual health as well as strengthen the performance of the
+                        healthcare industry altogether. Here are some of the important benefits of patient education:
                     </p>
                     <h2 className="patient-education-h2">Increased Patient Understanding</h2>
                     <p className="patient-education-p">
-                        Patient education ensures that patients are well-informed about their own health. This could mean teaching them about the
-                        side-effects of their condition, discussing their diagnosis, going through possible treatment options or looking at ways to
-                        prevent their condition from deteriorating. This level of understanding could reduce a patient’s anxiety and could also
-                        build trust between patient and care provider. An increased understanding puts patients in a better position to make informed
-                        decisions regarding their healthcare.
+                        Patient education ensures that patients are well-informed about their own health, especially when it comes to conditions
+                        that may affect their everyday life. This could mean teaching them about the possible side-effects of their condition,
+                        discussing their diagnosis, or going through possible treatment options. This level of understanding could reduce a
+                        patient’s anxiety and could also build trust between patient and healthcare provider. An increased understanding puts patients
+                        in a better position to make informed decisions regarding their healthcare.
                     </p>
                     <h2 className="patient-education-h2">More active approach to healthcare</h2>
                     <p className="patient-education-p">
-                        An educated patient may also be able to self-manage certain elements of their care. Obviously there will always be certain aspects
-                        of care that only professionals can administer, but some elements could be managed by the patient, which would relieve some of the
+                        An educated patient may also be able to self-manage certain elements of their care. Obviously, there will always be certain facets
+                        of healthcare that only professionals can administer, but some components could be managed by the patient, which would alleviate some of the
                         burden from providers.
                     </p>
                     <h2 className="patient-education-h2">Enhanced motivation and better outcomes</h2>
                     <p className="patient-education-p">
-                        If a patient is well educated on their condition, they will no doubt understand what goals they need to work towards in order to
+                        If a patient is very informed about their condition, they will no doubt understand what goals they need to work towards in order to
                         improve their health. In this case, educated patients could be more motivated to reach certain healthcare goals, which would in
                         turn improve their overall health more quickly and more efficiently.
                     </p>

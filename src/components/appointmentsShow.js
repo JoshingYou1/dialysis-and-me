@@ -20,6 +20,7 @@ export class AppointmentsShow extends React.Component {
             })
         }
     }
+
     render() {
         let className = this.state.animate ? "appointments-show-list-item" : "appointments-show-list-item-2"
         if (this.props.chosenAppointments) {

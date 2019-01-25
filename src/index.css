@@ -251,7 +251,7 @@ h2 {
   color: white;
 }
 
-.grid {
+.appointments-section, .lab-results-section {
   display: block;
 }
 
@@ -281,11 +281,8 @@ h2 {
 }
 
 .lab-results-list-section, .appointments-list-section {
-  width: 31.5%;
   margin-left: auto;
   margin-right: auto;
-  overflow-y: scroll;
-  height: 200px;
 }
 
 .appointments-list-section {
@@ -311,6 +308,7 @@ h2 {
   max-width: 90px;
   margin-left: auto;
   margin-right: auto;
+  color: #7700B4;
 }
 
 .lab-results-list-item:hover, .appointments-list-item:hover {
@@ -483,6 +481,7 @@ h2 {
   color: white;
   margin-left: -10px;
   padding-left: 10px;
+  transition: all 0.5s ease;
 }
 
 .sidebar-link-2 {
@@ -492,6 +491,7 @@ h2 {
   color: white;
   margin-left: -10px;
   padding-left: 10px;
+  transition: all 0.5s ease;
 }
 
 .fa-caret-down, .fa-caret-up {
@@ -540,7 +540,7 @@ footer {
   display: grid;
   grid-template-areas: 
     "c d";
-  grid-template-columns: minmax(10px, 250px);
+  grid-auto-columns: auto;
   align-items: center;
   max-width: 400px;
   margin-left: auto;
@@ -556,12 +556,14 @@ footer {
   grid-column-start: c;
   grid-column-end: c;
   font-weight: bold;
+  padding-right: 5px;
 }
 
 .grid-d-span {
   grid-column-start: d;
   grid-column-end: d;
   text-align: right;
+  padding-left: 5px;
 }
 
 .display-section {
@@ -654,7 +656,7 @@ footer {
   margin: 0;
 }
 
-.patient-education-h2 {
+.patient-education-h2, .about-h2 {
   border-bottom: 5px solid #7700B4;
   padding-bottom: 10px;
 }
@@ -808,7 +810,7 @@ footer {
   padding-bottom: 10px;
 }
 
-.patient-education-section-1, .patient-education-section-2, .nutritional-info-section, .living-with-esrd-section, .esrd-info-section {
+.patient-education-section-1, .patient-education-section-2, .nutritional-info-section, .living-with-esrd-section, .esrd-info-section, .about-section {
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -831,18 +833,13 @@ footer {
   list-style: none;
   padding: 0;
   margin-top: 0;
-  width: 60%;
-  margin-left: auto;
-  margin-right: auto;
-  overflow-y: scroll;
-  height: 320px;
 }
 
 .appointments-show-list-item {
   display: grid;
   grid-template-areas: 
     "e f";
-  grid-template-columns: minmax(10px, 250px);
+  grid-auto-columns: auto;
   grid-template-rows: auto;
   max-width: 280px;
   margin: auto;
@@ -855,7 +852,7 @@ footer {
   display: grid;
   grid-template-areas: 
     "e f";
-  grid-template-columns: minmax(10px, 250px);
+  grid-auto-columns: auto;
   grid-template-rows: auto;
   max-width: 280px;
   margin: auto;
@@ -885,8 +882,17 @@ footer {
   grid-column-end: f;
 }
 
-.about-link:visited {
-  color: blue;
+.about-link {
+  display: inline-block;
+  margin-bottom: 1.5em;
+}
+
+.about-link, .about-link:visited {
+  color: #7700B4
+}
+
+.about-link:hover {
+  color: #008099;
 }
 
 .about-span {
@@ -1049,7 +1055,7 @@ footer {
     0% {opacity: 1;}
   } */
 
-  .grid {
+  .appointments-section, .lab-results-section {
     display: grid;
     grid-template-areas: 
     "list show";
@@ -1097,6 +1103,24 @@ footer {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+  }
+
+  .lab-results-list-section, .appointments-list-section {
+    width: 31.5%;
+    overflow-y: scroll;
+    height: 200px;
+  }
+
+  .lab-results-list-item, .appointments-list-item {
+    color: initial;
+  }
+
+  .appointments-show-list {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-y: scroll;
+    height: 320px;
   }
 }
 
@@ -1147,13 +1171,22 @@ footer {
     max-width: 410px;
   }
 
-  .patient-education-section-1, .nutritional-info-section, .living-with-esrd-section, .esrd-info-section {
+  .patient-education-section-1, .nutritional-info-section, .living-with-esrd-section, .esrd-info-section, .about-section {
     max-width: 1150px;
     margin: auto;
   }
 
-  .patient-education-p, .nutritional-info-p, .living-with-esrd-p, .esrd-info-p {
+  .patient-education-p, .nutritional-info-p, .living-with-esrd-p, .esrd-info-p , .about-p{
     margin-bottom: 3em;
+    font-size: 21px;
+  }
+
+  .about-p-2 {
+    margin-bottom: 0.2em;
+    font-size: 21px;
+  }
+
+  .about-link {
     font-size: 21px;
   }
 
@@ -1186,6 +1219,16 @@ footer {
 
   .appointments-show-list-item, .appointments-show-list-item-2 {
     max-width: 375px;
+  }
+
+  .appointments-show-list {
+    width: 80%;
+  }
+}
+
+@media (min-width: 1300px) {
+  .appointments-show-list {
+    width: 65%;
   }
 }
 
