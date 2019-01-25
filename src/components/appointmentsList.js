@@ -61,7 +61,7 @@ export default function AppointmentsList(props) {
     return (
         <div className="appointments-list-div">
             <h2 className="appointments-list-h2">Appointments by Month</h2>
-            <section>
+            <section className="appointments-list-section">
                 <ul className="appointments-list">{list}</ul>
             </section>
         </div>

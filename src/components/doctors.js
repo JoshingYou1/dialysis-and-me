@@ -7,8 +7,25 @@ import NavigationBar from './navBar';
 import Footer from './footer';
 
 export class Doctors extends React.Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            animate: true
+        }
+    }
+
     componentDidMount() {
         this.props.dispatch(fetchProfileInfo(this.props.user.id));
+    }
+
+    componentDidUpdate(prevProps){
+        console.log(this.state.animate);
+        if (this.props.currentDoctor !== prevProps.currentDoctor) {
+            this.setState({
+                animate: !this.state.animate,
+            })
+        }
     }
     
     render() {
@@ -20,14 +37,16 @@ export class Doctors extends React.Component {
                     doctor: d
                 };
             });
-        const d = cards[this.props.currentDoctor].doctor;
-        console.log('this.props.profile.doctors', this.props.profile.doctors);
+            let className = this.state.animate ? "doctor-display-section" : "doctor-display-section-2"
+
+            const d = cards[this.props.currentDoctor].doctor;
+
             return (
                 <div className="container">
                     <NavigationBar />
                     <main role="main">
                         <h1 className="doctors-h1">Doctors</h1>
-                        <div className="doctor-display-section">
+                        <div className={className}>
                             <Doctor doctor={d} />
                         </div>
                         <div className="doctor-button-holder">
@@ -37,7 +56,8 @@ export class Doctors extends React.Component {
                             >
                                 <p className="fas fa-long-arrow-alt-left"></p>
                                 <p className="display-profile-section-button-p">
-                                    {cards[this.props.currentDoctor].previous === null ? '' : cards[this.props.currentDoctor - 1].doctor.name.firstName + ' ' + cards[this.props.currentDoctor - 1].doctor.name.lastName}
+                                    {cards[this.props.currentDoctor].previous === null ? '' : cards[this.props.currentDoctor - 1].doctor.name.firstName +
+                                    ' ' + cards[this.props.currentDoctor - 1].doctor.name.lastName}
                                 </p>
                             </button>
                             <button
@@ -46,7 +66,8 @@ export class Doctors extends React.Component {
                             >
                                 <p className="fas fa-long-arrow-alt-right"></p>
                                 <p className="display-profile-section-button-p">
-                                    {cards[this.props.currentDoctor].next === null ? '' : cards[this.props.currentDoctor + 1].doctor.name.firstName + ' ' + cards[this.props.currentDoctor + 1].doctor.name.lastName}
+                                    {cards[this.props.currentDoctor].next === null ? '' : cards[this.props.currentDoctor + 1].doctor.name.firstName +
+                                    ' ' + cards[this.props.currentDoctor + 1].doctor.name.lastName}
                                 </p>
                             </button>
                         </div>

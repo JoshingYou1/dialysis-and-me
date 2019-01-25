@@ -11,11 +11,15 @@ import {
     FETCH_APPOINTMENTS_SUCCESS,
     TOGGLE_APPOINTMENT_INFO,
     SELECT_APPOINTMENT_BY_ID,
-    UPDATE_CURRENT_DOCTOR
+    UPDATE_CURRENT_DOCTOR,
+    CHOOSE_CREATE_APPOINTMENT,
+    CHOOSE_EDIT_APPOINTMENT,
+    LOAD_APPOINTMENT_FORM_DATA,
+    CREATE_APPOINTMENT_SUCCESS,
+    UPDATE_APPOINTMENT_SUCCESS
 } from '../actions/index';
 
 const initialState = {
-    // selectedMonth: new Date().getMonth(),
     selectedAppointment: null,
     selectedLabResult: null,
     isSidebarShowing: false,
@@ -27,7 +31,9 @@ const initialState = {
     appointments: [],
     isAppointmentInfoShowing: false,
     areSublinksShowing: false,
-    currentDoctor: 0
+    currentDoctor: 0,
+    isEditAppointmentFormShowing: false,
+    isCreateAppointmentFormShowing: false
 };
 
 export const appReducer = (state=initialState, action) => {
@@ -64,7 +70,7 @@ export const appReducer = (state=initialState, action) => {
     }
     else if (action.type === TOGGLE_USER_INFO) {
         return Object.assign({}, state, {
-            isUserInfoShowing: !state.isUserInfoShowing
+            isUserInfoShowing: action.isUserInfoShowing
         });
     }
     else if (action.type === TOGGLE_SUBLINKS) {
@@ -95,6 +101,31 @@ export const appReducer = (state=initialState, action) => {
     else if (action.type === UPDATE_CURRENT_DOCTOR) {
         return Object.assign({}, state, {
             currentDoctor: action.doctor
+        });
+    }
+    else if (action.type === CHOOSE_CREATE_APPOINTMENT) {
+        return Object.assign({}, state, {
+            isCreateAppointmentFormShowing: !state.isCreateAppointmentFormShowing
+        });
+    }
+    else if (action.type === CHOOSE_EDIT_APPOINTMENT) {
+        return Object.assign({}, state, {
+            isEditAppointmentFormShowing: !state.isEditAppointmentFormShowing
+        });
+    }
+    else if (action.type === LOAD_APPOINTMENT_FORM_DATA) {
+        return Object.assign({}, state, {
+            loadedAppointmentFormData: action.loadAppointmentFormData
+        });
+    }
+    else if (action.type === CREATE_APPOINTMENT_SUCCESS) {
+        return Object.assign({}, state, {
+            createdAppointment: action.createdAppointment
+        });
+    }
+    else if (action.type === UPDATE_APPOINTMENT_SUCCESS) {
+        return Object.assign({}, state, {
+            updatedAppointment: action.updatedAppointment
         });
     }
     console.log('state', state);

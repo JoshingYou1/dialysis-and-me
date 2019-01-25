@@ -14,31 +14,73 @@ export class NavigationBar extends React.Component {
         clearAuthToken();
     }
 
+    refreshPage() {
+        window.location.reload();
+    }
+
     render() {
         return (
             <header>
-                <Link className="logo-link" to="/dashboard">
+                <Link 
+                    className="logo-link"
+                    to="/dashboard"
+                    onClick={() => {this.refreshPage()}}
+                >
                     <img className="nav-logo a" src="/dialysis-and-me-logo.png" alt="Logo" aria-hidden="true"></img>
                     <span className="logo-span-1">Dialysis&</span><span className="logo-span-2">Me</span>
                 </Link>
                 <div className="header-div b">
                     <div className="header-quick-link-container">
-                        <Link className="header-quick-link" to="/profile">Profile</Link>
-                        <Link className="header-quick-link" to="/patient-education">Patient Education</Link>
-                        <Link className="header-quick-link" to="/lab-results">Lab Results</Link>
-                        <Link className="header-quick-link" to="/doctors">Doctors</Link>
-                        <Link className="header-quick-link" to="/appointments">Appointments</Link>
+                        <Link 
+                            className="header-quick-link"
+                            to="/profile"
+                            onClick={() => {this.refreshPage()}}
+                        >
+                            Profile
+                        </Link>
+                        <Link 
+                            className="header-quick-link"
+                            to="/patient-education"
+                            onClick={() => {this.refreshPage()}}
+                        >
+                            Patient Education
+                        </Link>
+                        <Link 
+                            className="header-quick-link"
+                            to="/lab-results"
+                            onClick={() => {this.refreshPage()}}
+                        >
+                            Lab Results
+                        </Link>
+                        <Link 
+                            className="header-quick-link"
+                            to="/doctors"
+                            onClick={() => {this.refreshPage()}}
+                        >
+                            Doctors
+                        </Link>
+                        <Link 
+                            className="header-quick-link"
+                            to="/appointments"
+                            onClick={() => {this.refreshPage()}}
+                        >
+                            Appointments
+                        </Link>
                     </div>
-                    <div onClick={() => this.props.dispatch(toggleUserInfo())} className="user-dropdown-div">
+                    <div onClick={() => this.props.dispatch(toggleUserInfo(true))} className="user-dropdown-div">
                         <span className="fas fa-sort-down"></span>
                         <span className="fas fa-user-circle"></span>
                     </div>
-                    <div className={"user-display " + (this.props.isUserInfoShowing ? "" : 'hidden-1')}>
+                    <div className={"user-display " + (this.props.isUserInfoShowing ? '' : 'hidden-1')}>
                         <User user={this.props.username}/>
                         <button className="logout-button" onClick={() => this.logout()}>Log Out</button>
                     </div>
-                    <span className="fas fa-bars" onClick={() => this.props.dispatch(toggleSidebar())}></span>
-                    <div className={"sidebar-display " + (this.props.isSidebarShowing ? "" : 'hidden-2')}>
+                    <span 
+                        className="fas fa-bars" 
+                        onClick={() => {this.props.dispatch(toggleSidebar()); this.props.dispatch(toggleUserInfo(false))}}
+                    >
+                    </span>
+                    <div className={"sidebar-display " + (this.props.isSidebarShowing ? '' : 'hidden-2')}>
                         <Sidebar />
                     </div>
                 </div>

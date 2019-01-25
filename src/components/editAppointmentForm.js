@@ -3,12 +3,13 @@ import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
 import Input from './input';
 import {API_BASE_URL} from '../config';
 import {required, nonEmpty} from '../validators';
+import { fetchProfileInfo } from '../actions';
 import { connect } from 'react-redux';
 
-export class CreateAppointmentForm extends React.Component {
+export class EditAppointmentForm extends React.Component {
     onSubmit(values) {
         return fetch(`${API_BASE_URL}/api/patients/${this.props.user.id}/appointments`, {
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify(values),
             headers: {
                 'Content-Type': 'application/json',
@@ -42,7 +43,7 @@ export class CreateAppointmentForm extends React.Component {
                 }
                 return Promise.reject(
                     new SubmissionError({
-                        _error: 'Error creating appointment'
+                        _error: 'Error updating appointment'
                     })
                 );
             });
@@ -52,7 +53,7 @@ export class CreateAppointmentForm extends React.Component {
         if (this.props.submitSucceeded) {
             successMessage = (
                 <div className="message success-message">
-                    Appointment created successfully!
+                    Appointment updated successfully!
                 </div>
             );
         }
@@ -73,21 +74,21 @@ export class CreateAppointmentForm extends React.Component {
                     type="text"
                     component={Input}
                     label="Date"
-                    validate={[required, nonEmpty]}
+                    validate={[required]}
                 />
                 <Field 
-                    name="reason"
+                    name="description"
                     type="text"
                     component={Input}
                     label="Reason"
-                    validate={[required, nonEmpty]}
+                    validate={[required]}
                 />
                 <Field 
                     name="time"
                     type="text"
                     component={Input}
                     label="Time"
-                    validate={[required, nonEmpty]}
+                    validate={[required]}
                 />
                 <Field 
                     name="with"
@@ -100,48 +101,49 @@ export class CreateAppointmentForm extends React.Component {
                     type="text"
                     component={Input}
                     label="Title"
-                    validate={[required, nonEmpty]}
+                    validate={[required]}
                 />
                 <Field 
                     name="where"
                     type="text"
                     component={Input}
                     label="Where"
-                    validate={[required, nonEmpty]}
+                    validate={[required]}
                 />
                 <Field 
-                    name="address"
+                    name="address.street"
                     type="text"
                     component={Input}
                     label="Address"
-                    validate={[required, nonEmpty]}
+                    validate={[required]}
                 />
                 <Field 
-                    name="city"
+                    name="address.city"
                     type="text"
                     component={Input}
                     label="City"
-                    validate={[required, nonEmpty]}
+                    validate={[required]}
                 />
                 <Field 
-                    name="state"
+                    name="address.state"
                     type="text"
                     component={Input}
                     label="State"
-                    validate={[required, nonEmpty]}
+                    validate={[required]}
                 />
                 <Field 
-                    name="zip-code"
+                    name="address.zipCode"
                     type="text"
                     component={Input}
                     label="Zip Code"
-                    validate={[required, nonEmpty]}
+                    validate={[required]}
                 />
                 <Field 
-                    name="phone-number"
+                    name="phoneNumber"
                     type="text"
                     component={Input}
                     label="Phone Number"
+                    validate={[required]}
                 />
                 <button
                     type="submit"
@@ -155,11 +157,18 @@ export class CreateAppointmentForm extends React.Component {
 
 const mapStateToProps = state => ({
     user: state.auth.currentUser,
-    authToken: state.auth.authToken
+    authToken: state.auth.authToken,
+    initialValues: state.app.loadedAppointmentFormData
 });
-CreateAppointmentForm = connect(mapStateToProps)(CreateAppointmentForm);
+
+EditAppointmentForm = reduxForm({
+    form: 'EditAppointmentForm',
+    enableReinitialize: true
+})(EditAppointmentForm);
+
+EditAppointmentForm = connect(mapStateToProps)(EditAppointmentForm);
 
 export default reduxForm({
-    form: 'createAppointment',
+    form: 'editAppointment',
     onSubmitFail: (errors, dispatch) =>
-        dispatch(focus('createAppointment', Object.keys(errors)[0]))})(CreateAppointmentForm);
+        dispatch(focus('editAppointment', Object.keys(errors)[0]))})(EditAppointmentForm);

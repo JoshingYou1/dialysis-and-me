@@ -3,13 +3,18 @@ import AppointmentsList from './appointmentsList';
 import AppointmentsShow from './appointmentsShow';
 import NavigationBar from './navBar';
 import {connect} from 'react-redux';
-import { fetchAppointments,  toggleAppointmentInfo, selectAppointmentById } from '../actions';
+import { fetchAppointments,  toggleAppointmentInfo, selectAppointmentById, chooseCreateAppointment } from '../actions';
 import requiresLogin from './requires-login';
 import Footer from './footer';
+import CreateAppointmentForm from './createAppointmentForm';
 
 export class Appointments extends React.Component {
     componentDidMount() {
         this.props.dispatch(fetchAppointments(this.props.user.id));
+    }
+
+    toggleAppointmentInfo() {
+        this.props.dispatch(toggleAppointmentInfo(true));
     }
 
     chooseAppointmentsByMonth(choice) {
@@ -19,10 +24,6 @@ export class Appointments extends React.Component {
         });
         this.props.dispatch(selectAppointmentById(appointments));
         this.toggleAppointmentInfo();
-    }
-
-    toggleAppointmentInfo() {
-        this.props.dispatch(toggleAppointmentInfo(true));
     }
 
     render() {
@@ -56,6 +57,15 @@ export class Appointments extends React.Component {
                             <AppointmentsList list={list} chooseAppointmentsByMonth={choice => this.chooseAppointmentsByMonth(choice)}/>
                             <AppointmentsShow />
                         </section>
+                        <p>Need to create an appointment?</p>
+                        <button
+                            onClick={() => this.props.dispatch(chooseCreateAppointment())}
+                        >
+                            Click here
+                        </button>
+                        <div className={"create-appointment-form " + (this.props.isCreateAppointmentFormShowing ? '' : 'hidden-1')}>
+                            <CreateAppointmentForm /> 
+                        </div> 
                     </main>
                     <Footer />
                 </div>
@@ -72,7 +82,7 @@ export class Appointments extends React.Component {
 const mapStateToProps = state => ({
     appointments: state.app.appointments,
     user: state.auth.currentUser,
-    isAppointmentInfoShowing: state.isAppointmentInfoShowing
+    isCreateAppointmentFormShowing: state.app.isCreateAppointmentFormShowing
 });
 
 export default requiresLogin()(connect(mapStateToProps)(Appointments));

@@ -6,6 +6,10 @@ import {toggleSidebar, toggleSublinks} from '../actions';
 
 
 export class Sidebar extends React.Component {
+    refreshPage() {
+        window.location.reload();
+    }
+
     render() {
         const sidebarLinks = [
             {
@@ -60,14 +64,27 @@ export class Sidebar extends React.Component {
                         className="sidebar-link"
                         to={l.link}
                         key={i}
-                        onClick={() => this.props.dispatch(toggleSidebar())}
+                        onClick={() => {this.props.dispatch(toggleSidebar()); this.refreshPage()}}
                     >
                         {l.display}
                     </Link>
-                    <Sublinks 
-                        parent={l.display.replace(' ', '')}
-                        sublinks={l.sublinks}
-                    />
+                    <button 
+                        className={"fas fa-caret-down fa-2x " + (this.props.areSublinksShowing ? 'hidden-1' : '')}
+                        onClick={() => this.props.dispatch(toggleSublinks())}
+                    >
+                    </button>
+                    <button 
+                        className={"fas fa-caret-up fa-2x " + (this.props.areSublinksShowing ? '' : 'hidden-1')}
+                        onClick={() => this.props.dispatch(toggleSublinks())}
+                    >
+                    </button>
+                    <div className={"sublinks-div " + (this.props.areSublinksShowing ? '' : 'hidden-1')}>
+                        <Sublinks 
+                            parent={l.display.replace(' ', '')}
+                            sublinks={l.sublinks}
+                            onClick={this.refreshPage}
+                        />
+                    </div>
                 </li>
                 );
             }
@@ -75,10 +92,10 @@ export class Sidebar extends React.Component {
             return (
                 <li className="sidebar-list-item">
                     <Link 
-                        className="sidebar-link"
+                        className="sidebar-link-2"
                         to={l.link}
                         key={i}
-                        onClick={() => this.props.dispatch(toggleSidebar())}
+                        onClick={() => {this.props.dispatch(toggleSidebar()); this.refreshPage()}}
                     >
                         {l.display}
                     </Link>
