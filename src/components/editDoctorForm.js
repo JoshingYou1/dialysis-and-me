@@ -5,10 +5,10 @@ import {API_BASE_URL} from '../config';
 import {required, nonEmpty} from '../validators';
 import { connect } from 'react-redux';
 
-export class CreateAppointmentForm extends React.Component {
+export class EditDoctorForm extends React.Component {
     onSubmit(values) {
-        return fetch(`${API_BASE_URL}/api/patients/${this.props.user.id}/appointments`, {
-            method: 'POST',
+        return fetch(`${API_BASE_URL}/api/patients/${this.props.user.id}/doctors`, {
+            method: 'PUT',
             body: JSON.stringify(values),
             headers: {
                 'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export class CreateAppointmentForm extends React.Component {
                 }
                 return Promise.reject(
                     new SubmissionError({
-                        _error: 'Error creating appointment'
+                        _error: 'Error updating appointment'
                     })
                 );
             });
@@ -52,7 +52,7 @@ export class CreateAppointmentForm extends React.Component {
         if (this.props.submitSucceeded) {
             successMessage = (
                 <div className="message success-message">
-                    Appointment successfully created!
+                    Doctor successfully updated!
                 </div>
             );
         }
@@ -65,98 +65,89 @@ export class CreateAppointmentForm extends React.Component {
             );
         }
         return (
-            <form className="appointment-form" onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+            <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
                 {successMessage}
                 {errorMessage}
-                    {/* <label className="appointment-form-label" htmlFor="date"></label> */}
-                    <Field 
-                        name="date"
-                        type="text"
-                        component={InputTwo}
-                        label="Date"
-                        validate={[required, nonEmpty]}
-                    />
-                    {/* <label className="appointment-form-label" htmlFor="reason"></label> */}
-                    <Field 
-                        name="reason"
-                        type="text"
-                        component={InputTwo}
-                        label="Reason"
-                        validate={[required, nonEmpty]}
-                    />
-                {/* <label className="appointment-form-label slot-3" htmlFor="time"></label> */}
+                <label className="doctor-form-label" htmlFor="name.firstName"></label>
                 <Field 
-                    name="time"
+                    name="name.firstName"
                     type="text"
                     component={InputTwo}
-                    label="Time"
-                    validate={[required, nonEmpty]}
+                    label="First Name"
+                    validate={[required]}
                 />
-                {/* <label className="appointment-form-label slot-1" htmlFor="with"></label> */}
+                <label className="doctor-form-label" htmlFor="name.lastName"></label>
                 <Field 
-                    name="with"
+                    name="name.lastName"
                     type="text"
                     component={InputTwo}
-                    label="With"
+                    label="Last Name"
+                    validate={[required]}
                 />
-                {/* <label className="appointment-form-label slot-2" htmlFor="title"></label> */}
+                <label className="doctor-form-label" htmlFor="practice"></label>
                 <Field 
-                    name="title"
+                    name="practice"
                     type="text"
                     component={InputTwo}
-                    label="Title"
-                    validate={[required, nonEmpty]}
+                    label="Practice"
+                    validate={[required]}
                 />
-                {/* <label className="appointment-form-label slot-3" htmlFor="where"></label> */}
+                <label className="doctor-form-label" htmlFor="company"></label>
                 <Field 
-                    name="where"
+                    name="company"
                     type="text"
                     component={InputTwo}
-                    label="Where"
-                    validate={[required, nonEmpty]}
+                    label="Company"
                 />
-                {/* <label className="appointment-form-label slot-1" htmlFor="address"></label> */}
+                <label className="doctor-form-label" htmlFor="address.street"></label>
                 <Field 
-                    name="address"
+                    name="address.street"
                     type="text"
                     component={InputTwo}
                     label="Address"
-                    validate={[required, nonEmpty]}
+                    validate={[required]}
                 />
-                {/* <label className="appointment-form-label slot-2" htmlFor="city"></label> */}
+                <label className="doctor-form-label" htmlFor="address.city"></label>
                 <Field 
-                    name="city"
+                    name="address.city"
                     type="text"
                     component={InputTwo}
                     label="City"
-                    validate={[required, nonEmpty]}
+                    validate={[required]}
                 />
-                {/* <label className="appointment-form-label slot-3" htmlFor="state"></label> */}
+                <label className="doctor-form-label" htmlFor="address.state"></label>
                 <Field 
-                    name="state"
+                    name="address.state"
                     type="text"
                     component={InputTwo}
                     label="State"
-                    validate={[required, nonEmpty]}
+                    validate={[required]}
                 />
-                {/* <label className="appointment-form-label slot-1" htmlFor="zip-code"></label> */}
+                <label className="doctor-form-label" htmlFor="address.zipCode"></label>
                 <Field 
-                    name="zip-code"
+                    name="address.zipCode"
                     type="text"
                     component={InputTwo}
                     label="Zip Code"
-                    validate={[required, nonEmpty]}
+                    validate={[required]}
                 />
-                {/* <label className="appointment-form-label slot-2" htmlFor="phone-number"></label> */}
-                <Field
-                    className="hello" 
-                    name="phone-number"
+                <label className="doctor-form-label" htmlFor="phoneNumber"></label>
+                <Field 
+                    name="phoneNumber"
                     type="text"
                     component={InputTwo}
                     label="Phone Number"
+                    validate={[required]}
+                />
+                <label className="doctor-form-label" htmlFor="faxNumber"></label>
+                <Field 
+                    name="faxNumber"
+                    type="text"
+                    component={InputTwo}
+                    label="Fax Number"
+                    validate={[required]}
                 />
                 <button
-                    className="appointment-submit-button"
                     type="submit"
                     disabled={this.props.pristine || this.props.submitting}>
                     Submit
@@ -168,11 +159,18 @@ export class CreateAppointmentForm extends React.Component {
 
 const mapStateToProps = state => ({
     user: state.auth.currentUser,
-    authToken: state.auth.authToken
+    authToken: state.auth.authToken,
+    initialValues: state.app.loadedDoctorFormData
 });
-CreateAppointmentForm = connect(mapStateToProps)(CreateAppointmentForm);
+
+EditDoctorForm = reduxForm({
+    form: 'EditDoctorForm',
+    enableReinitialize: true
+})(EditDoctorForm);
+
+EditDoctorForm = connect(mapStateToProps)(EditDoctorForm);
 
 export default reduxForm({
-    form: 'createAppointment',
+    form: 'editDoctor',
     onSubmitFail: (errors, dispatch) =>
-        dispatch(focus('createAppointment', Object.keys(errors)[0]))})(CreateAppointmentForm);
+        dispatch(focus('editDoctor', Object.keys(errors)[0]))})(EditDoctorForm);

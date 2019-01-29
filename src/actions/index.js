@@ -219,11 +219,11 @@ export const chooseCreateAppointment = isCreateAppointmentFormShowing => ({
     isCreateAppointmentFormShowing
 });
 
-export const CHOOSE_EDIT_APPOINTMENT = 'CHOOSE_EDIT_APPOINTMENT';
-export const chooseEditAppointment = isEditAppointmentFormShowing => ({
-    type: CHOOSE_EDIT_APPOINTMENT,
-    isEditAppointmentFormShowing
-});
+// export const CHOOSE_EDIT_APPOINTMENT = 'CHOOSE_EDIT_APPOINTMENT';
+// export const chooseEditAppointment = isEditAppointmentFormShowing => ({
+//     type: CHOOSE_EDIT_APPOINTMENT,
+//     isEditAppointmentFormShowing
+// });
 
 export const LOAD_APPOINTMENT_FORM_DATA = 'LOAD_APPOINTMENT_FORM_DATA';
 export const loadAppointmentFormData = loadAppointmentFormData => ({
@@ -318,6 +318,12 @@ export const deleteDoctor = (patientId, doctorId) => (dispatch, getState) => {
         });
 };
 
+export const LOAD_DOCTOR_FORM_DATA = 'LOAD_DOCTOR_FORM_DATA';
+export const loadDoctorFormData = loadDoctorFormData => ({
+    type: LOAD_DOCTOR_FORM_DATA,
+    loadDoctorFormData
+});
+
 export const CHOOSE_EDIT_BASIC_PROFILE_INFO = 'CHOOSE_EDIT_BASIC_PROFILE_INFO';
 export const chooseEditBasicProfileInfo = isEditBasicProfileInfoFormShowing => ({
     type: CHOOSE_EDIT_BASIC_PROFILE_INFO,
@@ -353,5 +359,11 @@ export const EDIT_SELECTED_APPOINTMENT_BY_ID = 'EDIT_SELECTED_APPOINTMENT_BY_ID'
 export const editSelectedAppointmentById = selectedAppointment => ({
     type: EDIT_SELECTED_APPOINTMENT_BY_ID,
     selectedAppointment
+});
+
+export const DISCARD_APPOINTMENT_FORM_CHANGES = 'DISCARD_APPOINTMENT_FORM_CHANGES';
+export const discardAppointmentFormChanges = discardChanges => ({
+    type: DISCARD_APPOINTMENT_FORM_CHANGES,
+    discardChanges
 });
 

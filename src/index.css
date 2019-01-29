@@ -23,48 +23,177 @@ button {
   outline: none;
 }
 
-.logo {
-  height: 5em;
-  margin-top: 3em
+.landing-logo {
+  height: 4em;
+  vertical-align: middle;
+}
+
+.landing-page-container {
+  height: 100vh;
+}
+
+.landing-background-image {
+  display: none;
 }
 
 .landing-main {
   text-align: center;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.landing-logo-span-1, .landing-logo-span-2 {
+  font-family: 'Oregano', cursive;
+  font-size: 2em;
+  vertical-align: middle;
+}
+
+.landing-logo-span-1 {
+  color: #008099;
+}
+
+.landing-logo-span-2 {
+  color: #7700B4;
+}
+
+.landing-h2 {
+  color: #7700B4;
+  margin-bottom: 2em;
+  margin-top: 2em;
+}
+
+.landing-p {
+  color: #7700B4;
+}
+
+.landing-link {
+  display: inline-block;
+  background-color: #FF9D14;
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+  margin-top: 2em;
+}
+
+.landing-link:hover {
+  background-color: #008099;
 }
 
 .login-logo {
   height: 5em;
-  margin-top: 3em;
+  margin-top: 0;
   margin-bottom: 2em;
   margin-left: auto;
   margin-right: auto;
   display: block;
 }
 
+.login-container {
+  height: 100vh;
+}
+
 .login {
   display: block;
   text-align: center;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  margin-bottom: 0;
 }
+
 
 .login-form {
   display: inline-block;
   margin-left: auto;
   margin-right: auto;
   text-align: left;
-  padding: 1em;
+  padding: 2em;
   border: 1px solid gainsboro;
   border-radius: 4px;
+  background-color: #7700B4;
+  color: white;
+}
+
+.login-form-label {
+  display: inline-block;
+  margin-bottom: 5px;
 }
 
 .form-input {
   border-radius: 1px;
+  margin-bottom: 15px;
+}
+
+.form-error {
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.input-one {
+  padding: 5px;
+  font-size: 15px;
+  color: white;
+}
+
+.input-two {
+  font-size: unset;
+  padding: 0;
+  width: unset;
+}
+
+.input-two-label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-two {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 5px;
+  color: white;
+  font-size: 15px;
+}
+
+.input-one:focus, .input-two:focus {
+  background-color: #008099;
+  outline: none;
+}
+
+.input-one:-webkit-autofill,
+.input-one:-webkit-autofill:hover,
+.input-one:-webkit-autofill:focus,
+.input-one:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-box-shadow: 0 0 0px 1000px #008099 inset;
+    -webkit-text-fill-color: white;
+}
+
+.input-two:-webkit-autofill,
+.input-two:-webkit-autofill:hover,
+.input-two:-webkit-autofill:focus,
+.input-two:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-box-shadow: 0 0 0px 1000px #008099 inset;
+    -webkit-text-fill-color: white;
 }
 
 .login-button {
   border-radius: 4px;
   width: 100%;
   margin-top: 1em;
-  padding: 0.4em;
+  padding: 0.65em;
+  border: 0;
+  background-color: #FF9D14;
+  color: white;
+  cursor: pointer;
 }
 
 .container {
@@ -136,8 +265,8 @@ header {
   position: absolute;
   top: 110%;
   left: auto;
-  z-index: 90;
-  right: 5.5em;
+  z-index: 0;
+  right: 4em;
   background-color: #7700B4;
   color: white;
 }
@@ -158,13 +287,17 @@ header {
   background-color: #008099;
 }
 
-.fa-sort-down {
+.fa-sort-down, .fa-sort-up {
   vertical-align: super;
   padding-right: 6px;
   cursor: pointer;
 }
 
-.fa-sort-down:hover {
+.fa-sort-up {
+  vertical-align: middle;
+}
+
+.fa-sort-down:hover, .fa-sort-up {
   color: #008099;
 }
 
@@ -869,17 +1002,80 @@ footer {
 }
 
 .grid-e-span {
-  padding-bottom: 5px;
+  padding-bottom: 4px;
   grid-column-start: e;
   grid-column-end: e;
   font-weight: bold;
 }
 
 .grid-f-span {
-  padding-bottom: 5px;
+  padding-bottom: 4px;
   text-align: right;
   grid-column-start: f;
   grid-column-end: f;
+}
+
+.create-appointment-p {
+  text-align: center;
+  margin-top: 3em;
+}
+
+.create-appointment-button-holder {
+  text-align: center;
+}
+
+.create-appointment-button {
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  background-color: #FF9D14;
+  color: white;
+  cursor: pointer;
+}
+
+.create-appointment-form {
+  margin-right: auto;
+  margin-left: auto;
+  width: 60%;
+}
+
+.appointment-button-holder {
+  grid-column-start: e;
+  grid-column-end: f;
+  text-align: center;
+  margin-top: 1em;
+}
+
+.appointment-submit-button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  padding: 8.2px;
+  border-radius: 4px;
+  border: 0;
+  margin-top: 10px;
+  background: #FF9D14;
+  color: white;
+  cursor: pointer;
+}
+
+.edit-appointment-button, .delete-appointment-button {
+  width: 6em;
+  padding: 8px;
+  background-color: #FF9D14;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.delete-appointment-button {
+  margin-left: 3em;
+}
+
+.edit-appointment-button {
+  margin-right: 3em;
 }
 
 .about-link {
@@ -908,6 +1104,10 @@ footer {
   .display-section {
     height: 390px;
   }
+
+  .create-appointment-form {
+    width: 55%;
+  }
 }
 
 @media only screen and (min-width: 425px) {
@@ -927,9 +1127,88 @@ footer {
     padding-top: 7px;
     padding-bottom: 7px;
   }
+
+  .create-appointment-form {
+    width: 50%;
+  }
 }
 
 @media (min-width: 768px) {
+  .landing-main {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .landing-logo {
+    height: 6em;
+  }
+  .landing-logo-span-1, .landing-logo-span-2 {
+    font-size: 2.5em;
+  }
+
+  .landing-h2 {
+    font-size: 1.5em;
+  }
+
+  .landing-p {
+    font-size: 1.2em;
+  }
+
+  .landing-link {
+    font-size: 1.2em;
+    padding: 15px;
+  }
+
+  .landing-background-image {
+    display: inline-block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    filter: brightness(90%);
+    opacity: 0.6;
+  }
+
+  .login-logo {
+    height: 8em;
+  }
+
+  .login-container {
+    height: 100vh;
+  }
+
+  .login {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+  .login-form {
+    padding-left: 4em;
+    padding-right: 4em;
+    width: 400px;
+  }
+
+  .login-form-label {
+    font-size: 20px;
+  }
+  
+  .form-error {
+    margin-bottom: 4px;
+    font-size: 20px;
+  }
+
+  .input-one {
+    width: 100%;
+    padding: 9px;
+    font-size: 20px;
+  }
+
+  .login-button {
+    padding: 11px;
+    font-size: 20px;
+  }
+
   header {
     border-bottom: 1px solid #eaeaea;
     box-shadow: 0 -1px 4px rgba(0,0,0,0.4);
@@ -965,6 +1244,10 @@ footer {
     height: 4em;
   }
 
+  .user-display {
+    right: 5.5em;
+  }
+
   .logo-span-1, .logo-span-2 {
     font-size: 2em
   }
@@ -986,6 +1269,10 @@ footer {
   .fa-sort-down {
     font-size: 1.5em;
     vertical-align: unset;
+  }
+
+  .fa-sort-up {
+    vertical-align: -webkit-baseline-middle;
   }
 
   .fa-user-circle, .fa-bars {
@@ -1062,6 +1349,10 @@ footer {
     grid-template-columns: 1fr 1fr;
   }
 
+  .appointment-date-h2, .appointments-list-h2 {
+    margin-top: 0;
+  }
+
   .show {
     grid-area: show;
     justify-self: center;
@@ -1120,7 +1411,74 @@ footer {
     margin-left: auto;
     margin-right: auto;
     overflow-y: scroll;
-    height: 320px;
+    height: 300px;
+    margin-bottom: 0.7em;
+  }
+
+  .create-appointment-p {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    bottom: 18%;
+    font-size: 18px;
+  }
+
+  .create-appointment-button-holder {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    transform: translateX(-50%);
+    bottom: 12%;
+  }
+
+  .create-appointment-button {
+    font-size: 18px;
+  }
+
+  .create-appointment-form {
+    width: 90%;
+  }
+
+  .appointment-form {
+    display: grid;
+    grid-template-areas: 
+      "slot-1 slot-2 slot-3";
+    grid-template-columns: 1fr 1fr 1fr;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: end;
+    grid-column-gap: 1em;
+  }
+
+  .input-two-label {
+    font-size: 20px;
+  }
+
+  .slot-1 {
+    grid-column-start: slot-1;
+    grid-column-end: slot-1;
+  }
+
+  .slot-2 {
+    grid-column-start: slot-2;
+    grid-column-end: slot-2;
+  }
+
+  .slot-3 {
+    grid-column-start: slot-3;
+    grid-column-end: slot-3;
+  }
+
+  .appointment-submit-button {
+    grid-column-start: slot-2;
+    margin-top: 2em;
+    font-size: 20px;
+    padding: 4.2px;
+    width: 60%
   }
 }
 
@@ -1162,6 +1520,15 @@ footer {
 }
 
 @media (min-width: 1000px) {
+  /* .landing-page-container {
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),
+      url(https://blog.transonic.com/hubfs/images/2017/_Blog/dialysis-patient-experience.jpg) no-repeat center center;
+    -webkit-background-size: contain;
+    -moz-background-size:contain;
+    -o-background-size: contain;
+    background-size: 100%;
+  } */
+
   .header-quick-link {
     margin-left: 10px;
     margin-right: 10px;
@@ -1227,6 +1594,25 @@ footer {
 }
 
 @media (min-width: 1300px) {
+  .landing-logo {
+    height: 8em;
+  }
+  .landing-logo-span-1, .landing-logo-span-2 {
+    font-size: 3.5em;
+  }
+
+  .landing-h2 {
+    font-size: 2.5em;
+  }
+
+  .landing-p {
+    font-size: 1.6em;
+  }
+
+  .landing-link {
+    font-size: 1.6em;
+  }
+
   .appointments-show-list {
     width: 65%;
   }

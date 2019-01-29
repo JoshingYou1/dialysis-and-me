@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Input extends React.Component {
+export default class InputTwo extends React.Component {
     componentDidUpdate(prevProps) {
         if (!prevProps.meta.active && this.props.meta.active) {
             this.input.focus();
@@ -21,14 +21,14 @@ export default class Input extends React.Component {
         }
 
         return (
-            <div className="form-input">
-                <label htmlFor={this.props.input.name}>
+            <div className="form-input-2">
+                <label className="input-two-label" htmlFor={this.props.input.name}>
                     {this.props.label}
                     {error}
                     {warning}
                 </label>
                 <input
-                    className="input-one"
+                    className="input-two"
                     {...this.props.input}
                     id={this.props.input.name}
                     type={this.props.type}

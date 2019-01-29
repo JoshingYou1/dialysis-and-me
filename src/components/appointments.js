@@ -3,7 +3,7 @@ import AppointmentsList from './appointmentsList';
 import AppointmentsShow from './appointmentsShow';
 import NavigationBar from './navBar';
 import {connect} from 'react-redux';
-import { fetchAppointments,  toggleAppointmentInfo, selectAppointmentById, chooseCreateAppointment } from '../actions';
+import { fetchAppointments,  toggleAppointmentInfo, selectAppointmentById, chooseCreateAppointment, discardAppointmentFormChanges } from '../actions';
 import requiresLogin from './requires-login';
 import Footer from './footer';
 import CreateAppointmentForm from './createAppointmentForm';
@@ -53,18 +53,26 @@ export class Appointments extends React.Component {
                     <NavigationBar />
                     <main role="main">
                         <h1>Appointments</h1>
-                        <section className="appointments-section">
+                        <section className={"appointments-section " + (this.props.isCreateAppointmentFormShowing ? 'hidden-1' : '')}>
                             <AppointmentsList list={list} chooseAppointmentsByMonth={choice => this.chooseAppointmentsByMonth(choice)}/>
                             <AppointmentsShow />
                         </section>
-                        <p>Need to create an appointment?</p>
-                        <button
-                            onClick={() => this.props.dispatch(chooseCreateAppointment())}
-                        >
-                            Click here
-                        </button>
+                        <p className={"create-appointment-p " + (this.props.isCreateAppointmentFormShowing ? 'hidden-1' : '')}>
+                            Need to create an appointment?
+                        </p>
+                        <div className={"create-appointment-button-holder " + (this.props.isCreateAppointmentFormShowing ? 'hidden-1' : '')}>
+                            <button
+                                className="create-appointment-button"
+                                onClick={() => this.props.dispatch(chooseCreateAppointment())}
+                            >
+                                Click here
+                            </button>
+                        </div>
                         <div className={"create-appointment-form " + (this.props.isCreateAppointmentFormShowing ? '' : 'hidden-1')}>
-                            <CreateAppointmentForm /> 
+                            <CreateAppointmentForm />
+                            <button className="discard-appointment-button">
+                                Discard Changes
+                            </button>
                         </div> 
                     </main>
                     <Footer />

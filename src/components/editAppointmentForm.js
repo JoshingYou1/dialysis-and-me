@@ -1,9 +1,8 @@
 import React from 'react';
 import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
-import Input from './input';
+import InputTwo from './inputTwo';
 import {API_BASE_URL} from '../config';
 import {required, nonEmpty} from '../validators';
-import { fetchProfileInfo } from '../actions';
 import { connect } from 'react-redux';
 
 export class EditAppointmentForm extends React.Component {
@@ -49,108 +48,130 @@ export class EditAppointmentForm extends React.Component {
             });
     }
     render() {
-        let successMessage;
-        if (this.props.submitSucceeded) {
-            successMessage = (
-                <div className="message success-message">
-                    Appointment updated successfully!
-                </div>
-            );
-        }
-        let errorMessage;
-        if (this.props.error) {
-            errorMessage = (
-                <div className="message error-message">
-                    {this.props.error}
-                </div>
+        console.log('selectedAppointment', this.props.selectedAppointment);
+        console.log('initialValues', this.props.initialValues);
+        
+        if ((this.props.selectedAppointment && this.props.initialValues) && this.props.initialValues._id === this.props.selectedAppointment._id) {
+            console.log('selectedAppointment.id', this.props.selectedAppointment._id);
+            console.log('initialValues.id', this.props.initialValues._id);
+            let successMessage;
+            if (this.props.submitSucceeded) {
+                successMessage = (
+                    <div className="message success-message">
+                        Appointment successfully updated!
+                    </div>
+                );
+            }
+            let errorMessage;
+            if (this.props.error) {
+                errorMessage = (
+                    <div className="message error-message">
+                        {this.props.error}
+                    </div>
+                );
+            }
+            return (
+                <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+                    {successMessage}
+                    {errorMessage}
+                    <label className="appointment-form-label" htmlFor="date"></label>
+                    <Field 
+                        name="date"
+                        type="text"
+                        component={InputTwo}
+                        label="Date"
+                        validate={[required]}
+                    />
+                    <label className="appointment-form-label" htmlFor="reason"></label>
+                    <Field 
+                        name="description"
+                        type="text"
+                        component={InputTwo}
+                        label="Reason"
+                        validate={[required]}
+                    />
+                    <label className="appointment-form-label" htmlFor="time"></label>
+                    <Field 
+                        name="time"
+                        type="text"
+                        component={InputTwo}
+                        label="Time"
+                        validate={[required]}
+                    />
+                    <label className="appointment-form-label" htmlFor="with"></label>
+                    <Field 
+                        name="with"
+                        type="text"
+                        component={InputTwo}
+                        label="With"
+                    />
+                    <label className="appointment-form-label" htmlFor="title"></label>
+                    <Field 
+                        name="title"
+                        type="text"
+                        component={InputTwo}
+                        label="Title"
+                        validate={[required]}
+                    />
+                    <label className="appointment-form-label" htmlFor="where"></label>
+                    <Field 
+                        name="where"
+                        type="text"
+                        component={InputTwo}
+                        label="Where"
+                        validate={[required]}
+                    />
+                    <label className="appointment-form-label" htmlFor="address.street"></label>
+                    <Field 
+                        name="address.street"
+                        type="text"
+                        component={InputTwo}
+                        label="Address"
+                        validate={[required]}
+                    />
+                    <label className="appointment-form-label" htmlFor="address.city"></label>
+                    <Field 
+                        name="address.city"
+                        type="text"
+                        component={InputTwo}
+                        label="City"
+                        validate={[required]}
+                    />
+                    <label className="appointment-form-label" htmlFor="address.state"></label>
+                    <Field 
+                        name="address.state"
+                        type="text"
+                        component={InputTwo}
+                        label="State"
+                        validate={[required]}
+                    />
+                    <label className="appointment-form-label" htmlFor="address.zipCode"></label>
+                    <Field 
+                        name="address.zipCode"
+                        type="text"
+                        component={InputTwo}
+                        label="Zip Code"
+                        validate={[required]}
+                    />
+                    <label className="appointment-form-label" htmlFor="phoneNumber"></label>
+                    <Field 
+                        name="phoneNumber"
+                        type="text"
+                        component={InputTwo}
+                        label="Phone Number"
+                        validate={[required]}
+                    />
+                    <button
+                        type="submit"
+                        disabled={this.props.pristine || this.props.submitting}>
+                        Submit
+                    </button>
+                </form>
+        
             );
         }
         return (
-            <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
-                {successMessage}
-                {errorMessage}
-                <Field 
-                    name="date"
-                    type="text"
-                    component={Input}
-                    label="Date"
-                    validate={[required]}
-                />
-                <Field 
-                    name="description"
-                    type="text"
-                    component={Input}
-                    label="Reason"
-                    validate={[required]}
-                />
-                <Field 
-                    name="time"
-                    type="text"
-                    component={Input}
-                    label="Time"
-                    validate={[required]}
-                />
-                <Field 
-                    name="with"
-                    type="text"
-                    component={Input}
-                    label="With"
-                />
-                <Field 
-                    name="title"
-                    type="text"
-                    component={Input}
-                    label="Title"
-                    validate={[required]}
-                />
-                <Field 
-                    name="where"
-                    type="text"
-                    component={Input}
-                    label="Where"
-                    validate={[required]}
-                />
-                <Field 
-                    name="address.street"
-                    type="text"
-                    component={Input}
-                    label="Address"
-                    validate={[required]}
-                />
-                <Field 
-                    name="address.city"
-                    type="text"
-                    component={Input}
-                    label="City"
-                    validate={[required]}
-                />
-                <Field 
-                    name="address.state"
-                    type="text"
-                    component={Input}
-                    label="State"
-                    validate={[required]}
-                />
-                <Field 
-                    name="address.zipCode"
-                    type="text"
-                    component={Input}
-                    label="Zip Code"
-                    validate={[required]}
-                />
-                <Field 
-                    name="phoneNumber"
-                    type="text"
-                    component={Input}
-                    label="Phone Number"
-                    validate={[required]}
-                />
-                <button
-                    type="submit"
-                    disabled={this.props.pristine || this.props.submitting}>
-                    Submit
-                </button>
-            </form>
+            <div></div>
         );
     }
 }
@@ -158,7 +179,8 @@ export class EditAppointmentForm extends React.Component {
 const mapStateToProps = state => ({
     user: state.auth.currentUser,
     authToken: state.auth.authToken,
-    initialValues: state.app.loadedAppointmentFormData
+    initialValues: state.app.loadedAppointmentFormData,
+    selectedAppointment: state.app.selectedAppointment
 });
 
 EditAppointmentForm = reduxForm({

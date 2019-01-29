@@ -67,8 +67,8 @@ export class NavigationBar extends React.Component {
                             Appointments
                         </Link>
                     </div>
-                    <div onClick={() => this.props.dispatch(toggleUserInfo(true))} className="user-dropdown-div">
-                        <span className="fas fa-sort-down"></span>
+                    <div onClick={() => this.props.dispatch(toggleUserInfo())} className="user-dropdown-div">
+                        <span className={"fas fa-sort-down " + (this.props.isUserInfoShowing ? 'fas fa-sort-up' : '')}></span>
                         <span className="fas fa-user-circle"></span>
                     </div>
                     <div className={"user-display " + (this.props.isUserInfoShowing ? '' : 'hidden-1')}>
@@ -77,7 +77,7 @@ export class NavigationBar extends React.Component {
                     </div>
                     <span 
                         className="fas fa-bars" 
-                        onClick={() => {this.props.dispatch(toggleSidebar()); this.props.dispatch(toggleUserInfo(false))}}
+                        onClick={() => {this.props.dispatch(toggleSidebar())}}
                     >
                     </span>
                     <div className={"sidebar-display " + (this.props.isSidebarShowing ? '' : 'hidden-2')}>

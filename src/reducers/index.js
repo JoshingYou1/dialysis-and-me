@@ -24,7 +24,9 @@ import {
     CHOOSE_EDIT_BASIC_PROFILE_INFO,
     DELETE_APPOINTMENT_SUCCESS,
     DELETE_DOCTOR_SUCCESS,
-    EDIT_SELECTED_APPOINTMENT_BY_ID
+    EDIT_SELECTED_APPOINTMENT_BY_ID,
+    DISCARD_APPOINTMENT_FORM_CHANGES,
+    LOAD_DOCTOR_FORM_DATA
 } from '../actions/index';
 
 const initialState = {
@@ -45,7 +47,7 @@ const initialState = {
     isCreateDoctorFormShowing: false,
     isEditDoctorFormShowing: false,
     isEditBasicProfileInfoShowing: false,
-    selectedAppointment: 0
+    selectedAppointment: {}
 };
 
 export const appReducer = (state=initialState, action) => {
@@ -82,7 +84,7 @@ export const appReducer = (state=initialState, action) => {
     }
     else if (action.type === TOGGLE_USER_INFO) {
         return Object.assign({}, state, {
-            isUserInfoShowing: action.isUserInfoShowing
+            isUserInfoShowing: !state.isUserInfoShowing
         });
     }
     else if (action.type === TOGGLE_SUBLINKS) {
@@ -120,11 +122,11 @@ export const appReducer = (state=initialState, action) => {
             isCreateAppointmentFormShowing: !state.isCreateAppointmentFormShowing
         });
     }
-    else if (action.type === CHOOSE_EDIT_APPOINTMENT) {
-        return Object.assign({}, state, {
-            isEditAppointmentFormShowing: !state.isEditAppointmentFormShowing
-        });
-    }
+    // else if (action.type === CHOOSE_EDIT_APPOINTMENT) {
+    //     return Object.assign({}, state, {
+    //         isEditAppointmentFormShowing: !state.isEditAppointmentFormShowing
+    //     });
+    // }
     else if (action.type === LOAD_APPOINTMENT_FORM_DATA) {
         return Object.assign({}, state, {
             loadedAppointmentFormData: action.loadAppointmentFormData
@@ -170,6 +172,11 @@ export const appReducer = (state=initialState, action) => {
             deletedDoctor: action.deletedDoctor
         });
     }
+    else if (action.type === LOAD_DOCTOR_FORM_DATA) {
+        return Object.assign({}, state, {
+            loadedDoctorFormData: action.loadDoctorFormData
+        });
+    }
     else if (action.type === CHOOSE_EDIT_BASIC_PROFILE_INFO) {
         return Object.assign({}, state, {
             isEditBasicProfileInfoShowing: !state.isEditBasicProfileInfoShowing
@@ -178,6 +185,11 @@ export const appReducer = (state=initialState, action) => {
     else if (action.type === EDIT_SELECTED_APPOINTMENT_BY_ID) {
         return Object.assign({}, state, {
             selectedAppointment: action.selectedAppointment
+        });
+    }
+    else if (action.type === DISCARD_APPOINTMENT_FORM_CHANGES) {
+        return Object.assign({}, state, {
+            discardChanges: action.discardChanges
         });
     }
     console.log('state', state);
