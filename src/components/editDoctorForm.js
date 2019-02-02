@@ -42,7 +42,7 @@ export class EditDoctorForm extends React.Component {
                 }
                 return Promise.reject(
                     new SubmissionError({
-                        _error: 'Error updating appointment'
+                        _error: 'Error updating this doctor\'s information'
                     })
                 );
             });
@@ -65,7 +65,7 @@ export class EditDoctorForm extends React.Component {
             );
         }
         return (
-            <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+            <form className="edit-doctor-form" onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
                 {successMessage}
                 {errorMessage}
                 <label className="doctor-form-label" htmlFor="name.firstName"></label>
@@ -164,7 +164,7 @@ const mapStateToProps = state => ({
 });
 
 EditDoctorForm = reduxForm({
-    form: 'EditDoctorForm',
+    form: 'editDoctorForm',
     enableReinitialize: true
 })(EditDoctorForm);
 

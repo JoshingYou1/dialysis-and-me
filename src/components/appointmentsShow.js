@@ -1,6 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {toggleAppointmentInfo, loadAppointmentFormData, editSelectedAppointmentById, deleteAppointment} from '../actions';
+import {
+    toggleAppointmentInfo,
+    loadAppointmentFormData,
+    editSelectedAppointmentById,
+    deleteAppointment,
+    toggleAppointmentMenu
+} from '../actions';
 import { EditAppointmentForm } from './editAppointmentForm';
 
 export class AppointmentsShow extends React.Component {
@@ -21,14 +27,17 @@ export class AppointmentsShow extends React.Component {
         }
     }
 
-    showAppointmentForm(id) {
-        console.log('id', id);
-        console.log('this.selectedAppointment', this.props.selectedAppointment._id);
-        return id === this.props.selectedAppointment._id;
+    showAppointmentMenu(a) {
+        this.props.dispatch(toggleAppointmentMenu(a));
+    }
+
+    showAppointmentForm(a) {
+        this.props.dispatch(loadAppointmentFormData(a));
+        this.props.dispatch(editSelectedAppointmentById(a));
     } 
 
     render() {
-        let className = this.state.animate ? "appointments-show-list-item" : "appointments-show-list-item-2"
+        let className = this.state.animate ? "appointments-show-list-item" : "appointments-show-list-item-2";
         if (this.props.chosenAppointments) {
             const list = this.props.chosenAppointments.map((a, i) => {
                 let appointmentDate = new Date(a.date);
@@ -43,10 +52,39 @@ export class AppointmentsShow extends React.Component {
                 }
                 const year = appointmentDate.getFullYear();
 
-                let formattedAppointmentDate = `${month}/${day}/${year}`;
-                
+                let formattedAppointmentDate = `${month}/${day}/${year}`;      
             return (
                 <li className={className} key={i}>
+                    {/* <div>{a._id}</div>
+                    <div>{this.props.chosenAppointments._id}</div> */}
+                    <span 
+                        className="fas fa-ellipsis-v a"
+                        onClick={() => this.showAppointmentMenu(a)}
+                    >
+                    </span>
+                    <div 
+                        className={"appointment-button-holder-lg " 
+                        + (this.props.isAppointmentMenuShowing ? '' : 'hidden-1')}
+                        // + ((this.props.isAppointmentMenuShowing && a._id === this.props.selectedAppointmentToEdit._id) ? '' : 'hidden-1')}
+                    >
+                        <button 
+                            className="edit-appointment-button-lg"
+                            onClick={() => {this.showAppointmentForm(a)}}
+                        >
+                        <span className="fas fa-edit">&nbsp;&nbsp;</span>
+                            Edit
+                        </button>
+                        <button 
+                            className="delete-appointment-button-lg"
+                            onClick={() => this.props.dispatch(deleteAppointment())}
+                        >
+                        <span className="fas fa-trash-alt">&nbsp;&nbsp;</span>
+                            Delete
+                        </button>
+                    </div>
+                    <div className={"edit-appointment-form-div " + (a._id === this.props.loadAppointmentFormData._id ? '' : 'hidden-1')}>
+                            <EditAppointmentForm />
+                    </div>
                     <h2 className="appointment-date-h2">{formattedAppointmentDate}</h2>
 
                     <span className="grid-e-span">Reason:</span>
@@ -76,20 +114,24 @@ export class AppointmentsShow extends React.Component {
 
                     <span className="grid-e-span">Phone number:</span>
                     <span className="grid-f-span">{a.phoneNumber}</span>
-                    <div className="appointment-button-holder">
+                    <div className="appointment-button-holder-sm">
                         <button 
-                            className="edit-appointment-button"
-                            onClick={() => {
-                                this.props.dispatch(loadAppointmentFormData(a));
-                                this.props.dispatch(editSelectedAppointmentById(a))
-                            }}
+                            className="edit-appointment-button-sm"
+                            onClick={() => this.showAppointmentForm(a)}
                         >
+                        <span className="fas fa-edit">&nbsp;&nbsp;</span>
                             Edit
                         </button>
-                        <div className={"edit-appointment-form-div " + (a._id === this.props.loadedAppointmentFormData._id) ? '' : 'hidden-1'}>
+                        <div className={"edit-appointment-form-div " + (a._id === this.props.loadAppointmentFormData._id ? '' : 'hidden-1')}>
                             <EditAppointmentForm />
                         </div>
-                        <button className="delete-appointment-button" onClick={this.props.dispatch(deleteAppointment())}>Delete</button>
+                        <button 
+                            className="delete-appointment-button-sm"
+                            // onClick={this.props.dispatch(deleteAppointment())}
+                        >
+                        <span className="fas fa-trash-alt">&nbsp;&nbsp;</span>
+                            Delete
+                        </button>
                     </div>
                 </li>
             );
@@ -97,7 +139,7 @@ export class AppointmentsShow extends React.Component {
             return (
                 <div className={"show " + (this.props.isAppointmentInfoShowing ? '' : 'hidden-1')}>
                     <button className="desktop-hide" onClick={() => this.props.dispatch(toggleAppointmentInfo(false))}>
-                        <span className="fas fa-times 2x"></span>
+                        <span className="fas fa-times 2x a"></span>
                     </button>
                     <section className="appointments-show-section">
                         <ul className="appointments-show-list">
@@ -122,7 +164,9 @@ const mapStateToProps = state => {
     return {
         chosenAppointments: state.app.selectedAppointments,
         isAppointmentInfoShowing: state.app.isAppointmentInfoShowing,
-        selectedAppointment: state.app.selectedAppointment
+        selectedAppointmentToEdit: state.app.selectedAppointmentToEdit,
+        loadAppointmentFormData: state.app.loadAppointmentFormData,
+        isAppointmentMenuShowing: state.app.isAppointmentMenuShowing
     }
 };
 

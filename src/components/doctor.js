@@ -1,10 +1,33 @@
 import React from 'react';
+import { toggleDoctorMenu } from '../actions';
+import { connect } from 'react-redux';
 
-export default class Doctor extends React.Component {
+export class Doctor extends React.Component {
     render() {
         let d = this.props.doctor;
         return (
             <section className="doctor-section">
+                <span 
+                    className="fas fa-ellipsis-v b"
+                    onClick={() => this.props.dispatch(toggleDoctorMenu())}
+                >
+                <div className={"doctor-menu " + (this.props.isDoctorMenuShowing ? '' : 'hidden-1')}>
+                    <button 
+                        className="edit-doctor-button"
+                        // onClick={() => {this.showAppointmentForm(a)}}
+                    >
+                    <span className="fas fa-edit">&nbsp;&nbsp;</span>
+                        Edit
+                    </button>
+                    <button 
+                        className="delete-doctor-button"
+                        // onClick={() => this.props.dispatch(deleteAppointment())}
+                    >
+                    <span className="fas fa-trash-alt">&nbsp;&nbsp;</span>
+                        Delete
+                    </button>
+                </div>
+                </span>
                 <h3 className="doctor-h3">{d.name.firstName} {d.name.lastName}</h3>
 
                 <span className="grid-c-span">Practice:</span>
@@ -32,3 +55,9 @@ export default class Doctor extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    isDoctorMenuShowing: state.app.isDoctorMenuShowing
+});
+
+export default connect(mapStateToProps)(Doctor)

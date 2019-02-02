@@ -26,7 +26,7 @@ export class LabResultsShow extends React.Component {
             return (
                 <div className={"show " + (this.props.isLabResultsInfoShowing ? '' : 'hidden-1')}>
                     <button className="desktop-hide" onClick={() => this.props.dispatch(toggleLabResultsInfo(false))}>
-                        <span className="fas fa-times 2x"></span>
+                        <span className="fas fa-times 2x a"></span>
                     </button>
                     <section className={className}>
                         <h2 className="lab-results-show-h2">Hematology</h2>

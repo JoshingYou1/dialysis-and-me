@@ -4,6 +4,7 @@ import InputTwo from './inputTwo';
 import {API_BASE_URL} from '../config';
 import {required, nonEmpty} from '../validators';
 import { connect } from 'react-redux';
+import { createAppointment, chooseCreateAppointment } from '../actions';
 
 export class CreateAppointmentForm extends React.Component {
     onSubmit(values) {
@@ -65,7 +66,7 @@ export class CreateAppointmentForm extends React.Component {
             );
         }
         return (
-            <form className="appointment-form" onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+            <form className="create-appointment-form" onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
                 {successMessage}
                 {errorMessage}
                     {/* <label className="appointment-form-label" htmlFor="date"></label> */}
@@ -98,6 +99,7 @@ export class CreateAppointmentForm extends React.Component {
                     type="text"
                     component={InputTwo}
                     label="With"
+                    validate={[required, nonEmpty]}
                 />
                 {/* <label className="appointment-form-label slot-2" htmlFor="title"></label> */}
                 <Field 
@@ -154,12 +156,23 @@ export class CreateAppointmentForm extends React.Component {
                     type="text"
                     component={InputTwo}
                     label="Phone Number"
+                    validate={[required, nonEmpty]}
                 />
                 <button
+                    onClick={this.props.dispatch(createAppointment)}
                     className="appointment-submit-button"
                     type="submit"
-                    disabled={this.props.pristine || this.props.submitting}>
+                    disabled={this.props.pristine || this.props.submitting}
+                >
+                    <span className="fas fa-check">&nbsp;&nbsp;</span>
                     Submit
+                </button>
+                <button 
+                    className="cancel-appointment-form-changes-button"
+                    onClick={this.props.dispatch(chooseCreateAppointment())}
+                >
+                    <span className="fas fa-times b">&nbsp;&nbsp;</span>
+                    Cancel
                 </button>
             </form>
         );

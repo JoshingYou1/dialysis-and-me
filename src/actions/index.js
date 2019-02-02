@@ -12,12 +12,6 @@ export const toggleSidebar = isSidebarShowing => ({
     isSidebarShowing
 });
 
-export const CHOOSE_APPOINTMENT_MONTH = 'CHOOSE_APPOINTMENT_MONTH';
-export const chooseAppointmentMonth = month => ({
-    type: CHOOSE_APPOINTMENT_MONTH,
-    month
-});
-
 export const FETCH_LAB_RESULTS_SUCCESS = 'FETCH_LAB_RESULTS_SUCCESS';
 export const fetchLabResultsSuccess = labResults => ({
     type: FETCH_LAB_RESULTS_SUCCESS,
@@ -126,7 +120,7 @@ export const createAppointmentSuccess = createdAppointment => ({
     createdAppointment
 });
 
-export const createAppointment = (patientId) => (dispatch, getState) => {
+export const createAppointment = patientId => (dispatch, getState) => {
     fetch(`${API_BASE_URL}/api/patients/${patientId}/appointments`,
     {
         method: 'POST',
@@ -195,10 +189,10 @@ export const deleteAppointment = (patientId, appointmentId) => (dispatch, getSta
         });
 };
 
-export const SELECT_APPOINTMENT_BY_ID = 'SELECT_APPOINTMENT_BY_ID';
-export const selectAppointmentById = appointments => ({
-    type: SELECT_APPOINTMENT_BY_ID,
-    appointments
+export const SELECT_APPOINTMENTS_BY_ID = 'SELECT_APPOINTMENTS_BY_ID';
+export const selectAppointmentsById = selectedAppointments => ({
+    type: SELECT_APPOINTMENTS_BY_ID,
+    selectedAppointments
 });
 
 export const TOGGLE_APPOINTMENT_INFO = 'TOGGLE_APPOINTMENT_INFO';
@@ -249,7 +243,7 @@ export const createDoctorSuccess = createdDoctor => ({
     createdDoctor
 });
 
-export const createDoctor = (patientId,) => (dispatch, getState) => {
+export const createDoctor = patientId => (dispatch, getState) => {
     fetch(`${API_BASE_URL}/api/patients/${patientId}/doctors`,
     {
         method: 'POST',
@@ -336,7 +330,7 @@ export const updateBasicProfileInfoSucces = updatedBasicProfileInfo => ({
     updatedBasicProfileInfo
 });
 
-export const updateBasicProfileInfo = (patientId) => (dispatch, getState) => {
+export const updateBasicProfileInfo = patientId => (dispatch, getState) => {
     fetch(`${API_BASE_URL}/api/patients/${patientId}`,
     {
         method: 'PUT',
@@ -356,14 +350,26 @@ export const updateBasicProfileInfo = (patientId) => (dispatch, getState) => {
 };
 
 export const EDIT_SELECTED_APPOINTMENT_BY_ID = 'EDIT_SELECTED_APPOINTMENT_BY_ID';
-export const editSelectedAppointmentById = selectedAppointment => ({
+export const editSelectedAppointmentById = selectedAppointmentToEdit => ({
     type: EDIT_SELECTED_APPOINTMENT_BY_ID,
-    selectedAppointment
+    selectedAppointmentToEdit
 });
 
 export const DISCARD_APPOINTMENT_FORM_CHANGES = 'DISCARD_APPOINTMENT_FORM_CHANGES';
 export const discardAppointmentFormChanges = discardChanges => ({
     type: DISCARD_APPOINTMENT_FORM_CHANGES,
     discardChanges
+});
+
+export const TOGGLE_APPOINTMENT_MENU = 'TOGGLE_APPOINTMENT_MENU';
+export const toggleAppointmentMenu = isAppointmentMenuShowing => ({
+    type: TOGGLE_APPOINTMENT_MENU,
+    isAppointmentMenuShowing
+});
+
+export const TOGGLE_DOCTOR_MENU = 'TOGGLE_DOCTOR_MENU';
+export const toggleDoctorMenu = isDoctorMenuShowing => ({
+    type: TOGGLE_DOCTOR_MENU,
+    isDoctorMenuShowing
 });
 

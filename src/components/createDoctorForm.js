@@ -65,10 +65,10 @@ export class CreateDoctorForm extends React.Component {
             );
         }
         return (
-            <form onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+            <form className="create-doctor-form" onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
                 {successMessage}
                 {errorMessage}
-                <label className="doctor-form-label" htmlFor="first-name"></label>
+                {/* <label className="doctor-form-label" htmlFor="first-name"></label> */}
                 <Field 
                     name="first-name"
                     type="text"
@@ -76,7 +76,7 @@ export class CreateDoctorForm extends React.Component {
                     label="First Name"
                     validate={[required, nonEmpty]}
                 />
-                <label className="doctor-form-label" htmlFor="last-name"></label>
+                {/* <label className="doctor-form-label" htmlFor="last-name"></label> */}
                 <Field 
                     name="last-name"
                     type="text"
@@ -84,7 +84,7 @@ export class CreateDoctorForm extends React.Component {
                     label="Last Name"
                     validate={[required, nonEmpty]}
                 />
-                <label className="doctor-form-label" htmlFor="practice"></label>
+                {/* <label className="doctor-form-label" htmlFor="practice"></label> */}
                 <Field 
                     name="practice"
                     type="text"
@@ -92,14 +92,14 @@ export class CreateDoctorForm extends React.Component {
                     label="Practice"
                     validate={[required, nonEmpty]}
                 />
-                <label className="doctor-form-label" htmlFor="company"></label>
+                {/* <label className="doctor-form-label" htmlFor="company"></label> */}
                 <Field 
                     name="company"
                     type="text"
                     component={InputTwo}
                     label="Company"
                 />
-                <label className="doctor-form-label" htmlFor="address"></label>
+                {/* <label className="doctor-form-label" htmlFor="address"></label> */}
                 <Field 
                     name="address"
                     type="text"
@@ -107,7 +107,7 @@ export class CreateDoctorForm extends React.Component {
                     label="Address"
                     validate={[required, nonEmpty]}
                 />
-                <label className="doctor-form-label" htmlFor="city"></label>
+                {/* <label className="doctor-form-label" htmlFor="city"></label> */}
                 <Field 
                     name="city"
                     type="text"
@@ -115,7 +115,7 @@ export class CreateDoctorForm extends React.Component {
                     label="City"
                     validate={[required, nonEmpty]}
                 />
-                <label className="doctor-form-label" htmlFor="state"></label>
+                {/* <label className="doctor-form-label" htmlFor="state"></label> */}
                 <Field 
                     name="state"
                     type="text"
@@ -123,7 +123,7 @@ export class CreateDoctorForm extends React.Component {
                     label="Address"
                     validate={[required, nonEmpty]}
                 />
-                <label className="doctor-form-label" htmlFor="zip-code"></label>
+                {/* <label className="doctor-form-label" htmlFor="zip-code"></label> */}
                 <Field 
                     name="zip-code"
                     type="text"
@@ -131,7 +131,7 @@ export class CreateDoctorForm extends React.Component {
                     label="Zip Code"
                     validate={[required, nonEmpty]}
                 />
-                <label className="doctor-form-label" htmlFor="phone-number"></label>
+                {/* <label className="doctor-form-label" htmlFor="phone-number"></label> */}
                 <Field 
                     name="phone-number"
                     type="text"
@@ -139,7 +139,7 @@ export class CreateDoctorForm extends React.Component {
                     label="Phone Number"
                     validate={[required, nonEmpty]}
                 />
-                <label className="doctor-form-label" htmlFor="fax-number"></label>
+                {/* <label className="doctor-form-label" htmlFor="fax-number"></label> */}
                 <Field 
                     name="fax-number"
                     type="text"
