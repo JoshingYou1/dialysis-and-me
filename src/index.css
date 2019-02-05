@@ -132,6 +132,10 @@ button {
   margin-bottom: 15px;
 }
 
+.form-input-3 {
+  text-align: left;
+}
+
 .form-error {
   margin-bottom: 4px;
   font-weight: bold;
@@ -148,19 +152,19 @@ button {
   width: unset;
 } */
 
-.input-two-label {
+.input-two-label, .input-three-label {
   display: block;
   margin-bottom: 5px;
 }
 
-.input-two {
+.input-two, .input-three {
   width: 100%;
   margin-bottom: 10px;
   padding: 5px;
   font-size: 15px;
 }
 
-.input-one:focus, .input-two:focus {
+.input-one:focus, .input-two:focus, .input-three:focus {
   background-color: #008099;
   outline: none;
   color: white;
@@ -180,6 +184,16 @@ button {
 .input-two:-webkit-autofill:hover,
 .input-two:-webkit-autofill:focus,
 .input-two:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    box-shadow: 0 0 0px 1000px #008099 inset;
+    -webkit-box-shadow: 0 0 0px 1000px #008099 inset;
+    -webkit-text-fill-color: white;
+}
+
+.input-three:-webkit-autofill,
+.input-three:-webkit-autofill:hover,
+.input-three:-webkit-autofill:focus,
+.input-three:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
     box-shadow: 0 0 0px 1000px #008099 inset;
     -webkit-box-shadow: 0 0 0px 1000px #008099 inset;
@@ -458,8 +472,7 @@ h2 {
 .show {
   width: 100%;
   height: 100%;
-  color: white;
-  background-color: #008099;
+  background-color: white;
   position: absolute;
   top: 3.5em;
   bottom: 2.5em;
@@ -470,7 +483,15 @@ h2 {
 }
 
 .fa-times.a {
+  color: #7700B4;
+}
+
+.fa-times.c {
   color: white;
+}
+
+.fa-times.c:hover {
+  color: #008099;
 }
 
 .lab-results-show-text, .appointments-show-text {
@@ -553,10 +574,6 @@ h2 {
   background: none;
   font-size: 1.6em;
   cursor: pointer;
-}
-
-.fa-times.a:hover {
-  color: #008099
 }
 
 .sidebar-display {
@@ -643,10 +660,6 @@ h2 {
   padding-top: 2px;
   padding-bottom: 2px;
   padding-left: 15.625px;
-}
-
-.hidden-1 {
-  display: none;
 }
 
 .hidden-2 {
@@ -1027,21 +1040,23 @@ footer {
   cursor: pointer;
 }
 
-.create-appointment-form-div {
+.create-appointment-form-div, .edit-appointment-form-div {
   margin-right: auto;
   margin-left: auto;
   width: 60%;
+  grid-column-start: e;
+  grid-column-end: f;
+}
+
+.edit-appointment-form-div {
+  margin-top: 20px;
 }
 
 .appointment-button-holder-lg {
   display: none;
 }
 
-.fa-ellipsis-v.a {
-  display: none;
-}
-
-.fa-ellipsis-v.b {
+.fa-ellipsis-v {
   grid-area: d;
   justify-self: end;
   padding: 10px;
@@ -1070,6 +1085,7 @@ footer {
   border: none;
   background-color: white;
   cursor: pointer;
+  height: 30px;
 }
 
 .edit-doctor-button:hover {
@@ -1086,6 +1102,7 @@ footer {
   padding: 5px;
   background-color: white;
   cursor: pointer;
+  height: 30px;
 }
 
 .delete-doctor-button:hover {
@@ -1100,7 +1117,7 @@ footer {
   margin-top: 1em;
 }
 
-.appointment-submit-button, .cancel-appointment-form-changes-button {
+.create-appointment-submit-button, .cancel-create-appointment-form-changes-button {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -1113,30 +1130,45 @@ footer {
   cursor: pointer;
 }
 
-.appointment-submit-button {
+.create-appointment-submit-button {
   background-color: #388038;
 }
 
-.appointment-submit-button:hover {
+.create-appointment-submit-button:hover {
   background-color: #46A046;
 }
 
-.cancel-appointment-form-changes-button {
+.cancel-create-appointment-form-changes-button {
   background-color: #C70000;
 }
 
-.cancel-appointment-form-changes-button:hover {
+.cancel-create-appointment-form-changes-button:hover {
   background-color: #EB0000;
 }
 
 .edit-appointment-button-sm, .delete-appointment-button-sm {
   width: 6em;
   padding: 8px;
-  background-color: #FF9D14;
   border-radius: 4px;
   border: none;
   color: white;
   cursor: pointer;
+}
+
+.edit-appointment-button-sm {
+  background-color: #7700B4;
+}
+
+.edit-appointment-button-sm:hover {
+  background-color: #A000F0;
+}
+
+.delete-appointment-button-sm {
+  background-color: #C70000;
+}
+
+.delete-appointment-button-sm:hover {
+  background-color: #EB0000;
 }
 
 .delete-appointment-button-sm {
@@ -1164,6 +1196,14 @@ footer {
   font-style: italic;
 }
 
+.edit-appointment-form {
+  display: grid;
+}
+
+.hidden-1 {
+  display: none;
+}
+
 @media only screen and (min-width: 375px) {
   .dashboard-links {
     grid-column-gap: 3em;
@@ -1174,7 +1214,7 @@ footer {
     height: 390px;
   }
 
-  .create-appointment-form-div {
+  .create-appointment-form-div, .edit-appointment-form-div {
     width: 55%;
   }
 
@@ -1201,7 +1241,7 @@ footer {
     padding-bottom: 7px;
   }
 
-  .create-appointment-form-div {
+  .create-appointment-form-div, .edit-appointment-form-div {
     width: 50%;
   }
 
@@ -1434,6 +1474,10 @@ footer {
     margin-top: 0;
   }
 
+  .appointments-list-h2 {
+    padding-top: 25px;
+  }
+
   .show {
     grid-area: show;
     justify-self: center;
@@ -1492,15 +1536,15 @@ footer {
     margin-left: auto;
     margin-right: auto;
     overflow-y: scroll;
-    height: 300px;
+    height: 320px;
     margin-bottom: 0.7em;
   }
 
   .appointments-show-list-item, .appointments-show-list-item-2 {
-    border-bottom: 3px solid #7700B4;
+    border-bottom: 3px solid #008099;
   }
 
-  .fa-ellipsis-v.a {
+  /* .fa-ellipsis-v.a {
     display: inline-block;
     grid-area: f;
     text-align: right;
@@ -1512,9 +1556,9 @@ footer {
 
   .appointment-button-holder-sm {
     display: none;
-  }
+  } */
 
-  .appointment-button-holder-lg {
+  /* .appointment-button-holder-lg {
     border-radius: 6px;
     display: block;
     position: absolute;
@@ -1553,11 +1597,11 @@ footer {
   .delete-appointment-button-lg:hover {
     color: white;
     background-color: #C70000
-  }
+  } */
 
   .create-appointment-div {
     position: absolute;
-    bottom: 12%;
+    bottom: 10%;
     left: 50%;
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
@@ -1577,6 +1621,10 @@ footer {
 
   .create-appointment-form-div {
     width: 90%;
+  }
+
+  .edit-appointment-form-div {
+    width: 100%;
   }
 
   .create-appointment-form {
@@ -1610,7 +1658,7 @@ footer {
     grid-column-end: slot-3;
   }
 
-  .appointment-submit-button {
+  .create-appointment-submit-button {
     grid-column-start: slot-2;
     margin-top: 2em;
     font-size: 20px;
@@ -1618,12 +1666,45 @@ footer {
     width: 100%
   }
 
-  .cancel-appointment-form-changes-button {
+  .cancel-create-appointment-form-changes-button {
     grid-column-start: slot-3;
     margin-top: 2em;
     font-size: 20px;
     padding: 10px;
     width: 100%
+  }
+
+  .edit-appointment-form {
+    grid-template-areas: "g h";
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 1em;
+  }
+
+  .edit-appointment-submit-button, .cancel-edit-appointment-form-changes-button {
+    margin-top: 10px;
+    padding: 6.2px;
+    border-radius: 4px;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+
+  .edit-appointment-submit-button {
+    grid-column-start: g;
+    grid-column-end: g;
+    background-color: #388038;
+  }
+
+  .edit-appointment-submit-button:hover {
+    background-color: #46A046;
+  }
+
+  .cancel-edit-appointment-form-changes-button {
+    background-color: #C70000;
+  }
+
+  .cancel-edit-appointment-form-changes-button:hover {
+    background-color: #EB0000;
   }
 
   .hidden-1 {

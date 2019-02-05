@@ -3,9 +3,7 @@ import {connect} from 'react-redux';
 import {
     toggleAppointmentInfo,
     loadAppointmentFormData,
-    editSelectedAppointmentById,
-    deleteAppointment,
-    toggleAppointmentMenu
+    editSelectedAppointmentById
 } from '../actions';
 import { EditAppointmentForm } from './editAppointmentForm';
 
@@ -27,9 +25,10 @@ export class AppointmentsShow extends React.Component {
         }
     }
 
-    showAppointmentMenu(a) {
-        this.props.dispatch(toggleAppointmentMenu(a));
-    }
+    // showAppointmentMenu(a) {
+    //     this.props.dispatch(toggleAppointmentMenu());
+    //     this.props.dispatch(appointmentMenuId(a._id));
+    // }
 
     showAppointmentForm(a) {
         this.props.dispatch(loadAppointmentFormData(a));
@@ -57,15 +56,13 @@ export class AppointmentsShow extends React.Component {
                 <li className={className} key={i}>
                     {/* <div>{a._id}</div>
                     <div>{this.props.chosenAppointments._id}</div> */}
-                    <span 
+                    {/* <span 
                         className="fas fa-ellipsis-v a"
                         onClick={() => this.showAppointmentMenu(a)}
                     >
                     </span>
                     <div 
-                        className={"appointment-button-holder-lg " 
-                        + (this.props.isAppointmentMenuShowing ? '' : 'hidden-1')}
-                        // + ((this.props.isAppointmentMenuShowing && a._id === this.props.selectedAppointmentToEdit._id) ? '' : 'hidden-1')}
+                        className={"appointment-button-holder-lg " + (this.props.appointmentMenu === a._id ? '' : 'hidden-1')}
                     >
                         <button 
                             className="edit-appointment-button-lg"
@@ -82,9 +79,9 @@ export class AppointmentsShow extends React.Component {
                             Delete
                         </button>
                     </div>
-                    <div className={"edit-appointment-form-div " + (a._id === this.props.loadAppointmentFormData._id ? '' : 'hidden-1')}>
+                    <div className={"edit-appointment-form-div " + (a._id === this.props.loadedAppointmentFormData._id ? '' : 'hidden-1')}>
                             <EditAppointmentForm />
-                    </div>
+                    </div> */}
                     <h2 className="appointment-date-h2">{formattedAppointmentDate}</h2>
 
                     <span className="grid-e-span">Reason:</span>
@@ -122,9 +119,6 @@ export class AppointmentsShow extends React.Component {
                         <span className="fas fa-edit">&nbsp;&nbsp;</span>
                             Edit
                         </button>
-                        <div className={"edit-appointment-form-div " + (a._id === this.props.loadAppointmentFormData._id ? '' : 'hidden-1')}>
-                            <EditAppointmentForm />
-                        </div>
                         <button 
                             className="delete-appointment-button-sm"
                             // onClick={this.props.dispatch(deleteAppointment())}
@@ -132,6 +126,9 @@ export class AppointmentsShow extends React.Component {
                         <span className="fas fa-trash-alt">&nbsp;&nbsp;</span>
                             Delete
                         </button>
+                    </div>
+                    <div className={"edit-appointment-form-div " + (a._id === this.props.loadedAppointmentFormData._id ? '' : 'hidden-1')}>
+                            <EditAppointmentForm />
                     </div>
                 </li>
             );
@@ -165,8 +162,7 @@ const mapStateToProps = state => {
         chosenAppointments: state.app.selectedAppointments,
         isAppointmentInfoShowing: state.app.isAppointmentInfoShowing,
         selectedAppointmentToEdit: state.app.selectedAppointmentToEdit,
-        loadAppointmentFormData: state.app.loadAppointmentFormData,
-        isAppointmentMenuShowing: state.app.isAppointmentMenuShowing
+        loadedAppointmentFormData: state.app.loadedAppointmentFormData
     }
 };
 

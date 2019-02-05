@@ -68,7 +68,7 @@ export class EditBasicProfileInfoForm extends React.Component {
             <form className="edit-basic-profile-info-form" onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
                 {successMessage}
                 {errorMessage}
-                <label className="profile-form-label" htmlFor="name.firstName"></label>
+                {/* <label className="profile-form-label" htmlFor="name.firstName"></label> */}
                 <Field 
                     name="socialSecurityNumber"
                     type="text"
@@ -76,7 +76,7 @@ export class EditBasicProfileInfoForm extends React.Component {
                     label="SSN"
                     validate={[required]}
                 />
-                <label className="profile-form-label" htmlFor="address.street"></label>
+                {/* <label className="profile-form-label" htmlFor="address.street"></label> */}
                 <Field 
                     name="address.street"
                     type="text"
@@ -84,7 +84,7 @@ export class EditBasicProfileInfoForm extends React.Component {
                     label="Address"
                     validate={[required]}
                 />
-                <label className="profile-form-label" htmlFor="address.city"></label>
+                {/* <label className="profile-form-label" htmlFor="address.city"></label> */}
                 <Field 
                     name="address.city"
                     type="text"
@@ -92,14 +92,14 @@ export class EditBasicProfileInfoForm extends React.Component {
                     label="City"
                     validate={[required]}
                 />
-                <label className="profile-form-label" htmlFor="address.state"></label>
+                {/* <label className="profile-form-label" htmlFor="address.state"></label> */}
                 <Field 
                     name="address.state"
                     type="text"
                     component={InputTwo}
                     label="State"
                 />
-                <label className="profile-form-label" htmlFor="address.zipCode"></label>
+                {/* <label className="profile-form-label" htmlFor="address.zipCode"></label> */}
                 <Field 
                     name="address.zipCode"
                     type="text"
@@ -107,21 +107,21 @@ export class EditBasicProfileInfoForm extends React.Component {
                     label="Zip Code"
                     validate={[required]}
                 />
-                <label className="profile-form-label" htmlFor="phoneNumbers.home"></label>
+                {/* <label className="profile-form-label" htmlFor="phoneNumbers.home"></label> */}
                 <Field 
                     name="phoneNumbers.home"
                     type="text"
                     component={InputTwo}
                     label="Home Phone"
                 />
-                <label className="profile-form-label" htmlFor="phoneNumbers.cell"></label>
+                {/* <label className="profile-form-label" htmlFor="phoneNumbers.cell"></label> */}
                 <Field 
                     name="phoneNumbers.cell"
                     type="text"
                     component={InputTwo}
                     label="Cell Phone"
                 />
-                <label className="profile-form-label" htmlFor="phoneNumbers.work"></label>
+                {/* <label className="profile-form-label" htmlFor="phoneNumbers.work"></label> */}
                 <Field 
                     name="phoneNumbers.work"
                     type="text"

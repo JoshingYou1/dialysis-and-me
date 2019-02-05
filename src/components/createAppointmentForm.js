@@ -160,7 +160,7 @@ export class CreateAppointmentForm extends React.Component {
                 />
                 <button
                     onClick={this.props.dispatch(createAppointment)}
-                    className="appointment-submit-button"
+                    className="create-appointment-submit-button"
                     type="submit"
                     disabled={this.props.pristine || this.props.submitting}
                 >
@@ -168,8 +168,8 @@ export class CreateAppointmentForm extends React.Component {
                     Submit
                 </button>
                 <button 
-                    className="cancel-appointment-form-changes-button"
-                    onClick={this.props.dispatch(chooseCreateAppointment())}
+                    className="cancel-create-appointment-form-changes-button"
+                    onClick={() => this.props.dispatch(chooseCreateAppointment())}
                 >
                     <span className="fas fa-times b">&nbsp;&nbsp;</span>
                     Cancel

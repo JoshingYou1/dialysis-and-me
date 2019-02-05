@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Doctor from './doctor';
-import { fetchProfileInfo, updateCurrentDoctor } from '../actions';
+import { fetchProfileInfo, updateCurrentDoctor, fetchDoctors } from '../actions';
 import requiresLogin from './requires-login';
 import NavigationBar from './navBar';
 import Footer from './footer';
@@ -16,7 +16,7 @@ export class Doctors extends React.Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(fetchProfileInfo(this.props.user.id));
+        this.props.dispatch(fetchDoctors(this.props.user.id));
     }
 
     componentDidUpdate(prevProps){
@@ -29,11 +29,12 @@ export class Doctors extends React.Component {
     }
     
     render() {
-        if (this.props.profile.doctors) {
-            const cards = this.props.profile.doctors.map((d, i) => {
+        if (this.props.doctors.length > 0) {
+            console.log('this.props.doctors', this.props.doctors)
+            const cards = this.props.doctors.map((d, i) => {
                 return {
                     previous: i === 0 ? null : i - 1,
-                    next: i === this.props.profile.doctors.length - 1 ? null : i + 1,
+                    next: i === this.props.doctors.length - 1 ? null : i + 1,
                     doctor: d
                 };
             });
@@ -86,8 +87,8 @@ export class Doctors extends React.Component {
 
 const mapStateToProps = state => ({
     user: state.auth.currentUser,
-    profile: state.app.profile,
-    currentDoctor: state.app.currentDoctor
+    currentDoctor: state.app.currentDoctor,
+    doctors: state.app.doctors
 });
 
 export default requiresLogin()(connect(mapStateToProps)(Doctors));

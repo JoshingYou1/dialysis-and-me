@@ -8,7 +8,7 @@ export class Doctor extends React.Component {
         return (
             <section className="doctor-section">
                 <span 
-                    className="fas fa-ellipsis-v b"
+                    className="fas fa-ellipsis-v"
                     onClick={() => this.props.dispatch(toggleDoctorMenu())}
                 >
                 <div className={"doctor-menu " + (this.props.isDoctorMenuShowing ? '' : 'hidden-1')}>

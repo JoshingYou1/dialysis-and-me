@@ -166,15 +166,16 @@ export class EditAppointmentForm extends React.Component {
                         className="edit-appointment-submit-button"
                         type="submit"
                         disabled={this.props.pristine || this.props.submitting}>
+                        <span className="fas fa-check">&nbsp;&nbsp;</span>
                         Submit
                     </button>
                     <button
-                        className="cancel-edit-appointment-form-button"
+                        className="cancel-edit-appointment-form-changes-button"
                     >
+                        <span className="fas fa-times">&nbsp;&nbsp;</span>
                         Cancel
                     </button>
                 </form>
-        
             );
         }
         return (
@@ -186,7 +187,7 @@ export class EditAppointmentForm extends React.Component {
 const mapStateToProps = state => ({
     user: state.auth.currentUser,
     authToken: state.auth.authToken,
-    initialValues: state.app.loadAppointmentFormData,
+    initialValues: state.app.loadedAppointmentFormData,
     selectedAppointmentToEdit: state.app.selectedAppointmentToEdit
 });
 

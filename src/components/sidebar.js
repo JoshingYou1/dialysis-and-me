@@ -106,7 +106,7 @@ export class Sidebar extends React.Component {
         return (
             <div>
                 <button className="sidebar-button" onClick={() => this.props.dispatch(toggleSidebar())}>
-                    <span className="fas fa-times 2x a"></span>
+                    <span className="fas fa-times 2x c"></span>
                 </button>
                 <nav>
                     <ul className="sidebar-list">{links}</ul>

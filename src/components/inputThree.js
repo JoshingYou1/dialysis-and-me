@@ -21,8 +21,8 @@ export default class InputTwo extends React.Component {
         }
 
         return (
-            <div className="form-input-2">
-                <label className="input-two-label" htmlFor={this.props.input.name}>
+            <div className="form-input-3">
+                <label className="input-three-label" htmlFor={this.props.input.name}>
                     {this.props.label}
                     {error}
                     {warning}

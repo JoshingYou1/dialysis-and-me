@@ -64,6 +64,31 @@ export const fetchProfileInfo = patientId => (dispatch, getState) => {
         });
 };
 
+export const UPDATE_BASIC_PROFILE_INFO_SUCCESS = 'UPDATE_BASIC_PROFILE_INFO_SUCCESS';
+export const updateBasicProfileInfoSucces = updatedBasicProfileInfo => ({
+    type: UPDATE_BASIC_PROFILE_INFO_SUCCESS,
+    updatedBasicProfileInfo
+});
+
+export const updateBasicProfileInfo = patientId => (dispatch, getState) => {
+    fetch(`${API_BASE_URL}/api/patients/${patientId}`,
+    {
+        method: 'PUT',
+        headers: {
+            authorization: `Bearer ${getState().auth.authToken}`
+        }
+    })
+        .then(res => {
+            if (!res.ok) {
+                return Promise.reject(res.statusText)
+            }
+            return res.json();
+        })
+        .then(updatedBasicProfileInfo => {
+            dispatch(updateBasicProfileInfoSucces(updatedBasicProfileInfo));
+        });
+};
+
 export const TOGGLE_LAB_RESULTS_INFO = 'TOGGLE_LAB_RESULTS_INFO';
 export const toggleLabResultsInfo = isLabResultsInfoShowing => ({
     type: TOGGLE_LAB_RESULTS_INFO,
@@ -220,9 +245,9 @@ export const chooseCreateAppointment = isCreateAppointmentFormShowing => ({
 // });
 
 export const LOAD_APPOINTMENT_FORM_DATA = 'LOAD_APPOINTMENT_FORM_DATA';
-export const loadAppointmentFormData = loadAppointmentFormData => ({
+export const loadAppointmentFormData = loadedAppointmentFormData => ({
     type: LOAD_APPOINTMENT_FORM_DATA,
-    loadAppointmentFormData
+    loadedAppointmentFormData
 });
 
 export const CHOOSE_CREATE_DOCTOR = 'CHOOSE_CREATE_DOCTOR';
@@ -231,11 +256,37 @@ export const chooseCreateDoctor = isCreateDoctorFormShowing => ({
     isCreateDoctorFormShowing
 });
 
-export const CHOOSE_EDIT_DOCTOR = 'CHOOSE_EDIT_DOCTOR';
-export const chooseEditDoctor = isEditDoctorFormShowing => ({
-    type: CHOOSE_EDIT_DOCTOR,
-    isEditDoctorFormShowing
+// export const CHOOSE_EDIT_DOCTOR = 'CHOOSE_EDIT_DOCTOR';
+// export const chooseEditDoctor = isEditDoctorFormShowing => ({
+//     type: CHOOSE_EDIT_DOCTOR,
+//     isEditDoctorFormShowing
+// });
+
+export const FETCH_DOCTORS_SUCCESS = 'FETCH_DOCTORS_SUCCESS';
+export const fetchDoctorsSuccess = doctors => ({
+    type: FETCH_DOCTORS_SUCCESS,
+    doctors
 });
+
+export const fetchDoctors = patientId => (dispatch, getState) => {
+    fetch(`${API_BASE_URL}/api/patients/${patientId}/doctors`,
+    {
+        method: 'GET',
+        headers: {
+            authorization: `Bearer ${getState().auth.authToken}`
+        }
+    })
+        .then(res => {
+            if (!res.ok) {
+                return Promise.reject(res.statusText);
+            }
+            return res.json();
+        })
+        .then(doctors => {
+            console.log('doctors', doctors);
+            dispatch(fetchDoctorsSuccess(doctors));
+        });
+};
 
 export const CREATE_DOCTOR_SUCCESS = 'CREATE_DOCTOR_SUCCESS';
 export const createDoctorSuccess = createdDoctor => ({
@@ -313,41 +364,16 @@ export const deleteDoctor = (patientId, doctorId) => (dispatch, getState) => {
 };
 
 export const LOAD_DOCTOR_FORM_DATA = 'LOAD_DOCTOR_FORM_DATA';
-export const loadDoctorFormData = loadDoctorFormData => ({
+export const loadDoctorFormData = loadedDoctorFormData => ({
     type: LOAD_DOCTOR_FORM_DATA,
-    loadDoctorFormData
+    loadedDoctorFormData
 });
 
-export const CHOOSE_EDIT_BASIC_PROFILE_INFO = 'CHOOSE_EDIT_BASIC_PROFILE_INFO';
-export const chooseEditBasicProfileInfo = isEditBasicProfileInfoFormShowing => ({
-    type: CHOOSE_EDIT_BASIC_PROFILE_INFO,
-    isEditBasicProfileInfoFormShowing
-});
-
-export const UPDATE_BASIC_PROFILE_INFO_SUCCESS = 'UPDATE_BASIC_PROFILE_INFO_SUCCESS';
-export const updateBasicProfileInfoSucces = updatedBasicProfileInfo => ({
-    type: UPDATE_BASIC_PROFILE_INFO_SUCCESS,
-    updatedBasicProfileInfo
-});
-
-export const updateBasicProfileInfo = patientId => (dispatch, getState) => {
-    fetch(`${API_BASE_URL}/api/patients/${patientId}`,
-    {
-        method: 'PUT',
-        headers: {
-            authorization: `Bearer ${getState().auth.authToken}`
-        }
-    })
-        .then(res => {
-            if (!res.ok) {
-                return Promise.reject(res.statusText)
-            }
-            return res.json();
-        })
-        .then(updatedBasicProfileInfo => {
-            dispatch(updateBasicProfileInfoSucces(updatedBasicProfileInfo));
-        });
-};
+// export const CHOOSE_EDIT_BASIC_PROFILE_INFO = 'CHOOSE_EDIT_BASIC_PROFILE_INFO';
+// export const chooseEditBasicProfileInfo = isEditBasicProfileInfoFormShowing => ({
+//     type: CHOOSE_EDIT_BASIC_PROFILE_INFO,
+//     isEditBasicProfileInfoFormShowing
+// });
 
 export const EDIT_SELECTED_APPOINTMENT_BY_ID = 'EDIT_SELECTED_APPOINTMENT_BY_ID';
 export const editSelectedAppointmentById = selectedAppointmentToEdit => ({
@@ -355,11 +381,11 @@ export const editSelectedAppointmentById = selectedAppointmentToEdit => ({
     selectedAppointmentToEdit
 });
 
-export const DISCARD_APPOINTMENT_FORM_CHANGES = 'DISCARD_APPOINTMENT_FORM_CHANGES';
-export const discardAppointmentFormChanges = discardChanges => ({
-    type: DISCARD_APPOINTMENT_FORM_CHANGES,
-    discardChanges
-});
+// export const DISCARD_APPOINTMENT_FORM_CHANGES = 'DISCARD_APPOINTMENT_FORM_CHANGES';
+// export const discardAppointmentFormChanges = discardChanges => ({
+//     type: DISCARD_APPOINTMENT_FORM_CHANGES,
+//     discardChanges
+// });
 
 export const TOGGLE_APPOINTMENT_MENU = 'TOGGLE_APPOINTMENT_MENU';
 export const toggleAppointmentMenu = isAppointmentMenuShowing => ({
@@ -371,5 +397,17 @@ export const TOGGLE_DOCTOR_MENU = 'TOGGLE_DOCTOR_MENU';
 export const toggleDoctorMenu = isDoctorMenuShowing => ({
     type: TOGGLE_DOCTOR_MENU,
     isDoctorMenuShowing
+});
+
+export const EDIT_SELECTED_DOCTOR_BY_ID = 'EDIT_SELECTED_DOCTOR_BY_ID';
+export const editSelectedDoctorById = selectedDoctorToEdit => ({
+    type: EDIT_SELECTED_DOCTOR_BY_ID,
+    selectedDoctorToEdit
+});
+
+export const DOCTOR_MENU_ID = 'DOCTOR_MENU_ID';
+export const doctorMenuId = doctorMenu => ({
+    type: DOCTOR_MENU_ID,
+    doctorMenu
 });
 
