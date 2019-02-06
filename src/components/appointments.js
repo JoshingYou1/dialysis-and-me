@@ -68,7 +68,7 @@ export class Appointments extends React.Component {
                             Click here
                         </button>
                         </div>
-                        <div className={"create-appointment-form-div " + (this.props.isCreateAppointmentFormShowing ? '' : 'hidden-1')}>
+                        <div className={"create-appointment-form-component-div " + (this.props.isCreateAppointmentFormShowing ? '' : 'hidden-1')}>
                             <CreateAppointmentForm />
                         </div> 
                     </main>

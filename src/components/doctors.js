@@ -48,6 +48,27 @@ export class Doctors extends React.Component {
                     <main role="main">
                         <h1 className="doctors-h1">Doctors</h1>
                         <div className={className}>
+                            {/* <span 
+                                className="fas fa-ellipsis-v"
+                                // onClick={() => this.props.dispatch(toggleDoctorMenu())}
+                            >
+                            <div className={"doctor-menu " + (this.props.isDoctorMenuShowing ? '' : 'hidden-1')}>
+                                <button 
+                                    className="edit-doctor-button"
+                                    onClick={() => {this.showDoctorForm()}}
+                                >
+                                <span className="fas fa-edit">&nbsp;&nbsp;</span>
+                                    Edit
+                                </button>
+                                <button 
+                                    className="delete-doctor-button"
+                                    // onClick={() => this.props.dispatch(deleteDoctor())}
+                                >
+                                <span className="fas fa-trash-alt">&nbsp;&nbsp;</span>
+                                    Delete
+                                </button>
+                            </div>
+                            </span> */}
                             <Doctor doctor={d} />
                         </div>
                         <div className="doctor-button-holder">

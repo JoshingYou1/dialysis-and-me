@@ -126,24 +126,14 @@ export const appReducer = (state=initialState, action) => {
             isCreateAppointmentFormShowing: !state.isCreateAppointmentFormShowing
         });
     }
-    // else if (action.type === CHOOSE_EDIT_APPOINTMENT) {
-    //     return Object.assign({}, state, {
-    //         isEditAppointmentFormShowing: !state.isEditAppointmentFormShowing
-    //     });
-    // }
+    else if (action.type === CHOOSE_EDIT_APPOINTMENT) {
+        return Object.assign({}, state, {
+            isEditAppointmentFormShowing: !state.isEditAppointmentFormShowing
+        });
+    }
     else if (action.type === LOAD_APPOINTMENT_FORM_DATA) {
         return Object.assign({}, state, {
             loadedAppointmentFormData: action.loadedAppointmentFormData
-        });
-    }
-    else if (action.type === CREATE_APPOINTMENT_SUCCESS) {
-        return Object.assign({}, state, {
-            createdAppointment: action.createdAppointment
-        });
-    }
-    else if (action.type === UPDATE_APPOINTMENT_SUCCESS) {
-        return Object.assign({}, state, {
-            updatedAppointment: action.updatedAppointment
         });
     }
     else if (action.type === DELETE_APPOINTMENT_SUCCESS) {
@@ -161,16 +151,6 @@ export const appReducer = (state=initialState, action) => {
     //         isEditDoctorFormShowing: !state.isEditDoctorFormShowing
     //     });
     // }
-    else if (action.type === CREATE_DOCTOR_SUCCESS) {
-        return Object.assign({}, state, {
-            createdDoctor: action.createdDoctor
-        });
-    }
-    else if (action.type === UPDATE_DOCTOR_SUCCESS) {
-        return Object.assign({}, state, {
-            updatedDoctor: action.updatedDoctor
-        });
-    }
     else if (action.type === DELETE_DOCTOR_SUCCESS) {
         return Object.assign({}, state, {
             deletedDoctor: action.deletedDoctor

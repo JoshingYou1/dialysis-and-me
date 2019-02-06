@@ -1,8 +1,13 @@
 import React from 'react';
-import { toggleDoctorMenu } from '../actions';
+import { toggleDoctorMenu, deleteDoctor, loadDoctorFormData, editSelectedDoctorById } from '../actions';
 import { connect } from 'react-redux';
 
 export class Doctor extends React.Component {
+    showDoctorForm(d) {
+        this.props.dispatch(loadDoctorFormData(d));
+        this.props.dispatch(editSelectedDoctorById(d));
+    }
+
     render() {
         let d = this.props.doctor;
         return (
@@ -14,14 +19,14 @@ export class Doctor extends React.Component {
                 <div className={"doctor-menu " + (this.props.isDoctorMenuShowing ? '' : 'hidden-1')}>
                     <button 
                         className="edit-doctor-button"
-                        // onClick={() => {this.showAppointmentForm(a)}}
+                        onClick={() => {this.showDoctorForm(d)}}
                     >
                     <span className="fas fa-edit">&nbsp;&nbsp;</span>
                         Edit
                     </button>
                     <button 
                         className="delete-doctor-button"
-                        // onClick={() => this.props.dispatch(deleteAppointment())}
+                        onClick={() => this.props.dispatch(deleteDoctor())}
                     >
                     <span className="fas fa-trash-alt">&nbsp;&nbsp;</span>
                         Delete

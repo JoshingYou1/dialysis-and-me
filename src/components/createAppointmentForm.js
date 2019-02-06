@@ -52,129 +52,131 @@ export class CreateAppointmentForm extends React.Component {
         let successMessage;
         if (this.props.submitSucceeded) {
             successMessage = (
-                <div className="message success-message">
-                    Appointment successfully created!
+                <div className="message create-appointment-success-message">
+                    <span>Appointment successfully created!</span>
                 </div>
             );
         }
         let errorMessage;
         if (this.props.error) {
             errorMessage = (
-                <div className="message error-message">
-                    {this.props.error}
+                <div className="message create-appointment-error-message">
+                    <span>{this.props.error}</span>
                 </div>
             );
         }
         return (
-            <form className="create-appointment-form" onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+            <div className="create-appointment-form-div">
                 {successMessage}
                 {errorMessage}
-                    {/* <label className="appointment-form-label" htmlFor="date"></label> */}
+                <form className="create-appointment-form" onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+                        {/* <label className="appointment-form-label" htmlFor="date"></label> */}
+                        <Field 
+                            name="date"
+                            type="date"
+                            component={InputTwo}
+                            label="Date"
+                            validate={[required, nonEmpty]}
+                        />
+                        {/* <label className="appointment-form-label" htmlFor="reason"></label> */}
+                        <Field 
+                            name="description"
+                            type="text"
+                            component={InputTwo}
+                            label="Reason"
+                            validate={[required, nonEmpty]}
+                        />
+                    {/* <label className="appointment-form-label slot-3" htmlFor="time"></label> */}
                     <Field 
-                        name="date"
+                        name="time"
                         type="text"
                         component={InputTwo}
-                        label="Date"
+                        label="Time"
                         validate={[required, nonEmpty]}
                     />
-                    {/* <label className="appointment-form-label" htmlFor="reason"></label> */}
+                    {/* <label className="appointment-form-label slot-1" htmlFor="with"></label> */}
                     <Field 
-                        name="reason"
+                        name="with"
                         type="text"
                         component={InputTwo}
-                        label="Reason"
+                        label="With"
                         validate={[required, nonEmpty]}
                     />
-                {/* <label className="appointment-form-label slot-3" htmlFor="time"></label> */}
-                <Field 
-                    name="time"
-                    type="text"
-                    component={InputTwo}
-                    label="Time"
-                    validate={[required, nonEmpty]}
-                />
-                {/* <label className="appointment-form-label slot-1" htmlFor="with"></label> */}
-                <Field 
-                    name="with"
-                    type="text"
-                    component={InputTwo}
-                    label="With"
-                    validate={[required, nonEmpty]}
-                />
-                {/* <label className="appointment-form-label slot-2" htmlFor="title"></label> */}
-                <Field 
-                    name="title"
-                    type="text"
-                    component={InputTwo}
-                    label="Title"
-                    validate={[required, nonEmpty]}
-                />
-                {/* <label className="appointment-form-label slot-3" htmlFor="where"></label> */}
-                <Field 
-                    name="where"
-                    type="text"
-                    component={InputTwo}
-                    label="Where"
-                    validate={[required, nonEmpty]}
-                />
-                {/* <label className="appointment-form-label slot-1" htmlFor="address"></label> */}
-                <Field 
-                    name="address"
-                    type="text"
-                    component={InputTwo}
-                    label="Address"
-                    validate={[required, nonEmpty]}
-                />
-                {/* <label className="appointment-form-label slot-2" htmlFor="city"></label> */}
-                <Field 
-                    name="city"
-                    type="text"
-                    component={InputTwo}
-                    label="City"
-                    validate={[required, nonEmpty]}
-                />
-                {/* <label className="appointment-form-label slot-3" htmlFor="state"></label> */}
-                <Field 
-                    name="state"
-                    type="text"
-                    component={InputTwo}
-                    label="State"
-                    validate={[required, nonEmpty]}
-                />
-                {/* <label className="appointment-form-label slot-1" htmlFor="zip-code"></label> */}
-                <Field 
-                    name="zip-code"
-                    type="text"
-                    component={InputTwo}
-                    label="Zip Code"
-                    validate={[required, nonEmpty]}
-                />
-                {/* <label className="appointment-form-label slot-2" htmlFor="phone-number"></label> */}
-                <Field
-                    className="hello" 
-                    name="phone-number"
-                    type="text"
-                    component={InputTwo}
-                    label="Phone Number"
-                    validate={[required, nonEmpty]}
-                />
-                <button
-                    onClick={this.props.dispatch(createAppointment)}
-                    className="create-appointment-submit-button"
-                    type="submit"
-                    disabled={this.props.pristine || this.props.submitting}
-                >
-                    <span className="fas fa-check">&nbsp;&nbsp;</span>
-                    Submit
-                </button>
-                <button 
-                    className="cancel-create-appointment-form-changes-button"
-                    onClick={() => this.props.dispatch(chooseCreateAppointment())}
-                >
-                    <span className="fas fa-times b">&nbsp;&nbsp;</span>
-                    Cancel
-                </button>
-            </form>
+                    {/* <label className="appointment-form-label slot-2" htmlFor="title"></label> */}
+                    <Field 
+                        name="title"
+                        type="text"
+                        component={InputTwo}
+                        label="Title"
+                        validate={[required, nonEmpty]}
+                    />
+                    {/* <label className="appointment-form-label slot-3" htmlFor="where"></label> */}
+                    <Field 
+                        name="where"
+                        type="text"
+                        component={InputTwo}
+                        label="Where"
+                        validate={[required, nonEmpty]}
+                    />
+                    {/* <label className="appointment-form-label slot-1" htmlFor="address"></label> */}
+                    <Field 
+                        name="address.street"
+                        type="text"
+                        component={InputTwo}
+                        label="Address"
+                        validate={[required, nonEmpty]}
+                    />
+                    {/* <label className="appointment-form-label slot-2" htmlFor="city"></label> */}
+                    <Field 
+                        name="address.city"
+                        type="text"
+                        component={InputTwo}
+                        label="City"
+                        validate={[required, nonEmpty]}
+                    />
+                    {/* <label className="appointment-form-label slot-3" htmlFor="state"></label> */}
+                    <Field 
+                        name="address.state"
+                        type="text"
+                        component={InputTwo}
+                        label="State"
+                        validate={[required, nonEmpty]}
+                    />
+                    {/* <label className="appointment-form-label slot-1" htmlFor="zip-code"></label> */}
+                    <Field 
+                        name="address.zipCode"
+                        type="number"
+                        component={InputTwo}
+                        label="Zip Code"
+                        validate={[required, nonEmpty]}
+                    />
+                    {/* <label className="appointment-form-label slot-2" htmlFor="phone-number"></label> */}
+                    <Field
+                        className="hello" 
+                        name="phoneNumber"
+                        type="text"
+                        component={InputTwo}
+                        label="Phone Number"
+                        validate={[required, nonEmpty]}
+                    />
+                    <button
+                        // onClick={this.props.dispatch(createAppointment(this.props.user.id))}
+                        className="create-appointment-submit-button"
+                        type="submit"
+                        disabled={this.props.pristine || this.props.submitting}
+                    >
+                        <span className="fas fa-check">&nbsp;&nbsp;</span>
+                        Submit
+                    </button>
+                    <button 
+                        className="cancel-create-appointment-form-changes-button"
+                        onClick={() => this.props.dispatch(chooseCreateAppointment())}
+                    >
+                        <span className="fas fa-times b">&nbsp;&nbsp;</span>
+                        Cancel
+                    </button>
+                </form>
+            </div>
         );
     }
 }
@@ -183,6 +185,7 @@ const mapStateToProps = state => ({
     user: state.auth.currentUser,
     authToken: state.auth.authToken
 });
+
 CreateAppointmentForm = connect(mapStateToProps)(CreateAppointmentForm);
 
 export default reduxForm({

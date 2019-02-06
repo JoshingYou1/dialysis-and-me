@@ -4,11 +4,11 @@ import InputThree from './inputThree';
 import {API_BASE_URL} from '../config';
 import {required, nonEmpty} from '../validators';
 import { connect } from 'react-redux';
-import { loadAppointmentFormData } from '../actions';
+import { loadAppointmentFormData, updateAppointment, editSelectedAppointmentById } from '../actions';
 
 export class EditAppointmentForm extends React.Component {
     onSubmit(values) {
-        return fetch(`${API_BASE_URL}/api/patients/${this.props.user.id}/appointments`, {
+        return fetch(`${API_BASE_URL}/api/patients/${this.props.user.id}/appointments/${this.props.selectedAppointmentToEdit._id}`, {
             method: 'PUT',
             body: JSON.stringify(values),
             headers: {
@@ -58,7 +58,7 @@ export class EditAppointmentForm extends React.Component {
             let successMessage;
             if (this.props.submitSucceeded) {
                 successMessage = (
-                    <div className="message success-message">
+                    <div className="message edit-appointment-success-message">
                         Appointment successfully updated!
                     </div>
                 );
@@ -66,116 +66,121 @@ export class EditAppointmentForm extends React.Component {
             let errorMessage;
             if (this.props.error) {
                 errorMessage = (
-                    <div className="message error-message">
+                    <div className="message edit-appointment-error-message">
                         {this.props.error}
                     </div>
                 );
             }
             return (
-                <form className="edit-appointment-form" onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+                <div className="edit-appointment-form-div">
                     {successMessage}
                     {errorMessage}
-                    {/* <label className="appointment-form-label" htmlFor="date"></label> */}
-                    <Field 
-                        name="date"
-                        type="text"
-                        component={InputThree}
-                        label="Date"
-                        validate={[required]}
-                    />
-                    {/* <label className="appointment-form-label" htmlFor="reason"></label> */}
-                    <Field 
-                        name="description"
-                        type="text"
-                        component={InputThree}
-                        label="Reason"
-                        validate={[required]}
-                    />
-                    {/* <label className="appointment-form-label" htmlFor="time"></label> */}
-                    <Field 
-                        name="time"
-                        type="text"
-                        component={InputThree}
-                        label="Time"
-                        validate={[required]}
-                    />
-                    {/* <label className="appointment-form-label" htmlFor="with"></label> */}
-                    <Field 
-                        name="with"
-                        type="text"
-                        component={InputThree}
-                        label="With"
-                    />
-                    {/* <label className="appointment-form-label" htmlFor="title"></label> */}
-                    <Field 
-                        name="title"
-                        type="text"
-                        component={InputThree}
-                        label="Title"
-                        validate={[required]}
-                    />
-                    {/* <label className="appointment-form-label" htmlFor="where"></label> */}
-                    <Field 
-                        name="where"
-                        type="text"
-                        component={InputThree}
-                        label="Where"
-                        validate={[required]}
-                    />
-                    {/* <label className="appointment-form-label" htmlFor="address.street"></label> */}
-                    <Field 
-                        name="address.street"
-                        type="text"
-                        component={InputThree}
-                        label="Address"
-                        validate={[required]}
-                    />
-                    {/* <label className="appointment-form-label" htmlFor="address.city"></label> */}
-                    <Field 
-                        name="address.city"
-                        type="text"
-                        component={InputThree}
-                        label="City"
-                        validate={[required]}
-                    />
-                    {/* <label className="appointment-form-label" htmlFor="address.state"></label> */}
-                    <Field 
-                        name="address.state"
-                        type="text"
-                        component={InputThree}
-                        label="State"
-                        validate={[required]}
-                    />
-                    {/* <label className="appointment-form-label" htmlFor="address.zipCode"></label> */}
-                    <Field 
-                        name="address.zipCode"
-                        type="text"
-                        component={InputThree}
-                        label="Zip Code"
-                        validate={[required]}
-                    />
-                    {/* <label className="appointment-form-label" htmlFor="phoneNumber"></label> */}
-                    <Field 
-                        name="phoneNumber"
-                        type="text"
-                        component={InputThree}
-                        label="Phone Number"
-                        validate={[required]}
-                    />
-                    <button
-                        className="edit-appointment-submit-button"
-                        type="submit"
-                        disabled={this.props.pristine || this.props.submitting}>
-                        <span className="fas fa-check">&nbsp;&nbsp;</span>
-                        Submit
-                    </button>
-                    <button
-                        className="cancel-edit-appointment-form-changes-button"
-                    >
-                        <span className="fas fa-times">&nbsp;&nbsp;</span>
-                        Cancel
-                    </button>
-                </form>
+                    <form className="edit-appointment-form" onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+                        {/* <label className="appointment-form-label" htmlFor="date"></label> */}
+                        <Field 
+                            name="date"
+                            type="text"
+                            component={InputThree}
+                            label="Date"
+                            validate={[required]}
+                        />
+                        {/* <label className="appointment-form-label" htmlFor="reason"></label> */}
+                        <Field 
+                            name="description"
+                            type="text"
+                            component={InputThree}
+                            label="Reason"
+                            validate={[required]}
+                        />
+                        {/* <label className="appointment-form-label" htmlFor="time"></label> */}
+                        <Field 
+                            name="time"
+                            type="text"
+                            component={InputThree}
+                            label="Time"
+                            validate={[required]}
+                        />
+                        {/* <label className="appointment-form-label" htmlFor="with"></label> */}
+                        <Field 
+                            name="with"
+                            type="text"
+                            component={InputThree}
+                            label="With"
+                        />
+                        {/* <label className="appointment-form-label" htmlFor="title"></label> */}
+                        <Field 
+                            name="title"
+                            type="text"
+                            component={InputThree}
+                            label="Title"
+                            validate={[required]}
+                        />
+                        {/* <label className="appointment-form-label" htmlFor="where"></label> */}
+                        <Field 
+                            name="where"
+                            type="text"
+                            component={InputThree}
+                            label="Where"
+                            validate={[required]}
+                        />
+                        {/* <label className="appointment-form-label" htmlFor="address.street"></label> */}
+                        <Field 
+                            name="address.street"
+                            type="text"
+                            component={InputThree}
+                            label="Address"
+                            validate={[required]}
+                        />
+                        {/* <label className="appointment-form-label" htmlFor="address.city"></label> */}
+                        <Field 
+                            name="address.city"
+                            type="text"
+                            component={InputThree}
+                            label="City"
+                            validate={[required]}
+                        />
+                        {/* <label className="appointment-form-label" htmlFor="address.state"></label> */}
+                        <Field 
+                            name="address.state"
+                            type="text"
+                            component={InputThree}
+                            label="State"
+                            validate={[required]}
+                        />
+                        {/* <label className="appointment-form-label" htmlFor="address.zipCode"></label> */}
+                        <Field 
+                            name="address.zipCode"
+                            type="text"
+                            component={InputThree}
+                            label="Zip Code"
+                            validate={[required]}
+                        />
+                        {/* <label className="appointment-form-label" htmlFor="phoneNumber"></label> */}
+                        <Field 
+                            name="phoneNumber"
+                            type="text"
+                            component={InputThree}
+                            label="Phone Number"
+                            validate={[required]}
+                        />
+                        <button
+                            className="edit-appointment-submit-button"
+                            type="submit"
+                            disabled={this.props.pristine || this.props.submitting}
+                            // onClick={() => this.props.dispatch(updateAppointment())}
+                        >
+                            <span className="fas fa-check">&nbsp;&nbsp;</span>
+                            Submit
+                        </button>
+                        <button
+                            className="cancel-edit-appointment-form-changes-button"
+                            onClick={() => this.props.dispatch(editSelectedAppointmentById())}
+                        >
+                            <span className="fas fa-times">&nbsp;&nbsp;</span>
+                            Cancel
+                        </button>
+                    </form>
+                </div>
             );
         }
         return (

@@ -64,31 +64,6 @@ export const fetchProfileInfo = patientId => (dispatch, getState) => {
         });
 };
 
-export const UPDATE_BASIC_PROFILE_INFO_SUCCESS = 'UPDATE_BASIC_PROFILE_INFO_SUCCESS';
-export const updateBasicProfileInfoSucces = updatedBasicProfileInfo => ({
-    type: UPDATE_BASIC_PROFILE_INFO_SUCCESS,
-    updatedBasicProfileInfo
-});
-
-export const updateBasicProfileInfo = patientId => (dispatch, getState) => {
-    fetch(`${API_BASE_URL}/api/patients/${patientId}`,
-    {
-        method: 'PUT',
-        headers: {
-            authorization: `Bearer ${getState().auth.authToken}`
-        }
-    })
-        .then(res => {
-            if (!res.ok) {
-                return Promise.reject(res.statusText)
-            }
-            return res.json();
-        })
-        .then(updatedBasicProfileInfo => {
-            dispatch(updateBasicProfileInfoSucces(updatedBasicProfileInfo));
-        });
-};
-
 export const TOGGLE_LAB_RESULTS_INFO = 'TOGGLE_LAB_RESULTS_INFO';
 export const toggleLabResultsInfo = isLabResultsInfoShowing => ({
     type: TOGGLE_LAB_RESULTS_INFO,
@@ -139,56 +114,6 @@ export const fetchAppointments = patientId => (dispatch, getState) => {
         });
 };
 
-export const CREATE_APPOINTMENT_SUCCESS = 'CREATE_APPOINTMENT_SUCCESS';
-export const createAppointmentSuccess = createdAppointment => ({
-    type: CREATE_APPOINTMENT_SUCCESS,
-    createdAppointment
-});
-
-export const createAppointment = patientId => (dispatch, getState) => {
-    fetch(`${API_BASE_URL}/api/patients/${patientId}/appointments`,
-    {
-        method: 'POST',
-        headers: {
-            authorization: `Bearer ${getState().auth.authToken}`
-        }
-    })
-        .then(res => {
-            if (!res.ok) {
-                return Promise.reject(res.statusText)
-            }
-            return res.json();
-        })
-        .then(createdAppointment => {
-            dispatch(createAppointmentSuccess(createdAppointment));
-        });
-};
-
-export const UPDATE_APPOINTMENT_SUCCESS = 'UPDATE_APPOINTMENT_SUCCESS';
-export const updateAppointmentSuccess = updatedAppointment => ({
-    type: UPDATE_APPOINTMENT_SUCCESS,
-    updatedAppointment
-});
-
-export const updateAppointment = (patientId, appointmentId) => (dispatch, getState) => {
-    fetch(`${API_BASE_URL}/api/patients/${patientId}/appointments/${appointmentId}`,
-    {
-        method: 'PUT',
-        headers: {
-            authorization: `Bearer ${getState().auth.authToken}`
-        }
-    })
-        .then(res => {
-            if (!res.ok) {
-                return Promise.reject(res.statusText)
-            }
-            return res.json();
-        })
-        .then(updatedAppointment => {
-            dispatch(updateAppointmentSuccess(updatedAppointment));
-        });
-};
-
 export const DELETE_APPOINTMENT_SUCCESS = 'DELETE_APPOINTMENT_SUCCESS';
 export const deleteAppointmentSuccess = deletedAppointment => ({
     type: DELETE_APPOINTMENT_SUCCESS,
@@ -204,10 +129,11 @@ export const deleteAppointment = (patientId, appointmentId) => (dispatch, getSta
         }
     })
         .then(res => {
+            console.log('res', res);
             if (!res.ok) {
                 return Promise.reject(res.statusText)
             }
-            return res.json();
+            return 'Appointment successfully deleted!';
         })
         .then(deletedAppointment => {
             dispatch(deleteAppointmentSuccess(deletedAppointment));
@@ -238,11 +164,11 @@ export const chooseCreateAppointment = isCreateAppointmentFormShowing => ({
     isCreateAppointmentFormShowing
 });
 
-// export const CHOOSE_EDIT_APPOINTMENT = 'CHOOSE_EDIT_APPOINTMENT';
-// export const chooseEditAppointment = isEditAppointmentFormShowing => ({
-//     type: CHOOSE_EDIT_APPOINTMENT,
-//     isEditAppointmentFormShowing
-// });
+export const CHOOSE_EDIT_APPOINTMENT = 'CHOOSE_EDIT_APPOINTMENT';
+export const chooseEditAppointment = isEditAppointmentFormShowing => ({
+    type: CHOOSE_EDIT_APPOINTMENT,
+    isEditAppointmentFormShowing
+});
 
 export const LOAD_APPOINTMENT_FORM_DATA = 'LOAD_APPOINTMENT_FORM_DATA';
 export const loadAppointmentFormData = loadedAppointmentFormData => ({
@@ -285,56 +211,6 @@ export const fetchDoctors = patientId => (dispatch, getState) => {
         .then(doctors => {
             console.log('doctors', doctors);
             dispatch(fetchDoctorsSuccess(doctors));
-        });
-};
-
-export const CREATE_DOCTOR_SUCCESS = 'CREATE_DOCTOR_SUCCESS';
-export const createDoctorSuccess = createdDoctor => ({
-    type: CREATE_DOCTOR_SUCCESS,
-    createdDoctor
-});
-
-export const createDoctor = patientId => (dispatch, getState) => {
-    fetch(`${API_BASE_URL}/api/patients/${patientId}/doctors`,
-    {
-        method: 'POST',
-        headers: {
-            authorization: `Bearer ${getState().auth.authToken}`
-        }
-    })
-        .then(res => {
-            if (!res.ok) {
-                return Promise.reject(res.statusText)
-            }
-            return res.json();
-        })
-        .then(createdDoctor => {
-            dispatch(createDoctorSuccess(createdDoctor));
-        });
-};
-
-export const UPDATE_DOCTOR_SUCCESS = 'UPDATE_DOCTOR_SUCCESS';
-export const updateDoctorSuccess = updatedDoctor => ({
-    type: UPDATE_DOCTOR_SUCCESS,
-    updatedDoctor
-});
-
-export const updateDoctor = (patientId, doctorId) => (dispatch, getState) => {
-    fetch(`${API_BASE_URL}/api/patients/${patientId}/doctors/${doctorId}`,
-    {
-        method: 'PUT',
-        headers: {
-            authorization: `Bearer ${getState().auth.authToken}`
-        }
-    })
-        .then(res => {
-            if (!res.ok) {
-                return Promise.reject(res.statusText)
-            }
-            return res.json();
-        })
-        .then(updatedDoctor => {
-            dispatch(updateDoctorSuccess(updatedDoctor));
         });
 };
 

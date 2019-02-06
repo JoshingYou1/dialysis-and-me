@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {
     toggleAppointmentInfo,
     loadAppointmentFormData,
-    editSelectedAppointmentById
+    editSelectedAppointmentById,
+    deleteAppointment
 } from '../actions';
 import { EditAppointmentForm } from './editAppointmentForm';
 
@@ -24,11 +25,6 @@ export class AppointmentsShow extends React.Component {
             })
         }
     }
-
-    // showAppointmentMenu(a) {
-    //     this.props.dispatch(toggleAppointmentMenu());
-    //     this.props.dispatch(appointmentMenuId(a._id));
-    // }
 
     showAppointmentForm(a) {
         this.props.dispatch(loadAppointmentFormData(a));
@@ -53,82 +49,61 @@ export class AppointmentsShow extends React.Component {
 
                 let formattedAppointmentDate = `${month}/${day}/${year}`;      
             return (
-                <li className={className} key={i}>
-                    {/* <div>{a._id}</div>
-                    <div>{this.props.chosenAppointments._id}</div> */}
-                    {/* <span 
-                        className="fas fa-ellipsis-v a"
-                        onClick={() => this.showAppointmentMenu(a)}
+                <li key={i}>
+                    <div
+                        className={className}
+                        // className={className + (this.props.selectedAppointmentToEdit ? ' hidden-1' : '')}
                     >
-                    </span>
+                        <h2 className="appointment-date-h2">{formattedAppointmentDate}</h2>
+
+                        <span className="grid-e-span">Reason:</span>
+                        <span className="grid-f-span">{a.description}</span>
+
+                        <span className="grid-e-span">Time:</span>
+                        <span className="grid-f-span">{a.time}</span>
+
+                        <span className="grid-e-span">With:</span>
+                        <span className="grid-f-span">{a.with}</span>
+
+                        <span className="grid-e-span">Title:</span>
+                        <span className="grid-f-span">{a.title}</span>
+
+                        <span className="grid-e-span">Where:</span>
+                        <span className="grid-f-span">{a.where}</span>
+
+                        <span className="grid-e-span">Address:</span>
+                        <span className="grid-f-span">{a.address.street}</span>
+
+                        <span className="grid-e-span">City/State/Zip:</span>
+                        <span className="grid-f-span">
+                            {a.address.city},&nbsp;
+                            {a.address.state}&nbsp;
+                            {a.address.zipCode}
+                        </span>
+
+                        <span className="grid-e-span">Phone number:</span>
+                        <span className="grid-f-span">{a.phoneNumber}</span>
+                        <div className="appointment-button-holder-sm">
+                            <button 
+                                className="edit-appointment-button-sm"
+                                onClick={() => this.showAppointmentForm(a)}
+                            >
+                            <span className="fas fa-edit">&nbsp;&nbsp;</span>
+                                Edit
+                            </button>
+                            <button 
+                                className="delete-appointment-button-sm"
+                                onClick={() => this.props.dispatch(deleteAppointment(this.props.user.id, a._id))}
+                            >
+                            <span className="fas fa-trash-alt">&nbsp;&nbsp;</span>
+                                Delete
+                            </button>
+                        </div>
+                    </div>
                     <div 
-                        className={"appointment-button-holder-lg " + (this.props.appointmentMenu === a._id ? '' : 'hidden-1')}
+                        className={"edit-appointment-form-component-div " + (a._id === this.props.loadedAppointmentFormData._id ? '' : 'hidden-1')}
                     >
-                        <button 
-                            className="edit-appointment-button-lg"
-                            onClick={() => {this.showAppointmentForm(a)}}
-                        >
-                        <span className="fas fa-edit">&nbsp;&nbsp;</span>
-                            Edit
-                        </button>
-                        <button 
-                            className="delete-appointment-button-lg"
-                            onClick={() => this.props.dispatch(deleteAppointment())}
-                        >
-                        <span className="fas fa-trash-alt">&nbsp;&nbsp;</span>
-                            Delete
-                        </button>
-                    </div>
-                    <div className={"edit-appointment-form-div " + (a._id === this.props.loadedAppointmentFormData._id ? '' : 'hidden-1')}>
-                            <EditAppointmentForm />
-                    </div> */}
-                    <h2 className="appointment-date-h2">{formattedAppointmentDate}</h2>
-
-                    <span className="grid-e-span">Reason:</span>
-                    <span className="grid-f-span">{a.description}</span>
-
-                    <span className="grid-e-span">Time:</span>
-                    <span className="grid-f-span">{a.time}</span>
-
-                    <span className="grid-e-span">With:</span>
-                    <span className="grid-f-span">{a.with}</span>
-
-                    <span className="grid-e-span">Title:</span>
-                    <span className="grid-f-span">{a.title}</span>
-
-                    <span className="grid-e-span">Where:</span>
-                    <span className="grid-f-span">{a.where}</span>
-
-                    <span className="grid-e-span">Address:</span>
-                    <span className="grid-f-span">{a.address.street}</span>
-
-                    <span className="grid-e-span">City/State/Zip:</span>
-                    <span className="grid-f-span">
-                        {a.address.city},&nbsp;
-                        {a.address.state}&nbsp;
-                        {a.address.zipCode}
-                    </span>
-
-                    <span className="grid-e-span">Phone number:</span>
-                    <span className="grid-f-span">{a.phoneNumber}</span>
-                    <div className="appointment-button-holder-sm">
-                        <button 
-                            className="edit-appointment-button-sm"
-                            onClick={() => this.showAppointmentForm(a)}
-                        >
-                        <span className="fas fa-edit">&nbsp;&nbsp;</span>
-                            Edit
-                        </button>
-                        <button 
-                            className="delete-appointment-button-sm"
-                            // onClick={this.props.dispatch(deleteAppointment())}
-                        >
-                        <span className="fas fa-trash-alt">&nbsp;&nbsp;</span>
-                            Delete
-                        </button>
-                    </div>
-                    <div className={"edit-appointment-form-div " + (a._id === this.props.loadedAppointmentFormData._id ? '' : 'hidden-1')}>
-                            <EditAppointmentForm />
+                        <EditAppointmentForm />
                     </div>
                 </li>
             );
@@ -159,6 +134,7 @@ export class AppointmentsShow extends React.Component {
 const mapStateToProps = state => {
     console.log('state', state);
     return {
+        user: state.auth.currentUser,
         chosenAppointments: state.app.selectedAppointments,
         isAppointmentInfoShowing: state.app.isAppointmentInfoShowing,
         selectedAppointmentToEdit: state.app.selectedAppointmentToEdit,

@@ -9,10 +9,6 @@ export class LoginForm extends React.Component {
         return this.props.dispatch(login(values.username, values.password));
     }
 
-    refreshPage() {
-        window.location.reload();
-    }
-
     render() {
         let error;
         if (this.props.error) {
@@ -48,7 +44,6 @@ export class LoginForm extends React.Component {
                 <button 
                     className="login-button"
                     disabled={this.props.pristine || this.props.submitting}
-                    onClick={() => this.refreshPage()}
                 >
                     Log In
                 </button>
