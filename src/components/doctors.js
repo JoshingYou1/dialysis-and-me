@@ -1,10 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Doctor from './doctor';
-import { fetchProfileInfo, updateCurrentDoctor, fetchDoctors } from '../actions';
+import { 
+    fetchProfileInfo,
+    updateCurrentDoctor, 
+    fetchDoctors, 
+    toggleDoctorMenu, 
+    deleteDoctor, 
+    loadDoctorFormData, 
+    editSelectedDoctorById
+} from '../actions';
 import requiresLogin from './requires-login';
 import NavigationBar from './navBar';
 import Footer from './footer';
+import EditDoctorForm from './editDoctorForm';
 
 export class Doctors extends React.Component {
     constructor(props){
@@ -13,6 +22,11 @@ export class Doctors extends React.Component {
         this.state = {
             animate: true
         }
+    }
+
+    showEditDoctorForm(d) {
+        this.props.dispatch(loadDoctorFormData(d));
+        this.props.dispatch(editSelectedDoctorById(d));
     }
 
     componentDidMount() {
@@ -47,7 +61,7 @@ export class Doctors extends React.Component {
                     <NavigationBar />
                     <main role="main">
                         <h1 className="doctors-h1">Doctors</h1>
-                        <div className={className}>
+                        <div className={className + (this.props.selectedDoctorToEdit ? ' hidden-1' : '')}>
                             {/* <span 
                                 className="fas fa-ellipsis-v"
                                 // onClick={() => this.props.dispatch(toggleDoctorMenu())}
@@ -71,7 +85,7 @@ export class Doctors extends React.Component {
                             </span> */}
                             <Doctor doctor={d} />
                         </div>
-                        <div className="doctor-button-holder">
+                        <div className={"doctor-button-holder " + (this.props.selectedDoctorToEdit ? 'hidden-1' : '')}>
                             <button
                                 className={this.props.currentDoctor !== 0 ? 'display-doctor-button-1' : 'hidden-1'}
                                 onClick={() => this.props.dispatch(updateCurrentDoctor(cards[this.props.currentDoctor].previous))}
@@ -93,6 +107,12 @@ export class Doctors extends React.Component {
                                 </p>
                             </button>
                         </div>
+                        <div
+                            className={"edit-doctor-form-component-div " + (this.props.selectedDoctorToEdit ? '' : 'hidden-1')}
+                            // className={"edit-doctor-form-component-div " + (d._id === this.props.loadedDoctorFormData._id ? '' : 'hidden-1')}
+                        >
+                            <EditDoctorForm />
+                        </div>
                     </main>
                     <Footer />
                 </div>
@@ -109,7 +129,8 @@ export class Doctors extends React.Component {
 const mapStateToProps = state => ({
     user: state.auth.currentUser,
     currentDoctor: state.app.currentDoctor,
-    doctors: state.app.doctors
+    doctors: state.app.doctors,
+    selectedDoctorToEdit: state.app.selectedDoctorToEdit
 });
 
 export default requiresLogin()(connect(mapStateToProps)(Doctors));

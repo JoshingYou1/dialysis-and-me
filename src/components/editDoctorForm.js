@@ -1,13 +1,23 @@
 import React from 'react';
 import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
 import InputTwo from './inputTwo';
+import InputHidden from './inputHidden';
 import {API_BASE_URL} from '../config';
 import {required, nonEmpty} from '../validators';
 import { connect } from 'react-redux';
+import { editSelectedDoctorById, editFormMessage } from '../actions';
 
 export class EditDoctorForm extends React.Component {
+    showEditDoctorForm() {
+        this.props.dispatch(editSelectedDoctorById());
+    }
+
+    reloadDoctorComponent() {
+        window.location.reload();
+    }
+
     onSubmit(values) {
-        return fetch(`${API_BASE_URL}/api/patients/${this.props.user.id}/doctors`, {
+        return fetch(`${API_BASE_URL}/api/patients/${this.props.user.id}/doctors/${this.props.selectedDoctorToEdit._id}`, {
             method: 'PUT',
             body: JSON.stringify(values),
             headers: {
@@ -50,117 +60,138 @@ export class EditDoctorForm extends React.Component {
     render() {
         console.log('selectedAppointment', this.props.selectedAppointment);
         console.log('initialValues', this.props.initialValues);
-        if ((this.props.selectedDoctorToEdit && this.props.initialValues) && this.props.initialValues._id === this.props.selectedDoctorToEdit._id) {
+        // if ((this.props.selectedDoctorToEdit && this.props.initialValues) && this.props.initialValues._id === this.props.selectedDoctorToEdit._id) {
             let successMessage;
             if (this.props.submitSucceeded) {
                 successMessage = (
-                    <div className="message success-message">
-                        Doctor successfully updated!
+                    <div className="message edit-doctor-success-message">
+                        <p 
+                            className="edit-doctor-success-message-p"
+                        >
+                        Doctor successfully updated!&nbsp;<button onClick={() => this.reloadDoctorComponent()}>Got it!</button>
+                        </p>
                     </div>
                 );
             }
             let errorMessage;
             if (this.props.error) {
                 errorMessage = (
-                    <div className="message error-message">
+                    <div className="message edit-doctor-error-message">
                         {this.props.error}
                     </div>
                 );
             }
             return (
-                <form className="edit-doctor-form" onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+                <div className="edit-doctor-form-div">
                     {successMessage}
                     {errorMessage}
-                    <label className="doctor-form-label" htmlFor="name.firstName"></label>
-                    <Field 
-                        name="name.firstName"
-                        type="text"
-                        component={InputTwo}
-                        label="First Name"
-                        validate={[required]}
-                    />
-                    <label className="doctor-form-label" htmlFor="name.lastName"></label>
-                    <Field 
-                        name="name.lastName"
-                        type="text"
-                        component={InputTwo}
-                        label="Last Name"
-                        validate={[required]}
-                    />
-                    <label className="doctor-form-label" htmlFor="practice"></label>
-                    <Field 
-                        name="practice"
-                        type="text"
-                        component={InputTwo}
-                        label="Practice"
-                        validate={[required]}
-                    />
-                    <label className="doctor-form-label" htmlFor="company"></label>
-                    <Field 
-                        name="company"
-                        type="text"
-                        component={InputTwo}
-                        label="Company"
-                    />
-                    <label className="doctor-form-label" htmlFor="address.street"></label>
-                    <Field 
-                        name="address.street"
-                        type="text"
-                        component={InputTwo}
-                        label="Address"
-                        validate={[required]}
-                    />
-                    <label className="doctor-form-label" htmlFor="address.city"></label>
-                    <Field 
-                        name="address.city"
-                        type="text"
-                        component={InputTwo}
-                        label="City"
-                        validate={[required]}
-                    />
-                    <label className="doctor-form-label" htmlFor="address.state"></label>
-                    <Field 
-                        name="address.state"
-                        type="text"
-                        component={InputTwo}
-                        label="State"
-                        validate={[required]}
-                    />
-                    <label className="doctor-form-label" htmlFor="address.zipCode"></label>
-                    <Field 
-                        name="address.zipCode"
-                        type="text"
-                        component={InputTwo}
-                        label="Zip Code"
-                        validate={[required]}
-                    />
-                    <label className="doctor-form-label" htmlFor="phoneNumber"></label>
-                    <Field 
-                        name="phoneNumber"
-                        type="text"
-                        component={InputTwo}
-                        label="Phone Number"
-                        validate={[required]}
-                    />
-                    <label className="doctor-form-label" htmlFor="faxNumber"></label>
-                    <Field 
-                        name="faxNumber"
-                        type="text"
-                        component={InputTwo}
-                        label="Fax Number"
-                        validate={[required]}
-                    />
-                    <button
-                        type="submit"
-                        disabled={this.props.pristine || this.props.submitting}>
-                        Submit
-                    </button>
-                </form>
+                    <form 
+                        className={"edit-doctor-form " + (this.props.isMessageShowing ? 'hidden-1' : '')}
+                        onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+                        {/* <label className="doctor-form-label" htmlFor="name.firstName"></label> */}
+                        <Field 
+                            name="name.firstName"
+                            type="text"
+                            component={InputTwo}
+                            label="First Name"
+                            validate={[required]}
+                        />
+                        {/* <label className="doctor-form-label" htmlFor="name.lastName"></label> */}
+                        <Field 
+                            name="name.lastName"
+                            type="text"
+                            component={InputTwo}
+                            label="Last Name"
+                            validate={[required]}
+                        />
+                        {/* <label className="doctor-form-label" htmlFor="practice"></label> */}
+                        <Field 
+                            name="practice"
+                            type="text"
+                            component={InputTwo}
+                            label="Practice"
+                            validate={[required]}
+                        />
+                        {/* <label className="doctor-form-label" htmlFor="company"></label> */}
+                        <Field 
+                            name="company"
+                            type="text"
+                            component={InputTwo}
+                            label="Company"
+                        />
+                        {/* <label className="doctor-form-label" htmlFor="address.street"></label> */}
+                        <Field 
+                            name="address.street"
+                            type="text"
+                            component={InputTwo}
+                            label="Address"
+                            validate={[required]}
+                        />
+                        {/* <label className="doctor-form-label" htmlFor="address.city"></label> */}
+                        <Field 
+                            name="address.city"
+                            type="text"
+                            component={InputTwo}
+                            label="City"
+                            validate={[required]}
+                        />
+                        {/* <label className="doctor-form-label" htmlFor="address.state"></label> */}
+                        <Field 
+                            name="address.state"
+                            type="text"
+                            component={InputTwo}
+                            label="State"
+                            validate={[required]}
+                        />
+                        {/* <label className="doctor-form-label" htmlFor="address.zipCode"></label> */}
+                        <Field 
+                            name="address.zipCode"
+                            type="text"
+                            component={InputTwo}
+                            label="Zip Code"
+                            validate={[required]}
+                        />
+                        {/* <label className="doctor-form-label" htmlFor="phoneNumber"></label> */}
+                        <Field 
+                            name="phoneNumber"
+                            type="text"
+                            component={InputTwo}
+                            label="Phone Number"
+                            validate={[required]}
+                        />
+                        {/* <label className="doctor-form-label" htmlFor="faxNumber"></label> */}
+                        <Field 
+                            name="faxNumber"
+                            type="text"
+                            component={InputTwo}
+                            label="Fax Number"
+                            validate={[required]}
+                        />
+                        <Field component={InputHidden}/>
+                        <button
+                            className="edit-doctor-submit-button"
+                            type="submit"
+                            disabled={this.props.pristine || this.props.submitting}
+                            onClick={() => this.props.dispatch(editFormMessage())}
+                        >
+                            <span className="fas fa-check">&nbsp;&nbsp;</span>
+                            Submit
+                        </button>
+                        <button
+                            type="button"
+                            className="cancel-edit-doctor-form-changes-button"
+                            onClick={() => this.showEditDoctorForm()}
+                        >
+                            <span className="fas fa-times">&nbsp;&nbsp;</span>
+                            Cancel
+                        </button>
+                    </form>
+                </div>
             );
-        }
-        return (
-            <div></div>
-        );
+        // }
+        // return (
+        //     <div></div>
+        // );
     }
 }
 
@@ -168,7 +199,8 @@ const mapStateToProps = state => ({
     user: state.auth.currentUser,
     authToken: state.auth.authToken,
     initialValues: state.app.loadedDoctorFormData,
-    selectedDoctorToEdit: state.app.selectedDoctorToEdit
+    selectedDoctorToEdit: state.app.selectedDoctorToEdit,
+    isMessageShowing: state.app.isMessageShowing
 });
 
 EditDoctorForm = reduxForm({

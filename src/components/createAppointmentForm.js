@@ -169,6 +169,7 @@ export class CreateAppointmentForm extends React.Component {
                         Submit
                     </button>
                     <button 
+                        type="button"
                         className="cancel-create-appointment-form-changes-button"
                         onClick={() => this.props.dispatch(chooseCreateAppointment())}
                     >

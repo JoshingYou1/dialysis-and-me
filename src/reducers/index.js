@@ -30,7 +30,8 @@ import {
     TOGGLE_DOCTOR_MENU,
     EDIT_SELECTED_DOCTOR_BY_ID,
     FETCH_DOCTORS_SUCCESS,
-    DOCTOR_MENU_ID
+    DOCTOR_MENU_ID,
+    EDIT_FORM_MESSAGE
 } from '../actions/index';
 
 const initialState = {
@@ -146,11 +147,11 @@ export const appReducer = (state=initialState, action) => {
             isCreateDoctorFormShowing: !state.isCreateDoctorFormShowing
         });
     }
-    // else if (action.type === CHOOSE_EDIT_DOCTOR) {
-    //     return Object.assign({}, state, {
-    //         isEditDoctorFormShowing: !state.isEditDoctorFormShowing
-    //     });
-    // }
+    else if (action.type === CHOOSE_EDIT_DOCTOR) {
+        return Object.assign({}, state, {
+            isEditDoctorFormShowing: !state.isEditDoctorFormShowing
+        });
+    }
     else if (action.type === DELETE_DOCTOR_SUCCESS) {
         return Object.assign({}, state, {
             deletedDoctor: action.deletedDoctor
@@ -199,6 +200,11 @@ export const appReducer = (state=initialState, action) => {
     else if (action.type === DOCTOR_MENU_ID) {
         return Object.assign({}, state, {
             doctorMenu: action.doctorMenu
+        });
+    }
+    else if (action.type === EDIT_FORM_MESSAGE) {
+        return Object.assign({}, state, {
+            isMessageShowing: !state.isMessageShowing
         });
     }
     console.log('state', state);

@@ -182,11 +182,11 @@ export const chooseCreateDoctor = isCreateDoctorFormShowing => ({
     isCreateDoctorFormShowing
 });
 
-// export const CHOOSE_EDIT_DOCTOR = 'CHOOSE_EDIT_DOCTOR';
-// export const chooseEditDoctor = isEditDoctorFormShowing => ({
-//     type: CHOOSE_EDIT_DOCTOR,
-//     isEditDoctorFormShowing
-// });
+export const CHOOSE_EDIT_DOCTOR = 'CHOOSE_EDIT_DOCTOR';
+export const chooseEditDoctor = isEditDoctorFormShowing => ({
+    type: CHOOSE_EDIT_DOCTOR,
+    isEditDoctorFormShowing
+});
 
 export const FETCH_DOCTORS_SUCCESS = 'FETCH_DOCTORS_SUCCESS';
 export const fetchDoctorsSuccess = doctors => ({
@@ -285,5 +285,11 @@ export const DOCTOR_MENU_ID = 'DOCTOR_MENU_ID';
 export const doctorMenuId = doctorMenu => ({
     type: DOCTOR_MENU_ID,
     doctorMenu
+});
+
+export const EDIT_FORM_MESSAGE = 'EDIT_FORM_MESSAGE';
+export const editFormMessage = isMessageShowing => ({
+    type: EDIT_FORM_MESSAGE,
+    isMessageShowing
 });
 

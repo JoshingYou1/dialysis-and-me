@@ -7,6 +7,10 @@ import { connect } from 'react-redux';
 import { loadAppointmentFormData, updateAppointment, editSelectedAppointmentById } from '../actions';
 
 export class EditAppointmentForm extends React.Component {
+    showEditAppointmentForm() {
+        this.props.dispatch(editSelectedAppointmentById());
+    }
+
     onSubmit(values) {
         return fetch(`${API_BASE_URL}/api/patients/${this.props.user.id}/appointments/${this.props.selectedAppointmentToEdit._id}`, {
             method: 'PUT',
@@ -59,7 +63,7 @@ export class EditAppointmentForm extends React.Component {
             if (this.props.submitSucceeded) {
                 successMessage = (
                     <div className="message edit-appointment-success-message">
-                        Appointment successfully updated!
+                        <p>Appointment successfully updated!&nbsp;<button>Got it!</button></p>
                     </div>
                 );
             }
@@ -173,8 +177,9 @@ export class EditAppointmentForm extends React.Component {
                             Submit
                         </button>
                         <button
+                            type="button"
                             className="cancel-edit-appointment-form-changes-button"
-                            onClick={() => this.props.dispatch(editSelectedAppointmentById())}
+                            onClick={() => this.showEditAppointmentForm()}
                         >
                             <span className="fas fa-times">&nbsp;&nbsp;</span>
                             Cancel

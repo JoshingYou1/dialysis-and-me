@@ -6,7 +6,7 @@ import {
     editSelectedAppointmentById,
     deleteAppointment
 } from '../actions';
-import { EditAppointmentForm } from './editAppointmentForm';
+import EditAppointmentForm from './editAppointmentForm';
 
 export class AppointmentsShow extends React.Component {
     constructor(props){

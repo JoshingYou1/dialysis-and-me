@@ -1040,7 +1040,7 @@ footer {
   cursor: pointer;
 }
 
-.create-appointment-form-component-div, .edit-appointment-form-component-div {
+.create-appointment-form-component-div, .edit-appointment-form-component-div, .edit-doctor-form-component-div {
   margin-right: auto;
   margin-left: auto;
   width: 60%;
@@ -1117,7 +1117,8 @@ footer {
   margin-top: 1em;
 }
 
-.create-appointment-submit-button, .cancel-create-appointment-form-changes-button {
+.create-appointment-submit-button, .cancel-create-appointment-form-changes-button, .edit-doctor-submit-button, 
+.cancel-edit-doctor-form-changes-button {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -1130,19 +1131,19 @@ footer {
   cursor: pointer;
 }
 
-.create-appointment-submit-button {
+.create-appointment-submit-button, .edit-doctor-submit-button {
   background-color: #388038;
 }
 
-.create-appointment-submit-button:hover {
+.create-appointment-submit-button:hover, .edit-doctor-submit-button:hover {
   background-color: #46A046;
 }
 
-.cancel-create-appointment-form-changes-button {
+.cancel-create-appointment-form-changes-button, .cancel-edit-doctor-form-changes-button {
   background-color: #C70000;
 }
 
-.cancel-create-appointment-form-changes-button:hover {
+.cancel-create-appointment-form-changes-button:hover, .cancel-edit-doctor-form-changes-button:hover {
   background-color: #EB0000;
 }
 
@@ -1204,7 +1205,8 @@ footer {
   font-weight: bold;
 }
 
-.edit-appointment-submit-button, .cancel-edit-appointment-form-changes-button {
+.edit-appointment-submit-button, .cancel-edit-appointment-form-changes-button, .edit-doctor-submit-button, 
+.cancel-edit-doctor-form-changes-button {
   display: block;
   width: 100%;
   margin-top: 20px;
@@ -1223,7 +1225,18 @@ footer {
   background-color: #C70000;
 }
 
-.hidden-1 {
+.edit-doctor-success-message, .edit-doctor-error-message {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.hidden-1, .input-hidden {
   display: none;
 }
 
@@ -1237,7 +1250,7 @@ footer {
     height: 390px;
   }
 
-  .create-appointment-form-component-div, .edit-appointment-form-component-div {
+  .create-appointment-form-component-div, .edit-appointment-form-component-div, .edit-doctor-form-component-div {
     width: 55%;
   }
 
@@ -1264,7 +1277,7 @@ footer {
     padding-bottom: 7px;
   }
 
-  .create-appointment-form-component-div, .edit-appointment-form-component-div {
+  .create-appointment-form-component-div, .edit-appointment-form-component-div, .edit-doctor-form-component-div {
     width: 50%;
   }
 
@@ -1642,7 +1655,7 @@ footer {
     color: #008099;
   }
 
-  .create-appointment-form-component-div {
+  .create-appointment-form-component-div, .edit-doctor-form-component-div {
     width: 90%;
   }
 
@@ -1650,7 +1663,7 @@ footer {
     width: 100%;
   }
 
-  .create-appointment-form {
+  .create-appointment-form, .edit-doctor-form {
     display: grid;
     grid-template-areas: 
       "slot-1 slot-2 slot-3";
@@ -1681,7 +1694,7 @@ footer {
     grid-column-end: slot-3;
   }
 
-  .create-appointment-submit-button {
+  .create-appointment-submit-button, .edit-doctor-submit-button {
     grid-column-start: slot-2;
     margin-top: 2em;
     font-size: 20px;
@@ -1689,7 +1702,7 @@ footer {
     width: 100%
   }
 
-  .cancel-create-appointment-form-changes-button {
+  .cancel-create-appointment-form-changes-button, .cancel-edit-doctor-form-changes-button {
     grid-column-start: slot-3;
     margin-top: 2em;
     font-size: 20px;
