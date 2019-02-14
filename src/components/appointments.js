@@ -28,7 +28,6 @@ export class Appointments extends React.Component {
 
     render() {
         if (this.props.appointments) {
-            console.log('this.props.appointments', this.props.appointments);
             const list = this.props.appointments.map(l => {
                 let appointmentDate = new Date(l.date);
                     

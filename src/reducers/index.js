@@ -20,7 +20,7 @@ import {
     CHOOSE_EDIT_DOCTOR,
     CREATE_DOCTOR_SUCCESS,
     UPDATE_DOCTOR_SUCCESS,
-    // CHOOSE_EDIT_BASIC_PROFILE_INFO,
+    CHOOSE_EDIT_BASIC_PROFILE_INFO,
     DELETE_APPOINTMENT_SUCCESS,
     DELETE_DOCTOR_SUCCESS,
     EDIT_SELECTED_APPOINTMENT_BY_ID,
@@ -30,8 +30,9 @@ import {
     TOGGLE_DOCTOR_MENU,
     EDIT_SELECTED_DOCTOR_BY_ID,
     FETCH_DOCTORS_SUCCESS,
-    DOCTOR_MENU_ID,
-    EDIT_FORM_MESSAGE
+    EDIT_FORM_MESSAGE,
+    DOCTOR_MENU_BY_DOCTOR_ID,
+    LOAD_BASIC_PROFILE_INFO_FORM_DATA
 } from '../actions/index';
 
 const initialState = {
@@ -41,17 +42,16 @@ const initialState = {
     labResults: [],
     isLabResultsInfoShowing: false,
     profile: [],
+    loadedBasicProfileInfoFormData: {},
     isUserInfoShowing: false,
     section: 0,
     appointments: [],
     isAppointmentInfoShowing: false,
     areSublinksShowing: false,
     currentDoctor: 0,
-    // isEditAppointmentFormShowing: false,
     isCreateAppointmentFormShowing: false,
     isCreateDoctorFormShowing: false,
-    // isEditDoctorFormShowing: false,
-    isEditBasicProfileInfoShowing: false,
+    isEditBasicProfileInfoFormShowing: false,
     selectedAppointmentToEdit: {},
     loadedAppointmentFormData: {},
     isAppointmentMenuShowing: false,
@@ -62,7 +62,6 @@ const initialState = {
 
 export const appReducer = (state=initialState, action) => {
     if (action.type === SELECT_LAB_RESULTS_BY_ID) {
-        console.log('action', action)
         return Object.assign({}, state, {
             selectedLabResult: action.labResults
         });
@@ -80,6 +79,11 @@ export const appReducer = (state=initialState, action) => {
     else if (action.type === FETCH_PROFILE_INFO_SUCCESS) {
         return Object.assign({}, state, {
             profile: action.profile
+        });
+    }
+    else if (action.type === LOAD_BASIC_PROFILE_INFO_FORM_DATA) {
+        return Object.assign({}, state, {
+            loadedBasicProfileInfoFormData: action.loadedBasicProfileInfoFormData
         });
     }
     else if (action.type === TOGGLE_LAB_RESULTS_INFO) {
@@ -119,7 +123,8 @@ export const appReducer = (state=initialState, action) => {
     }
     else if (action.type === UPDATE_CURRENT_DOCTOR) {
         return Object.assign({}, state, {
-            currentDoctor: action.doctor
+            currentDoctor: action.doctor,
+            isDoctorMenuShowing: false
         });
     }
     else if (action.type === CHOOSE_CREATE_APPOINTMENT) {
@@ -162,11 +167,11 @@ export const appReducer = (state=initialState, action) => {
             loadedDoctorFormData: action.loadedDoctorFormData
         });
     }
-    // else if (action.type === CHOOSE_EDIT_BASIC_PROFILE_INFO) {
-    //     return Object.assign({}, state, {
-    //         isEditBasicProfileInfoShowing: !state.isEditBasicProfileInfoShowing
-    //     });
-    // }
+    else if (action.type === CHOOSE_EDIT_BASIC_PROFILE_INFO) {
+        return Object.assign({}, state, {
+            isEditBasicProfileInfoFormShowing: !state.isEditBasicProfileInfoFormShowing
+        });
+    }
     else if (action.type === EDIT_SELECTED_APPOINTMENT_BY_ID) {
         return Object.assign({}, state, {
             selectedAppointmentToEdit: action.selectedAppointmentToEdit
@@ -197,7 +202,7 @@ export const appReducer = (state=initialState, action) => {
             doctors: action.doctors
         });
     }
-    else if (action.type === DOCTOR_MENU_ID) {
+    else if (action.type === DOCTOR_MENU_BY_DOCTOR_ID) {
         return Object.assign({}, state, {
             doctorMenu: action.doctorMenu
         });

@@ -1,20 +1,33 @@
 import React from 'react';
-import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
+import {Field, reduxForm, SubmissionError, focus, getFormValues} from 'redux-form';
 import InputTwo from './inputTwo';
 import InputHidden from './inputHidden';
 import {API_BASE_URL} from '../config';
-import {required, nonEmpty} from '../validators';
+import {required, nonEmpty, isTrimmed} from '../validators';
 import { connect } from 'react-redux';
-import { editSelectedDoctorById, editFormMessage } from '../actions';
+import { editSelectedDoctorById, editFormMessage, fetchDoctors, updateCurrentDoctor } from '../actions';
+import PropTypes from 'prop-types';
 
 export class EditDoctorForm extends React.Component {
-    showEditDoctorForm() {
+    showDoctor() {
         this.props.dispatch(editSelectedDoctorById());
     }
 
-    reloadDoctorComponent() {
-        window.location.reload();
-    }
+    static propTypes = {
+        name: PropTypes.oneOfType([
+            PropTypes.string.isRequired,
+            PropTypes.number.isRequired
+        ])
+    };
+    // static contextTypes = {store: PropTypes.object}
+    // get values() {
+    //     const {store} = this.context;
+    //     const state = store.getState();
+    //     return getFormValues('editDoctor')(state);
+    // }
+    // reloadDoctorComponent() {
+    //     window.location.reload();
+    // }
 
     onSubmit(values) {
         return fetch(`${API_BASE_URL}/api/patients/${this.props.user.id}/doctors/${this.props.selectedDoctorToEdit._id}`, {
@@ -38,6 +51,7 @@ export class EditDoctorForm extends React.Component {
                         message: res.statusText
                     });
                 }
+                // this.props.dispatch(updateCurrentDoctor(values));
                 return;
             })
             .then(() => console.log('Submitted with values', values))
@@ -58,17 +72,19 @@ export class EditDoctorForm extends React.Component {
             });
     }
     render() {
-        console.log('selectedAppointment', this.props.selectedAppointment);
-        console.log('initialValues', this.props.initialValues);
-        // if ((this.props.selectedDoctorToEdit && this.props.initialValues) && this.props.initialValues._id === this.props.selectedDoctorToEdit._id) {
             let successMessage;
             if (this.props.submitSucceeded) {
                 successMessage = (
                     <div className="message edit-doctor-success-message">
-                        <p 
-                            className="edit-doctor-success-message-p"
-                        >
-                        Doctor successfully updated!&nbsp;<button onClick={() => this.reloadDoctorComponent()}>Got it!</button>
+                        <p className="edit-doctor-success-message-p">
+                            Doctor successfully updated!&nbsp;
+                            <button 
+                                className="form-message-button"
+                                onClick={() => this.showDoctor()}
+                            >
+                                <span className="fas fa-share-square">&nbsp;</span>
+                                <span>Go back</span>
+                            </button>
                         </p>
                     </div>
                 );
@@ -77,7 +93,15 @@ export class EditDoctorForm extends React.Component {
             if (this.props.error) {
                 errorMessage = (
                     <div className="message edit-doctor-error-message">
-                        {this.props.error}
+                        <p className="edit-doctor-error-message-p">
+                            {this.props.error}&nbsp;
+                            <button 
+                                className="form-message-button"
+                                onClick={() => this.showDoctor()}
+                            >
+                                Got it!
+                            </button>
+                        </p>
                     </div>
                 );
             }
@@ -87,8 +111,8 @@ export class EditDoctorForm extends React.Component {
                     {errorMessage}
                     <form 
                         className={"edit-doctor-form " + (this.props.isMessageShowing ? 'hidden-1' : '')}
-                        onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
-                        {/* <label className="doctor-form-label" htmlFor="name.firstName"></label> */}
+                        onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
+                    >
                         <Field 
                             name="name.firstName"
                             type="text"
@@ -96,7 +120,6 @@ export class EditDoctorForm extends React.Component {
                             label="First Name"
                             validate={[required]}
                         />
-                        {/* <label className="doctor-form-label" htmlFor="name.lastName"></label> */}
                         <Field 
                             name="name.lastName"
                             type="text"
@@ -104,7 +127,6 @@ export class EditDoctorForm extends React.Component {
                             label="Last Name"
                             validate={[required]}
                         />
-                        {/* <label className="doctor-form-label" htmlFor="practice"></label> */}
                         <Field 
                             name="practice"
                             type="text"
@@ -112,14 +134,12 @@ export class EditDoctorForm extends React.Component {
                             label="Practice"
                             validate={[required]}
                         />
-                        {/* <label className="doctor-form-label" htmlFor="company"></label> */}
                         <Field 
                             name="company"
                             type="text"
                             component={InputTwo}
                             label="Company"
                         />
-                        {/* <label className="doctor-form-label" htmlFor="address.street"></label> */}
                         <Field 
                             name="address.street"
                             type="text"
@@ -127,7 +147,6 @@ export class EditDoctorForm extends React.Component {
                             label="Address"
                             validate={[required]}
                         />
-                        {/* <label className="doctor-form-label" htmlFor="address.city"></label> */}
                         <Field 
                             name="address.city"
                             type="text"
@@ -135,7 +154,6 @@ export class EditDoctorForm extends React.Component {
                             label="City"
                             validate={[required]}
                         />
-                        {/* <label className="doctor-form-label" htmlFor="address.state"></label> */}
                         <Field 
                             name="address.state"
                             type="text"
@@ -143,7 +161,6 @@ export class EditDoctorForm extends React.Component {
                             label="State"
                             validate={[required]}
                         />
-                        {/* <label className="doctor-form-label" htmlFor="address.zipCode"></label> */}
                         <Field 
                             name="address.zipCode"
                             type="text"
@@ -151,7 +168,6 @@ export class EditDoctorForm extends React.Component {
                             label="Zip Code"
                             validate={[required]}
                         />
-                        {/* <label className="doctor-form-label" htmlFor="phoneNumber"></label> */}
                         <Field 
                             name="phoneNumber"
                             type="text"
@@ -159,7 +175,6 @@ export class EditDoctorForm extends React.Component {
                             label="Phone Number"
                             validate={[required]}
                         />
-                        {/* <label className="doctor-form-label" htmlFor="faxNumber"></label> */}
                         <Field 
                             name="faxNumber"
                             type="text"
@@ -167,7 +182,10 @@ export class EditDoctorForm extends React.Component {
                             label="Fax Number"
                             validate={[required]}
                         />
-                        <Field component={InputHidden}/>
+                        <Field 
+                            name=""
+                            component={InputHidden}
+                        />
                         <button
                             className="edit-doctor-submit-button"
                             type="submit"
@@ -180,7 +198,7 @@ export class EditDoctorForm extends React.Component {
                         <button
                             type="button"
                             className="cancel-edit-doctor-form-changes-button"
-                            onClick={() => this.showEditDoctorForm()}
+                            onClick={() => this.showDoctor()}
                         >
                             <span className="fas fa-times">&nbsp;&nbsp;</span>
                             Cancel
@@ -188,17 +206,13 @@ export class EditDoctorForm extends React.Component {
                     </form>
                 </div>
             );
-        // }
-        // return (
-        //     <div></div>
-        // );
     }
 }
 
 const mapStateToProps = state => ({
     user: state.auth.currentUser,
     authToken: state.auth.authToken,
-    initialValues: state.app.loadedDoctorFormData,
+    initialValues: state.app.selectedDoctorToEdit,
     selectedDoctorToEdit: state.app.selectedDoctorToEdit,
     isMessageShowing: state.app.isMessageShowing
 });

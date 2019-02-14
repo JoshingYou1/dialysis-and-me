@@ -14,7 +14,6 @@ export class LabResults extends React.Component {
     }
 
     chooseLabResults(choice) {
-        console.log('choice', choice);
         const labResults = this.props.labResults.find(result => {
             return result._id === choice;
         });
@@ -28,7 +27,6 @@ export class LabResults extends React.Component {
 
     render() {
         if (this.props.labResults) {
-            console.log('this.props.appointments', this.props.appointments);
             const list = this.props.labResults.map(l => {
                     let resultsDate = new Date(l.date);
                     

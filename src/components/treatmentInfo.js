@@ -2,10 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 export function TreatmentInfo(props) {
-    console.log("props.profile", props.profile);
     if (props.profile.primaryInsurance) {
-        console.log("props.profile", props.profile);
-
         let treatmentDays = props.profile.treatmentDays ? props.profile.treatmentDays : 'N/A';
         
         let treatmentTime = props.profile.treatmentTime ? props.profile.treatmentTime : 'N/A';

@@ -33,7 +33,6 @@ export const fetchLabResults = patientId => (dispatch, getState) => {
             return res.json();
         })
         .then(labResults => {
-            console.log('labResults', labResults);
             dispatch(fetchLabResultsSuccess(labResults));
         })
 };
@@ -59,10 +58,16 @@ export const fetchProfileInfo = patientId => (dispatch, getState) => {
             return res.json();
         })
         .then(profile => {
-            console.log('profile', profile);
+          
             dispatch(fetchProfileInfoSuccess(profile));
         });
 };
+
+export const LOAD_BASIC_PROFILE_INFO_FORM_DATA = 'LOAD_BASIC_PROFILE_INFO_FORM_DATA';
+export const loadBasicProfileInfoFormData = loadedBasicProfileInfoFormData => ({
+    type: LOAD_BASIC_PROFILE_INFO_FORM_DATA,
+    loadedBasicProfileInfoFormData
+});
 
 export const TOGGLE_LAB_RESULTS_INFO = 'TOGGLE_LAB_RESULTS_INFO';
 export const toggleLabResultsInfo = isLabResultsInfoShowing => ({
@@ -109,7 +114,7 @@ export const fetchAppointments = patientId => (dispatch, getState) => {
             return res.json();
         })
         .then(appointments => {
-            console.log('appointments', appointments);
+            
             dispatch(fetchAppointmentsSuccess(appointments));
         });
 };
@@ -129,7 +134,7 @@ export const deleteAppointment = (patientId, appointmentId) => (dispatch, getSta
         }
     })
         .then(res => {
-            console.log('res', res);
+            
             if (!res.ok) {
                 return Promise.reject(res.statusText)
             }
@@ -209,7 +214,6 @@ export const fetchDoctors = patientId => (dispatch, getState) => {
             return res.json();
         })
         .then(doctors => {
-            console.log('doctors', doctors);
             dispatch(fetchDoctorsSuccess(doctors));
         });
 };
@@ -232,7 +236,7 @@ export const deleteDoctor = (patientId, doctorId) => (dispatch, getState) => {
             if (!res.ok) {
                 return Promise.reject(res.statusText)
             }
-            return res.json();
+            return 'Doctor successfully deleted!';
         })
         .then(deletedDoctor => {
             dispatch(deleteDoctorSuccess(deletedDoctor))
@@ -245,11 +249,11 @@ export const loadDoctorFormData = loadedDoctorFormData => ({
     loadedDoctorFormData
 });
 
-// export const CHOOSE_EDIT_BASIC_PROFILE_INFO = 'CHOOSE_EDIT_BASIC_PROFILE_INFO';
-// export const chooseEditBasicProfileInfo = isEditBasicProfileInfoFormShowing => ({
-//     type: CHOOSE_EDIT_BASIC_PROFILE_INFO,
-//     isEditBasicProfileInfoFormShowing
-// });
+export const CHOOSE_EDIT_BASIC_PROFILE_INFO = 'CHOOSE_EDIT_BASIC_PROFILE_INFO';
+export const chooseEditBasicProfileInfo = isEditBasicProfileInfoFormShowing => ({
+    type: CHOOSE_EDIT_BASIC_PROFILE_INFO,
+    isEditBasicProfileInfoFormShowing
+});
 
 export const EDIT_SELECTED_APPOINTMENT_BY_ID = 'EDIT_SELECTED_APPOINTMENT_BY_ID';
 export const editSelectedAppointmentById = selectedAppointmentToEdit => ({
@@ -281,9 +285,9 @@ export const editSelectedDoctorById = selectedDoctorToEdit => ({
     selectedDoctorToEdit
 });
 
-export const DOCTOR_MENU_ID = 'DOCTOR_MENU_ID';
-export const doctorMenuId = doctorMenu => ({
-    type: DOCTOR_MENU_ID,
+export const DOCTOR_MENU_BY_DOCTOR_ID = 'DOCTOR_MENU_ID';
+export const doctorMenuByDoctorId = doctorMenu => ({
+    type: DOCTOR_MENU_BY_DOCTOR_ID,
     doctorMenu
 });
 
@@ -292,4 +296,5 @@ export const editFormMessage = isMessageShowing => ({
     type: EDIT_FORM_MESSAGE,
     isMessageShowing
 });
+
 

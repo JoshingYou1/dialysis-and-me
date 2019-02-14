@@ -28,7 +28,7 @@ export class Doctor extends React.Component {
                         </button>
                         <button 
                             className="delete-doctor-button"
-                            onClick={() => this.props.dispatch(deleteDoctor())}
+                            onClick={() => this.props.dispatch(deleteDoctor(this.props.user.id, d._id))}
                         >
                         <span className="fas fa-trash-alt">&nbsp;&nbsp;</span>
                             Delete
@@ -65,8 +65,10 @@ export class Doctor extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    user: state.auth.currentUser,
     isDoctorMenuShowing: state.app.isDoctorMenuShowing,
-    loadedDoctorFormData: state.app.loadedDoctorFormData
+    loadedDoctorFormData: state.app.loadedDoctorFormData,
+    selectedDoctorToEdit: state.app.selectedDoctorToEdit
 });
 
 export default connect(mapStateToProps)(Doctor)

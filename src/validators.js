@@ -1,6 +1,6 @@
 export const required = value => (value ? undefined : 'Required');
 export const nonEmpty = value => {
-    console.log('value', value);
+    // console.log('value', value);
     return value.trim() !== '' ? undefined : 'Cannot be empty';
 };
 export const isTrimmed = value =>

@@ -2,7 +2,7 @@ import React from 'react';
 import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
 import InputTwo from './inputTwo';
 import {API_BASE_URL} from '../config';
-import {required, nonEmpty} from '../validators';
+import {required, nonEmpty, isTrimmed} from '../validators';
 import { connect } from 'react-redux';
 
 export class CreateDoctorForm extends React.Component {
@@ -74,7 +74,7 @@ export class CreateDoctorForm extends React.Component {
                     type="text"
                     component={InputTwo}
                     label="First Name"
-                    validate={[required, nonEmpty]}
+                    validate={[required, nonEmpty, isTrimmed]}
                 />
                 {/* <label className="doctor-form-label" htmlFor="last-name"></label> */}
                 <Field 
@@ -82,7 +82,7 @@ export class CreateDoctorForm extends React.Component {
                     type="text"
                     component={InputTwo}
                     label="Last Name"
-                    validate={[required, nonEmpty]}
+                    validate={[required, nonEmpty, isTrimmed]}
                 />
                 {/* <label className="doctor-form-label" htmlFor="practice"></label> */}
                 <Field 
@@ -90,7 +90,7 @@ export class CreateDoctorForm extends React.Component {
                     type="text"
                     component={InputTwo}
                     label="Practice"
-                    validate={[required, nonEmpty]}
+                    validate={[required, nonEmpty, isTrimmed]}
                 />
                 {/* <label className="doctor-form-label" htmlFor="company"></label> */}
                 <Field 
@@ -98,6 +98,7 @@ export class CreateDoctorForm extends React.Component {
                     type="text"
                     component={InputTwo}
                     label="Company"
+                    validate={[required, nonEmpty, isTrimmed]}
                 />
                 {/* <label className="doctor-form-label" htmlFor="address"></label> */}
                 <Field 
@@ -105,7 +106,7 @@ export class CreateDoctorForm extends React.Component {
                     type="text"
                     component={InputTwo}
                     label="Address"
-                    validate={[required, nonEmpty]}
+                    validate={[required, nonEmpty, isTrimmed]}
                 />
                 {/* <label className="doctor-form-label" htmlFor="city"></label> */}
                 <Field 
@@ -113,7 +114,7 @@ export class CreateDoctorForm extends React.Component {
                     type="text"
                     component={InputTwo}
                     label="City"
-                    validate={[required, nonEmpty]}
+                    validate={[required, nonEmpty, isTrimmed]}
                 />
                 {/* <label className="doctor-form-label" htmlFor="state"></label> */}
                 <Field 
@@ -121,7 +122,7 @@ export class CreateDoctorForm extends React.Component {
                     type="text"
                     component={InputTwo}
                     label="Address"
-                    validate={[required, nonEmpty]}
+                    validate={[required, nonEmpty, isTrimmed]}
                 />
                 {/* <label className="doctor-form-label" htmlFor="zip-code"></label> */}
                 <Field 
@@ -129,7 +130,7 @@ export class CreateDoctorForm extends React.Component {
                     type="text"
                     component={InputTwo}
                     label="Zip Code"
-                    validate={[required, nonEmpty]}
+                    validate={[required, nonEmpty, isTrimmed]}
                 />
                 {/* <label className="doctor-form-label" htmlFor="phone-number"></label> */}
                 <Field 
@@ -137,7 +138,7 @@ export class CreateDoctorForm extends React.Component {
                     type="text"
                     component={InputTwo}
                     label="Phone Number"
-                    validate={[required, nonEmpty]}
+                    validate={[required, nonEmpty, isTrimmed]}
                 />
                 {/* <label className="doctor-form-label" htmlFor="fax-number"></label> */}
                 <Field 
@@ -145,7 +146,7 @@ export class CreateDoctorForm extends React.Component {
                     type="text"
                     component={InputTwo}
                     label="Fax Number"
-                    validate={[required, nonEmpty]}
+                    validate={[required, nonEmpty, isTrimmed]}
                 />
                 <button
                     type="submit"

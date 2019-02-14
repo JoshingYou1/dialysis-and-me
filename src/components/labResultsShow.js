@@ -12,7 +12,6 @@ export class LabResultsShow extends React.Component {
     }
 
     componentDidUpdate(prevProps){
-        console.log(this.state.animate);
         if (this.props.chosenLabResult !== prevProps.chosenLabResult) {
             this.setState({
                 animate: !this.state.animate,
@@ -105,7 +104,6 @@ export class LabResultsShow extends React.Component {
 }
 
 const mapStateToProps = state => {
-    console.log('state', state);
     return {
         chosenLabResult: state.app.selectedLabResult,
         isLabResultsInfoShowing: state.app.isLabResultsInfoShowing

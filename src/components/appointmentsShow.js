@@ -18,7 +18,6 @@ export class AppointmentsShow extends React.Component {
     }
 
     componentDidUpdate(prevProps){
-        console.log(this.state.animate);
         if (this.props.chosenAppointments !== prevProps.chosenAppointments) {
             this.setState({
                 animate: !this.state.animate,
@@ -51,8 +50,8 @@ export class AppointmentsShow extends React.Component {
             return (
                 <li key={i}>
                     <div
-                        className={className}
-                        // className={className + (this.props.selectedAppointmentToEdit ? ' hidden-1' : '')}
+                        // className={className}
+                        className={className + (a._id === this.props.loadedAppointmentFormData._id ? ' hidden-1' : '')}
                     >
                         <h2 className="appointment-date-h2">{formattedAppointmentDate}</h2>
 
@@ -132,7 +131,6 @@ export class AppointmentsShow extends React.Component {
 }
 
 const mapStateToProps = state => {
-    console.log('state', state);
     return {
         user: state.auth.currentUser,
         chosenAppointments: state.app.selectedAppointments,

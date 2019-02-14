@@ -6,7 +6,6 @@ import {toggleSidebar} from '../actions';
 export class Sublinks extends React.Component {
     render() {
         const sublinks = this.props.sublinks.map((sl, i) => {
-            console.log('props.parent', i + this.props.parent);
             return (
                 <li className="sublinks-list-item">
                     <Link 

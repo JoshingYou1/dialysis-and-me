@@ -1,12 +1,13 @@
 import React from 'react';
 import NavigationBar from './navBar';
 import {connect} from 'react-redux';
-import { fetchProfileInfo, selectProfileInfoSection } from '../actions';
+import { fetchProfileInfo, selectProfileInfoSection, chooseEditBasicProfileInfo, loadBasicProfileInfoFormData } from '../actions';
 import requiresLogin from './requires-login';
 import Footer from './footer';
 import PrimaryInsuranceInfo from './primaryInsuranceInfo';
 import SecondaryInsuranceInfo from './secondaryInsuranceInfo';
 import TreatmentInfo from './treatmentInfo';
+import { EditBasicProfileInfoForm } from './editBasicProfileInfoForm';
 
 export class Profile extends React.Component {
 
@@ -14,9 +15,13 @@ export class Profile extends React.Component {
         this.props.dispatch(fetchProfileInfo(this.props.user.id));
     }
 
+    showEditProfileForm() {
+        this.props.dispatch(chooseEditBasicProfileInfo());
+        this.props.dispatch(loadBasicProfileInfoFormData(this.props.profile));
+    }
+    
   render() {
     if (this.props.profile.name && this.props.profile.address && this.props.profile.phoneNumbers) {
-        console.log('profile', this.props.profile.address);
         let date = new Date(this.props.profile.dateOfBirth);
 
         let day = date.getDate();
@@ -61,22 +66,19 @@ export class Profile extends React.Component {
             }
         ];
 
-        
-
-
-
-
-        console.log('cards', cards);
-        console.log('this.props.section', this.props.section);
-        console.log('cards[this.props.section]', cards[this.props.section]);
         return (
             <div className="container">
                 <NavigationBar />
                 <main role="main">
-                    <div className={this.props.section === 0 ? 'display-section' : 'hidden-1'}>
+                    <div className={this.props.section === 0 && !this.props.isEditBasicProfileInfoFormShowing ? 'display-section' : 'hidden-1'}>
                         <h1 className="basic-info-h1">{this.props.profile.name.firstName} {this.props.profile.name.lastName}</h1>
-                        <section className="basic-info-section">
-                            
+                        <section className={"basic-info-section " + (this.props.isEditBasicProfileInfoFormShowing ? 'hidden-1' : '')}>
+                            <button 
+                                className="edit-profile-button"
+                                onClick={() => this.showEditProfileForm()}
+                            >
+                                <span className="fas fa-edit"></span>
+                            </button>
                             <span className="grid-c-span">Sex:</span>
                             <span className="grid-d-span">{this.props.profile.sex}</span>
                         
@@ -119,7 +121,7 @@ export class Profile extends React.Component {
                     <div className={this.props.section === 3 ? 'display-section' : 'hidden-1'}>
                         <TreatmentInfo />
                     </div>
-                    <div className="profile-section-button-holder">
+                    <div className={"profile-section-button-holder " + (this.props.isEditBasicProfileInfoFormShowing ? 'hidden-1' : '')}>
                         <button
                             className={this.props.section !== 0 ? 'display-profile-section-button-1' : 'hidden-1'}
                             onClick={() => this.props.dispatch(selectProfileInfoSection(cards[this.props.section].previous))}
@@ -139,6 +141,12 @@ export class Profile extends React.Component {
                             </p>
                         </button>
                     </div>
+                    <div 
+                        className={"edit-basic-profile-info-form-component-div " + (this.props.isEditBasicProfileInfoFormShowing ? '' : 'hidden-1')}
+                    >
+                        <h1 className="basic-info-h1">{this.props.profile.name.firstName} {this.props.profile.name.lastName}</h1>
+                        <EditBasicProfileInfoForm />
+                    </div>
                 </main>
                 <Footer />
             </div>
@@ -155,11 +163,12 @@ export class Profile extends React.Component {
 }
 
 const mapStateToProps = state => {
-    console.log('state.app.section', state.app.section);
     return {
         user: state.auth.currentUser,
         profile: state.app.profile,
-        section: state.app.section
+        section: state.app.section,
+        isEditBasicProfileInfoFormShowing: state.app.isEditBasicProfileInfoFormShowing,
+        loadedBasicProfileInfoFormData: state.app.loadedBasicProfileInfoFormData
     };
 }
 

@@ -2,13 +2,14 @@ import React from 'react';
 import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
 import InputThree from './inputThree';
 import {API_BASE_URL} from '../config';
-import {required, nonEmpty} from '../validators';
+import {required, nonEmpty, isTrimmed} from '../validators';
 import { connect } from 'react-redux';
-import { loadAppointmentFormData, updateAppointment, editSelectedAppointmentById } from '../actions';
+import { loadAppointmentFormData, updateAppointment, editSelectedAppointmentById, editFormMessage } from '../actions';
 
 export class EditAppointmentForm extends React.Component {
-    showEditAppointmentForm() {
-        this.props.dispatch(editSelectedAppointmentById());
+    showAppointment() {
+        this.props.dispatch(editSelectedAppointmentById({}));
+        this.props.dispatch(loadAppointmentFormData({}));
     }
 
     onSubmit(values) {
@@ -53,17 +54,20 @@ export class EditAppointmentForm extends React.Component {
             });
     }
     render() {
-        console.log('selectedAppointment', this.props.selectedAppointment);
-        console.log('initialValues', this.props.initialValues);
-        
         if ((this.props.selectedAppointmentToEdit && this.props.initialValues) && this.props.initialValues._id === this.props.selectedAppointmentToEdit._id) {
-            console.log('selectedAppointment.id', this.props.selectedAppointmentToEdit._id);
-            console.log('initialValues.id', this.props.initialValues._id);
             let successMessage;
             if (this.props.submitSucceeded) {
                 successMessage = (
                     <div className="message edit-appointment-success-message">
-                        <p>Appointment successfully updated!&nbsp;<button>Got it!</button></p>
+                        <p className="edit-appointment-success-message-p">
+                            Appointment successfully updated!&nbsp;
+                            <button
+                                className="form-message-button"
+                                onClick={() => this.showAppointment()}
+                            >
+                                Got it!
+                            </button>
+                        </p>
                     </div>
                 );
             }
@@ -71,7 +75,15 @@ export class EditAppointmentForm extends React.Component {
             if (this.props.error) {
                 errorMessage = (
                     <div className="message edit-appointment-error-message">
-                        {this.props.error}
+                        <p className="edit-appointment-error-message-p">
+                            {this.props.error}&nbsp;
+                            <button
+                                className="form-message-button"
+                                onClick={() => this.showAppointment()}
+                            >
+                                Got it!
+                            </button>
+                        </p>
                     </div>
                 );
             }
@@ -79,7 +91,10 @@ export class EditAppointmentForm extends React.Component {
                 <div className="edit-appointment-form-div">
                     {successMessage}
                     {errorMessage}
-                    <form className="edit-appointment-form" onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+                    <form 
+                        className={"edit-appointment-form " + (this.props.isMessageShowing ? 'hidden-1' : '')} 
+                        onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
+                    >
                         {/* <label className="appointment-form-label" htmlFor="date"></label> */}
                         <Field 
                             name="date"
@@ -110,6 +125,7 @@ export class EditAppointmentForm extends React.Component {
                             type="text"
                             component={InputThree}
                             label="With"
+                            validate={[required]}
                         />
                         {/* <label className="appointment-form-label" htmlFor="title"></label> */}
                         <Field 
@@ -171,7 +187,7 @@ export class EditAppointmentForm extends React.Component {
                             className="edit-appointment-submit-button"
                             type="submit"
                             disabled={this.props.pristine || this.props.submitting}
-                            // onClick={() => this.props.dispatch(updateAppointment())}
+                            onClick={() => this.props.dispatch(editFormMessage())}
                         >
                             <span className="fas fa-check">&nbsp;&nbsp;</span>
                             Submit
@@ -179,7 +195,7 @@ export class EditAppointmentForm extends React.Component {
                         <button
                             type="button"
                             className="cancel-edit-appointment-form-changes-button"
-                            onClick={() => this.showEditAppointmentForm()}
+                            onClick={() => this.showAppointment()}
                         >
                             <span className="fas fa-times">&nbsp;&nbsp;</span>
                             Cancel
@@ -198,7 +214,8 @@ const mapStateToProps = state => ({
     user: state.auth.currentUser,
     authToken: state.auth.authToken,
     initialValues: state.app.loadedAppointmentFormData,
-    selectedAppointmentToEdit: state.app.selectedAppointmentToEdit
+    selectedAppointmentToEdit: state.app.selectedAppointmentToEdit,
+    isMessageShowing: state.app.isMessageShowing
 });
 
 EditAppointmentForm = reduxForm({

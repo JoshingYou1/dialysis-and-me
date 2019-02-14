@@ -2,10 +2,16 @@ import React from 'react';
 import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
 import InputTwo from './inputTwo';
 import {API_BASE_URL} from '../config';
-import {required, nonEmpty} from '../validators';
+import {required, nonEmpty, isTrimmed} from '../validators';
 import { connect } from 'react-redux';
+import { loadBasicProfileInfoFormData, chooseEditBasicProfileInfo } from '../actions';
 
 export class EditBasicProfileInfoForm extends React.Component {
+
+    showProfile() {
+        this.props.dispatch(chooseEditBasicProfileInfo());
+    }
+
     onSubmit(values) {
         return fetch(`${API_BASE_URL}/api/patients/${this.props.user.id}`, {
             method: 'PUT',
@@ -51,89 +57,114 @@ export class EditBasicProfileInfoForm extends React.Component {
         let successMessage;
         if (this.props.submitSucceeded) {
             successMessage = (
-                <div className="message success-message">
-                    Your profile was successfully updated!
+                <div className="message edit-profile-info-success-message">
+                    <p className="edit-profile-info-success-message-p">
+                        Your profile was successfully updated!&nbsp;
+                        <button 
+                            className="form-message-button"
+                            onClick={() => this.showProfile()}
+                        >
+                            Got it!
+                        </button>
+                    </p>
                 </div>
             );
         }
         let errorMessage;
         if (this.props.error) {
             errorMessage = (
-                <div className="message error-message">
-                    {this.props.error}
+                <div className="message edit-profile-info-error-message">
+                    <p className="edit-profile-info-error-message-p">
+                        {this.props.error}&nbsp;
+                        <button 
+                            className="form-message-button"
+                            onClick={() => this.showProfile()}
+                        >
+                            Got it!
+                        </button>
+                    </p>
                 </div>
             );
         }
         return (
-            <form className="edit-basic-profile-info-form" onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+            <div className="edit-basic-profile-info-form-div">
                 {successMessage}
                 {errorMessage}
-                {/* <label className="profile-form-label" htmlFor="name.firstName"></label> */}
-                <Field 
-                    name="socialSecurityNumber"
-                    type="text"
-                    component={InputTwo}
-                    label="SSN"
-                    validate={[required]}
-                />
-                {/* <label className="profile-form-label" htmlFor="address.street"></label> */}
-                <Field 
-                    name="address.street"
-                    type="text"
-                    component={InputTwo}
-                    label="Address"
-                    validate={[required]}
-                />
-                {/* <label className="profile-form-label" htmlFor="address.city"></label> */}
-                <Field 
-                    name="address.city"
-                    type="text"
-                    component={InputTwo}
-                    label="City"
-                    validate={[required]}
-                />
-                {/* <label className="profile-form-label" htmlFor="address.state"></label> */}
-                <Field 
-                    name="address.state"
-                    type="text"
-                    component={InputTwo}
-                    label="State"
-                />
-                {/* <label className="profile-form-label" htmlFor="address.zipCode"></label> */}
-                <Field 
-                    name="address.zipCode"
-                    type="text"
-                    component={InputTwo}
-                    label="Zip Code"
-                    validate={[required]}
-                />
-                {/* <label className="profile-form-label" htmlFor="phoneNumbers.home"></label> */}
-                <Field 
-                    name="phoneNumbers.home"
-                    type="text"
-                    component={InputTwo}
-                    label="Home Phone"
-                />
-                {/* <label className="profile-form-label" htmlFor="phoneNumbers.cell"></label> */}
-                <Field 
-                    name="phoneNumbers.cell"
-                    type="text"
-                    component={InputTwo}
-                    label="Cell Phone"
-                />
-                {/* <label className="profile-form-label" htmlFor="phoneNumbers.work"></label> */}
-                <Field 
-                    name="phoneNumbers.work"
-                    type="text"
-                    component={InputTwo}
-                    label="Work Phone"
-                />
-                <button
-                    type="submit"
-                    disabled={this.props.pristine || this.props.submitting}>
-                    Submit
-                </button>
-            </form>
+                <form 
+                    className="edit-basic-profile-info-form"
+                    onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
+                >
+                    <Field 
+                        name="socialSecurityNumber"
+                        type="text"
+                        component={InputTwo}
+                        label="SSN"
+                        validate={[required]}
+                    />
+                    <Field 
+                        name="address.street"
+                        type="text"
+                        component={InputTwo}
+                        label="Address"
+                        validate={[required]}
+                    />
+                    <Field 
+                        name="address.city"
+                        type="text"
+                        component={InputTwo}
+                        label="City"
+                        validate={[required]}
+                    />
+                    <Field 
+                        name="address.state"
+                        type="text"
+                        component={InputTwo}
+                        label="State"
+                        validate={[required]}
+                    />
+                    <Field 
+                        name="address.zipCode"
+                        type="text"
+                        component={InputTwo}
+                        label="Zip Code"
+                        validate={[required]}
+                    />
+                    <Field 
+                        name="phoneNumbers.home"
+                        type="text"
+                        component={InputTwo}
+                        label="Home Phone"
+                    />
+                    <Field 
+                        name="phoneNumbers.cell"
+                        type="text"
+                        component={InputTwo}
+                        label="Cell Phone"
+                    />
+                    <Field 
+                        name="phoneNumbers.work"
+                        type="text"
+                        component={InputTwo}
+                        label="Work Phone"
+                    />
+                    <button
+                        className="edit-basic-profile-info-submit-button"
+                        type="submit"
+                        disabled={this.props.pristine || this.props.submitting}
+                    >
+                        <span className="fas fa-check">&nbsp;&nbsp;</span>
+                        Submit
+                    </button>
+                    <button
+                        type="button"
+                        className="cancel-edit-basic-profile-info-form-changes-button"
+                        onClick={() => this.showProfile()}
+                    >
+                        <span className="fas fa-times">&nbsp;&nbsp;</span>
+                        Cancel
+                    </button>
+                </form>
+            </div>
         );
     }
 }

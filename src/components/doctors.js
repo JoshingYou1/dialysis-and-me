@@ -14,6 +14,8 @@ import requiresLogin from './requires-login';
 import NavigationBar from './navBar';
 import Footer from './footer';
 import EditDoctorForm from './editDoctorForm';
+import CreateDoctorForm from './createDoctorForm';
+import PropTypes from 'prop-types';
 
 export class Doctors extends React.Component {
     constructor(props){
@@ -23,6 +25,13 @@ export class Doctors extends React.Component {
             animate: true
         }
     }
+
+    static propTypes = {
+        name: PropTypes.oneOfType([
+            PropTypes.string.isRequired,
+            PropTypes.number.isRequired
+        ])
+    };
 
     showEditDoctorForm(d) {
         this.props.dispatch(loadDoctorFormData(d));
@@ -34,7 +43,6 @@ export class Doctors extends React.Component {
     }
 
     componentDidUpdate(prevProps){
-        console.log(this.state.animate);
         if (this.props.currentDoctor !== prevProps.currentDoctor) {
             this.setState({
                 animate: !this.state.animate,
@@ -44,7 +52,6 @@ export class Doctors extends React.Component {
     
     render() {
         if (this.props.doctors.length > 0) {
-            console.log('this.props.doctors', this.props.doctors)
             const cards = this.props.doctors.map((d, i) => {
                 return {
                     previous: i === 0 ? null : i - 1,
@@ -59,30 +66,9 @@ export class Doctors extends React.Component {
             return (
                 <div className="container">
                     <NavigationBar />
-                    <main role="main">
+                    <main role="main" className="doctors-main">
                         <h1 className="doctors-h1">Doctors</h1>
                         <div className={className + (this.props.selectedDoctorToEdit ? ' hidden-1' : '')}>
-                            {/* <span 
-                                className="fas fa-ellipsis-v"
-                                // onClick={() => this.props.dispatch(toggleDoctorMenu())}
-                            >
-                            <div className={"doctor-menu " + (this.props.isDoctorMenuShowing ? '' : 'hidden-1')}>
-                                <button 
-                                    className="edit-doctor-button"
-                                    onClick={() => {this.showDoctorForm()}}
-                                >
-                                <span className="fas fa-edit">&nbsp;&nbsp;</span>
-                                    Edit
-                                </button>
-                                <button 
-                                    className="delete-doctor-button"
-                                    // onClick={() => this.props.dispatch(deleteDoctor())}
-                                >
-                                <span className="fas fa-trash-alt">&nbsp;&nbsp;</span>
-                                    Delete
-                                </button>
-                            </div>
-                            </span> */}
                             <Doctor doctor={d} />
                         </div>
                         <div className={"doctor-button-holder " + (this.props.selectedDoctorToEdit ? 'hidden-1' : '')}>
@@ -107,9 +93,22 @@ export class Doctors extends React.Component {
                                 </p>
                             </button>
                         </div>
+                        <div className={"create-doctor-div " + (this.props.selectedDoctorToEdit ? 'hidden-1' : '')}>
+                            <span className={"create-doctor-span " + (this.props.isCreateDoctorFormShowing ? 'hidden-1' : '')}>
+                                Need to add a doctor?
+                            </span>
+                            <button
+                                className={"create-doctor-button "  + (this.props.isCreateDoctorFormShowing ? 'hidden-1' : '')}
+                                // onClick={() => this.props.dispatch(chooseCreateDoctor())}
+                            >
+                                Click here
+                            </button>
+                        </div>
+                        <div className={"create-appointment-form-component-div " + (this.props.isCreateDoctorFormShowing ? '' : 'hidden-1')}>
+                            <CreateDoctorForm />
+                        </div>
                         <div
                             className={"edit-doctor-form-component-div " + (this.props.selectedDoctorToEdit ? '' : 'hidden-1')}
-                            // className={"edit-doctor-form-component-div " + (d._id === this.props.loadedDoctorFormData._id ? '' : 'hidden-1')}
                         >
                             <EditDoctorForm />
                         </div>
@@ -120,7 +119,7 @@ export class Doctors extends React.Component {
         }
         return (
             <div>
-                loading...
+                Loading...
             </div>
         );
     }
