@@ -4,8 +4,13 @@ import InputTwo from './inputTwo';
 import {API_BASE_URL} from '../config';
 import {required, nonEmpty, isTrimmed} from '../validators';
 import { connect } from 'react-redux';
+import InputHidden from './inputHidden';
+import { chooseCreateDoctor, formMessage } from '../actions';
 
 export class CreateDoctorForm extends React.Component {
+    showDoctor() {
+        this.props.dispatch(chooseCreateDoctor());
+    }
     onSubmit(values) {
         return fetch(`${API_BASE_URL}/api/patients/${this.props.user.id}/doctors`, {
             method: 'POST',
@@ -51,116 +56,146 @@ export class CreateDoctorForm extends React.Component {
         let successMessage;
         if (this.props.submitSucceeded) {
             successMessage = (
-                <div className="message success-message">
-                    Doctor successfully added to your list!
+                <div className="message create-doctor-success-message">
+                    <p className="create-doctor-success-message-p">
+                        Doctor successfully added to your list!&nbsp;
+                        <button 
+                            className="form-message-button"
+                            onClick={() => this.showDoctor()}
+                        >
+                            <span className="fas fa-share-square">&nbsp;</span>
+                            <span>Go back</span>
+                        </button>
+                    </p>
                 </div>
             );
         }
         let errorMessage;
         if (this.props.error) {
             errorMessage = (
-                <div className="message error-message">
-                    {this.props.error}
+                <div className="message create-doctor-error-message">
+                    <p className="create-doctor-error-message-p">
+                        {this.props.error}&nbsp;
+                        <button 
+                            className="form-message-button"
+                            onClick={() => this.showDoctor()}
+                        >
+                            <span className="fas fa-share-square">&nbsp;</span>
+                            <span>Go back</span>
+                        </button>
+                    </p>
                 </div>
             );
         }
         return (
-            <form className="create-doctor-form" onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+            <div className="create-doctor-form-div">
                 {successMessage}
                 {errorMessage}
-                {/* <label className="doctor-form-label" htmlFor="first-name"></label> */}
-                <Field 
-                    name="first-name"
-                    type="text"
-                    component={InputTwo}
-                    label="First Name"
-                    validate={[required, nonEmpty, isTrimmed]}
-                />
-                {/* <label className="doctor-form-label" htmlFor="last-name"></label> */}
-                <Field 
-                    name="last-name"
-                    type="text"
-                    component={InputTwo}
-                    label="Last Name"
-                    validate={[required, nonEmpty, isTrimmed]}
-                />
-                {/* <label className="doctor-form-label" htmlFor="practice"></label> */}
-                <Field 
-                    name="practice"
-                    type="text"
-                    component={InputTwo}
-                    label="Practice"
-                    validate={[required, nonEmpty, isTrimmed]}
-                />
-                {/* <label className="doctor-form-label" htmlFor="company"></label> */}
-                <Field 
-                    name="company"
-                    type="text"
-                    component={InputTwo}
-                    label="Company"
-                    validate={[required, nonEmpty, isTrimmed]}
-                />
-                {/* <label className="doctor-form-label" htmlFor="address"></label> */}
-                <Field 
-                    name="address"
-                    type="text"
-                    component={InputTwo}
-                    label="Address"
-                    validate={[required, nonEmpty, isTrimmed]}
-                />
-                {/* <label className="doctor-form-label" htmlFor="city"></label> */}
-                <Field 
-                    name="city"
-                    type="text"
-                    component={InputTwo}
-                    label="City"
-                    validate={[required, nonEmpty, isTrimmed]}
-                />
-                {/* <label className="doctor-form-label" htmlFor="state"></label> */}
-                <Field 
-                    name="state"
-                    type="text"
-                    component={InputTwo}
-                    label="Address"
-                    validate={[required, nonEmpty, isTrimmed]}
-                />
-                {/* <label className="doctor-form-label" htmlFor="zip-code"></label> */}
-                <Field 
-                    name="zip-code"
-                    type="text"
-                    component={InputTwo}
-                    label="Zip Code"
-                    validate={[required, nonEmpty, isTrimmed]}
-                />
-                {/* <label className="doctor-form-label" htmlFor="phone-number"></label> */}
-                <Field 
-                    name="phone-number"
-                    type="text"
-                    component={InputTwo}
-                    label="Phone Number"
-                    validate={[required, nonEmpty, isTrimmed]}
-                />
-                {/* <label className="doctor-form-label" htmlFor="fax-number"></label> */}
-                <Field 
-                    name="fax-number"
-                    type="text"
-                    component={InputTwo}
-                    label="Fax Number"
-                    validate={[required, nonEmpty, isTrimmed]}
-                />
-                <button
-                    type="submit"
-                    disabled={this.props.pristine || this.props.submitting}>
-                    Submit
-                </button>
-            </form>
+                <form 
+                    className={"create-doctor-form " + (this.props.isMessageShowing ? 'hidden-1' : '')}
+                    onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
+                >
+                    <Field 
+                        name="name.firstName"
+                        type="text"
+                        component={InputTwo}
+                        label="First Name"
+                        validate={[required, nonEmpty, isTrimmed]}
+                    />
+                    <Field 
+                        name="name.lastName"
+                        type="text"
+                        component={InputTwo}
+                        label="Last Name"
+                        validate={[required, nonEmpty, isTrimmed]}
+                    />
+                    <Field 
+                        name="practice"
+                        type="text"
+                        component={InputTwo}
+                        label="Practice"
+                        validate={[required, nonEmpty, isTrimmed]}
+                    />
+                    <Field 
+                        name="company"
+                        type="text"
+                        component={InputTwo}
+                        label="Company"
+                        validate={[required, nonEmpty, isTrimmed]}
+                    />
+                    <Field 
+                        name="address.street"
+                        type="text"
+                        component={InputTwo}
+                        label="Address"
+                        validate={[required, nonEmpty, isTrimmed]}
+                    />
+                    <Field 
+                        name="address.city"
+                        type="text"
+                        component={InputTwo}
+                        label="City"
+                        validate={[required, nonEmpty, isTrimmed]}
+                    />
+                    <Field 
+                        name="address.state"
+                        type="text"
+                        component={InputTwo}
+                        label="State"
+                        validate={[required, nonEmpty, isTrimmed]}
+                    />
+                    <Field 
+                        name="address.zipCode"
+                        type="text"
+                        component={InputTwo}
+                        label="Zip Code"
+                        validate={[required, nonEmpty, isTrimmed]}
+                    />
+                    <Field 
+                        name="phoneNumber"
+                        type="text"
+                        component={InputTwo}
+                        label="Phone Number"
+                        validate={[required, nonEmpty, isTrimmed]}
+                    />
+                    <Field 
+                        name="faxNumber"
+                        type="text"
+                        component={InputTwo}
+                        label="Fax Number"
+                        validate={[required, nonEmpty, isTrimmed]}
+                    />
+                    <Field 
+                        name=""
+                        component={InputHidden}
+                    />
+                    <button
+                        className="create-doctor-submit-button"
+                        type="submit"
+                        disabled={this.props.pristine || this.props.submitting}
+                        onClick={() => this.props.dispatch(formMessage())}
+                    >
+                        <span className="fas fa-check">&nbsp;&nbsp;</span>
+                        Submit
+                    </button>
+                    <button 
+                        type="button"
+                        className="cancel-create-doctor-form-changes-button"
+                        onClick={() => this.showDoctor()}
+                    >
+                        <span className="fas fa-times b">&nbsp;&nbsp;</span>
+                        Cancel
+                    </button>
+                </form>
+            </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
     user: state.auth.currentUser,
-    authToken: state.auth.authToken
+    authToken: state.auth.authToken,
+    isMessageShowing: state.app.isMessageShowing
 });
 CreateDoctorForm = connect(mapStateToProps)(CreateDoctorForm);
 

@@ -4,9 +4,13 @@ import InputTwo from './inputTwo';
 import {API_BASE_URL} from '../config';
 import {required, nonEmpty, isTrimmed} from '../validators';
 import { connect } from 'react-redux';
-import { createAppointment, chooseCreateAppointment } from '../actions';
+import { createAppointment, chooseCreateAppointment, formMessage } from '../actions';
 
 export class CreateAppointmentForm extends React.Component {
+    showAppointments() {
+        this.props.dispatch(chooseCreateAppointment());
+    }
+
     onSubmit(values) {
         return fetch(`${API_BASE_URL}/api/patients/${this.props.user.id}/appointments`, {
             method: 'POST',
@@ -53,7 +57,16 @@ export class CreateAppointmentForm extends React.Component {
         if (this.props.submitSucceeded) {
             successMessage = (
                 <div className="message create-appointment-success-message">
-                    <span>Appointment successfully created!</span>
+                    <p className="create-appointment-success-message-p">
+                        Appointment successfully created!&nbsp;
+                        <button 
+                            className="form-message-button"
+                            onClick={() => this.showAppointments()}
+                        >
+                            <span className="fas fa-share-square">&nbsp;</span>
+                            <span>Go back</span>
+                        </button>
+                    </p>
                 </div>
             );
         }
@@ -61,7 +74,16 @@ export class CreateAppointmentForm extends React.Component {
         if (this.props.error) {
             errorMessage = (
                 <div className="message create-appointment-error-message">
-                    <span>{this.props.error}</span>
+                    <p className="create-appointment-error-message-p">
+                        {this.props.error}&nbsp;
+                        <button 
+                            className="form-message-button"
+                            onClick={() => this.showAppointments()}
+                        >
+                            <span className="fas fa-share-square">&nbsp;</span>
+                            <span>Go back</span>
+                        </button>
+                    </p>
                 </div>
             );
         }
@@ -69,7 +91,10 @@ export class CreateAppointmentForm extends React.Component {
             <div className="create-appointment-form-div">
                 {successMessage}
                 {errorMessage}
-                <form className="create-appointment-form" onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}>
+                <form 
+                    className={"create-appointment-form " + (this.props.isMessageShowing ? 'hidden-1' : '')}
+                    onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
+                >
                         {/* <label className="appointment-form-label" htmlFor="date"></label> */}
                         <Field 
                             name="date"
@@ -160,10 +185,10 @@ export class CreateAppointmentForm extends React.Component {
                         validate={[required, nonEmpty, isTrimmed]}
                     />
                     <button
-                        // onClick={this.props.dispatch(createAppointment(this.props.user.id))}
                         className="create-appointment-submit-button"
                         type="submit"
                         disabled={this.props.pristine || this.props.submitting}
+                        onClick={() => this.props.dispatch(formMessage())}
                     >
                         <span className="fas fa-check">&nbsp;&nbsp;</span>
                         Submit
@@ -184,7 +209,8 @@ export class CreateAppointmentForm extends React.Component {
 
 const mapStateToProps = state => ({
     user: state.auth.currentUser,
-    authToken: state.auth.authToken
+    authToken: state.auth.authToken,
+    isMessageShowing: state.app.isMessageShowing
 });
 
 CreateAppointmentForm = connect(mapStateToProps)(CreateAppointmentForm);

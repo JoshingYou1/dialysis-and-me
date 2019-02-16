@@ -4,7 +4,7 @@ import InputThree from './inputThree';
 import {API_BASE_URL} from '../config';
 import {required, nonEmpty, isTrimmed} from '../validators';
 import { connect } from 'react-redux';
-import { loadAppointmentFormData, updateAppointment, editSelectedAppointmentById, editFormMessage } from '../actions';
+import { loadAppointmentFormData, updateAppointment, editSelectedAppointmentById, formMessage } from '../actions';
 
 export class EditAppointmentForm extends React.Component {
     showAppointment() {
@@ -187,7 +187,7 @@ export class EditAppointmentForm extends React.Component {
                             className="edit-appointment-submit-button"
                             type="submit"
                             disabled={this.props.pristine || this.props.submitting}
-                            onClick={() => this.props.dispatch(editFormMessage())}
+                            onClick={() => this.props.dispatch(formMessage())}
                         >
                             <span className="fas fa-check">&nbsp;&nbsp;</span>
                             Submit

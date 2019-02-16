@@ -1041,7 +1041,7 @@ footer {
 }
 
 .create-appointment-form-component-div, .edit-appointment-form-component-div, .edit-doctor-form-component-div,
-.edit-basic-profile-info-form-component-div {
+.edit-basic-profile-info-form-component-div, .create-doctor-form-component-div {
   margin-right: auto;
   margin-left: auto;
   width: 60%;
@@ -1119,7 +1119,8 @@ footer {
 }
 
 .create-appointment-submit-button, .cancel-create-appointment-form-changes-button, .edit-doctor-submit-button, 
-.cancel-edit-doctor-form-changes-button, .edit-basic-profile-info-submit-button, .cancel-edit-basic-profile-info-form-changes-button {
+.cancel-edit-doctor-form-changes-button, .edit-basic-profile-info-submit-button, .cancel-edit-basic-profile-info-form-changes-button,
+.create-doctor-submit-button, .cancel-create-doctor-form-changes-button {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -1132,20 +1133,22 @@ footer {
   cursor: pointer;
 }
 
-.create-appointment-submit-button, .edit-doctor-submit-button, .edit-basic-profile-info-submit-button {
+.create-appointment-submit-button, .edit-doctor-submit-button, .edit-basic-profile-info-submit-button, .create-doctor-submit-button {
   background-color: #388038;
 }
 
-.create-appointment-submit-button:hover, .edit-doctor-submit-button:hover, .edit-basic-profile-info-submit-button:hover {
+.create-appointment-submit-button:hover, .edit-doctor-submit-button:hover, .edit-basic-profile-info-submit-button:hover,
+.create-doctor-submit-button:hover {
   background-color: #46A046;
 }
 
-.cancel-create-appointment-form-changes-button, .cancel-edit-doctor-form-changes-button, .cancel-edit-basic-profile-info-form-changes-button {
+.cancel-create-appointment-form-changes-button, .cancel-edit-doctor-form-changes-button, .cancel-edit-basic-profile-info-form-changes-button,
+.cancel-create-doctor-form-changes-button {
   background-color: #C70000;
 }
 
 .cancel-create-appointment-form-changes-button:hover, .cancel-edit-doctor-form-changes-button:hover,
-.cancel-edit-basic-profile-info-form-changes-button:hover {
+.cancel-edit-basic-profile-info-form-changes-button:hover, .cancel-create-doctor-form-changes-button:hover {
   background-color: #EB0000;
 }
 
@@ -1227,7 +1230,8 @@ footer {
   background-color: #C70000;
 }
 
-.edit-doctor-success-message, .edit-doctor-error-message {
+.edit-doctor-success-message, .edit-doctor-error-message, .create-doctor-success-message, .create-doctor-error-message,
+.create-appointment-success-message, .create-appointment-error-message {
   position: absolute;
   top: 50%;
   left: 0;
@@ -1235,7 +1239,8 @@ footer {
   font-size: 18px;
 }
 
-.edit-doctor-success-message-p, .edit-doctor-error-message-p {
+.edit-doctor-success-message-p, .edit-doctor-error-message-p, .create-doctor-success-message-p, .create-doctor-error-message-p,
+.create-appointment-success-message-p {
   text-align: center;
 }
 
@@ -1285,7 +1290,7 @@ footer {
   }
 
   .create-appointment-form-component-div, .edit-appointment-form-component-div, .edit-doctor-form-component-div,
-  .edit-basic-profile-info-form-component-div {
+  .edit-basic-profile-info-form-component-div, .create-doctor-form-component-div {
     width: 55%;
   }
 
@@ -1313,7 +1318,7 @@ footer {
   }
 
   .create-appointment-form-component-div, .edit-appointment-form-component-div, .edit-doctor-form-component-div,
-  .edit-basic-profile-info-form-component-div {
+  .edit-basic-profile-info-form-component-div, .create-doctor-form-component-div {
     width: 50%;
   }
 
@@ -1691,7 +1696,8 @@ footer {
     color: #008099;
   }
 
-  .create-appointment-form-component-div, .edit-doctor-form-component-div, .edit-basic-profile-info-form-component-div {
+  .create-appointment-form-component-div, .edit-doctor-form-component-div, .edit-basic-profile-info-form-component-div,
+  .create-doctor-form-component-div {
     width: 90%;
   }
 
@@ -1699,7 +1705,7 @@ footer {
     width: 100%;
   }
 
-  .create-appointment-form, .edit-doctor-form, .edit-basic-profile-info-form {
+  .create-appointment-form, .edit-doctor-form, .edit-basic-profile-info-form, .create-doctor-form {
     display: grid;
     grid-template-areas: 
       "slot-1 slot-2 slot-3";
@@ -1730,7 +1736,7 @@ footer {
     grid-column-end: slot-3;
   }
 
-  .create-appointment-submit-button, .edit-doctor-submit-button, .edit-basic-profile-info-submit-button {
+  .create-appointment-submit-button, .edit-doctor-submit-button, .edit-basic-profile-info-submit-button, .create-doctor-submit-button {
     grid-column-start: slot-2;
     margin-top: 2em;
     font-size: 20px;
@@ -1738,7 +1744,8 @@ footer {
     width: 100%
   }
 
-  .cancel-create-appointment-form-changes-button, .cancel-edit-doctor-form-changes-button, .cancel-edit-basic-profile-info-form-changes-button {
+  .cancel-create-appointment-form-changes-button, .cancel-edit-doctor-form-changes-button, .cancel-edit-basic-profile-info-form-changes-button,
+  .cancel-create-doctor-form-changes-button {
     grid-column-start: slot-3;
     margin-top: 2em;
     font-size: 20px;

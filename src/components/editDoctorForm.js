@@ -5,7 +5,7 @@ import InputHidden from './inputHidden';
 import {API_BASE_URL} from '../config';
 import {required, nonEmpty, isTrimmed} from '../validators';
 import { connect } from 'react-redux';
-import { editSelectedDoctorById, editFormMessage, fetchDoctors, updateCurrentDoctor } from '../actions';
+import { editSelectedDoctorById, formMessage, fetchDoctors, updateCurrentDoctor } from '../actions';
 import PropTypes from 'prop-types';
 
 export class EditDoctorForm extends React.Component {
@@ -99,7 +99,8 @@ export class EditDoctorForm extends React.Component {
                                 className="form-message-button"
                                 onClick={() => this.showDoctor()}
                             >
-                                Got it!
+                                <span className="fas fa-share-square">&nbsp;</span>
+                                <span>Go back</span>
                             </button>
                         </p>
                     </div>
@@ -190,7 +191,7 @@ export class EditDoctorForm extends React.Component {
                             className="edit-doctor-submit-button"
                             type="submit"
                             disabled={this.props.pristine || this.props.submitting}
-                            onClick={() => this.props.dispatch(editFormMessage())}
+                            onClick={() => this.props.dispatch(formMessage())}
                         >
                             <span className="fas fa-check">&nbsp;&nbsp;</span>
                             Submit

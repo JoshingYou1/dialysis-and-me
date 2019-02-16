@@ -291,9 +291,9 @@ export const doctorMenuByDoctorId = doctorMenu => ({
     doctorMenu
 });
 
-export const EDIT_FORM_MESSAGE = 'EDIT_FORM_MESSAGE';
-export const editFormMessage = isMessageShowing => ({
-    type: EDIT_FORM_MESSAGE,
+export const FORM_MESSAGE = 'FORM_MESSAGE';
+export const formMessage = isMessageShowing => ({
+    type: FORM_MESSAGE,
     isMessageShowing
 });
 

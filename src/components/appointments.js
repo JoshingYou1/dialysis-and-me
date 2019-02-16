@@ -51,7 +51,10 @@ export class Appointments extends React.Component {
                 <div className="container">
                     <NavigationBar />
                     <main role="main">
-                        <h1>Appointments</h1>
+                        <h1 className={"appointments-h1 " + (this.props.isCreateAppointmentFormShowing ? 'hidden-1' : '')}>Appointments</h1>
+                        <h1 className={"create-appointment-h1 " + (this.props.isCreateAppointmentFormShowing ? '' : 'hidden-1')}>
+                            Create an Appointment
+                        </h1>
                         <section className={"appointments-section " + (this.props.isCreateAppointmentFormShowing ? 'hidden-1' : '')}>
                             <AppointmentsList list={list} chooseAppointmentsByMonth={choice => this.chooseAppointmentsByMonth(choice)}/>
                             <AppointmentsShow />

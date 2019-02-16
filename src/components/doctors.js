@@ -8,7 +8,8 @@ import {
     toggleDoctorMenu, 
     deleteDoctor, 
     loadDoctorFormData, 
-    editSelectedDoctorById
+    editSelectedDoctorById,
+    chooseCreateDoctor
 } from '../actions';
 import requiresLogin from './requires-login';
 import NavigationBar from './navBar';
@@ -67,11 +68,15 @@ export class Doctors extends React.Component {
                 <div className="container">
                     <NavigationBar />
                     <main role="main" className="doctors-main">
-                        <h1 className="doctors-h1">Doctors</h1>
-                        <div className={className + (this.props.selectedDoctorToEdit ? ' hidden-1' : '')}>
+                        <h1 className={"doctors-h1 " + (this.props.isCreateDoctorFormShowing || this.props.selectedDoctorToEdit ? 'hidden-1' : '')}>Doctors</h1>
+                        <h1 className={"create-doctor-h1 " + (this.props.isCreateDoctorFormShowing ? '' : 'hidden-1')}>Add a Doctor</h1>
+                        <h1 className={"edit-doctor-h1 " + (this.props.selectedDoctorToEdit ? '' : 'hidden-1')}>
+                            Edit {cards[this.props.currentDoctor].doctor.name.firstName} {cards[this.props.currentDoctor].doctor.name.lastName}
+                        </h1>
+                        <div className={className + (this.props.selectedDoctorToEdit || this.props.isCreateDoctorFormShowing ? ' hidden-1' : '')}>
                             <Doctor doctor={d} />
                         </div>
-                        <div className={"doctor-button-holder " + (this.props.selectedDoctorToEdit ? 'hidden-1' : '')}>
+                        <div className={"doctor-button-holder " + (this.props.selectedDoctorToEdit || this.props.isCreateDoctorFormShowing ? 'hidden-1' : '')}>
                             <button
                                 className={this.props.currentDoctor !== 0 ? 'display-doctor-button-1' : 'hidden-1'}
                                 onClick={() => this.props.dispatch(updateCurrentDoctor(cards[this.props.currentDoctor].previous))}
@@ -99,12 +104,12 @@ export class Doctors extends React.Component {
                             </span>
                             <button
                                 className={"create-doctor-button "  + (this.props.isCreateDoctorFormShowing ? 'hidden-1' : '')}
-                                // onClick={() => this.props.dispatch(chooseCreateDoctor())}
+                                onClick={() => this.props.dispatch(chooseCreateDoctor())}
                             >
                                 Click here
                             </button>
                         </div>
-                        <div className={"create-appointment-form-component-div " + (this.props.isCreateDoctorFormShowing ? '' : 'hidden-1')}>
+                        <div className={"create-doctor-form-component-div " + (this.props.isCreateDoctorFormShowing ? '' : 'hidden-1')}>
                             <CreateDoctorForm />
                         </div>
                         <div
@@ -129,7 +134,8 @@ const mapStateToProps = state => ({
     user: state.auth.currentUser,
     currentDoctor: state.app.currentDoctor,
     doctors: state.app.doctors,
-    selectedDoctorToEdit: state.app.selectedDoctorToEdit
+    selectedDoctorToEdit: state.app.selectedDoctorToEdit,
+    isCreateDoctorFormShowing: state.app.isCreateDoctorFormShowing
 });
 
 export default requiresLogin()(connect(mapStateToProps)(Doctors));

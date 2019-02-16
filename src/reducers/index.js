@@ -30,7 +30,7 @@ import {
     TOGGLE_DOCTOR_MENU,
     EDIT_SELECTED_DOCTOR_BY_ID,
     FETCH_DOCTORS_SUCCESS,
-    EDIT_FORM_MESSAGE,
+    FORM_MESSAGE,
     DOCTOR_MENU_BY_DOCTOR_ID,
     LOAD_BASIC_PROFILE_INFO_FORM_DATA
 } from '../actions/index';
@@ -207,7 +207,7 @@ export const appReducer = (state=initialState, action) => {
             doctorMenu: action.doctorMenu
         });
     }
-    else if (action.type === EDIT_FORM_MESSAGE) {
+    else if (action.type === FORM_MESSAGE) {
         return Object.assign({}, state, {
             isMessageShowing: !state.isMessageShowing
         });
