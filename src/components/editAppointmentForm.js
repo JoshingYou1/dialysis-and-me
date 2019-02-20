@@ -5,12 +5,41 @@ import {API_BASE_URL} from '../config';
 import {required, nonEmpty, isTrimmed} from '../validators';
 import { connect } from 'react-redux';
 import { loadAppointmentFormData, updateAppointment, editSelectedAppointmentById, formMessage } from '../actions';
+import DateTimePicker from 'react-widgets/lib/DateTimePicker';
+// import moment from 'moment';
+// import momentLocaliser from 'react-widgets/lib/localizers/moment'
+
+// momentLocaliser(moment)
+
+// const renderDateTimePicker = ({ input: { onChange, value }, showTime }) =>
+//   <DateTimePicker
+//     onChange={onChange}
+//     format="MM/DD/YYYY"
+//     time={showTime}
+//     value={!value ? null : new Date(value)}
+//   />
 
 export class EditAppointmentForm extends React.Component {
     showAppointment() {
         this.props.dispatch(editSelectedAppointmentById({}));
         this.props.dispatch(loadAppointmentFormData({}));
     }
+
+    // format() {
+    //     let appointmentDate = new Date(this.props.initialValues.date);
+                            
+    //     let day = appointmentDate.getDate();
+    //     if (day < 10) {
+    //         day = `0${day}`
+    //     }
+    //     let month = appointmentDate.getMonth() + 1;
+    //     if (month < 10) {
+    //         month = `0${month}`;
+    //     }
+    //     const year = appointmentDate.getFullYear();
+
+    //     let formattedAppointmentDate = `${month}/${day}/${year}`;
+    // }
 
     onSubmit(values) {
         return fetch(`${API_BASE_URL}/api/patients/${this.props.user.id}/appointments/${this.props.selectedAppointmentToEdit._id}`, {
@@ -61,11 +90,12 @@ export class EditAppointmentForm extends React.Component {
                     <div className="message edit-appointment-success-message">
                         <p className="edit-appointment-success-message-p">
                             Appointment successfully updated!&nbsp;
-                            <button
+                            <button 
                                 className="form-message-button"
                                 onClick={() => this.showAppointment()}
                             >
-                                Got it!
+                                <span className="fas fa-share-square">&nbsp;</span>
+                                <span>Go back</span>
                             </button>
                         </p>
                     </div>
@@ -81,7 +111,8 @@ export class EditAppointmentForm extends React.Component {
                                 className="form-message-button"
                                 onClick={() => this.showAppointment()}
                             >
-                                Got it!
+                                <span className="fas fa-share-square">&nbsp;</span>
+                                <span>Go back</span>
                             </button>
                         </p>
                     </div>
@@ -96,12 +127,13 @@ export class EditAppointmentForm extends React.Component {
                         onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
                     >
                         {/* <label className="appointment-form-label" htmlFor="date"></label> */}
-                        <Field 
+                        <Field
                             name="date"
-                            type="text"
+                            type="date"
                             component={InputThree}
                             label="Date"
                             validate={[required]}
+                            placeholder="07/21/19"
                         />
                         {/* <label className="appointment-form-label" htmlFor="reason"></label> */}
                         <Field 
@@ -110,6 +142,7 @@ export class EditAppointmentForm extends React.Component {
                             component={InputThree}
                             label="Reason"
                             validate={[required]}
+                            placeholder="Annual physical"
                         />
                         {/* <label className="appointment-form-label" htmlFor="time"></label> */}
                         <Field 
@@ -118,6 +151,7 @@ export class EditAppointmentForm extends React.Component {
                             component={InputThree}
                             label="Time"
                             validate={[required]}
+                            placeholder="10:15 a.m."
                         />
                         {/* <label className="appointment-form-label" htmlFor="with"></label> */}
                         <Field 
@@ -126,6 +160,7 @@ export class EditAppointmentForm extends React.Component {
                             component={InputThree}
                             label="With"
                             validate={[required]}
+                            placeholder="John Doe"
                         />
                         {/* <label className="appointment-form-label" htmlFor="title"></label> */}
                         <Field 
@@ -134,6 +169,7 @@ export class EditAppointmentForm extends React.Component {
                             component={InputThree}
                             label="Title"
                             validate={[required]}
+                            placeholder="MD"
                         />
                         {/* <label className="appointment-form-label" htmlFor="where"></label> */}
                         <Field 
@@ -142,6 +178,7 @@ export class EditAppointmentForm extends React.Component {
                             component={InputThree}
                             label="Where"
                             validate={[required]}
+                            placeholder="Mayo Clinic"
                         />
                         {/* <label className="appointment-form-label" htmlFor="address.street"></label> */}
                         <Field 
@@ -150,6 +187,7 @@ export class EditAppointmentForm extends React.Component {
                             component={InputThree}
                             label="Address"
                             validate={[required]}
+                            placeholder="123 International Drive"
                         />
                         {/* <label className="appointment-form-label" htmlFor="address.city"></label> */}
                         <Field 
@@ -158,6 +196,7 @@ export class EditAppointmentForm extends React.Component {
                             component={InputThree}
                             label="City"
                             validate={[required]}
+                            placeholder="Jacksonville"
                         />
                         {/* <label className="appointment-form-label" htmlFor="address.state"></label> */}
                         <Field 
@@ -166,6 +205,7 @@ export class EditAppointmentForm extends React.Component {
                             component={InputThree}
                             label="State"
                             validate={[required]}
+                            placeholder="FL"
                         />
                         {/* <label className="appointment-form-label" htmlFor="address.zipCode"></label> */}
                         <Field 
@@ -174,6 +214,7 @@ export class EditAppointmentForm extends React.Component {
                             component={InputThree}
                             label="Zip Code"
                             validate={[required]}
+                            placeholder="32204"
                         />
                         {/* <label className="appointment-form-label" htmlFor="phoneNumber"></label> */}
                         <Field 
@@ -182,6 +223,7 @@ export class EditAppointmentForm extends React.Component {
                             component={InputThree}
                             label="Phone Number"
                             validate={[required]}
+                            placeholder="123-456-7890"
                         />
                         <button
                             className="edit-appointment-submit-button"

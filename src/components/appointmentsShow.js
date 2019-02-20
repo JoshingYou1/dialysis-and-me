@@ -50,8 +50,7 @@ export class AppointmentsShow extends React.Component {
             return (
                 <li key={i}>
                     <div
-                        // className={className}
-                        className={className + (a._id === this.props.loadedAppointmentFormData._id ? ' hidden-1' : '')}
+                        className={className + (a._id === this.props.loadedAppointmentFormData._id || this.props.isMessageShowing ? ' hidden-1' : '')}
                     >
                         <h2 className="appointment-date-h2">{formattedAppointmentDate}</h2>
 
@@ -136,7 +135,8 @@ const mapStateToProps = state => {
         chosenAppointments: state.app.selectedAppointments,
         isAppointmentInfoShowing: state.app.isAppointmentInfoShowing,
         selectedAppointmentToEdit: state.app.selectedAppointmentToEdit,
-        loadedAppointmentFormData: state.app.loadedAppointmentFormData
+        loadedAppointmentFormData: state.app.loadedAppointmentFormData,
+        isMessageShowing: state.app.isMessageShowing
     }
 };
 

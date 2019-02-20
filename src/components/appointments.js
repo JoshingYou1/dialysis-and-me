@@ -51,7 +51,12 @@ export class Appointments extends React.Component {
                 <div className="container">
                     <NavigationBar />
                     <main role="main">
-                        <h1 className={"appointments-h1 " + (this.props.isCreateAppointmentFormShowing ? 'hidden-1' : '')}>Appointments</h1>
+                        <h1 
+                            className={"appointments-h1 " + (this.props.isCreateAppointmentFormShowing ? 'hidden-1 ' : '') +
+                            (this.props.isAppointmentInfoShowing ? 'hidden-3' : '')}
+                        >
+                            Appointments
+                        </h1>
                         <h1 className={"create-appointment-h1 " + (this.props.isCreateAppointmentFormShowing ? '' : 'hidden-1')}>
                             Create an Appointment
                         </h1>
@@ -89,7 +94,8 @@ export class Appointments extends React.Component {
 const mapStateToProps = state => ({
     appointments: state.app.appointments,
     user: state.auth.currentUser,
-    isCreateAppointmentFormShowing: state.app.isCreateAppointmentFormShowing
+    isCreateAppointmentFormShowing: state.app.isCreateAppointmentFormShowing,
+    isAppointmentInfoShowing: state.app.isAppointmentInfoShowing
 });
 
 export default requiresLogin()(connect(mapStateToProps)(Appointments));

@@ -1,7 +1,6 @@
 import React from 'react';
 import { toggleDoctorMenu, deleteDoctor, loadDoctorFormData, editSelectedDoctorById } from '../actions';
 import { connect } from 'react-redux';
-import EditDoctorForm from './editDoctorForm';
 
 export class Doctor extends React.Component {
     showEditDoctorForm(d) {

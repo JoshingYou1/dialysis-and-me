@@ -95,23 +95,21 @@ export class CreateAppointmentForm extends React.Component {
                     className={"create-appointment-form " + (this.props.isMessageShowing ? 'hidden-1' : '')}
                     onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
                 >
-                        {/* <label className="appointment-form-label" htmlFor="date"></label> */}
-                        <Field 
-                            name="date"
-                            type="date"
-                            component={InputTwo}
-                            label="Date"
-                            validate={[required, nonEmpty, isTrimmed]}
-                        />
-                        {/* <label className="appointment-form-label" htmlFor="reason"></label> */}
-                        <Field 
-                            name="description"
-                            type="text"
-                            component={InputTwo}
-                            label="Reason"
-                            validate={[required, nonEmpty, isTrimmed]}
-                        />
-                    {/* <label className="appointment-form-label slot-3" htmlFor="time"></label> */}
+                    <Field 
+                        name="date"
+                        type="date"
+                        component={InputTwo}
+                        label="Date"
+                        validate={[required, nonEmpty, isTrimmed]}
+                    />
+                    <Field 
+                        name="description"
+                        type="text"
+                        component={InputTwo}
+                        placeholder="Annual physical"
+                        label="Reason"
+                        validate={[required, nonEmpty, isTrimmed]}
+                    />
                     <Field 
                         name="time"
                         type="text"
@@ -119,7 +117,6 @@ export class CreateAppointmentForm extends React.Component {
                         label="Time"
                         validate={[required, nonEmpty, isTrimmed]}
                     />
-                    {/* <label className="appointment-form-label slot-1" htmlFor="with"></label> */}
                     <Field 
                         name="with"
                         type="text"
@@ -127,7 +124,6 @@ export class CreateAppointmentForm extends React.Component {
                         label="With"
                         validate={[required, nonEmpty, isTrimmed]}
                     />
-                    {/* <label className="appointment-form-label slot-2" htmlFor="title"></label> */}
                     <Field 
                         name="title"
                         type="text"
@@ -135,7 +131,6 @@ export class CreateAppointmentForm extends React.Component {
                         label="Title"
                         validate={[required, nonEmpty, isTrimmed]}
                     />
-                    {/* <label className="appointment-form-label slot-3" htmlFor="where"></label> */}
                     <Field 
                         name="where"
                         type="text"
@@ -143,7 +138,6 @@ export class CreateAppointmentForm extends React.Component {
                         label="Where"
                         validate={[required, nonEmpty, isTrimmed]}
                     />
-                    {/* <label className="appointment-form-label slot-1" htmlFor="address"></label> */}
                     <Field 
                         name="address.street"
                         type="text"
@@ -151,7 +145,6 @@ export class CreateAppointmentForm extends React.Component {
                         label="Address"
                         validate={[required, nonEmpty, isTrimmed]}
                     />
-                    {/* <label className="appointment-form-label slot-2" htmlFor="city"></label> */}
                     <Field 
                         name="address.city"
                         type="text"
@@ -159,7 +152,6 @@ export class CreateAppointmentForm extends React.Component {
                         label="City"
                         validate={[required, nonEmpty, isTrimmed]}
                     />
-                    {/* <label className="appointment-form-label slot-3" htmlFor="state"></label> */}
                     <Field 
                         name="address.state"
                         type="text"
@@ -167,7 +159,6 @@ export class CreateAppointmentForm extends React.Component {
                         label="State"
                         validate={[required, nonEmpty, isTrimmed]}
                     />
-                    {/* <label className="appointment-form-label slot-1" htmlFor="zip-code"></label> */}
                     <Field 
                         name="address.zipCode"
                         type="number"
@@ -175,7 +166,6 @@ export class CreateAppointmentForm extends React.Component {
                         label="Zip Code"
                         validate={[required, nonEmpty, isTrimmed]}
                     />
-                    {/* <label className="appointment-form-label slot-2" htmlFor="phone-number"></label> */}
                     <Field
                         className="hello" 
                         name="phoneNumber"

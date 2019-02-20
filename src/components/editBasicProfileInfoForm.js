@@ -64,7 +64,8 @@ export class EditBasicProfileInfoForm extends React.Component {
                             className="form-message-button"
                             onClick={() => this.showProfile()}
                         >
-                            Got it!
+                            <span className="fas fa-share-square">&nbsp;</span>
+                            <span>Go back</span>
                         </button>
                     </p>
                 </div>
@@ -80,7 +81,8 @@ export class EditBasicProfileInfoForm extends React.Component {
                             className="form-message-button"
                             onClick={() => this.showProfile()}
                         >
-                            Got it!
+                            <span className="fas fa-share-square">&nbsp;</span>
+                            <span>Go back</span>
                         </button>
                     </p>
                 </div>

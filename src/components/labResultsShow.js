@@ -24,10 +24,10 @@ export class LabResultsShow extends React.Component {
         if (this.props.chosenLabResult) {
             return (
                 <div className={"show " + (this.props.isLabResultsInfoShowing ? '' : 'hidden-1')}>
-                    <button className="desktop-hide" onClick={() => this.props.dispatch(toggleLabResultsInfo(false))}>
-                        <span className="fas fa-times 2x a"></span>
-                    </button>
                     <section className={className}>
+                        <button className="desktop-hide" onClick={() => this.props.dispatch(toggleLabResultsInfo(false))}>
+                            <span className="fas fa-times 2x a"></span>
+                        </button>
                         <h2 className="lab-results-show-h2">Hematology</h2>
                             <span className="test-span">WBC Count:</span>
                             <span className="result-span">{this.props.chosenLabResult.hematology.wbcCount}</span>

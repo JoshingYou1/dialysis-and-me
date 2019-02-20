@@ -51,7 +51,7 @@ export class LabResults extends React.Component {
                 <div className="container">
                     <NavigationBar />
                     <main role="main" className="lab-results-main">
-                        <h1>Lab Results</h1>
+                        <h1 className={"lab-results-h1 " + (this.props.isLabResultsInfoShowing ? 'hidden-3' : '')}>Lab Results</h1>
                         <section className="lab-results-section">
                             <LabResultsList list={list} chooseLabResults={choice => this.chooseLabResults(choice)}/>
                             <LabResultsShow />
@@ -73,7 +73,7 @@ const mapStateToProps = state => {
     return {
         labResults: state.app.labResults,
         user: state.auth.currentUser,
-        isLabResultsInfoShowing: state.isLabResultsInfoShowing
+        isLabResultsInfoShowing: state.app.isLabResultsInfoShowing
     };
 }
 

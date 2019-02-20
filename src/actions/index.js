@@ -261,12 +261,6 @@ export const editSelectedAppointmentById = selectedAppointmentToEdit => ({
     selectedAppointmentToEdit
 });
 
-// export const DISCARD_APPOINTMENT_FORM_CHANGES = 'DISCARD_APPOINTMENT_FORM_CHANGES';
-// export const discardAppointmentFormChanges = discardChanges => ({
-//     type: DISCARD_APPOINTMENT_FORM_CHANGES,
-//     discardChanges
-// });
-
 export const TOGGLE_APPOINTMENT_MENU = 'TOGGLE_APPOINTMENT_MENU';
 export const toggleAppointmentMenu = isAppointmentMenuShowing => ({
     type: TOGGLE_APPOINTMENT_MENU,
