@@ -4,7 +4,7 @@ import InputTwo from './inputTwo';
 import {API_BASE_URL} from '../config';
 import {required, nonEmpty, isTrimmed} from '../validators';
 import { connect } from 'react-redux';
-import { loadBasicProfileInfoFormData, chooseEditBasicProfileInfo } from '../actions';
+import { loadBasicProfileInfoFormData, chooseEditBasicProfileInfo, formMessage } from '../actions';
 
 export class EditBasicProfileInfoForm extends React.Component {
 
@@ -93,7 +93,7 @@ export class EditBasicProfileInfoForm extends React.Component {
                 {successMessage}
                 {errorMessage}
                 <form 
-                    className="edit-basic-profile-info-form"
+                    className={"edit-basic-profile-info-form " + (this.props.isMessageShowing ? 'hidden-1' : '')}
                     onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
                 >
                     <Field 
@@ -101,32 +101,32 @@ export class EditBasicProfileInfoForm extends React.Component {
                         type="text"
                         component={InputTwo}
                         label="SSN"
-                        validate={[required]}
+                        validate={[required, isTrimmed, nonEmpty]}
                     />
                     <Field 
                         name="address.street"
                         type="text"
                         component={InputTwo}
                         label="Address"
-                        validate={[required]}
+                        validate={[required, isTrimmed, nonEmpty]}
                     />
                     <Field 
                         name="address.city"
                         type="text"
                         component={InputTwo}
                         label="City"
-                        validate={[required]}
+                        validate={[required, isTrimmed, nonEmpty]}
                     />
                     <Field 
                         name="address.state"
                         type="text"
                         component={InputTwo}
                         label="State"
-                        validate={[required]}
+                        validate={[required, isTrimmed, nonEmpty]}
                     />
                     <Field 
                         name="address.zipCode"
-                        type="text"
+                        type="number"
                         component={InputTwo}
                         label="Zip Code"
                         validate={[required]}
@@ -153,6 +153,7 @@ export class EditBasicProfileInfoForm extends React.Component {
                         className="edit-basic-profile-info-submit-button"
                         type="submit"
                         disabled={this.props.pristine || this.props.submitting}
+                        onClick={() => this.props.dispatch(formMessage())}
                     >
                         <span className="fas fa-check">&nbsp;&nbsp;</span>
                         Submit
@@ -160,7 +161,7 @@ export class EditBasicProfileInfoForm extends React.Component {
                     <button
                         type="button"
                         className="cancel-edit-basic-profile-info-form-changes-button"
-                        onClick={() => this.showProfile()}
+                        onClick={() => {this.showProfile(); this.props.reset()}}
                     >
                         <span className="fas fa-times">&nbsp;&nbsp;</span>
                         Cancel
@@ -174,11 +175,13 @@ export class EditBasicProfileInfoForm extends React.Component {
 const mapStateToProps = state => ({
     user: state.auth.currentUser,
     authToken: state.auth.authToken,
-    initialValues: state.app.loadedBasicProfileInfoFormData
+    initialValues: state.app.loadedBasicProfileInfoFormData,
+    isMessageShowing: state.app.isMessageShowing
 });
 
 EditBasicProfileInfoForm = reduxForm({
     form: 'editBasicProfileInfoForm',
+    asyncBlurFields: [],
     enableReinitialize: true
 })(EditBasicProfileInfoForm);
 

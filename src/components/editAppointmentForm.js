@@ -6,40 +6,37 @@ import {required, nonEmpty, isTrimmed} from '../validators';
 import { connect } from 'react-redux';
 import { loadAppointmentFormData, updateAppointment, editSelectedAppointmentById, formMessage } from '../actions';
 import DateTimePicker from 'react-widgets/lib/DateTimePicker';
-// import moment from 'moment';
-// import momentLocaliser from 'react-widgets/lib/localizers/moment'
+import moment from 'moment';
+import momentLocaliser from 'react-widgets-moment';
+import 'react-widgets/dist/css/react-widgets.css';
 
-// momentLocaliser(moment)
+momentLocaliser(moment)
 
-// const renderDateTimePicker = ({ input: { onChange, value }, showTime }) =>
-//   <DateTimePicker
-//     onChange={onChange}
-//     format="MM/DD/YYYY"
-//     time={showTime}
-//     value={!value ? null : new Date(value)}
-//   />
+const renderDateTimePicker = ({ input: { onChange, value }, showTime, meta: { error, warning } }) =>
+    <div>
+        <div className="form-error b">
+            <span className={"fas fa-info-circle " + (error ? '' : 'hidden-1')}>&nbsp;</span>
+            {error}
+        </div>
+        <div className="form-error b">
+            <span className={"fas fa-info-circle " + (warning ? '' : 'hidden-1')}>&nbsp;</span>
+            {warning}
+        </div>
+        <DateTimePicker
+            className="datetime-picker-input"
+            onChange={onChange}
+            format="MM/DD/YYYY"
+            time={showTime}
+            value={!value ? null : new Date(value)}
+            validate={required}
+        />
+    </div>
 
 export class EditAppointmentForm extends React.Component {
     showAppointment() {
         this.props.dispatch(editSelectedAppointmentById({}));
         this.props.dispatch(loadAppointmentFormData({}));
     }
-
-    // format() {
-    //     let appointmentDate = new Date(this.props.initialValues.date);
-                            
-    //     let day = appointmentDate.getDate();
-    //     if (day < 10) {
-    //         day = `0${day}`
-    //     }
-    //     let month = appointmentDate.getMonth() + 1;
-    //     if (month < 10) {
-    //         month = `0${month}`;
-    //     }
-    //     const year = appointmentDate.getFullYear();
-
-    //     let formattedAppointmentDate = `${month}/${day}/${year}`;
-    // }
 
     onSubmit(values) {
         return fetch(`${API_BASE_URL}/api/patients/${this.props.user.id}/appointments/${this.props.selectedAppointmentToEdit._id}`, {
@@ -118,6 +115,7 @@ export class EditAppointmentForm extends React.Component {
                     </div>
                 );
             }
+                
             return (
                 <div className="edit-appointment-form-div">
                     {successMessage}
@@ -126,22 +124,26 @@ export class EditAppointmentForm extends React.Component {
                         className={"edit-appointment-form " + (this.props.isMessageShowing ? 'hidden-1' : '')} 
                         onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
                     >
-                        {/* <label className="appointment-form-label" htmlFor="date"></label> */}
-                        <Field
-                            name="date"
-                            type="date"
-                            component={InputThree}
-                            label="Date"
-                            validate={[required]}
-                            placeholder="07/21/19"
-                        />
+                        <div className="form-input-3 a">
+                            <label className="input-three-label a" htmlFor="date">
+                                Date
+                            </label>
+                            <Field
+                                name="date"
+                                type="date"
+                                component={renderDateTimePicker}
+                                showTime={false}
+                                validate={required}
+                                placeholder="07/21/19"
+                            />
+                        </div>
                         {/* <label className="appointment-form-label" htmlFor="reason"></label> */}
                         <Field 
                             name="description"
                             type="text"
                             component={InputThree}
                             label="Reason"
-                            validate={[required]}
+                            validate={[required, isTrimmed, nonEmpty]}
                             placeholder="Annual physical"
                         />
                         {/* <label className="appointment-form-label" htmlFor="time"></label> */}
@@ -150,7 +152,7 @@ export class EditAppointmentForm extends React.Component {
                             type="text"
                             component={InputThree}
                             label="Time"
-                            validate={[required]}
+                            validate={[required, isTrimmed, nonEmpty]}
                             placeholder="10:15 a.m."
                         />
                         {/* <label className="appointment-form-label" htmlFor="with"></label> */}
@@ -159,7 +161,7 @@ export class EditAppointmentForm extends React.Component {
                             type="text"
                             component={InputThree}
                             label="With"
-                            validate={[required]}
+                            validate={[required, isTrimmed, nonEmpty]}
                             placeholder="John Doe"
                         />
                         {/* <label className="appointment-form-label" htmlFor="title"></label> */}
@@ -168,7 +170,7 @@ export class EditAppointmentForm extends React.Component {
                             type="text"
                             component={InputThree}
                             label="Title"
-                            validate={[required]}
+                            validate={[required, isTrimmed, nonEmpty]}
                             placeholder="MD"
                         />
                         {/* <label className="appointment-form-label" htmlFor="where"></label> */}
@@ -177,7 +179,7 @@ export class EditAppointmentForm extends React.Component {
                             type="text"
                             component={InputThree}
                             label="Where"
-                            validate={[required]}
+                            validate={[required, isTrimmed, nonEmpty]}
                             placeholder="Mayo Clinic"
                         />
                         {/* <label className="appointment-form-label" htmlFor="address.street"></label> */}
@@ -186,7 +188,7 @@ export class EditAppointmentForm extends React.Component {
                             type="text"
                             component={InputThree}
                             label="Address"
-                            validate={[required]}
+                            validate={[required, isTrimmed, nonEmpty]}
                             placeholder="123 International Drive"
                         />
                         {/* <label className="appointment-form-label" htmlFor="address.city"></label> */}
@@ -195,7 +197,7 @@ export class EditAppointmentForm extends React.Component {
                             type="text"
                             component={InputThree}
                             label="City"
-                            validate={[required]}
+                            validate={[required, isTrimmed, nonEmpty]}
                             placeholder="Jacksonville"
                         />
                         {/* <label className="appointment-form-label" htmlFor="address.state"></label> */}
@@ -204,16 +206,16 @@ export class EditAppointmentForm extends React.Component {
                             type="text"
                             component={InputThree}
                             label="State"
-                            validate={[required]}
+                            validate={[required, isTrimmed, nonEmpty]}
                             placeholder="FL"
                         />
                         {/* <label className="appointment-form-label" htmlFor="address.zipCode"></label> */}
                         <Field 
                             name="address.zipCode"
-                            type="text"
+                            type="number"
                             component={InputThree}
                             label="Zip Code"
-                            validate={[required]}
+                            validate={required}
                             placeholder="32204"
                         />
                         {/* <label className="appointment-form-label" htmlFor="phoneNumber"></label> */}
@@ -228,7 +230,7 @@ export class EditAppointmentForm extends React.Component {
                         <button
                             className="edit-appointment-submit-button"
                             type="submit"
-                            disabled={this.props.pristine || this.props.submitting}
+                            disabled={this.props.pristine || this.props.submitting || !this.props.valid}
                             onClick={() => this.props.dispatch(formMessage())}
                         >
                             <span className="fas fa-check">&nbsp;&nbsp;</span>
@@ -237,7 +239,7 @@ export class EditAppointmentForm extends React.Component {
                         <button
                             type="button"
                             className="cancel-edit-appointment-form-changes-button"
-                            onClick={() => this.showAppointment()}
+                            onClick={() => {this.showAppointment(); this.props.reset()}}
                         >
                             <span className="fas fa-times">&nbsp;&nbsp;</span>
                             Cancel
@@ -262,6 +264,7 @@ const mapStateToProps = state => ({
 
 EditAppointmentForm = reduxForm({
     form: 'editAppointmentForm',
+    asyncBlurFields: [],
     enableReinitialize: true
 })(EditAppointmentForm);
 

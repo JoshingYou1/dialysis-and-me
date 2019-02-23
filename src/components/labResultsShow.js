@@ -23,7 +23,7 @@ export class LabResultsShow extends React.Component {
         let className = this.state.animate ? "lab-results-show-section" : "lab-results-show-section-2"
         if (this.props.chosenLabResult) {
             return (
-                <div className={"show " + (this.props.isLabResultsInfoShowing ? '' : 'hidden-1')}>
+                <div className={"show-b " + (this.props.isLabResultsInfoShowing ? '' : 'hidden-1')}>
                     <section className={className}>
                         <button className="desktop-hide" onClick={() => this.props.dispatch(toggleLabResultsInfo(false))}>
                             <span className="fas fa-times 2x a"></span>

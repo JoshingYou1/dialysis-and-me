@@ -167,7 +167,6 @@ export class CreateAppointmentForm extends React.Component {
                         validate={[required, nonEmpty, isTrimmed]}
                     />
                     <Field
-                        className="hello" 
                         name="phoneNumber"
                         type="text"
                         component={InputTwo}
@@ -186,7 +185,7 @@ export class CreateAppointmentForm extends React.Component {
                     <button 
                         type="button"
                         className="cancel-create-appointment-form-changes-button"
-                        onClick={() => this.props.dispatch(chooseCreateAppointment())}
+                        onClick={() => {this.props.dispatch(chooseCreateAppointment()); this.props.reset()}}
                     >
                         <span className="fas fa-times b">&nbsp;&nbsp;</span>
                         Cancel

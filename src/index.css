@@ -136,9 +136,10 @@ button {
   text-align: left;
 }
 
-.form-error {
+.form-error, .form-warning {
   margin-bottom: 4px;
   font-weight: bold;
+  color: #C70000;
 }
 
 .input-one {
@@ -157,17 +158,65 @@ button {
   margin-bottom: 5px;
 }
 
-.input-two, .input-three {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 5px;
-  font-size: 15px;
+.input-three-label.a {
+  margin-bottom: 0;
 }
 
-.input-one:focus, .input-two:focus, .input-three:focus {
-  background-color: #008099;
-  outline: none;
-  color: white;
+.datetime-picker-input .rw-widget-picker.rw-widget-container input {
+  margin-bottom: 0;
+  align-self: center;
+  border-radius: 0;
+  border: none;
+}
+
+.input-two, .input-three {
+  width: 100%;
+  margin-bottom: 0px;
+  padding: 5px;
+  font-size: 15px;
+  border: 1px solid #ccc !important;
+  border-radius: 4px;
+}
+
+.datetime-picker-input .rw-widget-picker.rw-widget-container input {
+  margin-bottom: 0;
+  align-self: center;
+  border-radius: 0;
+  border: none;
+  padding: 5px;
+  font-size: 15px;
+  width: 100%;
+}
+
+.datetime-picker-input .rw-widget-picker {
+  height: unset;
+}
+
+.rw-widget .rw-btn-select {
+  vertical-align: unset;
+  opacity: unset;
+}
+
+/* .form-input-3.a {
+  height: 75%;
+} */
+
+.rw-widget-picker.rw-widget-container .rw-widget-input {
+  box-shadow: unset;
+  color: black;
+  outline: 0;
+}
+
+.input-one:focus, .input-two:focus, .input-three:focus, .datetime-picker-input .rw-widget-picker.rw-widget-container input:focus {
+  outline: 0;
+  border: 1px solid #7700B4 !important;
+  color: #7700B4 !important;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.datetime-picker-input .rw-widget-picker.rw-widget-container input:focus {
+  border-radius: 4px 0 0 4px;
 }
 
 .input-one:-webkit-autofill,
@@ -175,9 +224,10 @@ button {
 .input-one:-webkit-autofill:focus,
 .input-one:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
-    box-shadow: 0 0 0px 1000px #008099 inset;
-    -webkit-box-shadow: 0 0 0px 1000px #008099 inset;
-    -webkit-text-fill-color: white;
+    box-shadow: 0 0 0px 1000px white inset;
+    -webkit-box-shadow: 0 0 0px 1000px #faffbd inset;
+    padding: 5px;
+    border: 1px solid black;
 }
 
 .input-two:-webkit-autofill,
@@ -185,19 +235,22 @@ button {
 .input-two:-webkit-autofill:focus,
 .input-two:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
-    box-shadow: 0 0 0px 1000px #008099 inset;
-    -webkit-box-shadow: 0 0 0px 1000px #008099 inset;
-    -webkit-text-fill-color: white;
+    box-shadow: 0 0 0px 1000px white inset;
+    -webkit-box-shadow: 0 0 0px 1000px #faffbd inset;
+    padding: 5px;
+    border: 1px solid black;
 }
+
 
 .input-three:-webkit-autofill,
 .input-three:-webkit-autofill:hover,
 .input-three:-webkit-autofill:focus,
 .input-three:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
-    box-shadow: 0 0 0px 1000px #008099 inset;
-    -webkit-box-shadow: 0 0 0px 1000px #008099 inset;
-    -webkit-text-fill-color: white;
+    box-shadow: 0 0 0px 1000px white inset;
+    -webkit-box-shadow: 0 0 0px 1000px #faffbd inset;
+    padding: 5px;
+    border: 1px solid black;
 }
 
 .login-button {
@@ -408,6 +461,10 @@ h2 {
   display: block;
 }
 
+.appointments-section {
+  margin-bottom: 4em;
+}
+
 .list {
   text-align: center;
 }
@@ -439,7 +496,9 @@ h2 {
 }
 
 .appointments-list-section {
-  width: 38.5%;
+  width: 60%;
+  height: 175px;
+  overflow-y: scroll;
 }
 
 .lab-results-list-h2, .appointments-list-h2 {
@@ -448,6 +507,10 @@ h2 {
 
 .lab-results-list-div, .appointments-list-div {
   text-align: center;
+}
+
+.appointments-list-div {
+  margin-bottom: 4em;
 }
 
 .lab-results-list, .appointments-list {
@@ -469,7 +532,7 @@ h2 {
   color: #7700B4;
 }
 
-.show {
+.show-a, .show-b {
   margin-top: 5.5em;
   width: 100%;
   animation: fade-1 0.25s linear;
@@ -760,9 +823,16 @@ footer {
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 1em;
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.doctor-button-holder {
+  margin-top: 1em;
+}
+
+.profile-section-button-holder {
+  margin-top: 5em;
 }
 
 .display-profile-section-button-p {
@@ -1021,7 +1091,6 @@ footer {
 
 .create-appointment-div {
   text-align: center;
-  margin-top: 3.5em;
 }
 
 .create-appointment-span {
@@ -1039,15 +1108,23 @@ footer {
 
 .create-appointment-form-component-div, .edit-appointment-form-component-div, .edit-doctor-form-component-div,
 .edit-basic-profile-info-form-component-div, .create-doctor-form-component-div {
-  margin-right: auto;
-  margin-left: auto;
-  width: 60%;
   grid-column-start: e;
   grid-column-end: f;
 }
 
+.create-appointment-form-div, .edit-appointment-form-div, .edit-doctor-form-div, .edit-basic-profile-info-form-div,
+.create-doctor-form-div {
+  margin-right: auto;
+  margin-left: auto;
+  width: 60%;
+}
+
 .edit-appointment-form-component-div {
   margin-top: 20px;
+}
+
+.edit-appointment-form-div {
+  margin-bottom: 1em;
 }
 
 .appointment-button-holder-lg {
@@ -1228,7 +1305,7 @@ footer {
 }
 
 .edit-doctor-success-message, .edit-doctor-error-message, .create-doctor-success-message, .create-doctor-error-message,
-.create-appointment-success-message, .create-appointment-error-message {
+.create-appointment-success-message, .create-appointment-error-message, .edit-profile-info-success-message, .edit-profile-info-error-message {
   position: absolute;
   top: 50%;
   left: 0;
@@ -1237,7 +1314,8 @@ footer {
 }
 
 .edit-doctor-success-message-p, .edit-doctor-error-message-p, .create-doctor-success-message-p, .create-doctor-error-message-p,
-.create-appointment-success-message-p, .edit-appointment-success-message-p {
+.create-appointment-success-message-p, .edit-appointment-success-message-p, .edit-profile-info-success-message-p,
+.edit-profile-info-error-message-p {
   text-align: center;
 }
 
@@ -1258,13 +1336,17 @@ footer {
   grid-column-start: d;
   grid-column-end: d;
   justify-self: end;
-  border-radius: 50%;
-  padding: 15px;
-  border: none;
-  margin-bottom: 1em;
-  background-color: #7700B4;
-  color: white;
+  color: #7700B4;
   cursor: pointer;
+  background: none;
+  border: none;
+  margin: 0 0 5px 0;
+  padding: 0;
+  font-size: 1.2em;
+}
+
+.edit-profile-button:hover {
+  color: #008099;
 }
 
 .create-doctor-div {
@@ -1281,6 +1363,28 @@ footer {
   margin-right: 15px;
 }
 
+.create-appointment-form, .edit-doctor-form, .edit-basic-profile-info-form, .create-doctor-form, .edit-appointment-form {
+  display: grid;
+  grid-row-gap: 1em;
+}
+
+.edit-doctor-h1 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.no-appointments-div {
+  height: 50vh
+}
+
+.no-appointments-h2 {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  text-align: center;
+}
+
 .hidden-1, .hidden-3, .hidden-4, .input-hidden {
   display: none;
 }
@@ -1295,8 +1399,10 @@ footer {
     height: 390px;
   }
 
-  .create-appointment-form-component-div, .edit-appointment-form-component-div, .edit-doctor-form-component-div,
-  .edit-basic-profile-info-form-component-div, .create-doctor-form-component-div {
+  .create-appointment-form-div, .edit-appointment-form-div, .edit-doctor-form-div, .edit-basic-profile-info-form-div,
+  .create-doctor-form-div {
+    margin-right: auto;
+    margin-left: auto;
     width: 55%;
   }
 
@@ -1310,6 +1416,7 @@ footer {
     grid-column-gap: 3.5em;
     grid-row-gap: 3.5em;
   }
+
   .profile-section-button-holder {
     margin-top: 1em;
   }
@@ -1323,9 +1430,13 @@ footer {
     padding-bottom: 7px;
   }
 
-  .create-appointment-form-component-div, .edit-appointment-form-component-div, .edit-doctor-form-component-div,
-  .edit-basic-profile-info-form-component-div, .create-doctor-form-component-div {
-    width: 50%;
+  .create-appointment-form-div, .edit-doctor-form-div, .edit-basic-profile-info-form-div,
+  .create-doctor-form-div {
+    width: 90%;
+  }
+
+  .edit-appointment-form-div {
+    width: 100%
   }
 
   .fa-times.b {
@@ -1334,6 +1445,13 @@ footer {
 
   .hidden-1, .hidden-3, .hidden-4 {
     display: none;
+  }
+}
+
+@media (min-width: 426px) {
+  .appointments-list-section {
+    height: unset;
+    overflow-y: unset;
   }
 }
 
@@ -1535,7 +1653,7 @@ footer {
     padding-left: 30px;
     padding-right: 30px;
     overflow-y: scroll;
-    height: 350px;
+    height: 320px;
   }
 
   .test-span {
@@ -1565,14 +1683,26 @@ footer {
     padding-top: 25px;
   }
 
-  .show {
+  .show-a {
+    display: grid;
     grid-area: show;
     justify-self: center;
     position: static;
     color: black;
     background: white;
     z-index: 0;
-    animation: unset;
+    animation: fade-1 1s linear;
+    margin-top: 0;
+  }
+
+  .show-b {
+    grid-area: show;
+    justify-self: center;
+    position: static;
+    color: black;
+    background: white;
+    z-index: 0;
+    animation: fade-1 1s linear;
     margin-top: 0;
   }
   
@@ -1620,72 +1750,13 @@ footer {
   }
 
   .appointments-show-list {
-    width: 80%;
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
     overflow-y: scroll;
     height: 320px;
     margin-bottom: 0.7em;
   }
-
-  /* .appointments-show-list-item, .appointments-show-list-item-2 {
-    border-bottom: 3px solid #008099;
-  } */
-
-  /* .fa-ellipsis-v.a {
-    display: inline-block;
-    grid-area: f;
-    text-align: right;
-    cursor: pointer;
-    justify-self: end;
-    margin-right: -10px;
-    padding: 10px;
-  }
-
-  .appointment-button-holder-sm {
-    display: none;
-  } */
-
-  /* .appointment-button-holder-lg {
-    border-radius: 6px;
-    display: block;
-    position: absolute;
-    width: 225px;
-    box-shadow: 0 0 0 1px rgba(0,0,0,.08), 0 4px 12px 0 rgba(0,0,0,.12);
-    margin-left: 35px;
-  }
-  
-  .edit-appointment-button-lg {
-    padding: 5px;
-    text-align: left;
-    display: block;
-    width: 100%;
-    border-radius: 6px 6px 0 0;
-    border: none;
-    background-color: white;
-    cursor: pointer;
-  }
-
-  .edit-appointment-button-lg:hover {
-    color: white;
-    background-color: #7700B4;
-  }
-  
-  .delete-appointment-button-lg {
-    text-align: left;
-    display: block;
-    width: 100%;
-    border-radius: 0 0 6px 6px;
-    border: none;
-    padding: 5px;
-    background-color: white;
-    cursor: pointer;
-  }
-
-  .delete-appointment-button-lg:hover {
-    color: white;
-    background-color: #C70000
-  } */
 
   .create-appointment-div {
     position: absolute;
@@ -1707,8 +1778,8 @@ footer {
     color: #008099;
   }
 
-  .create-appointment-form-component-div, .edit-doctor-form-component-div, .edit-basic-profile-info-form-component-div,
-  .create-doctor-form-component-div {
+  .create-appointment-form-div, .edit-doctor-form-div, .edit-basic-profile-info-form-div,
+  .create-doctor-form-div {
     width: 90%;
   }
 
@@ -1717,7 +1788,6 @@ footer {
   }
 
   .create-appointment-form, .edit-doctor-form, .edit-basic-profile-info-form, .create-doctor-form {
-    display: grid;
     grid-template-areas: 
       "slot-1 slot-2 slot-3";
     grid-template-columns: 1fr 1fr 1fr;
@@ -1726,6 +1796,7 @@ footer {
     margin-right: auto;
     align-items: end;
     grid-column-gap: 3em;
+    grid-row-gap: 1em;
   }
 
   .input-two-label {
@@ -1771,8 +1842,12 @@ footer {
   }
 
   .edit-appointment-submit-button {
-    grid-column-start: g;
     grid-column-end: g;
+  }
+
+  .cancel-edit-appointment-form-changes-button {
+    grid-column-start: h;
+    grid-column-end: h;
   }
 
   .edit-appointment-submit-button:hover {
@@ -1784,11 +1859,35 @@ footer {
   }
 
   .edit-appointment-form {
-    width: 260px;
+    width: 320px;
     margin-left: auto;
     margin-right: auto;
     padding-bottom: 25px;
     border-bottom: 3px solid #008099;
+    grid-column-gap: 1em;
+  }
+
+  .input-two {
+    padding: 10px 5px;
+  }
+
+  .input-two:focus {
+    padding: 10px 5px;
+  }
+
+  .input-two:-webkit-autofill,
+  .input-two:-webkit-autofill:hover,
+  .input-two:-webkit-autofill:focus,
+  .input-two:-webkit-autofill:active {
+      padding: 10px 5px;
+  }
+
+  .no-appointments-div {
+    height: 100%;
+  }
+
+  .appointments-section, .appointments-list-div {
+    margin-bottom: unset;
   }
 
   .hidden-4 {
@@ -1932,7 +2031,18 @@ footer {
     grid-template-areas: "g h";
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 1em;
+    grid-row-gap: 1em;
     align-items: end;
+  }
+
+  .create-appointment-form, .edit-doctor-form, .edit-basic-profile-info-form, .create-doctor-form {
+    grid-template-areas: 
+      "slot-1 slot-2 slot-3 slot-4";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  .profile-section-button-holder {
+    margin-top: 1em;
   }
 
   .hidden-1 {
@@ -1966,6 +2076,10 @@ footer {
 
   .doctors-main {
     margin-bottom: 1.5em;
+  }
+
+  .create-appointment-form, .edit-doctor-form, .edit-basic-profile-info-form, .create-doctor-form {
+    max-width: 1100px;
   }
 
   .hidden-1 {

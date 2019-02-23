@@ -2,6 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 export function PrimaryInsuranceInfo(props) {
+
+    let formattedSsn = `${props.profile.primaryInsurance.socialSecurityNumberOfCardHolder[0]}${props.profile.primaryInsurance.socialSecurityNumberOfCardHolder[1]}${props.profile.primaryInsurance.socialSecurityNumberOfCardHolder[2]}-${props.profile.primaryInsurance.socialSecurityNumberOfCardHolder[3]}${props.profile.primaryInsurance.socialSecurityNumberOfCardHolder[4]}-${props.profile.primaryInsurance.socialSecurityNumberOfCardHolder[5]}${props.profile.primaryInsurance.socialSecurityNumberOfCardHolder[6]}${props.profile.primaryInsurance.socialSecurityNumberOfCardHolder[7]}${props.profile.primaryInsurance.socialSecurityNumberOfCardHolder[8]}`;
+
     if (props.profile.primaryInsurance) {
         return (
             <div className="card">
@@ -21,7 +24,7 @@ export function PrimaryInsuranceInfo(props) {
                     <span className="grid-d-span">{props.profile.primaryInsurance.dateOfBirthOfCardHolder}</span>
 
                     <span className="grid-c-span">Card holder's SSN:</span>
-                    <span className="grid-d-span">{props.profile.primaryInsurance.socialSecurityNumberOfCardHolder}</span>
+                    <span className="grid-d-span">{formattedSsn}</span>
                 </section>
             </div>
         );

@@ -10,13 +10,13 @@ export default class InputTwo extends React.Component {
     render() {
         let error;
         if (this.props.meta.touched && this.props.meta.error) {
-            error = <div className="form-error b">{this.props.meta.error}</div>;
+            error = <div className="form-error b"><span className="fas fa-info-circle">&nbsp;</span>{this.props.meta.error}</div>;
         }
 
         let warning;
         if (this.props.meta.touched && this.props.meta.warning) {
             warning = (
-                <div className="form-warning">{this.props.meta.warning}</div>
+                <div className="form-warning"><span className="fas fa-info-circle">&nbsp;</span>{this.props.meta.warning}</div>
             );
         }
 
@@ -33,6 +33,7 @@ export default class InputTwo extends React.Component {
                     id={this.props.input.name}
                     type={this.props.type}
                     ref={input => (this.input = input)}
+                    placeholder={this.props.placeholder}
                 />
             </div>
         );

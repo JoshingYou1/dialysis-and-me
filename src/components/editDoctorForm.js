@@ -19,15 +19,6 @@ export class EditDoctorForm extends React.Component {
             PropTypes.number.isRequired
         ])
     };
-    // static contextTypes = {store: PropTypes.object}
-    // get values() {
-    //     const {store} = this.context;
-    //     const state = store.getState();
-    //     return getFormValues('editDoctor')(state);
-    // }
-    // reloadDoctorComponent() {
-    //     window.location.reload();
-    // }
 
     onSubmit(values) {
         return fetch(`${API_BASE_URL}/api/patients/${this.props.user.id}/doctors/${this.props.selectedDoctorToEdit._id}`, {
@@ -119,69 +110,70 @@ export class EditDoctorForm extends React.Component {
                             type="text"
                             component={InputTwo}
                             label="First Name"
-                            validate={[required]}
+                            validate={[required, isTrimmed, nonEmpty]}
                         />
                         <Field 
                             name="name.lastName"
                             type="text"
                             component={InputTwo}
                             label="Last Name"
-                            validate={[required]}
+                            validate={[required, isTrimmed, nonEmpty]}
                         />
                         <Field 
                             name="practice"
                             type="text"
                             component={InputTwo}
                             label="Practice"
-                            validate={[required]}
+                            validate={[required, isTrimmed, nonEmpty]}
                         />
                         <Field 
                             name="company"
                             type="text"
                             component={InputTwo}
                             label="Company"
+                            validate={[required, isTrimmed, nonEmpty]}
                         />
                         <Field 
                             name="address.street"
                             type="text"
                             component={InputTwo}
                             label="Address"
-                            validate={[required]}
+                            validate={[required, isTrimmed, nonEmpty]}
                         />
                         <Field 
                             name="address.city"
                             type="text"
                             component={InputTwo}
                             label="City"
-                            validate={[required]}
+                            validate={[required, isTrimmed, nonEmpty]}
                         />
                         <Field 
                             name="address.state"
                             type="text"
                             component={InputTwo}
                             label="State"
-                            validate={[required]}
+                            validate={[required, isTrimmed, nonEmpty]}
                         />
                         <Field 
                             name="address.zipCode"
-                            type="text"
+                            type="number"
                             component={InputTwo}
                             label="Zip Code"
-                            validate={[required]}
+                            validate={required}
                         />
                         <Field 
                             name="phoneNumber"
                             type="text"
                             component={InputTwo}
                             label="Phone Number"
-                            validate={[required]}
+                            validate={[required, isTrimmed, nonEmpty]}
                         />
                         <Field 
                             name="faxNumber"
                             type="text"
                             component={InputTwo}
                             label="Fax Number"
-                            validate={[required]}
+                            validate={[required, isTrimmed, nonEmpty]}
                         />
                         <Field 
                             name=""
@@ -199,7 +191,7 @@ export class EditDoctorForm extends React.Component {
                         <button
                             type="button"
                             className="cancel-edit-doctor-form-changes-button"
-                            onClick={() => this.showDoctor()}
+                            onClick={() => {this.showDoctor(); this.props.reset()}}
                         >
                             <span className="fas fa-times">&nbsp;&nbsp;</span>
                             Cancel
@@ -220,6 +212,7 @@ const mapStateToProps = state => ({
 
 EditDoctorForm = reduxForm({
     form: 'editDoctorForm',
+    asyncBlurFields: [],
     enableReinitialize: true
 })(EditDoctorForm);
 

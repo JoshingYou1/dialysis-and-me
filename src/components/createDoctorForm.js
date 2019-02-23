@@ -181,7 +181,7 @@ export class CreateDoctorForm extends React.Component {
                     <button 
                         type="button"
                         className="cancel-create-doctor-form-changes-button"
-                        onClick={() => this.showDoctor()}
+                        onClick={() => {this.showDoctor(); this.props.reset()}}
                     >
                         <span className="fas fa-times b">&nbsp;&nbsp;</span>
                         Cancel
