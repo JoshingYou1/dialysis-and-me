@@ -32,7 +32,8 @@ import {
     FETCH_DOCTORS_SUCCESS,
     FORM_MESSAGE,
     DOCTOR_MENU_BY_DOCTOR_ID,
-    LOAD_BASIC_PROFILE_INFO_FORM_DATA
+    LOAD_BASIC_PROFILE_INFO_FORM_DATA,
+    SHOW_APPOINTMENTS
 } from '../actions/index';
 
 const initialState = {
@@ -57,7 +58,9 @@ const initialState = {
     isAppointmentMenuShowing: false,
     isDoctorMenuShowing: false,
     loadedDoctorFormData: {},
-    doctors: []
+    doctors: [],
+    areAppointmentsShowing: false,
+    deletedAppointment: null
 };
 
 export const appReducer = (state=initialState, action) => {
@@ -118,8 +121,13 @@ export const appReducer = (state=initialState, action) => {
     }
     else if (action.type === TOGGLE_APPOINTMENT_INFO) {
         return Object.assign({}, state, {
-            isAppointmentInfoShowing: !state.isAppointmentInfoShowing
+            isAppointmentInfoShowing: true
         });
+    }
+    else if (action.type === SHOW_APPOINTMENTS) {
+        return Object.assign({}, state, {
+            areAppointmentsShowing: !state.areAppointmentsShowing
+        })
     }
     else if (action.type === UPDATE_CURRENT_DOCTOR) {
         return Object.assign({}, state, {
@@ -143,7 +151,11 @@ export const appReducer = (state=initialState, action) => {
         });
     }
     else if (action.type === DELETE_APPOINTMENT_SUCCESS) {
+        const appointments = state.appointments.filter(a => action.deletedAppointment._id !== a._id);
+        const selectedAppointments = state.selectedAppointments.filter(a => action.deletedAppointment._id !== a._id);
         return Object.assign({}, state, {
+            appointments,
+            selectedAppointments,
             deletedAppointment: action.deletedAppointment
         });
     }
@@ -211,6 +223,14 @@ export const appReducer = (state=initialState, action) => {
         return Object.assign({}, state, {
             isMessageShowing: !state.isMessageShowing
         });
+    }
+    else if (action.type === CREATE_APPOINTMENT_SUCCESS) {
+        const appointments = [...state.appointments, action.createdAppointment];
+        const selectedAppointments = [...state.selectedAppointments, action.createdAppointment];
+        return Object.assign({}, state, {
+            appointments,
+            selectedAppointments
+        })
     }
     console.log('state', state);
     return state;

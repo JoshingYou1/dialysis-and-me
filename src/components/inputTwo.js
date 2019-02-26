@@ -33,6 +33,8 @@ export default class InputTwo extends React.Component {
                     id={this.props.input.name}
                     type={this.props.type}
                     ref={input => (this.input = input)}
+                    placeholder={this.props.placeholder}
+                    required={this.props.required}
                 />
             </div>
         );

@@ -73,7 +73,7 @@ export class NavigationBar extends React.Component {
                     </div>
                     <div className={"user-display " + (this.props.isUserInfoShowing ? '' : 'hidden-1')}>
                         <User user={this.props.username}/>
-                        <button className="logout-button" onClick={() => this.logout()}>Log Out</button>
+                        <button className="logout-button" onClick={() => {this.logout(); this.props.dispatch(toggleUserInfo())}}>Log Out</button>
                     </div>
                     <span 
                         className="fas fa-bars" 

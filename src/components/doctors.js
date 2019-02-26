@@ -48,6 +48,7 @@ export class Doctors extends React.Component {
             this.setState({
                 animate: !this.state.animate,
             })
+            this.props.dispatch(fetchDoctors(this.props.user.id))
         }
     }
     

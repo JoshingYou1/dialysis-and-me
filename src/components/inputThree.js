@@ -16,7 +16,7 @@ export default class InputTwo extends React.Component {
         let warning;
         if (this.props.meta.touched && this.props.meta.warning) {
             warning = (
-                <div className="form-warning"><span className="fas fa-info-circle">&nbsp;</span>{this.props.meta.warning}</div>
+                <div className="form-warning b"><span className="fas fa-info-circle">&nbsp;</span>{this.props.meta.warning}</div>
             );
         }
 

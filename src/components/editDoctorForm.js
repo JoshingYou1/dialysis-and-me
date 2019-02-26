@@ -42,7 +42,6 @@ export class EditDoctorForm extends React.Component {
                         message: res.statusText
                     });
                 }
-                // this.props.dispatch(updateCurrentDoctor(values));
                 return;
             })
             .then(() => console.log('Submitted with values', values))

@@ -3,28 +3,28 @@ import {connect} from 'react-redux';
 import { toggleLabResultsInfo } from '../actions';
 
 export class LabResultsShow extends React.Component {
-    constructor(props){
-        super(props);
+    // constructor(props){
+    //     super(props);
 
-        this.state = {
-            animate: true
-        }
-    }
+    //     this.state = {
+    //         animate: true
+    //     }
+    // }
 
-    componentDidUpdate(prevProps){
-        if (this.props.chosenLabResult !== prevProps.chosenLabResult) {
-            this.setState({
-                animate: !this.state.animate,
-            })
-        }
-    }
+    // componentDidUpdate(prevProps){
+    //     if (this.props.chosenLabResult !== prevProps.chosenLabResult) {
+    //         this.setState({
+    //             animate: !this.state.animate,
+    //         })
+    //     }
+    // }
 
     render() {
-        let className = this.state.animate ? "lab-results-show-section" : "lab-results-show-section-2"
+        // let className = this.state.animate ? "lab-results-show-section" : "lab-results-show-section-2"
         if (this.props.chosenLabResult) {
             return (
                 <div className={"show-b " + (this.props.isLabResultsInfoShowing ? '' : 'hidden-1')}>
-                    <section className={className}>
+                    <section className="lab-results-show-section">
                         <button className="desktop-hide" onClick={() => this.props.dispatch(toggleLabResultsInfo(false))}>
                             <span className="fas fa-times 2x a"></span>
                         </button>

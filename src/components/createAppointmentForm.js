@@ -4,7 +4,33 @@ import InputTwo from './inputTwo';
 import {API_BASE_URL} from '../config';
 import {required, nonEmpty, isTrimmed} from '../validators';
 import { connect } from 'react-redux';
-import { createAppointment, chooseCreateAppointment, formMessage } from '../actions';
+import { createAppointment, chooseCreateAppointment, formMessage, createAppointmentSuccess } from '../actions';
+import DateTimePicker from 'react-widgets/lib/DateTimePicker';
+import moment from 'moment';
+import momentLocaliser from 'react-widgets-moment';
+import 'react-widgets/dist/css/react-widgets.css';
+
+momentLocaliser(moment)
+
+const renderDateTimePicker = ({ input: { onChange, value }, showTime, meta: { error, warning } }) =>
+    <div>
+        <div className="form-error">
+            <span className={"fas fa-info-circle " + (error ? '' : 'hidden-1')}>&nbsp;</span>
+            {error}
+        </div>
+        <div className="form-warning">
+            <span className={"fas fa-info-circle " + (warning ? '' : 'hidden-1')}>&nbsp;</span>
+            {warning}
+        </div>
+        <DateTimePicker
+            className="datetime-picker-input-2"
+            onChange={onChange}
+            format="MM/DD/YYYY"
+            time={showTime}
+            value={!value ? null : new Date(value)}
+            placeholder="07/21/2018"
+        />
+    </div>
 
 export class CreateAppointmentForm extends React.Component {
     showAppointments() {
@@ -33,6 +59,7 @@ export class CreateAppointmentForm extends React.Component {
                         message: res.statusText
                     });
                 }
+                // this.props.dispatch(createAppointmentSuccess(res));
                 return;
             })
             .then(() => console.log('Submitted with values', values))
@@ -95,13 +122,19 @@ export class CreateAppointmentForm extends React.Component {
                     className={"create-appointment-form " + (this.props.isMessageShowing ? 'hidden-1' : '')}
                     onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
                 >
-                    <Field 
-                        name="date"
-                        type="date"
-                        component={InputTwo}
-                        label="Date"
-                        validate={[required, nonEmpty, isTrimmed]}
-                    />
+                    <div className="form-input-2 a">
+                        <label className="input-two-label a" htmlFor="date">
+                            Date
+                        </label>
+                        <Field
+                            name="date"
+                            type="date"
+                            component={renderDateTimePicker}
+                            showTime={false}
+                            validate={required}
+                            placeholder="07/21/19"
+                        />
+                    </div>
                     <Field 
                         name="description"
                         type="text"
@@ -116,6 +149,7 @@ export class CreateAppointmentForm extends React.Component {
                         component={InputTwo}
                         label="Time"
                         validate={[required, nonEmpty, isTrimmed]}
+                        placeholder="10:15 a.m."
                     />
                     <Field 
                         name="with"
@@ -123,6 +157,7 @@ export class CreateAppointmentForm extends React.Component {
                         component={InputTwo}
                         label="With"
                         validate={[required, nonEmpty, isTrimmed]}
+                        placeholder="John Doe"
                     />
                     <Field 
                         name="title"
@@ -130,6 +165,7 @@ export class CreateAppointmentForm extends React.Component {
                         component={InputTwo}
                         label="Title"
                         validate={[required, nonEmpty, isTrimmed]}
+                        placeholder="MD"
                     />
                     <Field 
                         name="where"
@@ -137,6 +173,7 @@ export class CreateAppointmentForm extends React.Component {
                         component={InputTwo}
                         label="Where"
                         validate={[required, nonEmpty, isTrimmed]}
+                        placeholder="Mayo Clinic"
                     />
                     <Field 
                         name="address.street"
@@ -144,6 +181,7 @@ export class CreateAppointmentForm extends React.Component {
                         component={InputTwo}
                         label="Address"
                         validate={[required, nonEmpty, isTrimmed]}
+                        placeholder="123 International Drive"
                     />
                     <Field 
                         name="address.city"
@@ -151,6 +189,7 @@ export class CreateAppointmentForm extends React.Component {
                         component={InputTwo}
                         label="City"
                         validate={[required, nonEmpty, isTrimmed]}
+                        placeholder="Jacksonville"
                     />
                     <Field 
                         name="address.state"
@@ -158,6 +197,7 @@ export class CreateAppointmentForm extends React.Component {
                         component={InputTwo}
                         label="State"
                         validate={[required, nonEmpty, isTrimmed]}
+                        placeholder="FL"
                     />
                     <Field 
                         name="address.zipCode"
@@ -165,6 +205,7 @@ export class CreateAppointmentForm extends React.Component {
                         component={InputTwo}
                         label="Zip Code"
                         validate={[required, nonEmpty, isTrimmed]}
+                        placeholder="32204"
                     />
                     <Field
                         name="phoneNumber"
@@ -172,6 +213,7 @@ export class CreateAppointmentForm extends React.Component {
                         component={InputTwo}
                         label="Phone Number"
                         validate={[required, nonEmpty, isTrimmed]}
+                        placeholder="123-456-7890"
                     />
                     <button
                         className="create-appointment-submit-button"

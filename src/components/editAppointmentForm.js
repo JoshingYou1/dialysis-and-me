@@ -18,17 +18,18 @@ const renderDateTimePicker = ({ input: { onChange, value }, showTime, meta: { er
             <span className={"fas fa-info-circle " + (error ? '' : 'hidden-1')}>&nbsp;</span>
             {error}
         </div>
-        <div className="form-error b">
+        <div className="form-warning b">
             <span className={"fas fa-info-circle " + (warning ? '' : 'hidden-1')}>&nbsp;</span>
             {warning}
         </div>
         <DateTimePicker
-            className="datetime-picker-input"
+            className="datetime-picker-input-3"
             onChange={onChange}
             format="MM/DD/YYYY"
             time={showTime}
             value={!value ? null : new Date(value)}
             validate={required}
+            placeholder="07/21/19"
         />
     </div>
 
@@ -36,6 +37,7 @@ export class EditAppointmentForm extends React.Component {
     showAppointment() {
         this.props.dispatch(editSelectedAppointmentById({}));
         this.props.dispatch(loadAppointmentFormData({}));
+        this.props.dispatch(formMessage(false));
     }
 
     onSubmit(values) {
@@ -134,7 +136,6 @@ export class EditAppointmentForm extends React.Component {
                                 component={renderDateTimePicker}
                                 showTime={false}
                                 validate={required}
-                                placeholder="07/21/19"
                             />
                         </div>
                         {/* <label className="appointment-form-label" htmlFor="reason"></label> */}

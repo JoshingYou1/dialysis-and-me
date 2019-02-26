@@ -9,21 +9,27 @@ import {
 import EditAppointmentForm from './editAppointmentForm';
 
 export class AppointmentsShow extends React.Component {
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
 
-        this.state = {
-            animate: true
+    //     this.state = {
+    //         animate: true
+    //     }
+    // }
+
+    deleteAppointmentHandler(a, formattedAppointmentDate) {
+        if (window.confirm(`Are you sure you want to remove this appointment scheduled for ${formattedAppointmentDate}?`)) {
+            this.props.dispatch(deleteAppointment(this.props.user.id, a._id))
         }
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.chosenAppointments !== prevProps.chosenAppointments) {
-            this.setState({
-                animate: !this.state.animate,
-            })
-        }
-    }
+    // componentDidUpdate(prevProps) {
+    //     if (this.props.chosenAppointments !== prevProps.chosenAppointments) {
+    //         this.setState({
+    //             animate: !this.state.animate,
+    //         })
+    //     }
+    // }
 
     showAppointmentForm(a) {
         this.props.dispatch(loadAppointmentFormData(a));
@@ -31,7 +37,22 @@ export class AppointmentsShow extends React.Component {
     }
 
     render() {
-        let className = this.state.animate ? "appointments-show-list-item" : "appointments-show-list-item-2";
+        if (this.props.deletedAppointment) {
+            return (
+                <div className={"message show-a delete-appointment-success-message " + (this.props.selectedAppointments ? 'hidden-1' : '')}>
+                    <p className="delete-appointment-success-message-p">
+                        Appointment successfully deleted!
+                        <button 
+                            className="message-button"
+                            // onClick={() => this.showAppointmentForm()}
+                        >
+                            <span className="fas fa-share-square">&nbsp;</span>
+                            <span>Go back</span>
+                        </button>
+                    </p>
+                </div>
+            )
+        }
         if (this.props.chosenAppointments) {
             const list = this.props.chosenAppointments.map((a, i) => {
                 let appointmentDate = new Date(a.date);
@@ -50,7 +71,7 @@ export class AppointmentsShow extends React.Component {
                 return (
                     <li key={i}>
                         <div
-                            className={className + (a._id === this.props.loadedAppointmentFormData._id ? ' hidden-1' : '')}
+                            className={"appointments-show-list-item" + (a._id === this.props.loadedAppointmentFormData._id || this.props.isMessageShowing || this.props.deletedAppointment? ' hidden-1' : '')}
                         >
                             <h2 className="appointment-date-h2">{formattedAppointmentDate}</h2>
 
@@ -91,7 +112,7 @@ export class AppointmentsShow extends React.Component {
                             </button>
                                 <button
                                     className="delete-appointment-button-sm"
-                                    onClick={() => this.props.dispatch(deleteAppointment(this.props.user.id, a._id))}
+                                    onClick={() => this.deleteAppointmentHandler(a, formattedAppointmentDate)}
                                 >
                                     <span className="fas fa-trash-alt">&nbsp;&nbsp;</span>
                                     Delete
@@ -145,7 +166,8 @@ const mapStateToProps = state => {
         isAppointmentInfoShowing: state.app.isAppointmentInfoShowing,
         selectedAppointmentToEdit: state.app.selectedAppointmentToEdit,
         loadedAppointmentFormData: state.app.loadedAppointmentFormData,
-        isMessageShowing: state.app.isMessageShowing
+        isMessageShowing: state.app.isMessageShowing,
+        deletedAppointment: state.app.deletedAppointment
     }
 };
 

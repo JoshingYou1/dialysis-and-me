@@ -14,7 +14,7 @@ export class Appointments extends React.Component {
     }
 
     toggleAppointmentInfo() {
-        this.props.dispatch(toggleAppointmentInfo(true));
+        this.props.dispatch(toggleAppointmentInfo());
     }
 
     chooseAppointmentsByMonth(choice) {
@@ -95,7 +95,8 @@ const mapStateToProps = state => ({
     appointments: state.app.appointments,
     user: state.auth.currentUser,
     isCreateAppointmentFormShowing: state.app.isCreateAppointmentFormShowing,
-    isAppointmentInfoShowing: state.app.isAppointmentInfoShowing
+    isAppointmentInfoShowing: state.app.isAppointmentInfoShowing,
+    deletedAppointment: state.app.deletedAppointment
 });
 
 export default requiresLogin()(connect(mapStateToProps)(Appointments));

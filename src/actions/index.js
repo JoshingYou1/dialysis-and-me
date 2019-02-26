@@ -138,7 +138,10 @@ export const deleteAppointment = (patientId, appointmentId) => (dispatch, getSta
             if (!res.ok) {
                 return Promise.reject(res.statusText)
             }
-            return 'Appointment successfully deleted!';
+            return {
+               successMessage: 'Appointment successfully deleted!',
+               _id: appointmentId
+            };
         })
         .then(deletedAppointment => {
             dispatch(deleteAppointmentSuccess(deletedAppointment));
@@ -155,6 +158,12 @@ export const TOGGLE_APPOINTMENT_INFO = 'TOGGLE_APPOINTMENT_INFO';
 export const toggleAppointmentInfo = isAppointmentInfoShowing => ({
     type: TOGGLE_APPOINTMENT_INFO,
     isAppointmentInfoShowing
+});
+
+export const SHOW_APPOINTMENTS = 'SHOW_APPOINTMENTS';
+export const showAppointments = areAppointmentsShowing => ({
+    type: SHOW_APPOINTMENTS,
+    areAppointmentsShowing
 });
 
 export const UPDATE_CURRENT_DOCTOR = 'UPDATE_CURRENT_DOCTOR';
@@ -289,6 +298,18 @@ export const FORM_MESSAGE = 'FORM_MESSAGE';
 export const formMessage = isMessageShowing => ({
     type: FORM_MESSAGE,
     isMessageShowing
+});
+
+export const UPDATE_DOCTOR_SUCCESS = 'UPDATE_DOCTOR_SUCCESS';
+export const updateDoctorSuccess = updatedDoctor => ({
+    type: UPDATE_DOCTOR_SUCCESS,
+    updatedDoctor
+});
+
+export const CREATE_APPOINTMENT_SUCCESS = 'CREATE_APPOINTMENT_SUCCESS';
+export const createAppointmentSuccess = createdAppointment => ({
+    type: CREATE_APPOINTMENT_SUCCESS,
+    createdAppointment
 });
 
 

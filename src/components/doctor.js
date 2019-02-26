@@ -1,11 +1,23 @@
 import React from 'react';
-import { toggleDoctorMenu, deleteDoctor, loadDoctorFormData, editSelectedDoctorById } from '../actions';
+import { toggleDoctorMenu, deleteDoctor, loadDoctorFormData, editSelectedDoctorById, fetchDoctors } from '../actions';
 import { connect } from 'react-redux';
 
 export class Doctor extends React.Component {
     showEditDoctorForm(d) {
         this.props.dispatch(loadDoctorFormData(d));
         this.props.dispatch(editSelectedDoctorById(d));
+    }
+
+    // componentDidUpdate(prevProps) {
+    //     if (this.props.currentDoctor !== prevProps.currentDoctor) {
+    //         this.props.dispatch(fetchDoctors(this.props.user.id))
+    //     }
+    // }
+
+    deleteDoctorHandler() {
+        if (window.confirm(`Are you sure you want to remove ${this.props.doctor.name.firstName} ${this.props.doctor.name.lastName} from your doctors?`)) {
+            this.props.dispatch(deleteDoctor(this.props.user.id, this.props.doctor._id))
+        }
     }
 
     render() {
@@ -20,14 +32,14 @@ export class Doctor extends React.Component {
                     <div className={"doctor-menu " + (this.props.isDoctorMenuShowing ? '' : 'hidden-1')}>
                         <button 
                             className="edit-doctor-button"
-                            onClick={() => {this.showEditDoctorForm(d)}}
+                            onClick={() => this.showEditDoctorForm(d)}
                         >
                         <span className="fas fa-edit">&nbsp;&nbsp;</span>
                             Edit
                         </button>
                         <button 
                             className="delete-doctor-button"
-                            onClick={() => this.props.dispatch(deleteDoctor(this.props.user.id, d._id))}
+                            onClick={() => this.deleteDoctorHandler()}
                         >
                         <span className="fas fa-trash-alt">&nbsp;&nbsp;</span>
                             Delete
@@ -67,7 +79,8 @@ const mapStateToProps = state => ({
     user: state.auth.currentUser,
     isDoctorMenuShowing: state.app.isDoctorMenuShowing,
     loadedDoctorFormData: state.app.loadedDoctorFormData,
-    selectedDoctorToEdit: state.app.selectedDoctorToEdit
+    selectedDoctorToEdit: state.app.selectedDoctorToEdit,
+    currentDoctor: state.app.currentDoctor
 });
 
 export default connect(mapStateToProps)(Doctor)
