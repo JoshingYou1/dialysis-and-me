@@ -4,32 +4,18 @@ import {
     toggleAppointmentInfo,
     loadAppointmentFormData,
     editSelectedAppointmentById,
-    deleteAppointment
+    deleteAppointment,
+    showAppointments
 } from '../actions';
 import EditAppointmentForm from './editAppointmentForm';
 
 export class AppointmentsShow extends React.Component {
-    // constructor(props) {
-    //     super(props);
-
-    //     this.state = {
-    //         animate: true
-    //     }
-    // }
 
     deleteAppointmentHandler(a, formattedAppointmentDate) {
         if (window.confirm(`Are you sure you want to remove this appointment scheduled for ${formattedAppointmentDate}?`)) {
             this.props.dispatch(deleteAppointment(this.props.user.id, a._id))
         }
     }
-
-    // componentDidUpdate(prevProps) {
-    //     if (this.props.chosenAppointments !== prevProps.chosenAppointments) {
-    //         this.setState({
-    //             animate: !this.state.animate,
-    //         })
-    //     }
-    // }
 
     showAppointmentForm(a) {
         this.props.dispatch(loadAppointmentFormData(a));
@@ -44,7 +30,7 @@ export class AppointmentsShow extends React.Component {
                         Appointment successfully deleted!
                         <button 
                             className="message-button"
-                            // onClick={() => this.showAppointmentForm()}
+                            // onClick={() => this.props}
                         >
                             <span className="fas fa-share-square">&nbsp;</span>
                             <span>Go back</span>
@@ -53,7 +39,16 @@ export class AppointmentsShow extends React.Component {
                 </div>
             )
         }
-        if (this.props.chosenAppointments) {
+        if (this.props.chosenAppointments.length === 0 && this.props.isAppointmentInfoShowing) {
+            return (
+                <div className={"no-appointments-div " + (this.props.chosenAppointments.length !== 0 ? 'hidden-1' : '')}>
+                    <h2 className="no-appointments-h2">
+                        No appointments for this month
+                    </h2>
+                </div>
+            );
+        }
+        if (this.props.chosenAppointments.length) {
             const list = this.props.chosenAppointments.map((a, i) => {
                 let appointmentDate = new Date(a.date);
 
@@ -71,7 +66,7 @@ export class AppointmentsShow extends React.Component {
                 return (
                     <li key={i}>
                         <div
-                            className={"appointments-show-list-item" + (a._id === this.props.loadedAppointmentFormData._id || this.props.isMessageShowing || this.props.deletedAppointment? ' hidden-1' : '')}
+                            className={"appointments-show-list-item " + (a._id === this.props.loadedAppointmentFormData._id || this.props.deletedAppointment ? 'hidden-1' : '')}
                         >
                             <h2 className="appointment-date-h2">{formattedAppointmentDate}</h2>
 
@@ -128,19 +123,12 @@ export class AppointmentsShow extends React.Component {
                 )
             });
             return (
-                <div className={"show-a " + (this.props.isAppointmentInfoShowing ? '' : ' hidden-1')}>
+                <div className={"show-a " + (this.props.isAppointmentInfoShowing ? '' : 'hidden-1')}>
                     <button className="desktop-hide" onClick={() => this.props.dispatch(toggleAppointmentInfo(false))}>
                         <span className="fas fa-times 2x a"></span>
                     </button>
                     <section className="appointments-show-section">
-                        <div className={"no-appointments-div " + (this.props.chosenAppointments.length !== 0 ? 'hidden-1' : '')}>
-                            <h2 
-                                className={"no-appointments-h2 " + (this.props.chosenAppointments.length === 0 ? '' : 'hidden-1')}
-                            >
-                                No appointments for this month
-                            </h2>
-                        </div>
-                        <ul className={"appointments-show-list " + (this.props.chosenAppointments.length === 0 ? 'hidden-1' : '')}>
+                        <ul className={"appointments-show-list " + (this.props.chosenAppointments.length !== 0 ? '' : 'hidden-1')}>
                             {list}
                         </ul>
                     </section>

@@ -2,9 +2,11 @@ import React from 'react';
 import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
 import InputTwo from './inputTwo';
 import {API_BASE_URL} from '../config';
-import {required, nonEmpty, isTrimmed} from '../validators';
+import {required, nonEmpty, isTrimmed, maxLength} from '../validators';
 import { connect } from 'react-redux';
-import { loadBasicProfileInfoFormData, chooseEditBasicProfileInfo, formMessage } from '../actions';
+import { loadBasicProfileInfoFormData, chooseEditBasicProfileInfo, successErrorMessage } from '../actions';
+
+const max = maxLength(2);
 
 export class EditBasicProfileInfoForm extends React.Component {
 
@@ -102,6 +104,7 @@ export class EditBasicProfileInfoForm extends React.Component {
                         component={InputTwo}
                         label="SSN"
                         validate={[required, isTrimmed, nonEmpty]}
+                        placeholder="123-45-6789"
                     />
                     <Field 
                         name="address.street"
@@ -109,6 +112,7 @@ export class EditBasicProfileInfoForm extends React.Component {
                         component={InputTwo}
                         label="Address"
                         validate={[required, isTrimmed, nonEmpty]}
+                        placeholder="123 International Drive"
                     />
                     <Field 
                         name="address.city"
@@ -116,13 +120,15 @@ export class EditBasicProfileInfoForm extends React.Component {
                         component={InputTwo}
                         label="City"
                         validate={[required, isTrimmed, nonEmpty]}
+                        placeholder="Jacksonville"
                     />
                     <Field 
                         name="address.state"
                         type="text"
                         component={InputTwo}
                         label="State"
-                        validate={[required, isTrimmed, nonEmpty]}
+                        validate={[required, isTrimmed, nonEmpty, max]}
+                        placeholder="FL"
                     />
                     <Field 
                         name="address.zipCode"
@@ -130,30 +136,34 @@ export class EditBasicProfileInfoForm extends React.Component {
                         component={InputTwo}
                         label="Zip Code"
                         validate={[required]}
+                        placeholder="12345"
                     />
                     <Field 
                         name="phoneNumbers.home"
                         type="text"
                         component={InputTwo}
                         label="Home Phone"
+                        placeholder="123-456-7890"
                     />
                     <Field 
                         name="phoneNumbers.cell"
                         type="text"
                         component={InputTwo}
                         label="Cell Phone"
+                        placeholder="123-456-7890"
                     />
                     <Field 
                         name="phoneNumbers.work"
                         type="text"
                         component={InputTwo}
                         label="Work Phone"
+                        placeholder="123-456-7890"
                     />
                     <button
                         className="edit-basic-profile-info-submit-button"
                         type="submit"
                         disabled={this.props.pristine || this.props.submitting}
-                        onClick={() => this.props.dispatch(formMessage())}
+                        onClick={() => this.props.dispatch(successErrorMessage(true))}
                     >
                         <span className="fas fa-check">&nbsp;&nbsp;</span>
                         Submit

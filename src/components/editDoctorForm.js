@@ -3,10 +3,12 @@ import {Field, reduxForm, SubmissionError, focus, getFormValues} from 'redux-for
 import InputTwo from './inputTwo';
 import InputHidden from './inputHidden';
 import {API_BASE_URL} from '../config';
-import {required, nonEmpty, isTrimmed} from '../validators';
+import {required, nonEmpty, isTrimmed, maxLength} from '../validators';
 import { connect } from 'react-redux';
-import { editSelectedDoctorById, formMessage, fetchDoctors, updateCurrentDoctor } from '../actions';
+import { editSelectedDoctorById, successErrorMessage, fetchDoctors, updateCurrentDoctor } from '../actions';
 import PropTypes from 'prop-types';
+
+const max = maxLength(2);
 
 export class EditDoctorForm extends React.Component {
     showDoctor() {
@@ -151,7 +153,7 @@ export class EditDoctorForm extends React.Component {
                             type="text"
                             component={InputTwo}
                             label="State"
-                            validate={[required, isTrimmed, nonEmpty]}
+                            validate={[required, isTrimmed, nonEmpty, max]}
                         />
                         <Field 
                             name="address.zipCode"
@@ -182,7 +184,7 @@ export class EditDoctorForm extends React.Component {
                             className="edit-doctor-submit-button"
                             type="submit"
                             disabled={this.props.pristine || this.props.submitting}
-                            onClick={() => this.props.dispatch(formMessage())}
+                            onClick={() => this.props.dispatch(successErrorMessage())}
                         >
                             <span className="fas fa-check">&nbsp;&nbsp;</span>
                             Submit

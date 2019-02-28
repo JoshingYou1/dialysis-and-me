@@ -14,7 +14,7 @@ export class Appointments extends React.Component {
     }
 
     toggleAppointmentInfo() {
-        this.props.dispatch(toggleAppointmentInfo());
+        this.props.dispatch(toggleAppointmentInfo(true));
     }
 
     chooseAppointmentsByMonth(choice) {

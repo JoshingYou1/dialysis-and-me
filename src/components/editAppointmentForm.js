@@ -2,13 +2,15 @@ import React from 'react';
 import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
 import InputThree from './inputThree';
 import {API_BASE_URL} from '../config';
-import {required, nonEmpty, isTrimmed} from '../validators';
+import {required, nonEmpty, isTrimmed, maxLength} from '../validators';
 import { connect } from 'react-redux';
-import { loadAppointmentFormData, updateAppointment, editSelectedAppointmentById, formMessage } from '../actions';
+import { loadAppointmentFormData, updateAppointment, editSelectedAppointmentById, successErrorMessage } from '../actions';
 import DateTimePicker from 'react-widgets/lib/DateTimePicker';
 import moment from 'moment';
 import momentLocaliser from 'react-widgets-moment';
 import 'react-widgets/dist/css/react-widgets.css';
+
+const max = maxLength(2);
 
 momentLocaliser(moment)
 
@@ -34,10 +36,10 @@ const renderDateTimePicker = ({ input: { onChange, value }, showTime, meta: { er
     </div>
 
 export class EditAppointmentForm extends React.Component {
-    showAppointment() {
+    showAppointments() {
         this.props.dispatch(editSelectedAppointmentById({}));
         this.props.dispatch(loadAppointmentFormData({}));
-        this.props.dispatch(formMessage(false));
+        this.props.dispatch(successErrorMessage(false));
     }
 
     onSubmit(values) {
@@ -91,7 +93,7 @@ export class EditAppointmentForm extends React.Component {
                             Appointment successfully updated!&nbsp;
                             <button 
                                 className="form-message-button"
-                                onClick={() => this.showAppointment()}
+                                onClick={() => this.showAppointments()}
                             >
                                 <span className="fas fa-share-square">&nbsp;</span>
                                 <span>Go back</span>
@@ -108,7 +110,7 @@ export class EditAppointmentForm extends React.Component {
                             {this.props.error}&nbsp;
                             <button
                                 className="form-message-button"
-                                onClick={() => this.showAppointment()}
+                                onClick={() => this.showAppointments()}
                             >
                                 <span className="fas fa-share-square">&nbsp;</span>
                                 <span>Go back</span>
@@ -207,7 +209,7 @@ export class EditAppointmentForm extends React.Component {
                             type="text"
                             component={InputThree}
                             label="State"
-                            validate={[required, isTrimmed, nonEmpty]}
+                            validate={[required, isTrimmed, nonEmpty, max]}
                             placeholder="FL"
                         />
                         {/* <label className="appointment-form-label" htmlFor="address.zipCode"></label> */}
@@ -232,7 +234,7 @@ export class EditAppointmentForm extends React.Component {
                             className="edit-appointment-submit-button"
                             type="submit"
                             disabled={this.props.pristine || this.props.submitting || !this.props.valid}
-                            onClick={() => this.props.dispatch(formMessage())}
+                            onClick={() => this.props.dispatch(successErrorMessage(true))}
                         >
                             <span className="fas fa-check">&nbsp;&nbsp;</span>
                             Submit
@@ -240,7 +242,7 @@ export class EditAppointmentForm extends React.Component {
                         <button
                             type="button"
                             className="cancel-edit-appointment-form-changes-button"
-                            onClick={() => {this.showAppointment(); this.props.reset()}}
+                            onClick={() => {this.showAppointments(); this.props.reset()}}
                         >
                             <span className="fas fa-times">&nbsp;&nbsp;</span>
                             Cancel

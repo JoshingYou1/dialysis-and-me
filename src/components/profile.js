@@ -43,8 +43,6 @@ export class Profile extends React.Component {
         
         let workPhone = this.props.profile.phoneNumbers.work ? this.props.profile.phoneNumbers.work : 'N/A';
 
-        let formattedSsn = `${this.props.profile.socialSecurityNumber[0]}${this.props.profile.socialSecurityNumber[1]}${this.props.profile.socialSecurityNumber[2]}-${this.props.profile.socialSecurityNumber[3]}${this.props.profile.socialSecurityNumber[4]}-${this.props.profile.socialSecurityNumber[5]}${this.props.profile.socialSecurityNumber[6]}${this.props.profile.socialSecurityNumber[7]}${this.props.profile.socialSecurityNumber[8]}`;
-
         const cards = [
             {
                 previous: null,
@@ -92,7 +90,7 @@ export class Profile extends React.Component {
                         
                         
                             <span className="grid-c-span">SSN:</span>
-                            <span className="grid-d-span">{formattedSsn}</span>
+                            <span className="grid-d-span">{this.props.profile.socialSecurityNumber}</span>
                             
                             <span className="grid-c-span">Address:</span>
                             <span className="grid-d-span">{this.props.profile.address.street}</span>

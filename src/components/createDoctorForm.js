@@ -2,10 +2,12 @@ import React from 'react';
 import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
 import InputTwo from './inputTwo';
 import {API_BASE_URL} from '../config';
-import {required, nonEmpty, isTrimmed} from '../validators';
+import {required, nonEmpty, isTrimmed, maxLength} from '../validators';
 import { connect } from 'react-redux';
 import InputHidden from './inputHidden';
-import { chooseCreateDoctor, formMessage } from '../actions';
+import { chooseCreateDoctor, successErrorMessage, createDoctorSuccess } from '../actions';
+
+const max = maxLength(2);
 
 export class CreateDoctorForm extends React.Component {
     showDoctor() {
@@ -33,9 +35,9 @@ export class CreateDoctorForm extends React.Component {
                         message: res.statusText
                     });
                 }
-                return;
+                return res.json();
             })
-            .then(() => console.log('Submitted with values', values))
+            .then(d => this.props.dispatch(createDoctorSuccess(d)))
             .catch(err => {
                 const {reason, message, location} = err;
                 if (reason === 'ValidationError') {
@@ -101,6 +103,7 @@ export class CreateDoctorForm extends React.Component {
                         component={InputTwo}
                         label="First Name"
                         validate={[required, nonEmpty, isTrimmed]}
+                        placeholder="Jane"
                     />
                     <Field 
                         name="name.lastName"
@@ -108,6 +111,7 @@ export class CreateDoctorForm extends React.Component {
                         component={InputTwo}
                         label="Last Name"
                         validate={[required, nonEmpty, isTrimmed]}
+                        placeholder="Doe"
                     />
                     <Field 
                         name="practice"
@@ -115,6 +119,7 @@ export class CreateDoctorForm extends React.Component {
                         component={InputTwo}
                         label="Practice"
                         validate={[required, nonEmpty, isTrimmed]}
+                        placeholder="Oncologist"
                     />
                     <Field 
                         name="company"
@@ -122,6 +127,7 @@ export class CreateDoctorForm extends React.Component {
                         component={InputTwo}
                         label="Company"
                         validate={[required, nonEmpty, isTrimmed]}
+                        placeholder="Mayo Clinic"
                     />
                     <Field 
                         name="address.street"
@@ -129,6 +135,7 @@ export class CreateDoctorForm extends React.Component {
                         component={InputTwo}
                         label="Address"
                         validate={[required, nonEmpty, isTrimmed]}
+                        placeholder="123 International Drive"
                     />
                     <Field 
                         name="address.city"
@@ -136,13 +143,15 @@ export class CreateDoctorForm extends React.Component {
                         component={InputTwo}
                         label="City"
                         validate={[required, nonEmpty, isTrimmed]}
+                        placeholder="Jacksonville"
                     />
                     <Field 
                         name="address.state"
                         type="text"
                         component={InputTwo}
                         label="State"
-                        validate={[required, nonEmpty, isTrimmed]}
+                        validate={[required, nonEmpty, isTrimmed, max]}
+                        placeholder="FL"
                     />
                     <Field 
                         name="address.zipCode"
@@ -150,6 +159,7 @@ export class CreateDoctorForm extends React.Component {
                         component={InputTwo}
                         label="Zip Code"
                         validate={[required, nonEmpty, isTrimmed]}
+                        placeholder="12345"
                     />
                     <Field 
                         name="phoneNumber"
@@ -157,6 +167,7 @@ export class CreateDoctorForm extends React.Component {
                         component={InputTwo}
                         label="Phone Number"
                         validate={[required, nonEmpty, isTrimmed]}
+                        placeholder="123-456-7890"
                     />
                     <Field 
                         name="faxNumber"
@@ -164,6 +175,7 @@ export class CreateDoctorForm extends React.Component {
                         component={InputTwo}
                         label="Fax Number"
                         validate={[required, nonEmpty, isTrimmed]}
+                        placeholder="123-456-1234"
                     />
                     <Field 
                         name=""
@@ -173,7 +185,7 @@ export class CreateDoctorForm extends React.Component {
                         className="create-doctor-submit-button"
                         type="submit"
                         disabled={this.props.pristine || this.props.submitting}
-                        onClick={() => this.props.dispatch(formMessage())}
+                        onClick={() => this.props.dispatch(successErrorMessage())}
                     >
                         <span className="fas fa-check">&nbsp;&nbsp;</span>
                         Submit

@@ -1332,7 +1332,7 @@ footer {
   text-align: center;
 }
 
-.form-message-button {
+.form-message-button, .message-button {
   font-size: 18px;
   background: none;
   border: none;
@@ -1341,7 +1341,7 @@ footer {
   cursor: pointer;
 }
 
-.form-message-button:hover {
+.form-message-button:hover, .message-button:hover {
   color: #008099;
 }
 

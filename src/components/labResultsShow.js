@@ -95,7 +95,7 @@ export class LabResultsShow extends React.Component {
         }
         else {
             return (
-                <div className="lab-results-show-text show mobile-hide">
+                <div className="lab-results-show-text show-b mobile-hide">
                     <h2 className="lab-results-show-instruction-h2">Please select a set of lab results</h2>
                 </div>
             );

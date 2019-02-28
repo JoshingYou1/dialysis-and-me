@@ -245,7 +245,10 @@ export const deleteDoctor = (patientId, doctorId) => (dispatch, getState) => {
             if (!res.ok) {
                 return Promise.reject(res.statusText)
             }
-            return 'Doctor successfully deleted!';
+            return {
+                successMessage: 'Doctor successfully deleted!',
+               _id: doctorId
+            };
         })
         .then(deletedDoctor => {
             dispatch(deleteDoctorSuccess(deletedDoctor))
@@ -270,12 +273,6 @@ export const editSelectedAppointmentById = selectedAppointmentToEdit => ({
     selectedAppointmentToEdit
 });
 
-export const TOGGLE_APPOINTMENT_MENU = 'TOGGLE_APPOINTMENT_MENU';
-export const toggleAppointmentMenu = isAppointmentMenuShowing => ({
-    type: TOGGLE_APPOINTMENT_MENU,
-    isAppointmentMenuShowing
-});
-
 export const TOGGLE_DOCTOR_MENU = 'TOGGLE_DOCTOR_MENU';
 export const toggleDoctorMenu = isDoctorMenuShowing => ({
     type: TOGGLE_DOCTOR_MENU,
@@ -294,9 +291,9 @@ export const doctorMenuByDoctorId = doctorMenu => ({
     doctorMenu
 });
 
-export const FORM_MESSAGE = 'FORM_MESSAGE';
-export const formMessage = isMessageShowing => ({
-    type: FORM_MESSAGE,
+export const SUCCESS_ERROR_MESSAGE = 'SUCCESS_ERROR_MESSAGE';
+export const successErrorMessage = isMessageShowing => ({
+    type: SUCCESS_ERROR_MESSAGE,
     isMessageShowing
 });
 
@@ -310,6 +307,12 @@ export const CREATE_APPOINTMENT_SUCCESS = 'CREATE_APPOINTMENT_SUCCESS';
 export const createAppointmentSuccess = createdAppointment => ({
     type: CREATE_APPOINTMENT_SUCCESS,
     createdAppointment
+});
+
+export const CREATE_DOCTOR_SUCCESS = 'CREATE_DOCTOR_SUCCESS';
+export const createDoctorSuccess = createdDoctor => ({
+    type: CREATE_DOCTOR_SUCCESS,
+    createdDoctor
 });
 
 
