@@ -57,23 +57,37 @@ export class Appointments extends React.Component {
                         >
                             Appointments
                         </h1>
-                        <h1 className={"create-appointment-h1 " + (this.props.isCreateAppointmentFormShowing ? '' : 'hidden-1')}>
+                        <h1 
+                            className={"create-appointment-h1 " + (this.props.isCreateAppointmentFormShowing ? '' : 'hidden-1 ') +
+                            (this.props.isMessageShowing ? 'hidden-1' : '')}
+                        >
                             Create an Appointment
                         </h1>
                         <section className={"appointments-section " + (this.props.isCreateAppointmentFormShowing ? 'hidden-1' : '')}>
                             <AppointmentsList list={list} chooseAppointmentsByMonth={choice => this.chooseAppointmentsByMonth(choice)}/>
                             <AppointmentsShow />
                         </section>
-                        <div className="create-appointment-div">
-                        <span className={"create-appointment-span " + (this.props.isCreateAppointmentFormShowing ? 'hidden-1' : '')}>
-                            Need to create an appointment?
-                        </span>
-                        <button
-                            className={"create-appointment-button "  + (this.props.isCreateAppointmentFormShowing ? 'hidden-1' : '')}
-                            onClick={() => this.props.dispatch(chooseCreateAppointment())}
-                        >
-                            Click here
-                        </button>
+                        <div className={"create-appointment-div desktop-hide-2 " + (this.props.isAppointmentInfoShowing ? 'hidden-1' : '')}>
+                            <span className={"create-appointment-span " + (this.props.isCreateAppointmentFormShowing ? 'hidden-1' : '')}>
+                                Need to create an appointment?
+                            </span>
+                            <button
+                                className={"create-appointment-button "  + (this.props.isCreateAppointmentFormShowing ? 'hidden-1' : '')}
+                                onClick={() => this.props.dispatch(chooseCreateAppointment())}
+                            >
+                                Click here
+                            </button>
+                        </div>
+                        <div className="create-appointment-div mobile-hide">
+                            <span className={"create-appointment-span " + (this.props.isCreateAppointmentFormShowing ? 'hidden-1' : '')}>
+                                Need to create an appointment?
+                            </span>
+                            <button
+                                className={"create-appointment-button "  + (this.props.isCreateAppointmentFormShowing ? 'hidden-1' : '')}
+                                onClick={() => this.props.dispatch(chooseCreateAppointment())}
+                            >
+                                Click here
+                            </button>
                         </div>
                         <div className={"create-appointment-form-component-div " + (this.props.isCreateAppointmentFormShowing ? '' : 'hidden-1')}>
                             <CreateAppointmentForm />
@@ -96,7 +110,8 @@ const mapStateToProps = state => ({
     user: state.auth.currentUser,
     isCreateAppointmentFormShowing: state.app.isCreateAppointmentFormShowing,
     isAppointmentInfoShowing: state.app.isAppointmentInfoShowing,
-    deletedAppointment: state.app.deletedAppointment
+    deletedAppointment: state.app.deletedAppointment,
+    isMessageShowing: state.app.isMessageShowing
 });
 
 export default requiresLogin()(connect(mapStateToProps)(Appointments));

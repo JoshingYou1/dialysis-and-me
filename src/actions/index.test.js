@@ -34,7 +34,18 @@ import {
     CHOOSE_CREATE_APPOINTMENT,
     chooseCreateAppointment,
     CHOOSE_EDIT_APPOINTMENT,
-    chooseEditAppointment
+    chooseEditAppointment,
+    LOAD_APPOINTMENT_FORM_DATA,
+    loadAppointmentFormData,
+    CHOOSE_CREATE_DOCTOR,
+    chooseCreateDoctor,
+    CHOOSE_EDIT_DOCTOR,
+    chooseEditDoctor,
+    FETCH_DOCTORS_SUCCESS,
+    fetchDoctorsSuccess,
+    fetchDoctors,
+    DELETE_DOCTOR_SUCCESS,
+    deleteDoctorSuccess
 } from './index';
 import {API_BASE_URL} from '../config';
 
@@ -320,5 +331,84 @@ describe('chooseEditAppointment', () => {
     });
 });
 
+describe('loadAppointmentFormData', () => {
+    it('Should return the action', () => {
+        const loadedAppointmentFormData = {
+            address: {
+                street: '123 International Drive',
+                city: 'Jacksonville',
+                state: 'FL',
+                zipCode: 23212
+            },
+            description: 'Yearly exam',
+            time: '10:30 a.m.'
+        };
+
+        const action = loadAppointmentFormData(loadedAppointmentFormData);
+        expect(action.type).toEqual(LOAD_APPOINTMENT_FORM_DATA);
+        expect(action.loadedAppointmentFormData).toEqual(loadedAppointmentFormData);
+    });
+});
+
+describe('chooseCreateDoctor', () => {
+    it('Should return the action', () => {
+        const isCreateDoctorFormShowing = false;
+
+        const action = chooseCreateDoctor(isCreateDoctorFormShowing);
+        expect(action.type).toEqual(CHOOSE_CREATE_DOCTOR);
+        expect(action.isCreateDoctorFormShowing).toEqual(isCreateDoctorFormShowing);;
+    });
+});
+
+describe('chooseEditDoctor', () => {
+    it('Should return the action', () => {
+        const isEditDoctorFormShowing = false;
+
+        const action = chooseEditDoctor(isEditDoctorFormShowing);
+        expect(action.type).toEqual(CHOOSE_EDIT_DOCTOR);
+        expect(action.isEditDoctorFormShowing).toEqual(isEditDoctorFormShowing);;
+    });
+});
+
+describe('fetchDoctorsSuccess', () => {
+    it('Should return the action', () => {
+        const doctors = [];
+
+        const action = fetchDoctorsSuccess(doctors);
+        expect(action.type).toEqual(FETCH_DOCTORS_SUCCESS);
+        expect(action.doctors).toEqual(doctors);
+    });
+});
+
+describe('fetchDoctors', () => {
+    it('Should dispatch fetchDoctorsSuccess', () => {
+        const doctors = [];
+
+        global.fetch = jest.fn().mockImplementation(() =>
+            Promise.resolve({
+                ok: true,
+                json() {
+                    return doctors;
+                }
+            })
+        );
+
+        const dispatch = jest.fn();
+        return fetchDoctors()(dispatch).then(() => {
+            expect(fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/patients/${patientId}/doctors`);
+            expect(dispatch).toHaveBeenCalledWith(fetchDoctorsSuccess(doctors));
+        });
+    });
+});
+
+describe('deleteDoctorSuccess', () => {
+    it('Should return the action', () => {
+        const deletedDoctor = {};
+
+        const action = deleteDoctorSuccess(deletedDoctor);
+        expect(action.type).toEqual(DELETE_DOCTOR_SUCCESS);
+        expect(action.deletedDoctor).toEqual(deletedDoctor);
+    });
+});
 
 

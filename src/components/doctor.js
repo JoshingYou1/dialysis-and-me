@@ -1,5 +1,5 @@
 import React from 'react';
-import { toggleDoctorMenu, deleteDoctor, loadDoctorFormData, editSelectedDoctorById, fetchDoctors } from '../actions';
+import { toggleDoctorMenu, deleteDoctor, loadDoctorFormData, editSelectedDoctorById, fetchDoctors, successErrorMessage, toggleDoctorList } from '../actions';
 import { connect } from 'react-redux';
 
 export class Doctor extends React.Component {
@@ -8,15 +8,9 @@ export class Doctor extends React.Component {
         this.props.dispatch(editSelectedDoctorById(d));
     }
 
-    // componentDidUpdate(prevProps) {
-    //     if (this.props.currentDoctor !== prevProps.currentDoctor) {
-    //         this.props.dispatch(fetchDoctors(this.props.user.id))
-    //     }
-    // }
-
     deleteDoctorHandler() {
         if (window.confirm(`Are you sure you want to remove ${this.props.doctor.name.firstName} ${this.props.doctor.name.lastName} from your doctors?`)) {
-            this.props.dispatch(deleteDoctor(this.props.user.id, this.props.doctor._id))
+            this.props.dispatch(deleteDoctor(this.props.user.id, this.props.doctor._id));
         }
     }
 

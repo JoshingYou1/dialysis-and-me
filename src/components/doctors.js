@@ -9,7 +9,9 @@ import {
     deleteDoctor, 
     loadDoctorFormData, 
     editSelectedDoctorById,
-    chooseCreateDoctor
+    chooseCreateDoctor,
+    successErrorMessage,
+    toggleDoctorList
 } from '../actions';
 import requiresLogin from './requires-login';
 import NavigationBar from './navBar';
@@ -53,6 +55,28 @@ export class Doctors extends React.Component {
     }
     
     render() {
+        if (this.props.deletedDoctor) {
+            return (
+                <div className="container">
+                    <NavigationBar />
+                    <main role="main">
+                        <div className="delete-doctor-success-message">
+                            <p className="delete-doctor-success-message-p">
+                                Doctor successfully removed!
+                                <button 
+                                    className="message-button"
+                                    onClick={() => this.props.dispatch(toggleDoctorList())}
+                                >
+                                    <span className="fas fa-share-square">&nbsp;</span>
+                                    <span>Go back</span>
+                                </button>
+                            </p>
+                        </div>
+                    </main>
+                    <Footer />
+                </div>
+            );
+        }
         if (this.props.doctors.length > 0) {
             const cards = this.props.doctors.map((d, i) => {
                 return {
@@ -61,7 +85,7 @@ export class Doctors extends React.Component {
                     doctor: d
                 };
             });
-            let className = this.state.animate ? "doctor-display-section" : "doctor-display-section-2"
+            let className = this.state.animate ? "doctor-display-section " : "doctor-display-section-2 "
 
             const d = cards[this.props.currentDoctor].doctor;
 
@@ -69,12 +93,24 @@ export class Doctors extends React.Component {
                 <div className="container">
                     <NavigationBar />
                     <main role="main" className="doctors-main">
-                        <h1 className={"doctors-h1 " + (this.props.isCreateDoctorFormShowing || this.props.selectedDoctorToEdit ? 'hidden-1' : '')}>Doctors</h1>
-                        <h1 className={"create-doctor-h1 " + (this.props.isCreateDoctorFormShowing ? '' : 'hidden-1')}>Add a Doctor</h1>
-                        <h1 className={"edit-doctor-h1 " + (this.props.selectedDoctorToEdit ? '' : 'hidden-1')}>
-                            Edit {cards[this.props.currentDoctor].doctor.name.firstName} {cards[this.props.currentDoctor].doctor.name.lastName}
+                        <h1 
+                            className={"doctors-h1 " + (this.props.isCreateDoctorFormShowing || this.props.selectedDoctorToEdit ? 'hidden-1 ' : '')}
+                        >
+                            Doctors
                         </h1>
-                        <div className={className + (this.props.selectedDoctorToEdit || this.props.isCreateDoctorFormShowing ? ' hidden-1' : '')}>
+                        <h1 
+                            className={"create-doctor-h1 " + (this.props.isCreateDoctorFormShowing ? '' : 'hidden-1 ') + 
+                            (this.props.isMessageShowing ? 'hidden-1' : '')}
+                        >
+                            Add a Doctor
+                        </h1>
+                        <h1 
+                            className={"edit-doctor-h1 " + (this.props.selectedDoctorToEdit ? '' : 'hidden-1 ') + 
+                            (this.props.isMessageShowing ? 'hidden-1' : '')}
+                        >
+                            Edit {d.name.firstName} {d.name.lastName}
+                        </h1>
+                        <div className={className + (this.props.selectedDoctorToEdit || this.props.isCreateDoctorFormShowing || this.props.isMessageShowing ? ' hidden-1' : '')}>
                             <Doctor doctor={d} />
                         </div>
                         <div className={"doctor-button-holder " + (this.props.selectedDoctorToEdit || this.props.isCreateDoctorFormShowing ? 'hidden-1' : '')}>
@@ -99,7 +135,7 @@ export class Doctors extends React.Component {
                                 </p>
                             </button>
                         </div>
-                        <div className={"create-doctor-div " + (this.props.selectedDoctorToEdit ? 'hidden-1' : '')}>
+                        <div className={"create-doctor-div " + (this.props.selectedDoctorToEdit || this.props.isMessageShowing ? 'hidden-1' : '')}>
                             <span className={"create-doctor-span " + (this.props.isCreateDoctorFormShowing ? 'hidden-1' : '')}>
                                 Need to add a doctor?
                             </span>
@@ -123,6 +159,40 @@ export class Doctors extends React.Component {
                 </div>
             );
         }
+        if (this.props.doctors.length === 0) {
+            return (
+                <div className="container">
+                    <NavigationBar />
+                    <main role="main" className="doctors-main">
+                        <h1 className={"create-doctor-h1 " + (this.props.isCreateDoctorFormShowing ? '' : 'hidden-1 ') + 
+                            (this.props.isMessageShowing ? 'hidden-1' : '')}
+                        >
+                            Add a Doctor
+                        </h1>
+                        <div className="no-doctor-div">
+                            <h2 className={"no-doctor-h2 " + (this.props.isCreateDoctorFormShowing ? 'hidden-1' : '')}>
+                                You currently have no doctors on file
+                            </h2>
+                            <div className={"create-doctor-div " + (this.props.selectedDoctorToEdit ? 'hidden-1' : '')}>
+                                <span className={"create-doctor-span " + (this.props.isCreateDoctorFormShowing ? 'hidden-1' : '')}>
+                                    Need to add a doctor?
+                                </span>
+                                <button
+                                    className={"create-doctor-button "  + (this.props.isCreateDoctorFormShowing ? 'hidden-1' : '')}
+                                    onClick={() => this.props.dispatch(chooseCreateDoctor())}
+                                >
+                                    Click here
+                                </button>
+                            </div>
+                        </div>
+                        <div className={"create-doctor-form-component-div " + (this.props.isCreateDoctorFormShowing ? '' : 'hidden-1')}>
+                            <CreateDoctorForm />
+                        </div>
+                    </main>
+                    <Footer />
+                </div>
+            );
+        }
         return (
             <div>
                 Loading...
@@ -136,7 +206,9 @@ const mapStateToProps = state => ({
     currentDoctor: state.app.currentDoctor,
     doctors: state.app.doctors,
     selectedDoctorToEdit: state.app.selectedDoctorToEdit,
-    isCreateDoctorFormShowing: state.app.isCreateDoctorFormShowing
+    isCreateDoctorFormShowing: state.app.isCreateDoctorFormShowing,
+    isMessageShowing: state.app.isMessageShowing,
+    deletedDoctor: state.app.deletedDoctor
 });
 
 export default requiresLogin()(connect(mapStateToProps)(Doctors));

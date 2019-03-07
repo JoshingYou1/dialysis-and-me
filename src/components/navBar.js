@@ -14,17 +14,12 @@ export class NavigationBar extends React.Component {
         clearAuthToken();
     }
 
-    refreshPage() {
-        window.location.reload();
-    }
-
     render() {
         return (
             <header>
                 <Link 
                     className="logo-link"
                     to="/dashboard"
-                    onClick={() => {this.refreshPage()}}
                 >
                     <img className="nav-logo a" src="/dialysis-and-me-logo.png" alt="Logo" aria-hidden="true"></img>
                     <span className="logo-span-1">Dialysis&</span><span className="logo-span-2">Me</span>
@@ -34,35 +29,30 @@ export class NavigationBar extends React.Component {
                         <Link 
                             className="header-quick-link"
                             to="/profile"
-                            onClick={() => {this.refreshPage()}}
                         >
                             Profile
                         </Link>
                         <Link 
                             className="header-quick-link"
                             to="/patient-education"
-                            onClick={() => {this.refreshPage()}}
                         >
                             Patient Education
                         </Link>
                         <Link 
                             className="header-quick-link"
                             to="/lab-results"
-                            onClick={() => {this.refreshPage()}}
                         >
                             Lab Results
                         </Link>
                         <Link 
                             className="header-quick-link"
                             to="/doctors"
-                            onClick={() => {this.refreshPage()}}
                         >
                             Doctors
                         </Link>
                         <Link 
                             className="header-quick-link"
                             to="/appointments"
-                            onClick={() => {this.refreshPage()}}
                         >
                             Appointments
                         </Link>

@@ -2,17 +2,17 @@ import React from 'react';
 import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
 import InputTwo from './inputTwo';
 import {API_BASE_URL} from '../config';
-import {required, nonEmpty, isTrimmed, maxLength} from '../validators';
+import {required, nonEmpty, isTrimmed, zipCode} from '../validators';
 import { connect } from 'react-redux';
 import InputHidden from './inputHidden';
-import { chooseCreateDoctor, successErrorMessage, createDoctorSuccess } from '../actions';
-
-const max = maxLength(2);
+import { chooseCreateDoctor, successErrorMessage, createDoctorSuccess, toggleDoctorList } from '../actions';
 
 export class CreateDoctorForm extends React.Component {
-    showDoctor() {
+    showDoctors() {
         this.props.dispatch(chooseCreateDoctor());
+        this.props.dispatch(successErrorMessage(false));
     }
+
     onSubmit(values) {
         return fetch(`${API_BASE_URL}/api/patients/${this.props.user.id}/doctors`, {
             method: 'POST',
@@ -63,7 +63,7 @@ export class CreateDoctorForm extends React.Component {
                         Doctor successfully added to your list!&nbsp;
                         <button 
                             className="form-message-button"
-                            onClick={() => this.showDoctor()}
+                            onClick={() => {this.showDoctors(); this.props.initialize()}}
                         >
                             <span className="fas fa-share-square">&nbsp;</span>
                             <span>Go back</span>
@@ -80,7 +80,7 @@ export class CreateDoctorForm extends React.Component {
                         {this.props.error}&nbsp;
                         <button 
                             className="form-message-button"
-                            onClick={() => this.showDoctor()}
+                            onClick={() => {this.showDoctors(); this.props.initialize()}}
                         >
                             <span className="fas fa-share-square">&nbsp;</span>
                             <span>Go back</span>
@@ -150,7 +150,7 @@ export class CreateDoctorForm extends React.Component {
                         type="text"
                         component={InputTwo}
                         label="State"
-                        validate={[required, nonEmpty, isTrimmed, max]}
+                        validate={[required, nonEmpty, isTrimmed]}
                         placeholder="FL"
                     />
                     <Field 
@@ -184,8 +184,8 @@ export class CreateDoctorForm extends React.Component {
                     <button
                         className="create-doctor-submit-button"
                         type="submit"
-                        disabled={this.props.pristine || this.props.submitting}
-                        onClick={() => this.props.dispatch(successErrorMessage())}
+                        disabled={this.props.pristine || this.props.submitting || !this.props.valid}
+                        onClick={() => this.props.dispatch(successErrorMessage(true))}
                     >
                         <span className="fas fa-check">&nbsp;&nbsp;</span>
                         Submit
@@ -193,7 +193,7 @@ export class CreateDoctorForm extends React.Component {
                     <button 
                         type="button"
                         className="cancel-create-doctor-form-changes-button"
-                        onClick={() => {this.showDoctor(); this.props.reset()}}
+                        onClick={() => {this.showDoctors(); this.props.initialize()}}
                     >
                         <span className="fas fa-times b">&nbsp;&nbsp;</span>
                         Cancel

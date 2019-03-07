@@ -33,7 +33,10 @@ import {
     SUCCESS_ERROR_MESSAGE,
     DOCTOR_MENU_BY_DOCTOR_ID,
     LOAD_BASIC_PROFILE_INFO_FORM_DATA,
-    SHOW_APPOINTMENTS
+    SHOW_APPOINTMENTS,
+    TOGGLE_DOCTOR_LIST,
+    TOGGLE_APPOINTMENT_LIST,
+    UPDATE_BASIC_PROFILE_INFO_SUCCESS
 } from '../actions/index';
 
 const initialState = {
@@ -59,7 +62,9 @@ const initialState = {
     loadedDoctorFormData: {},
     doctors: [],
     areAppointmentsShowing: false,
-    deletedAppointment: null
+    deletedAppointment: null,
+    areDoctorsShowing: true,
+    deletedDoctor: null
 };
 
 export const appReducer = (state=initialState, action) => {
@@ -172,7 +177,8 @@ export const appReducer = (state=initialState, action) => {
         const doctors = state.doctors.filter(d => action.deletedDoctor._id !== d._id);
         return Object.assign({}, state, {
             doctors,
-            deletedDoctor: action.deletedDoctor
+            deletedDoctor: action.deletedDoctor,
+            currentDoctor: 0
         });
     }
     else if (action.type === LOAD_DOCTOR_FORM_DATA) {
@@ -222,19 +228,55 @@ export const appReducer = (state=initialState, action) => {
             selectedAppointments = [...state.selectedAppointments, action.createdAppointment];
             selectedAppointments.sort((a, b) => {
                 return new Date(a.date) - new Date(b.date);
-            })
+            });
         }
         return Object.assign({}, state, {
             appointments,
             selectedAppointments
-        })
+        });
     }
     else if (action.type === CREATE_DOCTOR_SUCCESS) {
-        const doctors = [...state.doctors, action.createdDoctor];
+        let doctors = [...state.doctors, action.createdDoctor];
+        doctors.sort((a, b) => {
+            if(a.name.lastName < b.name.lastName) { return -1; }
+            if(a.name.lastName > b.name.lastName) { return 1; }
+            return 0;
+        })
         return Object.assign({}, state, {
             doctors
-        })
+        });
     }
+    else if (action.type === TOGGLE_DOCTOR_LIST) {
+        return Object.assign({}, state, {
+            deletedDoctor: null
+        });
+    }
+    else if (action.type === TOGGLE_APPOINTMENT_LIST) {
+        return Object.assign({}, state, {
+            deletedAppointment: null
+        });
+    }
+    else if (action.type === UPDATE_BASIC_PROFILE_INFO_SUCCESS) {
+        return Object.assign({}, state, {
+            profile: action.updatedBasicProfileInfo
+        });
+    }
+    else if (action.type === UPDATE_DOCTOR_SUCCESS) {
+        let updatedDoctor = state.doctors.map(d => {
+            if (d._id === state.selectedDoctorToEdit._id) {
+                return updatedDoctor
+            }
+            return d
+        });
+        return Object.assign({}, state, {
+            doctor: updatedDoctor
+        });
+    }
+    // else if (action.type === UPDATE_APPOINTMENT_SUCCESS) {
+    //     return Object.assign({}, state, {
+
+    //     });
+    // }
     console.log('state', state);
     return state;
 }

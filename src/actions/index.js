@@ -148,6 +148,12 @@ export const deleteAppointment = (patientId, appointmentId) => (dispatch, getSta
         });
 };
 
+export const UPDATE_APPOINTMENT_SUCCESS = 'UPDATE_APPOINTMENT_SUCCESS';
+export const updateAppointmentSuccess = updatedAppointment => ({
+    type: UPDATE_APPOINTMENT_SUCCESS,
+    updatedAppointment
+});
+
 export const SELECT_APPOINTMENTS_BY_ID = 'SELECT_APPOINTMENTS_BY_ID';
 export const selectAppointmentsById = selectedAppointments => ({
     type: SELECT_APPOINTMENTS_BY_ID,
@@ -313,6 +319,22 @@ export const CREATE_DOCTOR_SUCCESS = 'CREATE_DOCTOR_SUCCESS';
 export const createDoctorSuccess = createdDoctor => ({
     type: CREATE_DOCTOR_SUCCESS,
     createdDoctor
+});
+
+export const TOGGLE_DOCTOR_LIST = 'TOGGLE_DOCTOR_LIST';
+export const toggleDoctorList = () => ({
+    type: TOGGLE_DOCTOR_LIST
+});
+
+export const TOGGLE_APPOINTMENT_LIST = 'TOGGLE_APPOINTMENT_LIST';
+export const toggleAppointmentList = () => ({
+    type: TOGGLE_APPOINTMENT_LIST
+});
+
+export const UPDATE_BASIC_PROFILE_INFO_SUCCESS = 'UPDATE_BASIC_PROFILE_INFO_SUCCESS';
+export const updateBasicProfileInfoSuccess = updatedBasicProfileInfo => ({
+    type: UPDATE_BASIC_PROFILE_INFO_SUCCESS,
+    updatedBasicProfileInfo
 });
 
 

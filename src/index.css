@@ -136,6 +136,10 @@ button {
   text-align: left;
 }
 
+.form-input-hidden {
+  display: none;
+}
+
 .form-error, .form-warning {
   margin-bottom: 4px;
   font-weight: bold;
@@ -223,8 +227,12 @@ button {
   padding: 5px;
 }
 
+.datetime-picker-input-2 .rw-widget-picker.rw-widget-container {
+  height: unset;
+}
+
 .datetime-picker-input-2 .rw-widget-picker.rw-widget-container input {
-  padding: 10px 5px;
+  padding: 5px;
 }
 
 .datetime-picker-input-2 .rw-widget-picker.rw-widget-container input:focus {
@@ -237,8 +245,9 @@ button {
 
 
 .datetime-picker-input-3 .rw-widget-picker.rw-widget-container input:focus, 
-.datetime-picker-input-2 .rw-widget-picker.rw-widget-container input:focus{
+.datetime-picker-input-2 .rw-widget-picker.rw-widget-container input:focus {
   border-radius: 4px 0 0 4px;
+  padding: 5px;
 }
 
 .input-one:-webkit-autofill,
@@ -248,7 +257,7 @@ button {
     transition: background-color 5000s ease-in-out 0s;
     box-shadow: 0 0 0px 1000px white inset;
     -webkit-box-shadow: 0 0 0px 1000px #faffbd inset;
-    padding: 9px;
+    padding: 5px;
     border: 1px solid black;
 }
 
@@ -510,6 +519,10 @@ h2 {
   right: 8px;
   grid-column-start: measurement-method;
   grid-column-end: measurement-method;
+}
+
+.desktop-hide-2 {
+  display: block;
 }
 
 .lab-results-main {
@@ -1229,6 +1242,11 @@ footer {
   background-color: #46A046;
 }
 
+.create-appointment-submit-button:disabled, .edit-doctor-submit-button:disabled, .edit-basic-profile-info-submit-button:disabled,
+.create-doctor-submit-button:disabled {
+  cursor: not-allowed;
+}
+
 .cancel-create-appointment-form-changes-button, .cancel-edit-doctor-form-changes-button, .cancel-edit-basic-profile-info-form-changes-button,
 .cancel-create-doctor-form-changes-button {
   background-color: #C70000;
@@ -1293,7 +1311,29 @@ footer {
   text-align: center;
   font-weight: bold;
   font-size: 18px;
-  line-height: 280px;
+}
+
+.delete-doctor-success-message {
+  position: absolute;
+  right: 0;
+  left: 0;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.delete-doctor-success-message-p {
+  position: relative;
+  font-size: 18px;
+}
+
+.no-doctor-div {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  left: 0;
+  right: 0;
 }
 
 .edit-appointment-submit-button, .cancel-edit-appointment-form-changes-button, .edit-doctor-submit-button, 
@@ -1320,6 +1360,9 @@ footer {
 .create-appointment-success-message, .create-appointment-error-message, .edit-profile-info-success-message, .edit-profile-info-error-message {
   position: absolute;
   top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
   left: 0;
   right: 0;
   font-size: 18px;
@@ -1386,16 +1429,21 @@ footer {
   padding-right: 15px;
 }
 
-.no-appointments-div {
-  height: 50vh
-}
-
-.no-appointments-h2 {
+.no-appointments-h2-desktop {
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
   text-align: center;
+}
+
+.no-appointments-h2-mobile {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
 }
 
 .hidden-1, .hidden-3, .hidden-4, .input-hidden {
@@ -1537,6 +1585,17 @@ footer {
     width: 100%;
     padding: 9px;
     font-size: 20px;
+  }
+
+  .input-one:-webkit-autofill,
+  .input-one:-webkit-autofill:hover,
+  .input-one:-webkit-autofill:focus,
+  .input-one:-webkit-autofill:active {
+      transition: background-color 5000s ease-in-out 0s;
+      box-shadow: 0 0 0px 1000px white inset;
+      -webkit-box-shadow: 0 0 0px 1000px #faffbd inset;
+      padding: 9px;
+      border: 1px solid black;
   }
 
   .login-button {
@@ -1728,7 +1787,7 @@ footer {
     display: block;
   }
 
-  .desktop-hide {
+  .desktop-hide, .desktop-hide-2 {
     display: none;
   }
 
@@ -1901,6 +1960,18 @@ footer {
 
   .appointments-section, .appointments-list-div {
     margin-bottom: unset;
+  }
+
+  .edit-appointment-success-message, .edit-appointment-error-message, .delete-appointment-success-message {
+    line-height: 280px;
+  }
+
+  .datetime-picker-input-2 .rw-widget-picker.rw-widget-container input {
+    padding: 10px 5px;
+  }
+ 
+  .datetime-picker-input-2 .rw-widget-picker.rw-widget-container input:focus {
+    padding: 10px 5px;
   }
 
   .hidden-4 {

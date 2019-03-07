@@ -2,7 +2,7 @@ import React from 'react';
 import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
 import InputTwo from './inputTwo';
 import {API_BASE_URL} from '../config';
-import {required, nonEmpty, isTrimmed, maxLength} from '../validators';
+import {required, nonEmpty, isTrimmed, phoneNumber} from '../validators';
 import { connect } from 'react-redux';
 import { createAppointment, chooseCreateAppointment, successErrorMessage, createAppointmentSuccess } from '../actions';
 import DateTimePicker from 'react-widgets/lib/DateTimePicker';
@@ -12,15 +12,14 @@ import 'react-widgets/dist/css/react-widgets.css';
 
 momentLocaliser(moment)
 
-const max = maxLength(2);
-
-const renderDateTimePicker = ({ input: { onChange, value }, showTime, meta: { touched, error, warning } }) =>
+const renderDateTimePicker = ({ input: { onChange, value }, showTime, meta: { touched, error, warning } }) => 
+(
     <div>
-        <div className="form-error">
+        <div className={"form-error " + (error ? '' : 'hidden-1')}>
             <span className={"fas fa-info-circle " + (error ? '' : 'hidden-1')}>&nbsp;</span>
             {error}
         </div>
-        <div className="form-warning">
+        <div className={"form-warning " + (error ? '' : 'hidden-1')}>
             <span className={"fas fa-info-circle " + (warning ? '' : 'hidden-1')}>&nbsp;</span>
             {warning}
         </div>
@@ -30,10 +29,11 @@ const renderDateTimePicker = ({ input: { onChange, value }, showTime, meta: { to
             format="MM/DD/YYYY"
             time={showTime}
             value={!value ? null : new Date(value)}
+            selected={value ? moment(value) : null}
             placeholder="07/21/2018"
-            
         />
     </div>
+);
 
 export class CreateAppointmentForm extends React.Component {
     showAppointments() {
@@ -65,7 +65,7 @@ export class CreateAppointmentForm extends React.Component {
                 }
                 return res.json();
             })
-            .then(r => this.props.dispatch(createAppointmentSuccess(r)))
+            .then(a => this.props.dispatch(createAppointmentSuccess(a)))
             .catch(err => {
                 const {reason, message, location} = err;
                 if (reason === 'ValidationError') {
@@ -91,7 +91,7 @@ export class CreateAppointmentForm extends React.Component {
                         Appointment successfully created!&nbsp;
                         <button 
                             className="form-message-button"
-                            onClick={() => this.showAppointments()}
+                            onClick={() => {this.showAppointments(); this.props.initialize()}}
                         >
                             <span className="fas fa-share-square">&nbsp;</span>
                             <span>Go back</span>
@@ -108,7 +108,7 @@ export class CreateAppointmentForm extends React.Component {
                         {this.props.error}&nbsp;
                         <button 
                             className="form-message-button"
-                            onClick={() => this.showAppointments()}
+                            onClick={() => {this.showAppointments(); this.props.initialize()}}
                         >
                             <span className="fas fa-share-square">&nbsp;</span>
                             <span>Go back</span>
@@ -199,7 +199,7 @@ export class CreateAppointmentForm extends React.Component {
                         type="text"
                         component={InputTwo}
                         label="State"
-                        validate={[required, nonEmpty, isTrimmed, max]}
+                        validate={[required, nonEmpty, isTrimmed]}
                         placeholder="FL"
                     />
                     <Field 
@@ -215,13 +215,13 @@ export class CreateAppointmentForm extends React.Component {
                         type="text"
                         component={InputTwo}
                         label="Phone Number"
-                        validate={[required, nonEmpty, isTrimmed]}
+                        validate={[required, nonEmpty, isTrimmed, phoneNumber]}
                         placeholder="123-456-7890"
                     />
                     <button
                         className="create-appointment-submit-button"
                         type="submit"
-                        disabled={this.props.pristine || this.props.submitting}
+                        disabled={this.props.pristine || this.props.submitting || !this.props.valid}
                         onClick={() => this.props.dispatch(successErrorMessage(true))}
                     >
                         <span className="fas fa-check">&nbsp;&nbsp;</span>
@@ -230,7 +230,7 @@ export class CreateAppointmentForm extends React.Component {
                     <button 
                         type="button"
                         className="cancel-create-appointment-form-changes-button"
-                        onClick={() => {this.props.dispatch(chooseCreateAppointment()); this.props.reset()}}
+                        onClick={() => {this.props.dispatch(chooseCreateAppointment()); this.props.initialize()}}
                     >
                         <span className="fas fa-times b">&nbsp;&nbsp;</span>
                         Cancel

@@ -5,7 +5,9 @@ import {
     loadAppointmentFormData,
     editSelectedAppointmentById,
     deleteAppointment,
-    showAppointments
+    showAppointments,
+    successErrorMessage,
+    toggleAppointmentList
 } from '../actions';
 import EditAppointmentForm from './editAppointmentForm';
 
@@ -30,19 +32,25 @@ export class AppointmentsShow extends React.Component {
                         Appointment successfully deleted!
                         <button 
                             className="message-button"
-                            // onClick={() => this.props}
+                            onClick={() => this.props.dispatch(toggleAppointmentList())}
                         >
                             <span className="fas fa-share-square">&nbsp;</span>
                             <span>Go back</span>
                         </button>
                     </p>
                 </div>
-            )
+            );
         }
         if (this.props.chosenAppointments.length === 0 && this.props.isAppointmentInfoShowing) {
             return (
                 <div className={"no-appointments-div " + (this.props.chosenAppointments.length !== 0 ? 'hidden-1' : '')}>
-                    <h2 className="no-appointments-h2">
+                    <button className="desktop-hide" onClick={() => this.props.dispatch(toggleAppointmentInfo(false))}>
+                        <span className="fas fa-times 2x a"></span>
+                    </button>
+                    <h2 className="no-appointments-h2-mobile desktop-hide-2">
+                        No appointments for this month
+                    </h2>
+                    <h2 className="no-appointments-h2-desktop mobile-hide">
                         No appointments for this month
                     </h2>
                 </div>
@@ -66,7 +74,7 @@ export class AppointmentsShow extends React.Component {
                 return (
                     <li key={i}>
                         <div
-                            className={"appointments-show-list-item " + (a._id === this.props.loadedAppointmentFormData._id || this.props.deletedAppointment ? 'hidden-1' : '')}
+                            className={"appointments-show-list-item " + (a._id === this.props.loadedAppointmentFormData._id || this.props.deletedAppointment || this.props.isMessageShowing ? 'hidden-1' : '')}
                         >
                             <h2 className="appointment-date-h2">{formattedAppointmentDate}</h2>
 

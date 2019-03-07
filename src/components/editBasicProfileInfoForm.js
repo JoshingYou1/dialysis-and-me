@@ -2,16 +2,17 @@ import React from 'react';
 import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
 import InputTwo from './inputTwo';
 import {API_BASE_URL} from '../config';
-import {required, nonEmpty, isTrimmed, maxLength} from '../validators';
+import {required, nonEmpty, isTrimmed, phoneNumber} from '../validators';
 import { connect } from 'react-redux';
-import { loadBasicProfileInfoFormData, chooseEditBasicProfileInfo, successErrorMessage } from '../actions';
-
-const max = maxLength(2);
+import { loadBasicProfileInfoFormData, chooseEditBasicProfileInfo, successErrorMessage, updateBasicProfileInfoSuccess } from '../actions';
+import InputHidden from './inputHidden';
 
 export class EditBasicProfileInfoForm extends React.Component {
 
     showProfile() {
         this.props.dispatch(chooseEditBasicProfileInfo());
+        this.props.dispatch(loadBasicProfileInfoFormData());
+        this.props.dispatch(successErrorMessage(false));
     }
 
     onSubmit(values) {
@@ -36,9 +37,9 @@ export class EditBasicProfileInfoForm extends React.Component {
                         message: res.statusText
                     });
                 }
-                return;
+                return res.json();
             })
-            .then(() => console.log('Submitted with values', values))
+            .then(p => this.props.dispatch(updateBasicProfileInfoSuccess(p)))
             .catch(err => {
                 const {reason, message, location} = err;
                 if (reason === 'ValidationError') {
@@ -64,7 +65,7 @@ export class EditBasicProfileInfoForm extends React.Component {
                         Your profile was successfully updated!&nbsp;
                         <button 
                             className="form-message-button"
-                            onClick={() => this.showProfile()}
+                            onClick={() => {this.showProfile(); this.props.initialize()}}
                         >
                             <span className="fas fa-share-square">&nbsp;</span>
                             <span>Go back</span>
@@ -81,7 +82,7 @@ export class EditBasicProfileInfoForm extends React.Component {
                         {this.props.error}&nbsp;
                         <button 
                             className="form-message-button"
-                            onClick={() => this.showProfile()}
+                            onClick={() => {this.showProfile(); this.props.initialize()}}
                         >
                             <span className="fas fa-share-square">&nbsp;</span>
                             <span>Go back</span>
@@ -99,12 +100,17 @@ export class EditBasicProfileInfoForm extends React.Component {
                     onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
                 >
                     <Field 
+                        name="_id"
+                        type="hidden"
+                        component={InputHidden}
+                    />
+                    <Field 
                         name="socialSecurityNumber"
                         type="text"
                         component={InputTwo}
                         label="SSN"
                         validate={[required, isTrimmed, nonEmpty]}
-                        placeholder="123-45-6789"
+                        placeholder="123456789"
                     />
                     <Field 
                         name="address.street"
@@ -127,7 +133,7 @@ export class EditBasicProfileInfoForm extends React.Component {
                         type="text"
                         component={InputTwo}
                         label="State"
-                        validate={[required, isTrimmed, nonEmpty, max]}
+                        validate={[required, isTrimmed, nonEmpty]}
                         placeholder="FL"
                     />
                     <Field 
@@ -135,7 +141,7 @@ export class EditBasicProfileInfoForm extends React.Component {
                         type="number"
                         component={InputTwo}
                         label="Zip Code"
-                        validate={[required]}
+                        validate={required}
                         placeholder="12345"
                     />
                     <Field 
@@ -143,6 +149,7 @@ export class EditBasicProfileInfoForm extends React.Component {
                         type="text"
                         component={InputTwo}
                         label="Home Phone"
+                        validate={phoneNumber}
                         placeholder="123-456-7890"
                     />
                     <Field 
@@ -150,6 +157,7 @@ export class EditBasicProfileInfoForm extends React.Component {
                         type="text"
                         component={InputTwo}
                         label="Cell Phone"
+                        validate={phoneNumber}
                         placeholder="123-456-7890"
                     />
                     <Field 
@@ -157,12 +165,13 @@ export class EditBasicProfileInfoForm extends React.Component {
                         type="text"
                         component={InputTwo}
                         label="Work Phone"
+                        validate={phoneNumber}
                         placeholder="123-456-7890"
                     />
                     <button
                         className="edit-basic-profile-info-submit-button"
                         type="submit"
-                        disabled={this.props.pristine || this.props.submitting}
+                        disabled={this.props.pristine || this.props.submitting || !this.props.valid}
                         onClick={() => this.props.dispatch(successErrorMessage(true))}
                     >
                         <span className="fas fa-check">&nbsp;&nbsp;</span>
@@ -171,7 +180,7 @@ export class EditBasicProfileInfoForm extends React.Component {
                     <button
                         type="button"
                         className="cancel-edit-basic-profile-info-form-changes-button"
-                        onClick={() => {this.showProfile(); this.props.reset()}}
+                        onClick={() => {this.showProfile(); this.props.initialize();}}
                     >
                         <span className="fas fa-times">&nbsp;&nbsp;</span>
                         Cancel

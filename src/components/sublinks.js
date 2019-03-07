@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
-import {toggleSidebar} from '../actions';
+import {toggleSidebar, toggleSublinks} from '../actions';
 
 export class Sublinks extends React.Component {
     render() {
@@ -12,7 +12,7 @@ export class Sublinks extends React.Component {
                         className="sidebar-sublink" 
                         to={sl.link} 
                         key={i + this.props.parent}
-                        onClick={() => {this.props.dispatch(toggleSidebar()); this.refreshPage()}}
+                        onClick={() => {this.props.dispatch(toggleSidebar()); this.props.dispatch(toggleSublinks())}}
                     >
                         {sl.display}
                     </Link>

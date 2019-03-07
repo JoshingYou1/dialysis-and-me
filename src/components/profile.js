@@ -36,6 +36,8 @@ export class Profile extends React.Component {
 
         let formattedDateOfBirth = `${month}/${day}/${year}`;
 
+        let formattedSsn = this.props.profile.socialSecurityNumber.replace(/(\d{3})(\d{2})(\d{4})/, '$1-$2-$3');
+
         
         let homePhone = this.props.profile.phoneNumbers.home ? this.props.profile.phoneNumbers.home : 'N/A';
         
@@ -70,7 +72,8 @@ export class Profile extends React.Component {
             <div className="container">
                 <NavigationBar />
                 <main role="main">
-                    <div className={this.props.section === 0 && !this.props.isEditBasicProfileInfoFormShowing ? 'display-section' : 'hidden-1'}>
+                    <div className={"display-section " + (this.props.section === 0 ? '' : 'hidden-1') + 
+                        (this.props.isEditBasicProfileInfoFormShowing ? ' hidden-1' : '')}>
                         <h1 className="basic-info-h1">
                             {this.props.profile.name.firstName} {this.props.profile.name.lastName}
                         </h1>
@@ -90,7 +93,7 @@ export class Profile extends React.Component {
                         
                         
                             <span className="grid-c-span">SSN:</span>
-                            <span className="grid-d-span">{this.props.profile.socialSecurityNumber}</span>
+                            <span className="grid-d-span">{formattedSsn}</span>
                             
                             <span className="grid-c-span">Address:</span>
                             <span className="grid-d-span">{this.props.profile.address.street}</span>
@@ -146,7 +149,9 @@ export class Profile extends React.Component {
                     <div 
                         className={"edit-basic-profile-info-form-component-div " + (this.props.isEditBasicProfileInfoFormShowing ? '' : 'hidden-1')}
                     >
-                        <h1 className="basic-info-h1">Edit Your Profile</h1>
+                        <h1 className={"basic-info-h1 " + (this.props.isMessageShowing ? 'hidden-1' : '')}>
+                            Edit Your Profile
+                        </h1>
                         <EditBasicProfileInfoForm />
                     </div>
                 </main>
@@ -155,7 +160,7 @@ export class Profile extends React.Component {
         );
     }
     return (
-        <div class="container">
+        <div className="container">
             <NavigationBar />
             <section>Loading...</section>
             <Footer />
@@ -170,7 +175,8 @@ const mapStateToProps = state => {
         profile: state.app.profile,
         section: state.app.section,
         isEditBasicProfileInfoFormShowing: state.app.isEditBasicProfileInfoFormShowing,
-        loadedBasicProfileInfoFormData: state.app.loadedBasicProfileInfoFormData
+        loadedBasicProfileInfoFormData: state.app.loadedBasicProfileInfoFormData,
+        isMessageShowing: state.app.isMessageShowing
     };
 }
 

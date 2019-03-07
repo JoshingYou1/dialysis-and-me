@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 
 export function SecondaryInsuranceInfo(props) {
 
+    let formattedSsn = props.profile.secondaryInsurance.socialSecurityNumberOfCardHolder.replace(/(\d{3})(\d{2})(\d{4})/, '$1-$2-$3');
+
     if (props.profile.secondaryInsurance) {
         return (
             <div className="card">
@@ -22,7 +24,7 @@ export function SecondaryInsuranceInfo(props) {
                     <span className="grid-d-span">{props.profile.secondaryInsurance.dateOfBirthOfCardHolder}</span>
 
                     <span className="grid-c-span">Card holder's SSN:</span>
-                    <span className="grid-d-span">{props.profile.secondaryInsurance.socialSecurityNumberOfCardHolder}</span>
+                    <span className="grid-d-span">{formattedSsn}</span>
                 </section>
             </div>
         );

@@ -2,15 +2,13 @@ import React from 'react';
 import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
 import InputThree from './inputThree';
 import {API_BASE_URL} from '../config';
-import {required, nonEmpty, isTrimmed, maxLength} from '../validators';
+import {required, nonEmpty, isTrimmed, phoneNumber, date} from '../validators';
 import { connect } from 'react-redux';
 import { loadAppointmentFormData, updateAppointment, editSelectedAppointmentById, successErrorMessage } from '../actions';
 import DateTimePicker from 'react-widgets/lib/DateTimePicker';
 import moment from 'moment';
 import momentLocaliser from 'react-widgets-moment';
 import 'react-widgets/dist/css/react-widgets.css';
-
-const max = maxLength(2);
 
 momentLocaliser(moment)
 
@@ -93,7 +91,7 @@ export class EditAppointmentForm extends React.Component {
                             Appointment successfully updated!&nbsp;
                             <button 
                                 className="form-message-button"
-                                onClick={() => this.showAppointments()}
+                                onClick={() => {this.showAppointments(); this.props.initialize()}}
                             >
                                 <span className="fas fa-share-square">&nbsp;</span>
                                 <span>Go back</span>
@@ -110,7 +108,7 @@ export class EditAppointmentForm extends React.Component {
                             {this.props.error}&nbsp;
                             <button
                                 className="form-message-button"
-                                onClick={() => this.showAppointments()}
+                                onClick={() => {this.showAppointments(); this.props.initialize()}}
                             >
                                 <span className="fas fa-share-square">&nbsp;</span>
                                 <span>Go back</span>
@@ -121,7 +119,8 @@ export class EditAppointmentForm extends React.Component {
             }
                 
             return (
-                <div className="edit-appointment-form-div">
+                <div>
+                <section className="edit-appointment-form-div">
                     {successMessage}
                     {errorMessage}
                     <form 
@@ -209,7 +208,7 @@ export class EditAppointmentForm extends React.Component {
                             type="text"
                             component={InputThree}
                             label="State"
-                            validate={[required, isTrimmed, nonEmpty, max]}
+                            validate={[required, isTrimmed, nonEmpty]}
                             placeholder="FL"
                         />
                         {/* <label className="appointment-form-label" htmlFor="address.zipCode"></label> */}
@@ -227,7 +226,7 @@ export class EditAppointmentForm extends React.Component {
                             type="text"
                             component={InputThree}
                             label="Phone Number"
-                            validate={[required]}
+                            validate={[required, phoneNumber]}
                             placeholder="123-456-7890"
                         />
                         <button
@@ -242,12 +241,13 @@ export class EditAppointmentForm extends React.Component {
                         <button
                             type="button"
                             className="cancel-edit-appointment-form-changes-button"
-                            onClick={() => {this.showAppointments(); this.props.reset()}}
+                            onClick={() => {this.showAppointments(); this.props.initialize()}}
                         >
                             <span className="fas fa-times">&nbsp;&nbsp;</span>
                             Cancel
                         </button>
                     </form>
+                </section>
                 </div>
             );
         }

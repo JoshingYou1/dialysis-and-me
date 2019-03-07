@@ -3,16 +3,15 @@ import {Field, reduxForm, SubmissionError, focus, getFormValues} from 'redux-for
 import InputTwo from './inputTwo';
 import InputHidden from './inputHidden';
 import {API_BASE_URL} from '../config';
-import {required, nonEmpty, isTrimmed, maxLength} from '../validators';
+import {required, nonEmpty, isTrimmed} from '../validators';
 import { connect } from 'react-redux';
-import { editSelectedDoctorById, successErrorMessage, fetchDoctors, updateCurrentDoctor } from '../actions';
+import { editSelectedDoctorById, successErrorMessage, fetchDoctors, updateCurrentDoctor, updateDoctorSuccess } from '../actions';
 import PropTypes from 'prop-types';
-
-const max = maxLength(2);
 
 export class EditDoctorForm extends React.Component {
     showDoctor() {
         this.props.dispatch(editSelectedDoctorById());
+        this.props.dispatch(successErrorMessage(false));
     }
 
     static propTypes = {
@@ -44,9 +43,9 @@ export class EditDoctorForm extends React.Component {
                         message: res.statusText
                     });
                 }
-                return;
+                return res.json();
             })
-            .then(() => console.log('Submitted with values', values))
+            .then(d => this.props.dispatch(updateDoctorSuccess(d)))
             .catch(err => {
                 const {reason, message, location} = err;
                 if (reason === 'ValidationError') {
@@ -72,7 +71,7 @@ export class EditDoctorForm extends React.Component {
                             Doctor successfully updated!&nbsp;
                             <button 
                                 className="form-message-button"
-                                onClick={() => this.showDoctor()}
+                                onClick={() => {this.showDoctor(); this.props.initialize()}}
                             >
                                 <span className="fas fa-share-square">&nbsp;</span>
                                 <span>Go back</span>
@@ -89,7 +88,7 @@ export class EditDoctorForm extends React.Component {
                             {this.props.error}&nbsp;
                             <button 
                                 className="form-message-button"
-                                onClick={() => this.showDoctor()}
+                                onClick={() => {this.showDoctor(); this.props.initialize()}}
                             >
                                 <span className="fas fa-share-square">&nbsp;</span>
                                 <span>Go back</span>
@@ -153,7 +152,7 @@ export class EditDoctorForm extends React.Component {
                             type="text"
                             component={InputTwo}
                             label="State"
-                            validate={[required, isTrimmed, nonEmpty, max]}
+                            validate={[required, isTrimmed, nonEmpty]}
                         />
                         <Field 
                             name="address.zipCode"
@@ -183,8 +182,8 @@ export class EditDoctorForm extends React.Component {
                         <button
                             className="edit-doctor-submit-button"
                             type="submit"
-                            disabled={this.props.pristine || this.props.submitting}
-                            onClick={() => this.props.dispatch(successErrorMessage())}
+                            disabled={this.props.pristine || this.props.submitting || !this.props.valid}
+                            onClick={() => this.props.dispatch(successErrorMessage(true))}
                         >
                             <span className="fas fa-check">&nbsp;&nbsp;</span>
                             Submit
@@ -192,7 +191,7 @@ export class EditDoctorForm extends React.Component {
                         <button
                             type="button"
                             className="cancel-edit-doctor-form-changes-button"
-                            onClick={() => {this.showDoctor(); this.props.reset()}}
+                            onClick={() => {this.showDoctor(); this.props.initialize()}}
                         >
                             <span className="fas fa-times">&nbsp;&nbsp;</span>
                             Cancel
