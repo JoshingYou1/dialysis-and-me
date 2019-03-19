@@ -56,11 +56,10 @@ export class Sidebar extends React.Component {
         const links = sidebarLinks.map((l, i) => {
             if (l.sublinks) {
                 return (
-                <li className="sidebar-list-item">
+                <li className="sidebar-list-item" key={i}>
                     <Link
                         className="sidebar-link"
                         to={l.link}
-                        key={i}
                         onClick={() => this.props.dispatch(toggleSidebar())}
                     >
                         {l.display}
@@ -86,11 +85,10 @@ export class Sidebar extends React.Component {
             }
 
             return (
-                <li className="sidebar-list-item">
+                <li className="sidebar-list-item" key={i}>
                     <Link 
                         className="sidebar-link-2"
                         to={l.link}
-                        key={i}
                         onClick={() => this.props.dispatch(toggleSidebar())}
                     >
                         {l.display}

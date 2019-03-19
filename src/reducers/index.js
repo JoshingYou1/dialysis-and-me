@@ -24,19 +24,18 @@ import {
     DELETE_APPOINTMENT_SUCCESS,
     DELETE_DOCTOR_SUCCESS,
     EDIT_SELECTED_APPOINTMENT_BY_ID,
-    DISCARD_APPOINTMENT_FORM_CHANGES,
     LOAD_DOCTOR_FORM_DATA,
-    TOGGLE_APPOINTMENT_MENU,
     TOGGLE_DOCTOR_MENU,
     EDIT_SELECTED_DOCTOR_BY_ID,
     FETCH_DOCTORS_SUCCESS,
     SUCCESS_ERROR_MESSAGE,
-    DOCTOR_MENU_BY_DOCTOR_ID,
     LOAD_BASIC_PROFILE_INFO_FORM_DATA,
     SHOW_APPOINTMENTS,
     TOGGLE_DOCTOR_LIST,
     TOGGLE_APPOINTMENT_LIST,
-    UPDATE_BASIC_PROFILE_INFO_SUCCESS
+    UPDATE_BASIC_PROFILE_INFO_SUCCESS,
+    LOADING,
+    TRIGGER_ANIMATION
 } from '../actions/index';
 
 const initialState = {
@@ -64,7 +63,9 @@ const initialState = {
     areAppointmentsShowing: false,
     deletedAppointment: null,
     areDoctorsShowing: true,
-    deletedDoctor: null
+    deletedDoctor: null,
+    isLoading: true,
+    animation: false
 };
 
 export const appReducer = (state=initialState, action) => {
@@ -80,12 +81,14 @@ export const appReducer = (state=initialState, action) => {
     }
     else if (action.type === FETCH_LAB_RESULTS_SUCCESS) {
         return Object.assign({}, state, {
-            labResults: action.labResults
+            labResults: action.labResults,
+            isLoading: false
         });
     }
     else if (action.type === FETCH_PROFILE_INFO_SUCCESS) {
         return Object.assign({}, state, {
-            profile: action.profile
+            profile: action.profile,
+            isLoading: false
         });
     }
     else if (action.type === LOAD_BASIC_PROFILE_INFO_FORM_DATA) {
@@ -115,7 +118,8 @@ export const appReducer = (state=initialState, action) => {
     }
     else if (action.type === FETCH_APPOINTMENTS_SUCCESS) {
         return Object.assign({}, state, {
-            appointments: action.appointments
+            appointments: action.appointments,
+            isLoading: false
         });
     }
     else if (action.type === SELECT_APPOINTMENTS_BY_ID) {
@@ -208,12 +212,8 @@ export const appReducer = (state=initialState, action) => {
     }
     else if (action.type === FETCH_DOCTORS_SUCCESS) {
         return Object.assign({}, state, {
-            doctors: action.doctors
-        });
-    }
-    else if (action.type === DOCTOR_MENU_BY_DOCTOR_ID) {
-        return Object.assign({}, state, {
-            doctorMenu: action.doctorMenu
+            doctors: action.doctors,
+            isLoading: false
         });
     }
     else if (action.type === SUCCESS_ERROR_MESSAGE) {
@@ -222,29 +222,34 @@ export const appReducer = (state=initialState, action) => {
         });
     }
     else if (action.type === CREATE_APPOINTMENT_SUCCESS) {
-        let selectedAppointments = [];
-        const appointments = [...state.appointments, action.createdAppointment];
-        if (state.selectedAppointments.length && new Date(action.createdAppointment.date).getMonth() === new Date(state.selectedAppointments[0].date).getMonth()) {
-            selectedAppointments = [...state.selectedAppointments, action.createdAppointment];
-            selectedAppointments.sort((a, b) => {
-                return new Date(a.date) - new Date(b.date);
+        if (action.createdAppointment) {
+            let selectedAppointments = [];
+            const appointments = [...state.appointments, action.createdAppointment];
+            if (state.selectedAppointments.length && new Date(action.createdAppointment.date).getMonth() === new Date(state.selectedAppointments[0].date).getMonth()) {
+                selectedAppointments = [...state.selectedAppointments, action.createdAppointment];
+                selectedAppointments.sort((a, b) => {
+                    return new Date(a.date) - new Date(b.date);
+                });
+            }
+            return Object.assign({}, state, {
+                appointments,
+                selectedAppointments
             });
         }
-        return Object.assign({}, state, {
-            appointments,
-            selectedAppointments
-        });
+        console.log(action);
     }
     else if (action.type === CREATE_DOCTOR_SUCCESS) {
-        let doctors = [...state.doctors, action.createdDoctor];
-        doctors.sort((a, b) => {
-            if(a.name.lastName < b.name.lastName) { return -1; }
-            if(a.name.lastName > b.name.lastName) { return 1; }
-            return 0;
-        })
-        return Object.assign({}, state, {
-            doctors
-        });
+        if (action.createdDoctor) {
+            let doctors = [...state.doctors, action.createdDoctor];
+            doctors.sort((a, b) => {
+                if(a.name.lastName < b.name.lastName) { return -1; }
+                if(a.name.lastName > b.name.lastName) { return 1; }
+                return 0;
+            })
+            return Object.assign({}, state, {
+                doctors
+            });
+        }
     }
     else if (action.type === TOGGLE_DOCTOR_LIST) {
         return Object.assign({}, state, {
@@ -264,19 +269,43 @@ export const appReducer = (state=initialState, action) => {
     else if (action.type === UPDATE_DOCTOR_SUCCESS) {
         let updatedDoctor = state.doctors.map(d => {
             if (d._id === state.selectedDoctorToEdit._id) {
-                return updatedDoctor
+                return action.updatedDoctor;
             }
-            return d
+            return d;
         });
         return Object.assign({}, state, {
-            doctor: updatedDoctor
+            doctors: updatedDoctor
         });
     }
-    // else if (action.type === UPDATE_APPOINTMENT_SUCCESS) {
-    //     return Object.assign({}, state, {
-
-    //     });
-    // }
+    else if (action.type === UPDATE_APPOINTMENT_SUCCESS) {
+        let appointments = [...state.appointments];
+        let updatedAppointments = state.appointments.map(a => {
+            if (a._id === state.selectedAppointmentToEdit._id) {
+                return action.updatedAppointment;
+            }
+            return a;
+        });
+        let selectedUpdatedAppointments = state.selectedAppointments.map(a => {
+            if (a._id === state.selectedAppointmentToEdit._id) {
+                return action.updatedAppointment;
+            }
+            return a;
+        });
+        return Object.assign({}, state, {
+            updatedAppointments,
+            selectedAppointments: selectedUpdatedAppointments
+        });
+    }
+    else if (action.type === LOADING) {
+        return Object.assign({}, state, {
+            isLoading: action.isLoading
+        })
+    }
+    else if (action.type === TRIGGER_ANIMATION) {
+        return Object.assign({}, state, {
+            animation: !state.animation
+        });
+    }
     console.log('state', state);
     return state;
 }

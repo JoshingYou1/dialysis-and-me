@@ -14,17 +14,17 @@ export class LabResultsShow extends React.Component {
     // componentDidUpdate(prevProps){
     //     if (this.props.chosenLabResult !== prevProps.chosenLabResult) {
     //         this.setState({
-    //             animate: !this.state.animate,
+    //             animate: !this.state.animate
     //         })
     //     }
     // }
 
     render() {
-        // let className = this.state.animate ? "lab-results-show-section" : "lab-results-show-section-2"
+        // let className = this.state.animate ? 'lab-results-show-section' : 'lab-results-show-section-2'
         if (this.props.chosenLabResult) {
             return (
                 <div className={"show-b " + (this.props.isLabResultsInfoShowing ? '' : 'hidden-1')}>
-                    <section className="lab-results-show-section">
+                    <section className={"lab-results-show-section " + (this.props.animation ? 'fade-in-1' : 'fade-in-2')}>
                         <button className="desktop-hide" onClick={() => this.props.dispatch(toggleLabResultsInfo(false))}>
                             <span className="fas fa-times 2x a"></span>
                         </button>
@@ -106,7 +106,8 @@ export class LabResultsShow extends React.Component {
 const mapStateToProps = state => {
     return {
         chosenLabResult: state.app.selectedLabResult,
-        isLabResultsInfoShowing: state.app.isLabResultsInfoShowing
+        isLabResultsInfoShowing: state.app.isLabResultsInfoShowing,
+        animation: state.app.animation
     }
 };
 

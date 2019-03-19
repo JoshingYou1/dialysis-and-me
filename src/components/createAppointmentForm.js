@@ -2,7 +2,7 @@ import React from 'react';
 import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
 import InputTwo from './inputTwo';
 import {API_BASE_URL} from '../config';
-import {required, nonEmpty, isTrimmed, phoneNumber} from '../validators';
+import {required, nonEmpty, isTrimmed, phoneNumber, zipCode, stateAbbrv} from '../validators';
 import { connect } from 'react-redux';
 import { createAppointment, chooseCreateAppointment, successErrorMessage, createAppointmentSuccess } from '../actions';
 import DateTimePicker from 'react-widgets/lib/DateTimePicker';
@@ -12,16 +12,12 @@ import 'react-widgets/dist/css/react-widgets.css';
 
 momentLocaliser(moment)
 
-const renderDateTimePicker = ({ input: { onChange, value }, showTime, meta: { touched, error, warning } }) => 
-(
+const renderDateTimePicker = ({ input: { onChange, value, onBlur }, showTime, meta: { touched, error } }) =>
+    (
     <div>
-        <div className={"form-error " + (error ? '' : 'hidden-1')}>
-            <span className={"fas fa-info-circle " + (error ? '' : 'hidden-1')}>&nbsp;</span>
+        <div className={"form-error " + (touched && error ? '' : 'hidden-1')}>
+            <span className={"fas fa-info-circle " + (touched && error ? '' : 'hidden-1')}>&nbsp;</span>
             {error}
-        </div>
-        <div className={"form-warning " + (error ? '' : 'hidden-1')}>
-            <span className={"fas fa-info-circle " + (warning ? '' : 'hidden-1')}>&nbsp;</span>
-            {warning}
         </div>
         <DateTimePicker
             className="datetime-picker-input-2"
@@ -31,6 +27,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, showTime, meta: { to
             value={!value ? null : new Date(value)}
             selected={value ? moment(value) : null}
             placeholder="07/21/2018"
+            onBlur={onBlur}
         />
     </div>
 );
@@ -199,7 +196,7 @@ export class CreateAppointmentForm extends React.Component {
                         type="text"
                         component={InputTwo}
                         label="State"
-                        validate={[required, nonEmpty, isTrimmed]}
+                        validate={[required, nonEmpty, isTrimmed, stateAbbrv]}
                         placeholder="FL"
                     />
                     <Field 
@@ -207,7 +204,7 @@ export class CreateAppointmentForm extends React.Component {
                         type="number"
                         component={InputTwo}
                         label="Zip Code"
-                        validate={[required, nonEmpty, isTrimmed]}
+                        validate={[required, nonEmpty, isTrimmed, zipCode]}
                         placeholder="32204"
                     />
                     <Field

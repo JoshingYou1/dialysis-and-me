@@ -60,8 +60,8 @@ export const login = (username, password) => dispatch => {
                 const {code} = err;
                 const message =
                     code === 401
-                        ? 'Incorrect username or password'
-                        : 'Unable to login, please try again';
+                        ? 'Incorrect username or password. Please try again.'
+                        : 'Unable to login. Please try again';
                 dispatch(authError(err));
                 return Promise.reject(
                     new SubmissionError({

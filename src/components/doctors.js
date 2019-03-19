@@ -11,7 +11,8 @@ import {
     editSelectedDoctorById,
     chooseCreateDoctor,
     successErrorMessage,
-    toggleDoctorList
+    toggleDoctorList,
+    triggerAnimation
 } from '../actions';
 import requiresLogin from './requires-login';
 import NavigationBar from './navBar';
@@ -21,12 +22,16 @@ import CreateDoctorForm from './createDoctorForm';
 import PropTypes from 'prop-types';
 
 export class Doctors extends React.Component {
-    constructor(props){
-        super(props);
+    // constructor(props){
+    //     super(props);
 
-        this.state = {
-            animate: true
-        }
+    //     this.state = {
+    //         animate: true
+    //     }
+    // }
+
+    animationHandler() {
+        this.props.dispatch(triggerAnimation());
     }
 
     static propTypes = {
@@ -45,16 +50,41 @@ export class Doctors extends React.Component {
         this.props.dispatch(fetchDoctors(this.props.user.id));
     }
 
-    componentDidUpdate(prevProps){
-        if (this.props.currentDoctor !== prevProps.currentDoctor) {
-            this.setState({
-                animate: !this.state.animate,
-            })
-            this.props.dispatch(fetchDoctors(this.props.user.id))
-        }
-    }
+    // componentDidUpdate(prevProps){
+    //     if (this.props.currentDoctor !== prevProps.currentDoctor) {
+    //         this.setState({
+    //             animate: !this.state.animate,
+    //         })
+    //     }
+    // }
     
     render() {
+        if (this.props.isLoading) {
+            return (
+                <div className="container">
+                    <NavigationBar />
+                    <main role="main">
+                        <div className="loading-div">
+                            <div className="sk-circle">
+                                <div className="sk-circle1 sk-child"></div>
+                                <div className="sk-circle2 sk-child"></div>
+                                <div className="sk-circle3 sk-child"></div>
+                                <div className="sk-circle4 sk-child"></div>
+                                <div className="sk-circle5 sk-child"></div>
+                                <div className="sk-circle6 sk-child"></div>
+                                <div className="sk-circle7 sk-child"></div>
+                                <div className="sk-circle8 sk-child"></div>
+                                <div className="sk-circle9 sk-child"></div>
+                                <div className="sk-circle10 sk-child"></div>
+                                <div className="sk-circle11 sk-child"></div>
+                                <div className="sk-circle12 sk-child"></div>
+                            </div>
+                        </div>
+                    </main>
+                    <Footer />
+                </div>
+            );
+        }
         if (this.props.deletedDoctor) {
             return (
                 <div className="container">
@@ -85,7 +115,6 @@ export class Doctors extends React.Component {
                     doctor: d
                 };
             });
-            let className = this.state.animate ? "doctor-display-section " : "doctor-display-section-2 "
 
             const d = cards[this.props.currentDoctor].doctor;
 
@@ -110,26 +139,31 @@ export class Doctors extends React.Component {
                         >
                             Edit {d.name.firstName} {d.name.lastName}
                         </h1>
-                        <div className={className + (this.props.selectedDoctorToEdit || this.props.isCreateDoctorFormShowing || this.props.isMessageShowing ? ' hidden-1' : '')}>
+                        <div 
+                            className={"doctor-display-section " + (this.props.selectedDoctorToEdit || this.props.isCreateDoctorFormShowing || this.props.isMessageShowing ? ' hidden-1 ' : '')
+                            + (this.props.animation ? 'fade-in-1' : 'fade-in-2')}
+                        >
                             <Doctor doctor={d} />
                         </div>
                         <div className={"doctor-button-holder " + (this.props.selectedDoctorToEdit || this.props.isCreateDoctorFormShowing ? 'hidden-1' : '')}>
                             <button
                                 className={this.props.currentDoctor !== 0 ? 'display-doctor-button-1' : 'hidden-1'}
-                                onClick={() => this.props.dispatch(updateCurrentDoctor(cards[this.props.currentDoctor].previous))}
+                                onClick={() => {this.props.dispatch(updateCurrentDoctor(cards[this.props.currentDoctor].previous)); this.animationHandler()}}
                             >
-                                <p className="fas fa-long-arrow-alt-left"></p>
-                                <p className="display-profile-section-button-p">
+                                <p className="fas fa-long-arrow-alt-left mobile-hide"></p>
+                                <p class="fas fa-arrow-alt-circle-left desktop-hide-2"></p>
+                                <p className="display-profile-section-button-p mobile-hide">
                                     {cards[this.props.currentDoctor].previous === null ? '' : cards[this.props.currentDoctor - 1].doctor.name.firstName +
                                     ' ' + cards[this.props.currentDoctor - 1].doctor.name.lastName}
                                 </p>
                             </button>
                             <button
                                 className={this.props.currentDoctor !== cards.length - 1 ? 'display-doctor-button-2' : 'hidden-1'}
-                                onClick={() => this.props.dispatch(updateCurrentDoctor(cards[this.props.currentDoctor].next))}
+                                onClick={() => {this.props.dispatch(updateCurrentDoctor(cards[this.props.currentDoctor].next)); this.animationHandler()}}
                             >
-                                <p className="fas fa-long-arrow-alt-right"></p>
-                                <p className="display-profile-section-button-p">
+                                <p className="fas fa-long-arrow-alt-right mobile-hide"></p>
+                                <p class="fas fa-arrow-alt-circle-right desktop-hide-2"></p>
+                                <p className="display-profile-section-button-p mobile-hide">
                                     {cards[this.props.currentDoctor].next === null ? '' : cards[this.props.currentDoctor + 1].doctor.name.firstName +
                                     ' ' + cards[this.props.currentDoctor + 1].doctor.name.lastName}
                                 </p>
@@ -193,11 +227,6 @@ export class Doctors extends React.Component {
                 </div>
             );
         }
-        return (
-            <div>
-                Loading...
-            </div>
-        );
     }
 }
 
@@ -208,7 +237,9 @@ const mapStateToProps = state => ({
     selectedDoctorToEdit: state.app.selectedDoctorToEdit,
     isCreateDoctorFormShowing: state.app.isCreateDoctorFormShowing,
     isMessageShowing: state.app.isMessageShowing,
-    deletedDoctor: state.app.deletedDoctor
+    deletedDoctor: state.app.deletedDoctor,
+    isLoading: state.app.isLoading,
+    animation: state.app.animation
 });
 
 export default requiresLogin()(connect(mapStateToProps)(Doctors));

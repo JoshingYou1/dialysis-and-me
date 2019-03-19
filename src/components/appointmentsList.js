@@ -1,7 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { triggerAnimation } from '../actions';
 
 export class AppointmentsList extends React.Component {
+    animationHandler() {
+        this.props.dispatch(triggerAnimation());
+    }
+
     render() {
         const months = [
             {
@@ -55,7 +60,11 @@ export class AppointmentsList extends React.Component {
         ];
         
         const list = months.map((m, i) => (
-            <li className="appointments-list-item" onClick={e => this.props.chooseAppointmentsByMonth(m.index)} key={i}>
+            <li 
+                className="appointments-list-item" 
+                onClick={() => {this.props.chooseAppointmentsByMonth(m.index); this.animationHandler()}}
+                key={i}
+            >
                 {m.month}
             </li>
         ));
@@ -72,7 +81,8 @@ export class AppointmentsList extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    isAppointmentInfoShowing: state.app.isAppointmentInfoShowing
+    isAppointmentInfoShowing: state.app.isAppointmentInfoShowing,
+    animation: state.app.animation
 });
 
 export default connect(mapStateToProps)(AppointmentsList);

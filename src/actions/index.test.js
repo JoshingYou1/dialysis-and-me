@@ -45,24 +45,67 @@ import {
     fetchDoctorsSuccess,
     fetchDoctors,
     DELETE_DOCTOR_SUCCESS,
-    deleteDoctorSuccess
+    deleteDoctorSuccess,
+    deleteDoctor,
+    LOAD_DOCTOR_FORM_DATA,
+    loadDoctorFormData,
+    CHOOSE_EDIT_BASIC_PROFILE_INFO,
+    chooseEditBasicProfileInfo,
+    EDIT_SELECTED_APPOINTMENT_BY_ID,
+    editSelectedAppointmentById,
+    TOGGLE_DOCTOR_MENU,
+    toggleDoctorMenu,
+    EDIT_SELECTED_DOCTOR_BY_ID,
+    editSelectedDoctorById,
+    SUCCESS_ERROR_MESSAGE,
+    successErrorMessage,
+    updateDoctorSuccess,
+    UPDATE_DOCTOR_SUCCESS,
+    CREATE_APPOINTMENT_SUCCESS,
+    createAppointmentSuccess,
+    CREATE_DOCTOR_SUCCESS,
+    createDoctorSuccess,
+    TOGGLE_DOCTOR_LIST,
+    toggleDoctorList,
+    TOGGLE_APPOINTMENT_LIST,
+    toggleAppointmentList,
+    UPDATE_BASIC_PROFILE_INFO_SUCCESS,
+    updateBasicProfileInfoSuccess,
+    LOADING,
+    loading
 } from './index';
 import {API_BASE_URL} from '../config';
 
 describe('selectLabResultsById', () => {
     it('Should return the action', () => {
-        const labResults = [{
-            hematology: {
-                wbcCount: 5.41,
-                hemoglobin: 10.2,
-                plateletCount: 201
+        const labResults = [
+            {
+                _id: new mongoose.Types.ObjectId(),
+                hematology: {
+                    wbcCount: 5.41,
+                    hemoglobin: 10.2,
+                    plateletCount: 201
+                },
+                chemistry: {
+                    sodium: 133,
+                    potassium: 4.7,
+                    calcium: 10.2
+                }
             },
-            chemistry: {
-                sodium: 133,
-                potassium: 4.7,
-                calcium: 10.2,
+            {
+                _id: new mongoose.Types.ObjectId(),
+                hematology: {
+                    wbcCount: 5.32,
+                    hemoglobin: 10.5,
+                    plateletCount: 193
+                },
+                chemistry: {
+                    sodium: 143,
+                    potassium: 4.9,
+                    calcium: 10.1
+                }
             }
-        }];
+    ];
         const action = selectLabResultsById(labResults);
         expect(action.type).toEqual(SELECT_LAB_RESULTS_BY_ID);
         expect(action.labResults).toEqual(labResults);
@@ -71,7 +114,7 @@ describe('selectLabResultsById', () => {
 
 describe('toggleSidebar', () => {
     it('Should return the action', () => {
-        const isSidebarShowing = false;
+        const isSidebarShowing = true;
 
         const action = toggleSidebar(isSidebarShowing);
         expect(action.type).toEqual(TOGGLE_SIDEBAR);
@@ -81,7 +124,34 @@ describe('toggleSidebar', () => {
 
 describe('fetchLabResultsSuccess', () => {
     it('Should return the action', () => {
-        const labResults = [];
+        const labResults = [
+            {
+                _id: new mongoose.Types.ObjectId(),
+                hematology: {
+                    wbcCount: 5.41,
+                    hemoglobin: 10.2,
+                    plateletCount: 201
+                },
+                chemistry: {
+                    sodium: 133,
+                    potassium: 4.7,
+                    calcium: 10.2
+                }
+            },
+            {
+                _id: new mongoose.Types.ObjectId(),
+                hematology: {
+                    wbcCount: 5.32,
+                    hemoglobin: 10.5,
+                    plateletCount: 193
+                },
+                chemistry: {
+                    sodium: 143,
+                    potassium: 4.9,
+                    calcium: 10.1
+                }
+            }
+        ];
 
         const action = fetchLabResultsSuccess(labResults);
         expect(action.type).toEqual(FETCH_LAB_RESULTS_SUCCESS);
@@ -91,7 +161,34 @@ describe('fetchLabResultsSuccess', () => {
 
 describe('fetchLabResults', () => {
     it('Should dispatch fetchLabResultsSuccess', () => {
-        const labResults = [];
+        const labResults = [
+            {
+                _id: new mongoose.Types.ObjectId(),
+                hematology: {
+                    wbcCount: 5.46,
+                    hemoglobin: 10.7,
+                    plateletCount: 164
+                },
+                chemistry: {
+                    sodium: 121,
+                    potassium: 4.2,
+                    calcium: 10.5
+                }
+            },
+            {
+                _id: new mongoose.Types.ObjectId(),
+                hematology: {
+                    wbcCount: 5.33,
+                    hemoglobin: 10.7,
+                    plateletCount: 199
+                },
+                chemistry: {
+                    sodium: 141,
+                    potassium: 4.4,
+                    calcium: 10.6
+                }
+            }
+        ];
 
         global.fetch = jest.fn().mockImplementation(() =>
             Promise.resolve({
@@ -112,7 +209,30 @@ describe('fetchLabResults', () => {
 
 describe('fetchProfileInfoSuccess', () => {
     it('Should return the action', () => {
-        const profile = [];
+        const profile = {
+            address: {
+                street: "456 International Drive",
+                city: "Jacksonville",
+                state: "FL",
+                zipCode: 39199
+            },
+            appointments: [],
+            doctors: [],
+            dateOfBirth: "1965-05-12T04:00:00.000Z",
+            name: {
+                firstName: "Jason",
+                lastName: "Merriman"
+            },
+            phoneNumbers: {
+                home: "904-223-5455",
+                cell: "904-423-8573",
+                work: null
+            },
+            sex: "Male",
+            socialSecurityNumber: "987654321",
+            treatmentDays: "Tue/Thu/Sat",
+            treatmentTime: "11:30 a.m."
+        };
         const action = fetchProfileInfoSuccess(profile);
         expect(action.type).toEqual(FETCH_PROFILE_INFO_SUCCESS);
         expect(action.profile).toEqual(profile);
@@ -121,7 +241,30 @@ describe('fetchProfileInfoSuccess', () => {
 
 describe('fetchProfileInfo', () => {
     it('Should dispatch fetchProfileInfoSuccess', () => {
-        const profile = [];
+        const profile = {
+            address: {
+                street: "456 International Drive",
+                city: "Jacksonville",
+                state: "FL",
+                zipCode: 39199
+            },
+            appointments: [],
+            doctors: [],
+            dateOfBirth: "1965-05-12T04:00:00.000Z",
+            name: {
+                firstName: "Jason",
+                lastName: "Merriman"
+            },
+            phoneNumbers: {
+                home: "904-223-5455",
+                cell: "904-423-8573",
+                work: null
+            },
+            sex: "Male",
+            socialSecurityNumber: "987654321",
+            treatmentDays: "Tue/Thu/Sat",
+            treatmentTime: "11:30 a.m."
+        };
 
         global.fetch = jest.fn().mockImplementation(() =>
             Promise.resolve({
@@ -148,7 +291,12 @@ describe('loadBasicProfileInfoFormData', () => {
                 lastName: 'Jackson'
             },
             sex: 'Male',
-            socialSecurityNumber: '324-53-2124'
+            socialSecurityNumber: '324532124',
+            phoneNumbers: {
+                cell: "904-123-4928",
+                home: "904-858-3232",
+                work: "904-543-2341"
+            }
         };
 
         const action = loadBasicProfileInfoFormData(loadedBasicProfileInfoFormData);
@@ -159,7 +307,7 @@ describe('loadBasicProfileInfoFormData', () => {
 
 describe('toggleLabResultsInfo', () => {
     it('Should return the action', () => {
-        const isLabResultsInfoShowing = false;
+        const isLabResultsInfoShowing = true;
 
         const action = toggleLabResultsInfo(isLabResultsInfoShowing);
         expect(action.type).toEqual(TOGGLE_LAB_RESULTS_INFO);
@@ -169,7 +317,7 @@ describe('toggleLabResultsInfo', () => {
 
 describe('toggleUserInfo', () => {
     it('Should return the action', () => {
-        const isUserInfoShowing = false;
+        const isUserInfoShowing = true;
 
         const action = toggleUserInfo(isUserInfoShowing);
         expect(action.type).toEqual(TOGGLE_USER_INFO);
@@ -179,7 +327,7 @@ describe('toggleUserInfo', () => {
 
 describe('toggleSublinks', () => {
     it('Should return the action', () => {
-        const areSublinksShowing = false;
+        const areSublinksShowing = true;
 
         const action = toggleSublinks(areSublinksShowing);
         expect(action.type).toEqual(TOGGLE_SUBLINKS);
@@ -199,7 +347,42 @@ describe('selectProfileInfoSection', () => {
 
 describe('fetchAppointmentsSuccess', () => {
     it('Should return the action', () => {
-        const appointments = [];
+        const appointments = [
+            {
+                address: {
+                    street: "67 West Lakeside Dr",
+                    city: "Jacksonville",
+                    state: "FL",
+                    zipCode: 35840
+                },
+                date: "2019-01-023T05:00:00.000Z",
+                description: "Access evaluation",
+                patient: "753848fhru57db47gh443828",
+                phoneNumber: "904-943-2942",
+                time: "2:15 p.m.",
+                title: "MD",
+                where: "Vascular Access Center",
+                with: "Madison Akihiko",
+                _id: "8f85769f7465928374593018",
+            },
+            {
+                address: {
+                    street: "94 Park Street",
+                    city: "Jacksonville",
+                    state: "FL",
+                    zipCode: 35832
+                },
+                date: "2019-05-018T05:00:00.000Z",
+                description: "Yearly physical",
+                patient: "753848fhru57db47gh443828",
+                phoneNumber: "904-932-8374",
+                time: "10:15 a.m.",
+                title: "MD",
+                where: "St. Vincent's Medical Center",
+                with: "Mark Cuban",
+                _id: "8f85769f7465928374593987",
+            }
+        ];
 
         const action = fetchAppointmentsSuccess(appointments);
         expect(action.type).toEqual(FETCH_APPOINTMENTS_SUCCESS);
@@ -209,7 +392,42 @@ describe('fetchAppointmentsSuccess', () => {
 
 describe('fetchAppointments', () => {
     it('Should dispatch fetchAppointmentsSuccess', () => {
-        const appointments = [];
+        const appointments = [
+            {
+                address: {
+                    street: "67 West Lakeside Dr",
+                    city: "Jacksonville",
+                    state: "FL",
+                    zipCode: 35840
+                },
+                date: "2019-01-023T05:00:00.000Z",
+                description: "Access evaluation",
+                patient: "753848fhru57db47gh443828",
+                phoneNumber: "904-943-2942",
+                time: "2:15 p.m.",
+                title: "MD",
+                where: "Vascular Access Center",
+                with: "Madison Akihiko",
+                _id: "8f85769f7465928374593018",
+            },
+            {
+                address: {
+                    street: "94 Park Street",
+                    city: "Jacksonville",
+                    state: "FL",
+                    zipCode: 35832
+                },
+                date: "2019-05-018T05:00:00.000Z",
+                description: "Yearly physical",
+                patient: "753848fhru57db47gh443828",
+                phoneNumber: "904-932-8374",
+                time: "10:15 a.m.",
+                title: "MD",
+                where: "St. Vincent's Medical Center",
+                with: "Mark Cuban",
+                _id: "8f85769f7465928374593987",
+            }
+        ];
 
         global.fetch = jest.fn().mockImplementation(() =>
             Promise.resolve({
@@ -230,7 +448,10 @@ describe('fetchAppointments', () => {
 
 describe('deleteAppointmentSuccess', () => {
     it('Should return the action', () => {
-        const deletedAppointment = [];
+        const deletedAppointment = {
+            successMessage: "Appointment successfully deleted!",
+            _id: "8g75648f6374850182649775"
+        };
 
         const action = deleteAppointmentSuccess(deletedAppointment);
         expect(action.type).toEqual(DELETE_APPOINTMENT_SUCCESS);
@@ -240,7 +461,10 @@ describe('deleteAppointmentSuccess', () => {
 
 describe('deleteAppointment', () => {
     it('Should dispatch deleteAppointmentSuccess', () => {
-        const deletedAppointment = [];
+        const deletedAppointment = {
+            successMessage: "Appointment successfully deleted!",
+            _id: "8g75648f6374850182649775"
+        };
 
         global.fetch = jest.fn().mockImplementation(() =>
             Promise.resolve({
@@ -293,7 +517,7 @@ describe('selectAppointmentsById', () => {
 
 describe('toggleAppointmentInfo', () => {
     it('Should return the action', () => {
-        const isAppointmentInfoShowing = false;
+        const isAppointmentInfoShowing = true;
 
         const action = toggleAppointmentInfo(isAppointmentInfoShowing);
         expect(action.type).toEqual(TOGGLE_APPOINTMENT_INFO);
@@ -313,7 +537,7 @@ describe('updateCurrentDoctor', () => {
 
 describe('chooseCreateAppointment', () => {
     it('Should return the action', () => {
-        const isCreateAppointmentFormShowing = false;
+        const isCreateAppointmentFormShowing = true;
 
         const action = chooseCreateAppointment(isCreateAppointmentFormShowing);
         expect(action.type).toEqual(CHOOSE_CREATE_APPOINTMENT);
@@ -323,7 +547,7 @@ describe('chooseCreateAppointment', () => {
 
 describe('chooseEditAppointment', () => {
     it('Should return the action', () => {
-        const isEditAppointmentFormShowing = false;
+        const isEditAppointmentFormShowing = true;
 
         const action = chooseEditAppointment(isEditAppointmentFormShowing);
         expect(action.type).toEqual(CHOOSE_EDIT_APPOINTMENT);
@@ -352,7 +576,7 @@ describe('loadAppointmentFormData', () => {
 
 describe('chooseCreateDoctor', () => {
     it('Should return the action', () => {
-        const isCreateDoctorFormShowing = false;
+        const isCreateDoctorFormShowing = true;
 
         const action = chooseCreateDoctor(isCreateDoctorFormShowing);
         expect(action.type).toEqual(CHOOSE_CREATE_DOCTOR);
@@ -362,7 +586,7 @@ describe('chooseCreateDoctor', () => {
 
 describe('chooseEditDoctor', () => {
     it('Should return the action', () => {
-        const isEditDoctorFormShowing = false;
+        const isEditDoctorFormShowing = true;
 
         const action = chooseEditDoctor(isEditDoctorFormShowing);
         expect(action.type).toEqual(CHOOSE_EDIT_DOCTOR);
@@ -372,7 +596,44 @@ describe('chooseEditDoctor', () => {
 
 describe('fetchDoctorsSuccess', () => {
     it('Should return the action', () => {
-        const doctors = [];
+        const doctors = [
+            {
+                _id: new mongoose.Types.ObjectId(),
+                address: {
+                    street: "193 South Lady Mary Drive",
+                    city: "Jacksonville",
+                    state: "FL",
+                    zipCode: 39321
+                },
+                company: "Mayo Clinic",
+                faxNumber: "904-948-8211",
+                name: {
+                    firstName: "Barbara",
+                    lastName: "Winters"
+                },
+                patients: [],
+                phoneNumber: "904-948-9010",
+                practice: "Hematology",
+            },
+            {
+                _id: new mongoose.Types.ObjectId(),
+                address: {
+                    street: "21 East Bay Street",
+                    city: "Jacksonville",
+                    state: "FL",
+                    zipCode: 39012
+                },
+                company: "Mayo Clinic",
+                faxNumber: "904-948-8211",
+                name: {
+                    firstName: "Barbara",
+                    lastName: "Winters"
+                },
+                patients: [],
+                phoneNumber: "904-948-9010",
+                practice: "Hematology",
+            }
+        ];
 
         const action = fetchDoctorsSuccess(doctors);
         expect(action.type).toEqual(FETCH_DOCTORS_SUCCESS);
@@ -410,5 +671,178 @@ describe('deleteDoctorSuccess', () => {
         expect(action.deletedDoctor).toEqual(deletedDoctor);
     });
 });
+
+describe('deleteDoctor', () => {
+    it('Should dispatch deleteDoctorSuccess', () => {
+        const deletedDoctor = {};
+
+        global.fetch = jest.fn().mockImplementation(() =>
+            Promise.resolve({
+                ok: true,
+                json() {
+                    return deletedDoctor;
+                }
+            })
+        );
+
+        const dispatch = jest.fn();
+        return deleteDoctor()(dispatch).then(() => {
+            expect(fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/patients/${patientId}/doctors/${doctorId}`);
+            expect(dispatch).toHaveBeenCalledWith(deleteDoctorSuccess(deletedDoctor));
+        });
+    });
+});
+
+describe('loadDoctorFormData', () => {
+    it('Should return the action', () => {
+        const loadedDoctorFormData = {};
+
+        const action = loadDoctorFormData(loadedDoctorFormData);
+
+        expect(action.type).toEqual(LOAD_DOCTOR_FORM_DATA);
+        expect(action.loadedDoctorFormData).toEqual(loadedDoctorFormData);
+    });
+});
+
+describe('chooseEditBasicProfileInfo', () => {
+    it('Should return the action', () => {
+        const isEditBasicProfileInfoFormShowing = true;
+
+        const action = chooseEditBasicProfileInfo(isEditBasicProfileInfoFormShowing);
+
+        expect(action.type).toEqual(CHOOSE_EDIT_BASIC_PROFILE_INFO);
+        expect(action.isEditBasicProfileInfoFormShowing).toEqual(isEditBasicProfileInfoFormShowing);
+    });
+});
+
+describe('editSelectedAppointmentById', () => {
+    it('Should return the action', () => {
+        const selectedAppointmentToEdit = {};
+
+        const action = editSelectedAppointmentById(selectedAppointmentToEdit);
+
+        expect(action.type).toEqual(EDIT_SELECTED_APPOINTMENT_BY_ID);
+        expect(action.selectedAppointmentToEdit).toEqual(selectedAppointmentToEdit);
+    });
+});
+
+describe('toggleDoctorMenu', () => {
+    it('Should return the action', () => {
+        const isDoctorMenuShowing = true;
+
+        const action = toggleDoctorMenu(isDoctorMenuShowing);
+
+        expect(action.type).toEqual(TOGGLE_DOCTOR_MENU);
+        expect(action.isDoctorMenuShowing).toEqual(isDoctorMenuShowing);
+    });
+});
+
+describe('editSelectedDoctorById', () => {
+    it('Should return the action', () => {
+        const selectedDoctorToEdit = {};
+
+        const action = editSelectedDoctorById(selectedDoctorToEdit);
+
+        expect(action.type).toEqual(EDIT_SELECTED_DOCTOR_BY_ID);
+        expect(action.selectedDoctorToEdit).toEqual(selectedDoctorToEdit);
+    });
+});
+
+describe('successErrorMessage', () => {
+    it('Should return the action', () => {
+        const isMessageShowing = true;
+
+        const action = successErrorMessage(isMessageShowing);
+
+        expect(action.type).toEqual(SUCCESS_ERROR_MESSAGE);
+        expect(action.isMessageShowing).toEqual(isMessageShowing);
+    });
+});
+
+describe('updateDoctorSuccess', () => {
+    it('Should return the action', () => {
+        const updatedDoctor = {};
+
+        const action = updateDoctorSuccess(updatedDoctor);
+
+        expect(action.type).toEqual(UPDATE_DOCTOR_SUCCESS);
+        expect(action.updatedDoctor).toEqual(updatedDoctor);
+    });
+});
+
+describe('createAppointmentSuccess', () => {
+    it('Should return the action', () => {
+        const createdAppointment = {};
+
+        const action = createAppointmentSuccess(createdAppointment);
+
+        expect(action.type).toEqual(CREATE_APPOINTMENT_SUCCESS);
+        expect(action.createdAppointment).toEqual(createdAppointment);
+    });
+});
+
+describe('createDoctorSuccess', () => {
+    it('Should return the action', () => {
+        const createdDoctor = {};
+
+        const action = createDoctorSuccess(createdDoctor);
+        
+        expect(action.type).toEqual(CREATE_DOCTOR_SUCCESS);
+        expect(action.createdDoctor).toEqual(createdDoctor);
+    });
+});
+
+describe('toggleDoctorList', () => {
+    it('Should return the action', () => {
+        const action = toggleDoctorList();
+
+        expect(action.type).toEqual(TOGGLE_DOCTOR_LIST);
+    });
+});
+
+describe('toggleAppointmentList', () => {
+    it('Should return the action', () => {
+        const action = toggleAppointmentList();
+
+        expect(action.type).toEqual(TOGGLE_APPOINTMENT_LIST);
+    });
+});
+
+describe('updateBasicProfileInfoSuccess', () => {
+    it('Should return the action', () => {
+        const profile = action.updatedBasicProfileInfo;
+
+        const action = updateBasicProfileInfoSuccess(updatedBasicProfileInfo);
+
+        expect(action.type).toEqual(UPDATE_BASIC_PROFILE_INFO_SUCCESS);
+        expect(action.profile).toEqual(profile);
+    });
+});
+
+describe('loading', () => {
+    it('Should return the action', () => {
+        const isLoading = false;
+
+        const action = loading(isLoading);
+
+        expect(action.type).toEqual(LOADING);
+        expect(action.isLoading).toEqual(isLoading);
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

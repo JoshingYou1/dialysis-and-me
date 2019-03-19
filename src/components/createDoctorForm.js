@@ -2,7 +2,7 @@ import React from 'react';
 import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
 import InputTwo from './inputTwo';
 import {API_BASE_URL} from '../config';
-import {required, nonEmpty, isTrimmed, zipCode} from '../validators';
+import {required, nonEmpty, isTrimmed, zipCode, phoneNumber, faxNumber, stateAbbrv} from '../validators';
 import { connect } from 'react-redux';
 import InputHidden from './inputHidden';
 import { chooseCreateDoctor, successErrorMessage, createDoctorSuccess, toggleDoctorList } from '../actions';
@@ -150,15 +150,15 @@ export class CreateDoctorForm extends React.Component {
                         type="text"
                         component={InputTwo}
                         label="State"
-                        validate={[required, nonEmpty, isTrimmed]}
+                        validate={[required, nonEmpty, isTrimmed, stateAbbrv]}
                         placeholder="FL"
                     />
                     <Field 
                         name="address.zipCode"
-                        type="text"
+                        type="number"
                         component={InputTwo}
                         label="Zip Code"
-                        validate={[required, nonEmpty, isTrimmed]}
+                        validate={[required, nonEmpty, isTrimmed, zipCode]}
                         placeholder="12345"
                     />
                     <Field 
@@ -166,7 +166,7 @@ export class CreateDoctorForm extends React.Component {
                         type="text"
                         component={InputTwo}
                         label="Phone Number"
-                        validate={[required, nonEmpty, isTrimmed]}
+                        validate={[required, nonEmpty, isTrimmed, phoneNumber]}
                         placeholder="123-456-7890"
                     />
                     <Field 
@@ -174,7 +174,7 @@ export class CreateDoctorForm extends React.Component {
                         type="text"
                         component={InputTwo}
                         label="Fax Number"
-                        validate={[required, nonEmpty, isTrimmed]}
+                        validate={[required, nonEmpty, isTrimmed, faxNumber]}
                         placeholder="123-456-1234"
                     />
                     <Field 

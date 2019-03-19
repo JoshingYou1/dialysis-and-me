@@ -21,7 +21,8 @@
     "react-widgets-moment": "^4.0.25",
     "redux": "^4.0.1",
     "redux-form": "^8.0.4",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "redux-timeout": "^2.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

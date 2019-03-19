@@ -27,6 +27,32 @@ export class Appointments extends React.Component {
     }
 
     render() {
+        if (this.props.isLoading) {
+            return (
+                <div className="container">
+                    <NavigationBar />
+                    <main role="main">
+                        <div className="loading-div">
+                            <div className="sk-circle">
+                                <div className="sk-circle1 sk-child"></div>
+                                <div className="sk-circle2 sk-child"></div>
+                                <div className="sk-circle3 sk-child"></div>
+                                <div className="sk-circle4 sk-child"></div>
+                                <div className="sk-circle5 sk-child"></div>
+                                <div className="sk-circle6 sk-child"></div>
+                                <div className="sk-circle7 sk-child"></div>
+                                <div className="sk-circle8 sk-child"></div>
+                                <div className="sk-circle9 sk-child"></div>
+                                <div className="sk-circle10 sk-child"></div>
+                                <div className="sk-circle11 sk-child"></div>
+                                <div className="sk-circle12 sk-child"></div>
+                            </div>
+                        </div>
+                    </main>
+                    <Footer />
+                </div>
+            );
+        }
         if (this.props.appointments) {
             const list = this.props.appointments.map(l => {
                 let appointmentDate = new Date(l.date);
@@ -97,11 +123,6 @@ export class Appointments extends React.Component {
                 </div>
             );
         }
-        return (
-            <div>
-                Loading...
-            </div>
-        );
     }
 }
 
@@ -111,7 +132,8 @@ const mapStateToProps = state => ({
     isCreateAppointmentFormShowing: state.app.isCreateAppointmentFormShowing,
     isAppointmentInfoShowing: state.app.isAppointmentInfoShowing,
     deletedAppointment: state.app.deletedAppointment,
-    isMessageShowing: state.app.isMessageShowing
+    isMessageShowing: state.app.isMessageShowing,
+    isLoading: state.app.isLoading
 });
 
 export default requiresLogin()(connect(mapStateToProps)(Appointments));

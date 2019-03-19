@@ -12,6 +12,13 @@ import {
 import EditAppointmentForm from './editAppointmentForm';
 
 export class AppointmentsShow extends React.Component {
+    // constructor(props){
+    //     super(props);
+
+    //     this.state = {
+    //         animate: false
+    //     }
+    // }
 
     deleteAppointmentHandler(a, formattedAppointmentDate) {
         if (window.confirm(`Are you sure you want to remove this appointment scheduled for ${formattedAppointmentDate}?`)) {
@@ -24,7 +31,17 @@ export class AppointmentsShow extends React.Component {
         this.props.dispatch(editSelectedAppointmentById(a));
     }
 
+    // componentDidUpdate(prevProps){
+    //     if (this.props.chosenAppointments !== prevProps.chosenAppointments) {
+    //         this.setState({
+    //             animate: !this.state.animate
+    //         })
+    //     }
+    // }
+
     render() {
+        // let className = this.state.animate ? "appointments-show-section" : "appointments-show-section-2"
+
         if (this.props.deletedAppointment) {
             return (
                 <div className={"message show-a delete-appointment-success-message " + (this.props.selectedAppointments ? 'hidden-1' : '')}>
@@ -43,7 +60,10 @@ export class AppointmentsShow extends React.Component {
         }
         if (this.props.chosenAppointments.length === 0 && this.props.isAppointmentInfoShowing) {
             return (
-                <div className={"no-appointments-div " + (this.props.chosenAppointments.length !== 0 ? 'hidden-1' : '')}>
+                <div 
+                    className={"no-appointments-div " + (this.props.chosenAppointments.length !== 0 && this.props.animation === true ? 'hidden-1 ' : '')
+                    + (this.props.animation ? 'fade-in-1' : 'fade-in-2')}
+                >
                     <button className="desktop-hide" onClick={() => this.props.dispatch(toggleAppointmentInfo(false))}>
                         <span className="fas fa-times 2x a"></span>
                     </button>
@@ -135,7 +155,7 @@ export class AppointmentsShow extends React.Component {
                     <button className="desktop-hide" onClick={() => this.props.dispatch(toggleAppointmentInfo(false))}>
                         <span className="fas fa-times 2x a"></span>
                     </button>
-                    <section className="appointments-show-section">
+                    <section className={"appointments-show-section " + (this.props.animation ? 'fade-in-1' : 'fade-in-2')}>
                         <ul className={"appointments-show-list " + (this.props.chosenAppointments.length !== 0 ? '' : 'hidden-1')}>
                             {list}
                         </ul>
@@ -163,7 +183,8 @@ const mapStateToProps = state => {
         selectedAppointmentToEdit: state.app.selectedAppointmentToEdit,
         loadedAppointmentFormData: state.app.loadedAppointmentFormData,
         isMessageShowing: state.app.isMessageShowing,
-        deletedAppointment: state.app.deletedAppointment
+        deletedAppointment: state.app.deletedAppointment,
+        animation: state.app.animation
     }
 };
 

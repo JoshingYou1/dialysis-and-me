@@ -3,7 +3,7 @@ import {Field, reduxForm, SubmissionError, focus, getFormValues} from 'redux-for
 import InputTwo from './inputTwo';
 import InputHidden from './inputHidden';
 import {API_BASE_URL} from '../config';
-import {required, nonEmpty, isTrimmed} from '../validators';
+import {required, nonEmpty, isTrimmed, phoneNumber, faxNumber, stateAbbrv, zipCode} from '../validators';
 import { connect } from 'react-redux';
 import { editSelectedDoctorById, successErrorMessage, fetchDoctors, updateCurrentDoctor, updateDoctorSuccess } from '../actions';
 import PropTypes from 'prop-types';
@@ -152,28 +152,28 @@ export class EditDoctorForm extends React.Component {
                             type="text"
                             component={InputTwo}
                             label="State"
-                            validate={[required, isTrimmed, nonEmpty]}
+                            validate={[required, isTrimmed, nonEmpty, stateAbbrv]}
                         />
                         <Field 
                             name="address.zipCode"
                             type="number"
                             component={InputTwo}
                             label="Zip Code"
-                            validate={required}
+                            validate={[required, zipCode]}
                         />
                         <Field 
                             name="phoneNumber"
                             type="text"
                             component={InputTwo}
                             label="Phone Number"
-                            validate={[required, isTrimmed, nonEmpty]}
+                            validate={[required, isTrimmed, nonEmpty, phoneNumber]}
                         />
                         <Field 
                             name="faxNumber"
                             type="text"
                             component={InputTwo}
                             label="Fax Number"
-                            validate={[required, isTrimmed, nonEmpty]}
+                            validate={[required, isTrimmed, nonEmpty, faxNumber]}
                         />
                         <Field 
                             name=""

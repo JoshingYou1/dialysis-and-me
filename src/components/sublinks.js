@@ -7,11 +7,10 @@ export class Sublinks extends React.Component {
     render() {
         const sublinks = this.props.sublinks.map((sl, i) => {
             return (
-                <li className="sublinks-list-item">
+                <li className="sublinks-list-item" key={i + this.props.parent}>
                     <Link 
                         className="sidebar-sublink" 
                         to={sl.link} 
-                        key={i + this.props.parent}
                         onClick={() => {this.props.dispatch(toggleSidebar()); this.props.dispatch(toggleSublinks())}}
                     >
                         {sl.display}

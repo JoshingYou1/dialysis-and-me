@@ -211,7 +211,8 @@ export const chooseEditDoctor = isEditDoctorFormShowing => ({
 export const FETCH_DOCTORS_SUCCESS = 'FETCH_DOCTORS_SUCCESS';
 export const fetchDoctorsSuccess = doctors => ({
     type: FETCH_DOCTORS_SUCCESS,
-    doctors
+    doctors,
+    isLoading: false
 });
 
 export const fetchDoctors = patientId => (dispatch, getState) => {
@@ -291,12 +292,6 @@ export const editSelectedDoctorById = selectedDoctorToEdit => ({
     selectedDoctorToEdit
 });
 
-export const DOCTOR_MENU_BY_DOCTOR_ID = 'DOCTOR_MENU_ID';
-export const doctorMenuByDoctorId = doctorMenu => ({
-    type: DOCTOR_MENU_BY_DOCTOR_ID,
-    doctorMenu
-});
-
 export const SUCCESS_ERROR_MESSAGE = 'SUCCESS_ERROR_MESSAGE';
 export const successErrorMessage = isMessageShowing => ({
     type: SUCCESS_ERROR_MESSAGE,
@@ -335,6 +330,18 @@ export const UPDATE_BASIC_PROFILE_INFO_SUCCESS = 'UPDATE_BASIC_PROFILE_INFO_SUCC
 export const updateBasicProfileInfoSuccess = updatedBasicProfileInfo => ({
     type: UPDATE_BASIC_PROFILE_INFO_SUCCESS,
     updatedBasicProfileInfo
+});
+
+export const LOADING = 'LOADING';
+export const loading = isLoading => ({
+    type: LOADING,
+    isLoading
+});
+
+export const TRIGGER_ANIMATION = 'TRIGGER_ANIMATION';
+export const triggerAnimation = animation => ({
+    type: TRIGGER_ANIMATION,
+    animation
 });
 
 

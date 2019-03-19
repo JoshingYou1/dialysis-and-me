@@ -2,7 +2,7 @@ import React from 'react';
 import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
 import InputTwo from './inputTwo';
 import {API_BASE_URL} from '../config';
-import {required, nonEmpty, isTrimmed, phoneNumber} from '../validators';
+import {required, nonEmpty, isTrimmed, phoneNumber, stateAbbrv, zipCode, ssn} from '../validators';
 import { connect } from 'react-redux';
 import { loadBasicProfileInfoFormData, chooseEditBasicProfileInfo, successErrorMessage, updateBasicProfileInfoSuccess } from '../actions';
 import InputHidden from './inputHidden';
@@ -109,7 +109,7 @@ export class EditBasicProfileInfoForm extends React.Component {
                         type="text"
                         component={InputTwo}
                         label="SSN"
-                        validate={[required, isTrimmed, nonEmpty]}
+                        validate={[required, isTrimmed, nonEmpty, ssn]}
                         placeholder="123456789"
                     />
                     <Field 
@@ -133,7 +133,7 @@ export class EditBasicProfileInfoForm extends React.Component {
                         type="text"
                         component={InputTwo}
                         label="State"
-                        validate={[required, isTrimmed, nonEmpty]}
+                        validate={[required, isTrimmed, nonEmpty, stateAbbrv]}
                         placeholder="FL"
                     />
                     <Field 
@@ -141,7 +141,7 @@ export class EditBasicProfileInfoForm extends React.Component {
                         type="number"
                         component={InputTwo}
                         label="Zip Code"
-                        validate={required}
+                        validate={[required, zipCode]}
                         placeholder="12345"
                     />
                     <Field 

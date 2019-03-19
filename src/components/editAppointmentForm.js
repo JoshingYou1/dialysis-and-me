@@ -2,9 +2,9 @@ import React from 'react';
 import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
 import InputThree from './inputThree';
 import {API_BASE_URL} from '../config';
-import {required, nonEmpty, isTrimmed, phoneNumber, date} from '../validators';
+import {required, nonEmpty, isTrimmed, phoneNumber, stateAbbrv, zipCode} from '../validators';
 import { connect } from 'react-redux';
-import { loadAppointmentFormData, updateAppointment, editSelectedAppointmentById, successErrorMessage } from '../actions';
+import { loadAppointmentFormData, updateAppointment, editSelectedAppointmentById, successErrorMessage, updateAppointmentSuccess } from '../actions';
 import DateTimePicker from 'react-widgets/lib/DateTimePicker';
 import moment from 'moment';
 import momentLocaliser from 'react-widgets-moment';
@@ -12,7 +12,7 @@ import 'react-widgets/dist/css/react-widgets.css';
 
 momentLocaliser(moment)
 
-const renderDateTimePicker = ({ input: { onChange, value }, showTime, meta: { error, warning } }) =>
+const renderDateTimePicker = ({ input: { onChange, value, onBlur }, showTime, meta: { error, warning } }) =>
     <div>
         <div className="form-error b">
             <span className={"fas fa-info-circle " + (error ? '' : 'hidden-1')}>&nbsp;</span>
@@ -30,6 +30,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, showTime, meta: { er
             value={!value ? null : new Date(value)}
             validate={required}
             placeholder="07/21/19"
+            onBlur={onBlur}
         />
     </div>
 
@@ -62,9 +63,9 @@ export class EditAppointmentForm extends React.Component {
                         message: res.statusText
                     });
                 }
-                return;
+                return res.json();
             })
-            .then(() => console.log('Submitted with values', values))
+            .then(a => this.props.dispatch(updateAppointmentSuccess(a)))
             .catch(err => {
                 const {reason, message, location} = err;
                 if (reason === 'ValidationError') {
@@ -139,7 +140,6 @@ export class EditAppointmentForm extends React.Component {
                                 validate={required}
                             />
                         </div>
-                        {/* <label className="appointment-form-label" htmlFor="reason"></label> */}
                         <Field 
                             name="description"
                             type="text"
@@ -148,7 +148,6 @@ export class EditAppointmentForm extends React.Component {
                             validate={[required, isTrimmed, nonEmpty]}
                             placeholder="Annual physical"
                         />
-                        {/* <label className="appointment-form-label" htmlFor="time"></label> */}
                         <Field 
                             name="time"
                             type="text"
@@ -157,7 +156,6 @@ export class EditAppointmentForm extends React.Component {
                             validate={[required, isTrimmed, nonEmpty]}
                             placeholder="10:15 a.m."
                         />
-                        {/* <label className="appointment-form-label" htmlFor="with"></label> */}
                         <Field 
                             name="with"
                             type="text"
@@ -166,7 +164,6 @@ export class EditAppointmentForm extends React.Component {
                             validate={[required, isTrimmed, nonEmpty]}
                             placeholder="John Doe"
                         />
-                        {/* <label className="appointment-form-label" htmlFor="title"></label> */}
                         <Field 
                             name="title"
                             type="text"
@@ -175,7 +172,6 @@ export class EditAppointmentForm extends React.Component {
                             validate={[required, isTrimmed, nonEmpty]}
                             placeholder="MD"
                         />
-                        {/* <label className="appointment-form-label" htmlFor="where"></label> */}
                         <Field 
                             name="where"
                             type="text"
@@ -184,7 +180,6 @@ export class EditAppointmentForm extends React.Component {
                             validate={[required, isTrimmed, nonEmpty]}
                             placeholder="Mayo Clinic"
                         />
-                        {/* <label className="appointment-form-label" htmlFor="address.street"></label> */}
                         <Field 
                             name="address.street"
                             type="text"
@@ -193,7 +188,6 @@ export class EditAppointmentForm extends React.Component {
                             validate={[required, isTrimmed, nonEmpty]}
                             placeholder="123 International Drive"
                         />
-                        {/* <label className="appointment-form-label" htmlFor="address.city"></label> */}
                         <Field 
                             name="address.city"
                             type="text"
@@ -202,25 +196,22 @@ export class EditAppointmentForm extends React.Component {
                             validate={[required, isTrimmed, nonEmpty]}
                             placeholder="Jacksonville"
                         />
-                        {/* <label className="appointment-form-label" htmlFor="address.state"></label> */}
                         <Field 
                             name="address.state"
                             type="text"
                             component={InputThree}
                             label="State"
-                            validate={[required, isTrimmed, nonEmpty]}
+                            validate={[required, isTrimmed, nonEmpty, stateAbbrv]}
                             placeholder="FL"
                         />
-                        {/* <label className="appointment-form-label" htmlFor="address.zipCode"></label> */}
                         <Field 
                             name="address.zipCode"
                             type="number"
                             component={InputThree}
                             label="Zip Code"
-                            validate={required}
+                            validate={[required, zipCode]}
                             placeholder="32204"
                         />
-                        {/* <label className="appointment-form-label" htmlFor="phoneNumber"></label> */}
                         <Field 
                             name="phoneNumber"
                             type="text"
