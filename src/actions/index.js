@@ -19,7 +19,7 @@ export const fetchLabResultsSuccess = labResults => ({
 });
 
 export const fetchLabResults = patientId => (dispatch, getState) => {
-    fetch(`${API_BASE_URL}/api/patients/${patientId}/lab-results`,
+    return fetch(`${API_BASE_URL}/api/patients/${patientId}/lab-results`,
     {
         method: 'GET',
         headers: {
@@ -44,7 +44,7 @@ export const fetchProfileInfoSuccess = profile => ({
 });
 
 export const fetchProfileInfo = patientId => (dispatch, getState) => {
-    fetch(`${API_BASE_URL}/api/patients/${patientId}`,
+    return fetch(`${API_BASE_URL}/api/patients/${patientId}`,
     {
         method: 'GET',
         headers: {
@@ -100,7 +100,7 @@ export const fetchAppointmentsSuccess = appointments => ({
 });
 
 export const fetchAppointments = patientId => (dispatch, getState) => {
-    fetch(`${API_BASE_URL}/api/patients/${patientId}/appointments`,
+    return fetch(`${API_BASE_URL}/api/patients/${patientId}/appointments`,
     {
         method: 'GET',
         headers: {
@@ -126,7 +126,7 @@ export const deleteAppointmentSuccess = deletedAppointment => ({
 });
 
 export const deleteAppointment = (patientId, appointmentId) => (dispatch, getState) => {
-    fetch(`${API_BASE_URL}/api/patients/${patientId}/appointments/${appointmentId}`,
+    return fetch(`${API_BASE_URL}/api/patients/${patientId}/appointments/${appointmentId}`,
     {
         method: 'DELETE',
         headers: {
@@ -216,7 +216,7 @@ export const fetchDoctorsSuccess = doctors => ({
 });
 
 export const fetchDoctors = patientId => (dispatch, getState) => {
-    fetch(`${API_BASE_URL}/api/patients/${patientId}/doctors`,
+    return fetch(`${API_BASE_URL}/api/patients/${patientId}/doctors`,
     {
         method: 'GET',
         headers: {
@@ -241,7 +241,7 @@ export const deleteDoctorSuccess = deletedDoctor => ({
 });
 
 export const deleteDoctor = (patientId, doctorId) => (dispatch, getState) => {
-    fetch(`${API_BASE_URL}/api/patients/${patientId}/doctors/${doctorId}`,
+    return fetch(`${API_BASE_URL}/api/patients/${patientId}/doctors/${doctorId}`,
     {
         method: 'DELETE',
         headers: {

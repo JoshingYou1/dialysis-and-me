@@ -75,12 +75,27 @@ import {
     loading
 } from './index';
 import {API_BASE_URL} from '../config';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+
+const create = () => {
+    const store = {
+        getState: jest.fn(() => ({})),
+        dispatch: jest.fn()
+    };
+    const next = jest.fn();
+    const invoke = (action => thunk(store)(next)(action));
+    return {store, next, invoke};
+};
 
 describe('selectLabResultsById', () => {
     it('Should return the action', () => {
         const labResults = [
             {
-                _id: new mongoose.Types.ObjectId(),
+                _id: '8s403j758164392856438296',
                 hematology: {
                     wbcCount: 5.41,
                     hemoglobin: 10.2,
@@ -93,7 +108,7 @@ describe('selectLabResultsById', () => {
                 }
             },
             {
-                _id: new mongoose.Types.ObjectId(),
+                _id: '8s403j748164392856438296',
                 hematology: {
                     wbcCount: 5.32,
                     hemoglobin: 10.5,
@@ -126,7 +141,7 @@ describe('fetchLabResultsSuccess', () => {
     it('Should return the action', () => {
         const labResults = [
             {
-                _id: new mongoose.Types.ObjectId(),
+                _id: '8s403j758164392856439196',
                 hematology: {
                     wbcCount: 5.41,
                     hemoglobin: 10.2,
@@ -139,7 +154,7 @@ describe('fetchLabResultsSuccess', () => {
                 }
             },
             {
-                _id: new mongoose.Types.ObjectId(),
+                _id: '8s403j538164392856438296',
                 hematology: {
                     wbcCount: 5.32,
                     hemoglobin: 10.5,
@@ -160,10 +175,14 @@ describe('fetchLabResultsSuccess', () => {
 });
 
 describe('fetchLabResults', () => {
+    // let store;
+    // beforeEach(() => {
+    //     store = mockStore({auth: {authToken: 'test'}});
+    //   });
     it('Should dispatch fetchLabResultsSuccess', () => {
         const labResults = [
             {
-                _id: new mongoose.Types.ObjectId(),
+                _id: '8s013j758164392856438296',
                 hematology: {
                     wbcCount: 5.46,
                     hemoglobin: 10.7,
@@ -176,7 +195,7 @@ describe('fetchLabResults', () => {
                 }
             },
             {
-                _id: new mongoose.Types.ObjectId(),
+                _id: '2k750285f748392088143865',
                 hematology: {
                     wbcCount: 5.33,
                     hemoglobin: 10.7,
@@ -199,10 +218,9 @@ describe('fetchLabResults', () => {
             })
         );
 
-        const dispatch = jest.fn();
-        return fetchLabResults()(dispatch).then(() => {
-            expect(fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/patients/${patientId}/lab-results`);
-            expect(dispatch).toHaveBeenCalledWith(fetchLabResultsSuccess(labResults));
+        const store = mockStore({auth: {authToken: 'test'}});
+        return store.dispatch(fetchLabResults(1)).then(() => {
+            expect(fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/patients/1/lab-results`);
         });
     });
 });
@@ -211,27 +229,27 @@ describe('fetchProfileInfoSuccess', () => {
     it('Should return the action', () => {
         const profile = {
             address: {
-                street: "456 International Drive",
-                city: "Jacksonville",
-                state: "FL",
+                street: '456 International Drive',
+                city: 'Jacksonville',
+                state: 'FL',
                 zipCode: 39199
             },
             appointments: [],
             doctors: [],
-            dateOfBirth: "1965-05-12T04:00:00.000Z",
+            dateOfBirth: '1965-05-12T04:00:00.000Z',
             name: {
-                firstName: "Jason",
-                lastName: "Merriman"
+                firstName: 'Jason',
+                lastName: 'Merriman'
             },
             phoneNumbers: {
-                home: "904-223-5455",
-                cell: "904-423-8573",
+                home: '904-223-5455',
+                cell: '904-423-8573',
                 work: null
             },
-            sex: "Male",
-            socialSecurityNumber: "987654321",
-            treatmentDays: "Tue/Thu/Sat",
-            treatmentTime: "11:30 a.m."
+            sex: 'Male',
+            socialSecurityNumber: '987654321',
+            treatmentDays: 'Tue/Thu/Sat',
+            treatmentTime: '11:30 a.m.'
         };
         const action = fetchProfileInfoSuccess(profile);
         expect(action.type).toEqual(FETCH_PROFILE_INFO_SUCCESS);
@@ -243,27 +261,27 @@ describe('fetchProfileInfo', () => {
     it('Should dispatch fetchProfileInfoSuccess', () => {
         const profile = {
             address: {
-                street: "456 International Drive",
-                city: "Jacksonville",
-                state: "FL",
+                street: '456 International Drive',
+                city: 'Jacksonville',
+                state: 'FL',
                 zipCode: 39199
             },
             appointments: [],
             doctors: [],
-            dateOfBirth: "1965-05-12T04:00:00.000Z",
+            dateOfBirth: '1965-05-12T04:00:00.000Z',
             name: {
-                firstName: "Jason",
-                lastName: "Merriman"
+                firstName: 'Jason',
+                lastName: 'Merriman'
             },
             phoneNumbers: {
-                home: "904-223-5455",
-                cell: "904-423-8573",
+                home: '904-223-5455',
+                cell: '904-423-8573',
                 work: null
             },
-            sex: "Male",
-            socialSecurityNumber: "987654321",
-            treatmentDays: "Tue/Thu/Sat",
-            treatmentTime: "11:30 a.m."
+            sex: 'Male',
+            socialSecurityNumber: '987654321',
+            treatmentDays: 'Tue/Thu/Sat',
+            treatmentTime: '11:30 a.m.'
         };
 
         global.fetch = jest.fn().mockImplementation(() =>
@@ -293,9 +311,9 @@ describe('loadBasicProfileInfoFormData', () => {
             sex: 'Male',
             socialSecurityNumber: '324532124',
             phoneNumbers: {
-                cell: "904-123-4928",
-                home: "904-858-3232",
-                work: "904-543-2341"
+                cell: '904-123-4928',
+                home: '904-858-3232',
+                work: '904-543-2341'
             }
         };
 
@@ -350,37 +368,37 @@ describe('fetchAppointmentsSuccess', () => {
         const appointments = [
             {
                 address: {
-                    street: "67 West Lakeside Dr",
-                    city: "Jacksonville",
-                    state: "FL",
+                    street: '67 West Lakeside Dr',
+                    city: 'Jacksonville',
+                    state: 'FL',
                     zipCode: 35840
                 },
-                date: "2019-01-023T05:00:00.000Z",
-                description: "Access evaluation",
-                patient: "753848fhru57db47gh443828",
-                phoneNumber: "904-943-2942",
-                time: "2:15 p.m.",
-                title: "MD",
-                where: "Vascular Access Center",
-                with: "Madison Akihiko",
-                _id: "8f85769f7465928374593018",
+                date: '2019-01-023T05:00:00.000Z',
+                description: 'Access evaluation',
+                patient: '753848fhru57db47gh443828',
+                phoneNumber: '904-943-2942',
+                time: '2:15 p.m.',
+                title: 'MD',
+                where: 'Vascular Access Center',
+                with: 'Madison Akihiko',
+                _id: '8f85769f7465928374593018',
             },
             {
                 address: {
-                    street: "94 Park Street",
-                    city: "Jacksonville",
-                    state: "FL",
+                    street: '94 Park Street',
+                    city: 'Jacksonville',
+                    state: 'FL',
                     zipCode: 35832
                 },
-                date: "2019-05-018T05:00:00.000Z",
-                description: "Yearly physical",
-                patient: "753848fhru57db47gh443828",
-                phoneNumber: "904-932-8374",
-                time: "10:15 a.m.",
-                title: "MD",
-                where: "St. Vincent's Medical Center",
-                with: "Mark Cuban",
-                _id: "8f85769f7465928374593987",
+                date: '2019-05-018T05:00:00.000Z',
+                description: 'Yearly physical',
+                patient: '753848fhru57db47gh443828',
+                phoneNumber: '904-932-8374',
+                time: '10:15 a.m.',
+                title: 'MD',
+                where: 'St. Vincent\'s Medical Center',
+                with: 'Mark Cuban',
+                _id: '8f85769f7465928374593987',
             }
         ];
 
@@ -395,37 +413,37 @@ describe('fetchAppointments', () => {
         const appointments = [
             {
                 address: {
-                    street: "67 West Lakeside Dr",
-                    city: "Jacksonville",
-                    state: "FL",
+                    street: '67 West Lakeside Dr',
+                    city: 'Jacksonville',
+                    state: 'FL',
                     zipCode: 35840
                 },
-                date: "2019-01-023T05:00:00.000Z",
-                description: "Access evaluation",
-                patient: "753848fhru57db47gh443828",
-                phoneNumber: "904-943-2942",
-                time: "2:15 p.m.",
-                title: "MD",
-                where: "Vascular Access Center",
-                with: "Madison Akihiko",
-                _id: "8f85769f7465928374593018",
+                date: '2019-01-023T05:00:00.000Z',
+                description: 'Access evaluation',
+                patient: '753848fhru57db47gh443828',
+                phoneNumber: '904-943-2942',
+                time: '2:15 p.m.',
+                title: 'MD',
+                where: 'Vascular Access Center',
+                with: 'Madison Akihiko',
+                _id: '8f85769f7465928374593018',
             },
             {
                 address: {
-                    street: "94 Park Street",
-                    city: "Jacksonville",
-                    state: "FL",
+                    street: '94 Park Street',
+                    city: 'Jacksonville',
+                    state: 'FL',
                     zipCode: 35832
                 },
-                date: "2019-05-018T05:00:00.000Z",
-                description: "Yearly physical",
-                patient: "753848fhru57db47gh443828",
-                phoneNumber: "904-932-8374",
-                time: "10:15 a.m.",
-                title: "MD",
-                where: "St. Vincent's Medical Center",
-                with: "Mark Cuban",
-                _id: "8f85769f7465928374593987",
+                date: '2019-05-018T05:00:00.000Z',
+                description: 'Yearly physical',
+                patient: '753848fhru57db47gh443828',
+                phoneNumber: '904-932-8374',
+                time: '10:15 a.m.',
+                title: 'MD',
+                where: 'St. Vincent\'s Medical Center',
+                with: 'Mark Cuban',
+                _id: '8f85769f7465928374593987',
             }
         ];
 
@@ -449,8 +467,8 @@ describe('fetchAppointments', () => {
 describe('deleteAppointmentSuccess', () => {
     it('Should return the action', () => {
         const deletedAppointment = {
-            successMessage: "Appointment successfully deleted!",
-            _id: "8g75648f6374850182649775"
+            successMessage: 'Appointment successfully deleted!',
+            _id: '8g75648f6374850182649775'
         };
 
         const action = deleteAppointmentSuccess(deletedAppointment);
@@ -462,8 +480,8 @@ describe('deleteAppointmentSuccess', () => {
 describe('deleteAppointment', () => {
     it('Should dispatch deleteAppointmentSuccess', () => {
         const deletedAppointment = {
-            successMessage: "Appointment successfully deleted!",
-            _id: "8g75648f6374850182649775"
+            successMessage: 'Appointment successfully deleted!',
+            _id: '8g75648f6374850182649775'
         };
 
         global.fetch = jest.fn().mockImplementation(() =>
@@ -598,40 +616,40 @@ describe('fetchDoctorsSuccess', () => {
     it('Should return the action', () => {
         const doctors = [
             {
-                _id: new mongoose.Types.ObjectId(),
+                _id: '2k750285f928392088143865',
                 address: {
-                    street: "193 South Lady Mary Drive",
-                    city: "Jacksonville",
-                    state: "FL",
+                    street: '193 South Lady Mary Drive',
+                    city: 'Jacksonville',
+                    state: 'FL',
                     zipCode: 39321
                 },
-                company: "Mayo Clinic",
-                faxNumber: "904-948-8211",
+                company: 'Mayo Clinic',
+                faxNumber: '904-948-8211',
                 name: {
-                    firstName: "Barbara",
-                    lastName: "Winters"
+                    firstName: 'Barbara',
+                    lastName: 'Winters'
                 },
                 patients: [],
-                phoneNumber: "904-948-9010",
-                practice: "Hematology",
+                phoneNumber: '904-948-9010',
+                practice: 'Hematology',
             },
             {
-                _id: new mongoose.Types.ObjectId(),
+                _id: '2k750285f748392088149165',
                 address: {
-                    street: "21 East Bay Street",
-                    city: "Jacksonville",
-                    state: "FL",
+                    street: '21 East Bay Street',
+                    city: 'Jacksonville',
+                    state: 'FL',
                     zipCode: 39012
                 },
-                company: "Mayo Clinic",
-                faxNumber: "904-948-8211",
+                company: 'Mayo Clinic',
+                faxNumber: '904-948-8211',
                 name: {
-                    firstName: "Barbara",
-                    lastName: "Winters"
+                    firstName: 'Barbara',
+                    lastName: 'Winters'
                 },
                 patients: [],
-                phoneNumber: "904-948-9010",
-                practice: "Hematology",
+                phoneNumber: '904-948-9010',
+                practice: 'Hematology',
             }
         ];
 
@@ -810,12 +828,35 @@ describe('toggleAppointmentList', () => {
 
 describe('updateBasicProfileInfoSuccess', () => {
     it('Should return the action', () => {
-        const profile = action.updatedBasicProfileInfo;
+        const updatedBasicProfileInfo = {
+            address: {
+                street: '91 Colonial Drive',
+                city: 'Orange Park',
+                state: 'FL',
+                zipCode: 39281
+            },
+            appointments: [],
+            doctors: [],
+            dateOfBirth: '1965-05-12T04:00:00.000Z',
+            name: {
+                firstName: 'Jason',
+                lastName: 'Merriman'
+            },
+            phoneNumbers: {
+                home: '904-223-5455',
+                cell: '904-423-8573',
+                work: null
+            },
+            sex: 'Male',
+            socialSecurityNumber: '987654321',
+            treatmentDays: 'Tue/Thu/Sat',
+            treatmentTime: '11:30 a.m.'
+        };
 
         const action = updateBasicProfileInfoSuccess(updatedBasicProfileInfo);
 
         expect(action.type).toEqual(UPDATE_BASIC_PROFILE_INFO_SUCCESS);
-        expect(action.profile).toEqual(profile);
+        expect(action.updatedBasicProfileInfo).toEqual(updatedBasicProfileInfo);
     });
 });
 
