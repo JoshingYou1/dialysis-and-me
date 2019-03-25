@@ -158,7 +158,7 @@ export class Profile extends React.Component {
                                 onClick={() => this.props.dispatch(selectProfileInfoSection(cards[this.props.section].previous))}
                             >
                                 <p className="fas fa-long-arrow-alt-left mobile-hide"></p>
-                                <p class="fas fa-arrow-alt-circle-left desktop-hide-2"></p>
+                                <p className="fas fa-arrow-alt-circle-left desktop-hide-2"></p>
                                 <p className="display-profile-section-button-p mobile-hide">
                                     {cards[this.props.section].previous === null ? '' : cards[this.props.section - 1].name}
                                 </p>
@@ -168,7 +168,7 @@ export class Profile extends React.Component {
                                 onClick={() => this.props.dispatch(selectProfileInfoSection(cards[this.props.section].next))}
                             >
                                 <p className="fas fa-long-arrow-alt-right mobile-hide"></p>
-                                <p class="fas fa-arrow-alt-circle-right desktop-hide-2"></p>
+                                <p className="fas fa-arrow-alt-circle-right desktop-hide-2"></p>
                                 <p className="display-profile-section-button-p mobile-hide">
                                     {cards[this.props.section].next === null ? '' : cards[this.props.section + 1].name}
                                 </p>

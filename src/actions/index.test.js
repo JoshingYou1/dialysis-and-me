@@ -183,6 +183,7 @@ describe('fetchLabResults', () => {
         const labResults = [
             {
                 _id: '8s013j758164392856438296',
+                patient: '9g8391028366382819382810',
                 hematology: {
                     wbcCount: 5.46,
                     hemoglobin: 10.7,
@@ -196,6 +197,7 @@ describe('fetchLabResults', () => {
             },
             {
                 _id: '2k750285f748392088143865',
+                patient: '9g8391028366382819382810',
                 hematology: {
                     wbcCount: 5.33,
                     hemoglobin: 10.7,
@@ -513,7 +515,8 @@ describe('selectAppointmentsById', () => {
                 },
                 description: 'Annual check up',
                 with: 'Amare Stoudemire',
-                title: 'MD'
+                title: 'MD',
+                patient: '9g8391028366382819382810'
             },
             {
                 address: {
@@ -524,7 +527,8 @@ describe('selectAppointmentsById', () => {
                 },
                 description: 'Shortness of breath',
                 with: 'Ashley Simpson',
-                title: 'MD'
+                title: 'MD',
+                patient: '9g8391028366382819382810'
             }
         ];
         const action = selectAppointmentsById(selectedAppointments);
@@ -576,6 +580,7 @@ describe('chooseEditAppointment', () => {
 describe('loadAppointmentFormData', () => {
     it('Should return the action', () => {
         const loadedAppointmentFormData = {
+            _id: '6d839271h46f893jd66f890v',
             address: {
                 street: '123 International Drive',
                 city: 'Jacksonville',
@@ -583,7 +588,8 @@ describe('loadAppointmentFormData', () => {
                 zipCode: 23212
             },
             description: 'Yearly exam',
-            time: '10:30 a.m.'
+            time: '10:30 a.m.',
+            patient: '9g8391028366382819382810'
         };
 
         const action = loadAppointmentFormData(loadedAppointmentFormData);
@@ -626,12 +632,12 @@ describe('fetchDoctorsSuccess', () => {
                 company: 'Mayo Clinic',
                 faxNumber: '904-948-8211',
                 name: {
-                    firstName: 'Barbara',
-                    lastName: 'Winters'
+                    firstName: 'Mark',
+                    lastName: 'Eaton'
                 },
-                patients: [],
+                patients: ['9g8391028366382819382810'],
                 phoneNumber: '904-948-9010',
-                practice: 'Hematology',
+                practice: 'Oncology'
             },
             {
                 _id: '2k750285f748392088149165',
@@ -647,9 +653,9 @@ describe('fetchDoctorsSuccess', () => {
                     firstName: 'Barbara',
                     lastName: 'Winters'
                 },
-                patients: [],
+                patients: ['9g8391028366382819382810'],
                 phoneNumber: '904-948-9010',
-                practice: 'Hematology',
+                practice: 'Hematology'
             }
         ];
 

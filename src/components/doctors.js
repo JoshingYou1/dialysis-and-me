@@ -151,7 +151,7 @@ export class Doctors extends React.Component {
                                 onClick={() => {this.props.dispatch(updateCurrentDoctor(cards[this.props.currentDoctor].previous)); this.animationHandler()}}
                             >
                                 <p className="fas fa-long-arrow-alt-left mobile-hide"></p>
-                                <p class="fas fa-arrow-alt-circle-left desktop-hide-2"></p>
+                                <p className="fas fa-arrow-alt-circle-left desktop-hide-2"></p>
                                 <p className="display-profile-section-button-p mobile-hide">
                                     {cards[this.props.currentDoctor].previous === null ? '' : cards[this.props.currentDoctor - 1].doctor.name.firstName +
                                     ' ' + cards[this.props.currentDoctor - 1].doctor.name.lastName}
@@ -162,7 +162,7 @@ export class Doctors extends React.Component {
                                 onClick={() => {this.props.dispatch(updateCurrentDoctor(cards[this.props.currentDoctor].next)); this.animationHandler()}}
                             >
                                 <p className="fas fa-long-arrow-alt-right mobile-hide"></p>
-                                <p class="fas fa-arrow-alt-circle-right desktop-hide-2"></p>
+                                <p className="fas fa-arrow-alt-circle-right desktop-hide-2"></p>
                                 <p className="display-profile-section-button-p mobile-hide">
                                     {cards[this.props.currentDoctor].next === null ? '' : cards[this.props.currentDoctor + 1].doctor.name.firstName +
                                     ' ' + cards[this.props.currentDoctor + 1].doctor.name.lastName}

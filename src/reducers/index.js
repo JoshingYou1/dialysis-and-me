@@ -56,6 +56,7 @@ const initialState = {
     isCreateDoctorFormShowing: false,
     isEditBasicProfileInfoFormShowing: false,
     selectedAppointmentToEdit: {},
+    selectedDoctorToEdit: {},
     loadedAppointmentFormData: {},
     isDoctorMenuShowing: false,
     loadedDoctorFormData: {},
@@ -65,7 +66,9 @@ const initialState = {
     areDoctorsShowing: true,
     deletedDoctor: null,
     isLoading: true,
-    animation: false
+    animation: false,
+    isEditAppointmentFormShowing: false,
+    isEditDoctorFormShowing: false
 };
 
 export const appReducer = (state=initialState, action) => {
