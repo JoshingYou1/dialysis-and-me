@@ -37,7 +37,26 @@ import {
     UPDATE_BASIC_PROFILE_INFO_SUCCESS,
     LOADING,
     TRIGGER_ANIMATION,
-    selectLabResultsById
+    selectLabResultsById,
+    toggleSidebar,
+    fetchLabResultsSuccess,
+    fetchProfileInfoSuccess,
+    toggleLabResultsInfo,
+    toggleUserInfo,
+    toggleSublinks,
+    selectProfileInfoSection,
+    fetchAppointmentsSuccess,
+    toggleAppointmentInfo,
+    selectAppointmentsById,
+    updateCurrentDoctor,
+    chooseCreateAppointment,
+    chooseEditAppointment,
+    createAppointmentSuccess,
+    loadAppointmentFormData,
+    updateAppointmentSuccess,
+    chooseCreateDoctor,
+    chooseEditDoctor,
+    createDoctorSuccess
 } from '../actions/index';
 
 describe('appReducer', () => {
@@ -117,10 +136,10 @@ describe('appReducer', () => {
         treatmentDays: 'Tue/Thu/Sat',
         treatmentTime: '11:30 a.m.'
     };
-    const isLabResultsInfoShowing = false;
-    const isUserInfoShowing = false;
-    const areSublinksShowing = false;
-    const section = 0;
+    const isLabResultsInfoShowing = true;
+    const isUserInfoShowing = true;
+    const areSublinksShowing = true;
+    const section = 1;
     const appointments = [
         {
             address: {
@@ -157,7 +176,7 @@ describe('appReducer', () => {
             _id: '8f85769f7465928374593987'
         }
     ];
-    const isAppointmentInfoShowing = false;
+    const isAppointmentInfoShowing = true;
     const selectedAppointments = [
         {
             address: {
@@ -194,32 +213,37 @@ describe('appReducer', () => {
             _id: '8f85769f7465928374593987'
         }
     ];
-    const currentDoctor = 0;
-    const isCreateAppointmentFormShowing = false;
-    const isEditAppointmentFormShowing = false;
+    const currentDoctor = 1;
+    const isCreateAppointmentFormShowing = true;
+    const isEditAppointmentFormShowing = true;
     const loadedAppointmentFormData = {
         _id: '6d839271h46f893jd66f890v',
-            address: {
-                street: '123 International Drive',
-                city: 'Jacksonville',
-                state: 'FL',
-                zipCode: 23212
-            },
-            description: 'Yearly exam',
-            time: '10:30 a.m.',
-            patient: '9g8391028366382819382810'
+        address: {
+            street: '123 International Drive',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 23212
+        },
+        description: 'Yearly exam',
+        time: '10:30 a.m.',
+        patient: '9g8391028366382819382810'
     };
     const createdAppointment = {
         _id: '92g647d8j937h6401l86f834',
-            address: {
-                street: '123 International Drive',
-                city: 'Jacksonville',
-                state: 'FL',
-                zipCode: 23212
-            },
-            description: 'Yearly exam',
-            time: '10:30 a.m.',
-            patient: '9g8391028366382819382810'
+        address: {
+            street: '123 International Drive',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 23212
+        },
+        description: 'Back pain',
+        time: '10:30 a.m.',
+        date: '2019-05-019T05:00:00.000Z',
+        patient: '5c9067ab7a373130a893ybec',
+        phoneNumber: '904-932-8374',
+        title: 'MD',
+        where: 'St. Vincent\'s Medical Center',
+        with: 'Mark Cuban'
     };
     const updatedAppointment = {
         _id: '6d839271h46f893jd66f890v',
@@ -233,8 +257,8 @@ describe('appReducer', () => {
         time: '8:30 a.m.',
         patient: '9g8391028366382819382810'
     };
-    const isCreateDoctorFormShowing = false;
-    const isEditDoctorFormShowing = false;
+    const isCreateDoctorFormShowing = true;
+    const isEditDoctorFormShowing = true;
     const createdDoctor = {
         _id: '2k750285f928392088143865',
         address: {
@@ -251,7 +275,7 @@ describe('appReducer', () => {
         },
         patients: ['9g8391028366382819382810'],
         phoneNumber: '904-948-9010',
-        practice: 'Hematology'
+        practice: 'Immunology'
     };
     const updatedDoctor = {
         _id: '2k750285f928392088143865',
@@ -271,7 +295,7 @@ describe('appReducer', () => {
         phoneNumber: '904-932-9193',
         practice: 'Hematology'
     };
-    const isEditBasicProfileInfoFormShowing = false;
+    const isEditBasicProfileInfoFormShowing = true;
     const deletedDoctor = {
         _id: '2k750285f928392088143865',
         address: {
@@ -364,25 +388,25 @@ describe('appReducer', () => {
             practice: 'Oncology'
         },
         {
-            _id: '2k750285f748392088149165',
+            _id: '2k750285f748392088149923',
             address: {
-                street: '21 East Bay Street',
+                street: '21 North Pine Road',
                 city: 'Jacksonville',
                 state: 'FL',
                 zipCode: 39012
             },
-            company: 'Mayo Clinic',
-            faxNumber: '904-948-8211',
+            company: 'Hematologists of Northeast Florida',
+            faxNumber: '904-032-2934',
             name: {
-                firstName: 'Barbara',
-                lastName: 'Winters'
+                firstName: 'Jessica',
+                lastName: 'Mendoza'
             },
             patients: ['9g8391028366382819382810'],
-            phoneNumber: '904-948-9010',
+            phoneNumber: '904-032-1929',
             practice: 'Hematology'
         }
     ];
-    const isMessageShowing = false;
+    const isMessageShowing = true;
     const loadedBasicProfileInfoFormData = {
         _id: '5c9067ab7a373130a893ybec',
         address: {
@@ -408,9 +432,9 @@ describe('appReducer', () => {
         treatmentDays: 'Tue/Thu/Sat',
         treatmentTime: '11:30 a.m.'
     };
-    const areAppointmentsShowing = false;
-    const isLoading = true;
-    const animation = false;
+    const areAppointmentsShowing = true;
+    const isLoading = false;
+    const animation = true;
 
     it('Should set the initial state when nothing is passed in', () => {
         const state = appReducer(undefined, {type: '__UNKNOWN'});
@@ -491,4 +515,746 @@ describe('appReducer', () => {
             });
         });
     });
+    describe('toggleSidebar', () => {
+        it('Should toggle the sidebar', () =>{
+            let state;
+            state = appReducer(state, toggleSidebar(isSidebarShowing));
+            expect(state).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: true,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                areDoctorsShowing: true,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            });
+        });
+    });
+    describe('fetchLabResultsSuccess', () => {
+        it('Should return the lab results that belong to the user', () => {
+            let state;
+            state = appReducer(state, fetchLabResultsSuccess(labResults));
+            expect(state).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: labResults,
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                areDoctorsShowing: true,
+                deletedDoctor: null,
+                isLoading: isLoading,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            });
+        });
+    });
+    describe('fetchProfileInfoSuccess', () => {
+        it('Should return the user\'s profile data', () => {
+            let state;
+            state = appReducer(state, fetchProfileInfoSuccess(profile));
+            expect(state).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: profile,
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                areDoctorsShowing: true,
+                deletedDoctor: null,
+                isLoading: isLoading,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            });
+        });
+    });
+    describe('toggleLabResultsInfo', () => {
+        it('Should toggle the user\'s lab results info', () => {
+            let state;
+            state = appReducer(state, toggleLabResultsInfo(isLabResultsInfoShowing));
+            expect(state).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: isLabResultsInfoShowing,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                areDoctorsShowing: true,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            });
+        });
+    });
+    describe('toggleUserInfo', () => {
+        it('Should toggle the user\'s information', () => {
+            let state;
+            state = appReducer(state, toggleUserInfo(isUserInfoShowing));
+            expect(state).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: isUserInfoShowing,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                areDoctorsShowing: true,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            });
+        });
+    });
+    describe('toggleSublinks', () => {
+        it('Should toggle the available sublinks within the sidebar', () => {
+            let state;
+            state = appReducer(state, toggleSublinks(areSublinksShowing));
+            expect(state).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: areSublinksShowing,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                areDoctorsShowing: true,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            });
+        });
+    });
+    describe('selectProfileInfoSection', () => {
+        it('Should reveal the selected section of the user\'s profile', () => {
+            let state;
+            state = appReducer(state, selectProfileInfoSection(section));
+            expect(state).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: section,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                areDoctorsShowing: true,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            });
+        });
+    });
+    describe('fetchAppointmentsSuccess', () => {
+        it('Should return the appointments that belong to the user', () => {
+            let state;
+            state = appReducer(state, fetchAppointmentsSuccess(appointments));
+            expect(state).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: appointments,
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                areDoctorsShowing: true,
+                deletedDoctor: null,
+                isLoading: isLoading,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            });
+        });
+    });
+    describe('toggleAppointmentInfo', () => {
+        it('Should toggle the info of a selected appointment', () =>{
+            let state;
+            state = appReducer(state, toggleAppointmentInfo(isAppointmentInfoShowing));
+            expect(state).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: isAppointmentInfoShowing,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                areDoctorsShowing: true,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            });
+        });
+    });
+    describe('selectAppointmentsById', () => {
+        it('Should return all of the user\'s appointments that match the selected month of the calendar year', () => {
+            let state;
+            state = appReducer(state, selectAppointmentsById(selectedAppointments));
+            expect(state).toEqual({
+                selectedAppointments: selectedAppointments,
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                areDoctorsShowing: true,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            });
+        });
+    });
+    describe('updateCurrentDoctor', () => {
+        it('Should change the doctor being shown to the user', () => {
+            let state;
+            state = appReducer(state, updateCurrentDoctor(currentDoctor));
+            expect(state).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: currentDoctor,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: isDoctorMenuShowing,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                areDoctorsShowing: true,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            });
+        });
+    });
+    describe('chooseCreateAppointment', () => {
+        it('Should show or hide the create appointment form', () => {
+            let state;
+            state = appReducer(state, chooseCreateAppointment(isCreateAppointmentFormShowing));
+            expect(state).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: isCreateAppointmentFormShowing,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                areDoctorsShowing: true,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            });
+        });
+    });
+    describe('chooseEditAppointment', () => {
+        it('Should show or hide the edit appointment form', () => {
+            let state;
+            state = appReducer(state, chooseEditAppointment(isEditAppointmentFormShowing));
+            expect(state).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                areDoctorsShowing: true,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: isEditAppointmentFormShowing,
+                isEditDoctorFormShowing: false
+            });
+        });
+    });
+    describe('loadAppointmentFormData', () => {
+        it('Should retrieve the data of a given appointment and place it in the edit appointment form', () => {
+            let state;
+            state = appReducer(state, loadAppointmentFormData(loadedAppointmentFormData));
+            expect(state).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: loadedAppointmentFormData,
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                areDoctorsShowing: true,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            });
+        });
+    });
+    // describe('createAppointmentSuccess', () => {
+    //     it('Should fire if a new appointment is created', () => {
+    //         let state = {
+    //             selectedAppointments: selectedAppointments,
+    //             appointments: appointments,
+    //         };
+    //         state = appReducer(state, createAppointmentSuccess(createdAppointment));
+    //         let newSelectedAppointments = [...appointments, createdAppointment];
+    //         newSelectedAppointments.sort((a, b) => {
+    //             return new Date(a.date) - new Date(b.date);
+    //         });
+    //         expect(state).toEqual({
+    //             selectedAppointments: newSelectedAppointments,
+    //             selectedLabResult: null,
+    //             isSidebarShowing: false,
+    //             labResults: [],
+    //             isLabResultsInfoShowing: false,
+    //             profile: [],
+    //             loadedBasicProfileInfoFormData: {},
+    //             isUserInfoShowing: false,
+    //             section: 0,
+    //             appointments: newSelectedAppointments,
+    //             isAppointmentInfoShowing: false,
+    //             areSublinksShowing: false,
+    //             currentDoctor: 0,
+    //             isCreateAppointmentFormShowing: false,
+    //             isCreateDoctorFormShowing: false,
+    //             isEditBasicProfileInfoFormShowing: false,
+    //             selectedAppointmentToEdit: {},
+    //             selectedDoctorToEdit: {},
+    //             loadedAppointmentFormData: {},
+    //             isDoctorMenuShowing: false,
+    //             loadedDoctorFormData: {},
+    //             doctors: [],
+    //             areAppointmentsShowing: false,
+    //             deletedAppointment: null,
+    //             areDoctorsShowing: true,
+    //             deletedDoctor: null,
+    //             isLoading: true,
+    //             animation: false,
+    //             isEditAppointmentFormShowing: false,
+    //             isEditDoctorFormShowing: false
+    //         });
+    //     });
+    // });
+    // describe('updateAppointmentSuccess', () => {
+    //     it('Should fire if an existing appointment\'s data has been updated', () => {
+    //         let state = {
+    //             appointments: appointments,
+    //             selectedAppointments: selectedAppointments,
+    //             selectedAppointmentToEdit: selectedAppointmentToEdit
+    //         };
+    //         state = appReducer(state, updateAppointmentSuccess(updatedAppointment));
+    //         let selectedUpdatedAppointments = [...appointments, updatedAppointment];
+    //         expect(state).toEqual({
+    //             selectedAppointments: selectedUpdatedAppointments,
+    //             selectedLabResult: null,
+    //             isSidebarShowing: false,
+    //             labResults: [],
+    //             isLabResultsInfoShowing: false,
+    //             profile: [],
+    //             loadedBasicProfileInfoFormData: {},
+    //             isUserInfoShowing: false,
+    //             section: 0,
+    //             appointments: selectedUpdatedAppointments,
+    //             isAppointmentInfoShowing: false,
+    //             areSublinksShowing: false,
+    //             currentDoctor: 0,
+    //             isCreateAppointmentFormShowing: false,
+    //             isCreateDoctorFormShowing: false,
+    //             isEditBasicProfileInfoFormShowing: false,
+    //             selectedAppointmentToEdit: {},
+    //             selectedDoctorToEdit: {},
+    //             loadedAppointmentFormData: {},
+    //             isDoctorMenuShowing: false,
+    //             loadedDoctorFormData: {},
+    //             doctors: [],
+    //             areAppointmentsShowing: false,
+    //             deletedAppointment: null,
+    //             areDoctorsShowing: true,
+    //             deletedDoctor: null,
+    //             isLoading: true,
+    //             animation: false,
+    //             isEditAppointmentFormShowing: false,
+    //             isEditDoctorFormShowing: false
+    //         });
+    //     });
+    // });
+    describe('chooseCreateDoctor', () => {
+        it('Should show or hide the create doctor form', () => {
+            let state;
+            state = appReducer(state, chooseCreateDoctor(isCreateDoctorFormShowing));
+            expect(state).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: isCreateDoctorFormShowing,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                areDoctorsShowing: true,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            });
+        });
+    });
+    describe('chooseEditDoctor', () => {
+        it('Should show or hide the edit doctor form', () => {
+            let state;
+            state = appReducer(state, chooseEditDoctor(isEditDoctorFormShowing));
+            expect(state).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                areDoctorsShowing: true,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: isEditDoctorFormShowing
+            });
+        });
+    });
+    // describe('createDoctorSuccess', () => {
+    //     it('Should fire if a new doctor is created', () => {
+    //         let state = {
+    //             doctors: doctors
+    //         };
+    //         state = appReducer(state, createDoctorSuccess(createdDoctor));
+    //         let newDoctors = [...doctors, createdDoctor];
+    //         newDoctors.sort((a, b) => {
+    //             if(a.name.lastName < b.name.lastName) { return -1; }
+    //             if(a.name.lastName > b.name.lastName) { return 1; }
+    //             return 0;
+    //         });
+    //         expect(state).toEqual({
+    //             selectedAppointments: [],
+    //             selectedLabResult: null,
+    //             isSidebarShowing: false,
+    //             labResults: [],
+    //             isLabResultsInfoShowing: false,
+    //             profile: [],
+    //             loadedBasicProfileInfoFormData: {},
+    //             isUserInfoShowing: false,
+    //             section: 0,
+    //             appointments: [],
+    //             isAppointmentInfoShowing: false,
+    //             areSublinksShowing: false,
+    //             currentDoctor: 0,
+    //             isCreateAppointmentFormShowing: false,
+    //             isCreateDoctorFormShowing: false,
+    //             isEditBasicProfileInfoFormShowing: false,
+    //             selectedAppointmentToEdit: {},
+    //             selectedDoctorToEdit: {},
+    //             loadedAppointmentFormData: {},
+    //             isDoctorMenuShowing: false,
+    //             loadedDoctorFormData: {},
+    //             doctors: newDoctors,
+    //             areAppointmentsShowing: false,
+    //             deletedAppointment: null,
+    //             areDoctorsShowing: true,
+    //             deletedDoctor: null,
+    //             isLoading: true,
+    //             animation: false,
+    //             isEditAppointmentFormShowing: false,
+    //             isEditDoctorFormShowing: false
+    //         });
+    //     });
+    // });
 });
