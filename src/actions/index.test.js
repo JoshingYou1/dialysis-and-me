@@ -175,10 +175,7 @@ describe('fetchLabResultsSuccess', () => {
 });
 
 describe('fetchLabResults', () => {
-    // let store;
-    // beforeEach(() => {
-    //     store = mockStore({auth: {authToken: 'test'}});
-    //   });
+    
     it('Should dispatch fetchLabResultsSuccess', () => {
         const labResults = [
             {
@@ -222,7 +219,7 @@ describe('fetchLabResults', () => {
 
         const store = mockStore({auth: {authToken: 'test'}});
         return store.dispatch(fetchLabResults(1)).then(() => {
-            expect(fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/patients/1/lab-results`);
+            expect(fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/patients/1/lab-results`, {"headers": {"authorization": "Bearer test"}, "method": "GET"});
         });
     });
 });
@@ -295,10 +292,9 @@ describe('fetchProfileInfo', () => {
             })
         );
 
-        const dispatch = jest.fn();
-        return fetchProfileInfo()(dispatch).then(() => {
-            expect(fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/patients/${patientId}`);
-            expect(dispatch).toHaveBeenCalledWith(fetchProfileInfoSuccess(profile));
+        const store = mockStore({auth: {authToken: 'test'}});
+        return store.dispatch(fetchProfileInfo(1)).then(() => {
+            expect(fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/patients/1`, {"headers": {"authorization": "Bearer test"}, "method": "GET"});
         });
     });
 });
@@ -458,10 +454,9 @@ describe('fetchAppointments', () => {
             })
         );
 
-        const dispatch = jest.fn();
-        return fetchAppointments()(dispatch).then(() => {
-            expect(fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/patients/${patientId}/appointments`);
-            expect(dispatch).toHaveBeenCalledWith(fetchAppointmentsSuccess(appointments));
+        const store = mockStore({auth: {authToken: 'test'}});
+        return store.dispatch(fetchAppointments(1)).then(() => {
+            expect(fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/patients/1/appointments`, {"headers": {"authorization": "Bearer test"}, "method": "GET"});
         });
     });
 });
@@ -495,10 +490,9 @@ describe('deleteAppointment', () => {
             })
         );
 
-        const dispatch = jest.fn();
-        return deleteAppointment()(dispatch).then(() => {
-            expect(fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/patients/${patientId}/appointments/${appointmentId}`);
-            expect(dispatch).toHaveBeenCalledWith(deleteAppointmentSuccess(deletedAppointment));
+        const store = mockStore({auth: {authToken: 'test'}});
+        return store.dispatch(deleteAppointment(1, 1)).then(() => {
+            expect(fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/patients/1/appointments/1`, {"headers": {"authorization": "Bearer test"}, "method": "DELETE"});
         });
     });
 });
@@ -678,10 +672,9 @@ describe('fetchDoctors', () => {
             })
         );
 
-        const dispatch = jest.fn();
-        return fetchDoctors()(dispatch).then(() => {
-            expect(fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/patients/${patientId}/doctors`);
-            expect(dispatch).toHaveBeenCalledWith(fetchDoctorsSuccess(doctors));
+        const store = mockStore({auth: {authToken: 'test'}});
+        return store.dispatch(fetchDoctors(1)).then(() => {
+            expect(fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/patients/1/doctors`, {"headers": {"authorization": "Bearer test"}, "method": "GET"});
         });
     });
 });
@@ -709,10 +702,9 @@ describe('deleteDoctor', () => {
             })
         );
 
-        const dispatch = jest.fn();
-        return deleteDoctor()(dispatch).then(() => {
-            expect(fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/patients/${patientId}/doctors/${doctorId}`);
-            expect(dispatch).toHaveBeenCalledWith(deleteDoctorSuccess(deletedDoctor));
+        const store = mockStore({auth: {authToken: 'test'}});
+        return store.dispatch(deleteDoctor(1, 1)).then(() => {
+            expect(fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/patients/1/doctors/1`, {"headers": {"authorization": "Bearer test"}, "method": "DELETE"});
         });
     });
 });

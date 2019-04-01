@@ -63,7 +63,6 @@ const initialState = {
     doctors: [],
     areAppointmentsShowing: false,
     deletedAppointment: null,
-    areDoctorsShowing: true,
     deletedDoctor: null,
     isLoading: true,
     animation: false,
