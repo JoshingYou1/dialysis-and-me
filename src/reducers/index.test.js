@@ -69,38 +69,6 @@ import {
     toggleDoctorList
 } from '../actions/index';
 
-const initialState = {
-    selectedAppointments: [],
-    selectedLabResult: null,
-    isSidebarShowing: false,
-    labResults: [],
-    isLabResultsInfoShowing: false,
-    profile: [],
-    loadedBasicProfileInfoFormData: {},
-    isUserInfoShowing: false,
-    section: 0,
-    appointments: [],
-    isAppointmentInfoShowing: false,
-    areSublinksShowing: false,
-    currentDoctor: 0,
-    isCreateAppointmentFormShowing: false,
-    isCreateDoctorFormShowing: false,
-    isEditBasicProfileInfoFormShowing: false,
-    selectedAppointmentToEdit: {},
-    selectedDoctorToEdit: {},
-    loadedAppointmentFormData: {},
-    isDoctorMenuShowing: false,
-    loadedDoctorFormData: {},
-    doctors: [],
-    areAppointmentsShowing: false,
-    deletedAppointment: null,
-    deletedDoctor: null,
-    isLoading: true,
-    animation: false,
-    isEditAppointmentFormShowing: false,
-    isEditDoctorFormShowing: false
-}
-
 describe('appReducer', () => {
     const selectedLabResult = {
         _id: '5c9067ab7a373130a877fbf6',
@@ -209,7 +177,7 @@ describe('appReducer', () => {
             },
             date: '2019-05-018T05:00:00.000Z',
             description: 'Yearly physical',
-            patient: '753848fhru57db47gh713828',
+            patient: '5c9067ab7a373130a893ybec',
             phoneNumber: '904-932-8374',
             time: '10:15 a.m.',
             title: 'MD',
@@ -280,7 +248,7 @@ describe('appReducer', () => {
         },
         description: 'Back pain',
         time: '10:30 a.m.',
-        date: '2019-05-019T05:00:00.000Z',
+        date: '2019-01-023T05:00:00.000Z',
         patient: '5c9067ab7a373130a893ybec',
         phoneNumber: '904-932-6542',
         title: 'MD',
@@ -1075,13 +1043,44 @@ describe('appReducer', () => {
     });
     describe('createAppointmentSuccess', () => {
         it('Should fire if a new appointment is created', () => {
+            const initialState = {
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            };
             let state = initialState;
             state.selectedAppointments = selectedAppointments;
             state.appointments = appointments;
-            let newSelectedAppointments = [];
             state = appReducer(state, createAppointmentSuccess(createdAppointment));
-            if (state.selectedAppointments.length && new Date(createdAppointment.date).getMonth() === new Date(state.selectedAppointments[0].date).getMonth()) {
-                newSelectedAppointments = [...appointments, createdAppointment];
+            let newSelectedAppointments = [...selectedAppointments, createdAppointment];
+            let newAppointments = [...appointments, createdAppointment];
+            if (newSelectedAppointments.length && new Date(createdAppointment.date).getMonth() === new Date(newSelectedAppointments[0].date).getMonth()) {
                 newSelectedAppointments.sort((a, b) => {
                     return new Date(a.date) - new Date(b.date);
                 });
@@ -1096,7 +1095,7 @@ describe('appReducer', () => {
                 loadedBasicProfileInfoFormData: {},
                 isUserInfoShowing: false,
                 section: 0,
-                appointments: newSelectedAppointments,
+                appointments: newAppointments,
                 isAppointmentInfoShowing: false,
                 areSublinksShowing: false,
                 currentDoctor: 0,
@@ -1237,6 +1236,37 @@ describe('appReducer', () => {
     });
     describe('createDoctorSuccess', () => {
         it('Should fire if a new doctor is created', () => {
+            const initialState = {
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            };
             let state = initialState;
             state.doctors = doctors;
             state = appReducer(state, createDoctorSuccess(createdDoctor));
