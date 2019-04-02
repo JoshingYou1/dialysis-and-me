@@ -256,6 +256,23 @@ describe('appReducer', () => {
         time: '10:30 a.m.',
         patient: '9g8391028366382819382810'
     };
+    const selectedAppointmentToEdit = {
+        address: {
+            street: '94 Park Street',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 35832
+        },
+        date: '2019-05-018T05:00:00.000Z',
+        description: 'Yearly physical',
+        patient: '5c9067ab7a373130a893ybec',
+        phoneNumber: '904-932-8374',
+        time: '10:15 a.m.',
+        title: 'MD',
+        where: 'St. Vincent\'s Medical Center',
+        with: 'Mark Cuban',
+        _id: '8f85769f7465928374593987'
+    };
     const updatedAppointment = {
         address: {
             street: '94 Park Street',
@@ -329,23 +346,6 @@ describe('appReducer', () => {
         patients: ['9g8391028366382819382810'],
         phoneNumber: '904-948-9010',
         practice: 'Hematology'
-    };
-    const selectedAppointmentToEdit = {
-        address: {
-            street: '94 Park Street',
-            city: 'Jacksonville',
-            state: 'FL',
-            zipCode: 35832
-        },
-        date: '2019-05-018T05:00:00.000Z',
-        description: 'Yearly physical',
-        patient: '5c9067ab7a373130a893ybec',
-        phoneNumber: '904-932-8374',
-        time: '10:15 a.m.',
-        title: 'MD',
-        where: 'St. Vincent\'s Medical Center',
-        with: 'Mark Cuban',
-        _id: '8f85769f7465928374593987'
     };
     const loadedDoctorFormData = {
         _id: '2k750285f928392088143865',
@@ -1431,6 +1431,7 @@ describe('appReducer', () => {
             let newState = appReducer(state, updateAppointmentSuccess(updatedAppointment));
             let updatedAppointments = [...appointments, updatedAppointment];
             let selectedUpdatedAppointments = [...selectedAppointments, updatedAppointment];
+            let updatedSelectedAppointmentToEdit = updatedAppointment;
             expect(newState).toEqual({
                 selectedAppointments: selectedUpdatedAppointments,
                 selectedLabResult: null,
@@ -1448,7 +1449,7 @@ describe('appReducer', () => {
                 isCreateAppointmentFormShowing: false,
                 isCreateDoctorFormShowing: false,
                 isEditBasicProfileInfoFormShowing: false,
-                selectedAppointmentToEdit: selectedAppointmentToEdit,
+                selectedAppointmentToEdit: updatedSelectedAppointmentToEdit,
                 selectedDoctorToEdit: {},
                 loadedAppointmentFormData: {},
                 isDoctorMenuShowing: false,
