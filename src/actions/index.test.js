@@ -72,7 +72,9 @@ import {
     UPDATE_BASIC_PROFILE_INFO_SUCCESS,
     updateBasicProfileInfoSuccess,
     LOADING,
-    loading
+    loading,
+    TRIGGER_ANIMATION,
+    triggerAnimation
 } from './index';
 import {API_BASE_URL} from '../config';
 import configureMockStore from 'redux-mock-store';
@@ -866,6 +868,17 @@ describe('loading', () => {
 
         expect(action.type).toEqual(LOADING);
         expect(action.isLoading).toEqual(isLoading);
+    });
+});
+
+describe('triggerAnimation', () => {
+    it('Should return the action', () => {
+        const animation = true;
+
+        const action = triggerAnimation(animation);
+
+        expect(action.type).toEqual(TRIGGER_ANIMATION);
+        expect(action.animation).toEqual(animation);
     });
 });
 
