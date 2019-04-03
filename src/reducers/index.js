@@ -281,7 +281,7 @@ export const appReducer = (state=initialState, action) => {
     }
     else if (action.type === UPDATE_APPOINTMENT_SUCCESS) {
         let appointments = [...state.appointments];
-        let updatedAppointments = state.appointments.map(a => {
+        let updatedAppointments = appointments.map(a => {
             if (a._id === state.selectedAppointmentToEdit._id) {
                 return action.updatedAppointment;
             }
@@ -292,6 +292,9 @@ export const appReducer = (state=initialState, action) => {
                 return action.updatedAppointment;
             }
             return a;
+        });
+        selectedUpdatedAppointments.sort((a, b) => {
+            return new Date(a.date) - new Date(b.date);
         });
         return Object.assign({}, state, {
             updatedAppointments,

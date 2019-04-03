@@ -67,7 +67,11 @@ import {
     loadBasicProfileInfoFormData,
     showAppointments,
     toggleDoctorList,
-    triggerAnimation
+    triggerAnimation,
+    updateDoctorSuccess,
+    toggleAppointmentList,
+    updateBasicProfileInfoSuccess,
+    deleteAppointmentSuccess
 } from '../actions/index';
 
 describe('appReducer', () => {
@@ -146,6 +150,31 @@ describe('appReducer', () => {
         socialSecurityNumber: '987654321',
         treatmentDays: 'Tue/Thu/Sat',
         treatmentTime: '11:30 a.m.'
+    };
+    const updatedBasicProfileInfo = {
+        _id: '5c9067ab7a373130a893ybec',
+        address: {
+            street: '456 International Drive',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 39199
+        },
+        appointments: [],
+        doctors: [],
+        dateOfBirth: '1965-05-12T04:00:00.000Z',
+        name: {
+            firstName: 'Jason',
+            lastName: 'Merriman'
+        },
+        phoneNumbers: {
+            home: '904-223-5455',
+            cell: '904-423-9283',
+            work: null
+        },
+        sex: 'Male',
+        socialSecurityNumber: '987654321',
+        treatmentDays: 'Mon/Wed/Fri',
+        treatmentTime: '12:30 p.m.'
     };
     const isLabResultsInfoShowing = true;
     const isUserInfoShowing = true;
@@ -241,6 +270,44 @@ describe('appReducer', () => {
             _id: '8f85769f7465928374593987'
         }
     ];
+    const newAppointments = [
+        {
+            address: {
+                street: '94 Park Street',
+                city: 'Jacksonville',
+                state: 'FL',
+                zipCode: 35832
+            },
+            date: '2019-05-018T05:00:00.000Z',
+            description: 'Yearly physical',
+            patient: '5c9067ab7a373130a893ybec',
+            phoneNumber: '904-932-8374',
+            time: '10:15 a.m.',
+            title: 'MD',
+            where: 'St. Vincent\'s Medical Center',
+            with: 'Mark Cuban',
+            _id: '8f85769f7465928374593987'
+        }
+    ];
+    const newSelectedAppointments = [
+        {
+            address: {
+                street: '94 Park Street',
+                city: 'Jacksonville',
+                state: 'FL',
+                zipCode: 35832
+            },
+            date: '2019-05-018T05:00:00.000Z',
+            description: 'Yearly physical',
+            patient: '5c9067ab7a373130a893ybec',
+            phoneNumber: '904-932-8374',
+            time: '10:15 a.m.',
+            title: 'MD',
+            where: 'St. Vincent\'s Medical Center',
+            with: 'Mark Cuban',
+            _id: '8f85769f7465928374593987'
+        }
+    ];
     const currentDoctor = 1;
     const isCreateAppointmentFormShowing = true;
     const isEditAppointmentFormShowing = true;
@@ -290,6 +357,59 @@ describe('appReducer', () => {
         with: 'Mark Cuban',
         _id: '8f85769f7465928374593987'
     };
+    const updatedSelectedAppointmentToEdit = {
+        address: {
+            street: '94 Park Street',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 35832
+        },
+        date: '2019-05-018T05:00:00.000Z',
+        description: 'Yearly physical',
+        patient: '5c9067ab7a373130a893ybec',
+        phoneNumber: '904-932-8374',
+        time: '11:15 a.m.',
+        title: 'MD',
+        where: 'St. Vincent\'s Medical Center',
+        with: 'Mark Cuban',
+        _id: '8f85769f7465928374593987'
+    };
+    const updatedAppointments = [
+        {
+            address: {
+                street: '67 West Lakeside Dr',
+                city: 'Jacksonville',
+                state: 'FL',
+                zipCode: 35840
+            },
+            date: '2019-01-023T05:00:00.000Z',
+            description: 'Access evaluation',
+            patient: '5c9067ab7a373130a893ybec',
+            phoneNumber: '904-943-2942',
+            time: '2:15 p.m.',
+            title: 'MD',
+            where: 'Vascular Access Center',
+            with: 'Madison Akihiko',
+            _id: '8f85769f7465928374593018'
+        },
+        {
+            address: {
+                street: '94 Park Street',
+                city: 'Jacksonville',
+                state: 'FL',
+                zipCode: 35832
+            },
+            date: '2019-05-018T05:00:00.000Z',
+            description: 'Yearly physical',
+            patient: '5c9067ab7a373130a893ybec',
+            phoneNumber: '904-932-8374',
+            time: '11:15 a.m.',
+            title: 'MD',
+            where: 'St. Vincent\'s Medical Center',
+            with: 'Mark Cuban',
+            _id: '8f85769f7465928374593987'
+        }
+    ];
     const isCreateDoctorFormShowing = true;
     const isEditDoctorFormShowing = true;
     const createdDoctor = {
@@ -303,8 +423,8 @@ describe('appReducer', () => {
         company: 'Mayo Clinic',
         faxNumber: '904-948-8211',
         name: {
-            firstName: 'Barbara',
-            lastName: 'Winters'
+            firstName: 'Dorothy',
+            lastName: 'Simmons'
         },
         patients: ['9g8391028366382819382810'],
         phoneNumber: '904-948-9010',
@@ -329,6 +449,23 @@ describe('appReducer', () => {
         practice: 'Hematology'
     };
     const isEditBasicProfileInfoFormShowing = true;
+    const deletedAppointment = {
+        address: {
+            street: '67 West Lakeside Dr',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 35840
+        },
+        date: '2019-01-023T05:00:00.000Z',
+        description: 'Access evaluation',
+        patient: '5c9067ab7a373130a893ybec',
+        phoneNumber: '904-943-2942',
+        time: '2:15 p.m.',
+        title: 'MD',
+        where: 'Vascular Access Center',
+        with: 'Madison Akihiko',
+        _id: '8f85769f7465928374593018'
+    };
     const deletedDoctor = {
         _id: '2k750285f928392088143865',
         address: {
@@ -367,22 +504,22 @@ describe('appReducer', () => {
     };
     const isDoctorMenuShowing = true;
     const selectedDoctorToEdit = {
-        _id: '2k750285f928392088143865',
+        _id: '2k750285f748392088149923',
         address: {
-            street: '193 South Lady Mary Drive',
+            street: '21 North Pine Road',
             city: 'Jacksonville',
             state: 'FL',
-            zipCode: 39321
+            zipCode: 39012
         },
-        company: 'Mayo Clinic',
-        faxNumber: '904-948-8211',
+        company: 'Hematologists of Northeast Florida',
+        faxNumber: '904-032-2934',
         name: {
-            firstName: 'Mark',
-            lastName: 'Eaton'
+            firstName: 'Jessica',
+            lastName: 'Mendoza'
         },
-        patients: ['5c9067ab7a373130a893ybec'],
-        phoneNumber: '904-948-9010',
-        practice: 'Oncology'
+        patients: ['9g8391028366382819382810'],
+        phoneNumber: '904-032-1929',
+        practice: 'Hematology'
     };
     const doctors = [
         {
@@ -422,6 +559,62 @@ describe('appReducer', () => {
             practice: 'Hematology'
         }
     ];
+    const updatedDoctors = [
+        {
+            _id: '2k750285f928392088143865',
+            address: {
+                street: '193 South Lady Mary Drive',
+                city: 'Jacksonville',
+                state: 'FL',
+                zipCode: 39321
+            },
+            company: 'Mayo Clinic',
+            faxNumber: '904-948-8211',
+            name: {
+                firstName: 'Mark',
+                lastName: 'Eaton'
+            },
+            patients: ['9g8391028366382819382810'],
+            phoneNumber: '904-948-9010',
+            practice: 'Oncology'
+        },
+        {
+            _id: '2k750285f748392088149923',
+            address: {
+                street: '193 South Lady Mary Drive',
+                city: 'Jacksonville',
+                state: 'FL',
+                zipCode: 39321
+            },
+            company: 'Mayo Clinic',
+            faxNumber: '904-948-9212',
+            name: {
+                firstName: 'Barbara',
+                lastName: 'Winters'
+            },
+            patients: ['9g8391028366382819382810'],
+            phoneNumber: '904-948-1823',
+            practice: 'Hematology'
+        }
+    ];
+    const updatedSelectedDoctorToEdit = {
+        _id: '2k750285f748392088149923',
+        address: {
+            street: '193 South Lady Mary Drive',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 39321
+        },
+        company: 'Mayo Clinic',
+        faxNumber: '904-948-9212',
+        name: {
+            firstName: 'Barbara',
+            lastName: 'Winters'
+        },
+        patients: ['9g8391028366382819382810'],
+        phoneNumber: '904-948-1823',
+        practice: 'Hematology'
+    };
     const isMessageShowing = true;
     const loadedBasicProfileInfoFormData = {
         _id: '5c9067ab7a373130a893ybec',
@@ -1350,12 +1543,12 @@ describe('appReducer', () => {
                 isEditAppointmentFormShowing: false,
                 isEditDoctorFormShowing: false
             };
-            let newSelectedAppointments = [];
+            let currentSelectedAppointments = [];
             let newState = appReducer(state, createAppointmentSuccess(createdAppointment));
             let newAppointments = [...appointments, createdAppointment];
             if (selectedAppointments.length && new Date(createdAppointment.date).getMonth() === new Date(selectedAppointments[0].date).getMonth()) {
-                newSelectedAppointments = [...selectedAppointments, createdAppointment];
-                newSelectedAppointments.sort((a, b) => {
+                currentSelectedAppointments = [...selectedAppointments, createdAppointment];
+                currentSelectedAppointments.sort((a, b) => {
                     return new Date(a.date) - new Date(b.date);
                 });
                 newAppointments.sort((a, b) => {
@@ -1363,7 +1556,7 @@ describe('appReducer', () => {
                 });
             }
             expect(newState).toEqual({
-                selectedAppointments: newSelectedAppointments,
+                selectedAppointments: currentSelectedAppointments,
                 selectedLabResult: null,
                 isSidebarShowing: false,
                 labResults: [],
@@ -1429,9 +1622,7 @@ describe('appReducer', () => {
                 isEditDoctorFormShowing: false
             };
             let newState = appReducer(state, updateAppointmentSuccess(updatedAppointment));
-            let updatedAppointments = [...appointments, updatedAppointment];
-            let selectedUpdatedAppointments = [...selectedAppointments, updatedAppointment];
-            let updatedSelectedAppointmentToEdit = updatedAppointment;
+            let selectedUpdatedAppointments = updatedAppointments;
             expect(newState).toEqual({
                 selectedAppointments: selectedUpdatedAppointments,
                 selectedLabResult: null,
@@ -1461,7 +1652,8 @@ describe('appReducer', () => {
                 isLoading: true,
                 animation: false,
                 isEditAppointmentFormShowing: false,
-                isEditDoctorFormShowing: false
+                isEditDoctorFormShowing: false,
+                updatedAppointments
             });
         });
     });
@@ -1601,38 +1793,6 @@ describe('appReducer', () => {
     });
     describe('createDoctorSuccess', () => {
         it('Should fire if a new doctor is created', () => {
-            // const initialState = {
-            //     selectedAppointments: [],
-            //     selectedLabResult: null,
-            //     isSidebarShowing: false,
-            //     labResults: [],
-            //     isLabResultsInfoShowing: false,
-            //     profile: [],
-            //     loadedBasicProfileInfoFormData: {},
-            //     isUserInfoShowing: false,
-            //     section: 0,
-            //     appointments: [],
-            //     isAppointmentInfoShowing: false,
-            //     areSublinksShowing: false,
-            //     currentDoctor: 0,
-            //     isCreateAppointmentFormShowing: false,
-            //     isCreateDoctorFormShowing: false,
-            //     isEditBasicProfileInfoFormShowing: false,
-            //     selectedAppointmentToEdit: {},
-            //     selectedDoctorToEdit: {},
-            //     loadedAppointmentFormData: {},
-            //     isDoctorMenuShowing: false,
-            //     loadedDoctorFormData: {},
-            //     doctors: [],
-            //     areAppointmentsShowing: false,
-            //     deletedAppointment: null,
-            //     deletedDoctor: null,
-            //     isLoading: true,
-            //     animation: false,
-            //     isEditAppointmentFormShowing: false,
-            //     isEditDoctorFormShowing: false
-            // };
-            // let state = initialState;
             let state = {
                 selectedAppointments: [],
                 selectedLabResult: null,
@@ -1706,7 +1866,69 @@ describe('appReducer', () => {
     });
     describe('updateDoctorSuccess', () => {
         it('Should fire if an existing doctor\'s data has been updated', () => {
-
+            let state = {
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: selectedDoctorToEdit,
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: doctors,
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            };
+            let newState = appReducer(state, updateDoctorSuccess(updatedDoctor));
+            expect(newState).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: updatedSelectedDoctorToEdit,
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: updatedDoctors,
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            })
         })
     })
     describe('chooseEditBasicProfileInfo', () => {
@@ -1776,11 +1998,73 @@ describe('appReducer', () => {
             });
         });
     });
-    // describe('deleteAppointmentSuccess', () => {
-    //     it('Should fire when an existing appointment is deleted', () => {
-
-    //     })
-    // })
+    describe('deleteAppointmentSuccess', () => {
+        it('Should fire when an existing appointment is deleted', () => {
+            let state = {
+                selectedAppointments: selectedAppointments,
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: appointments,
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            };
+            let newState = appReducer(state, deleteAppointmentSuccess(deletedAppointment));
+            expect(newState).toEqual({
+                selectedAppointments: newSelectedAppointments,
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: newAppointments,
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: deletedAppointment,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            });
+        });
+    });
     // describe('deleteDoctorSuccess', () => {
     //     it('Should fire when an existing doctor is deleted', () => {
             
@@ -2351,13 +2635,13 @@ describe('appReducer', () => {
                 doctors: [],
                 areAppointmentsShowing: false,
                 deletedAppointment: null,
-                deletedDoctor: null,
+                deletedDoctor: deletedDoctor,
                 isLoading: true,
                 animation: false,
                 isEditAppointmentFormShowing: false,
                 isEditDoctorFormShowing: false
             };
-            let newState = appReducer(state, toggleDoctorList(deletedDoctor));
+            let newState = appReducer(state, toggleDoctorList());
             expect(newState).toEqual({
                 selectedAppointments: [],
                 selectedLabResult: null,
@@ -2391,6 +2675,140 @@ describe('appReducer', () => {
             });
         });
     });
+    describe('toggleAppointmentList', () => {
+        it('Should set deletedAppointment to null', () => {
+            let state = {
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: deletedAppointment,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            };
+            let newState = appReducer(state, toggleAppointmentList());
+            expect(newState).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            });
+        });
+    });
+    describe('updateBasicProfileInfoSuccess', () => {
+        it('Should fire if the user\'s basic profile info data has been updated', () => {
+            let state = {
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            };
+            let newState = appReducer(state, updateBasicProfileInfoSuccess(updatedBasicProfileInfo));
+            expect(newState).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: updatedBasicProfileInfo,
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            })
+        })
+    })
    describe('triggerAnimation', () => {
        it('Should fire based on certain user interactions', () => {
            let state = {
