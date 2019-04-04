@@ -71,7 +71,8 @@ import {
     updateDoctorSuccess,
     toggleAppointmentList,
     updateBasicProfileInfoSuccess,
-    deleteAppointmentSuccess
+    deleteAppointmentSuccess,
+    deleteDoctorSuccess
 } from '../actions/index';
 
 describe('appReducer', () => {
@@ -466,61 +467,6 @@ describe('appReducer', () => {
         with: 'Madison Akihiko',
         _id: '8f85769f7465928374593018'
     };
-    const deletedDoctor = {
-        _id: '2k750285f928392088143865',
-        address: {
-            street: '193 South Lady Mary Drive',
-            city: 'Jacksonville',
-            state: 'FL',
-            zipCode: 39321
-        },
-        company: 'Mayo Clinic',
-        faxNumber: '904-948-8211',
-        name: {
-            firstName: 'Barbara',
-            lastName: 'Winters'
-        },
-        patients: ['9g8391028366382819382810'],
-        phoneNumber: '904-948-9010',
-        practice: 'Hematology'
-    };
-    const loadedDoctorFormData = {
-        _id: '2k750285f928392088143865',
-        address: {
-            street: '193 South Lady Mary Drive',
-            city: 'Jacksonville',
-            state: 'FL',
-            zipCode: 39321
-        },
-        company: 'Mayo Clinic',
-        faxNumber: '904-948-8211',
-        name: {
-            firstName: 'Mark',
-            lastName: 'Eaton'
-        },
-        patients: ['5c9067ab7a373130a893ybec'],
-        phoneNumber: '904-948-9010',
-        practice: 'Oncology'
-    };
-    const isDoctorMenuShowing = true;
-    const selectedDoctorToEdit = {
-        _id: '2k750285f748392088149923',
-        address: {
-            street: '21 North Pine Road',
-            city: 'Jacksonville',
-            state: 'FL',
-            zipCode: 39012
-        },
-        company: 'Hematologists of Northeast Florida',
-        faxNumber: '904-032-2934',
-        name: {
-            firstName: 'Jessica',
-            lastName: 'Mendoza'
-        },
-        patients: ['9g8391028366382819382810'],
-        phoneNumber: '904-032-1929',
-        practice: 'Hematology'
-    };
     const doctors = [
         {
             _id: '2k750285f928392088143865',
@@ -559,6 +505,81 @@ describe('appReducer', () => {
             practice: 'Hematology'
         }
     ];
+    const deletedDoctor = {
+        _id: '2k750285f748392088149923',
+        address: {
+            street: '21 North Pine Road',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 39012
+        },
+        company: 'Hematologists of Northeast Florida',
+        faxNumber: '904-032-2934',
+        name: {
+            firstName: 'Jessica',
+            lastName: 'Mendoza'
+        },
+        patients: ['9g8391028366382819382810'],
+        phoneNumber: '904-032-1929',
+        practice: 'Hematology'
+    };
+    const newDoctors = [
+        {
+            _id: '2k750285f928392088143865',
+            address: {
+                street: '193 South Lady Mary Drive',
+                city: 'Jacksonville',
+                state: 'FL',
+                zipCode: 39321
+            },
+            company: 'Mayo Clinic',
+            faxNumber: '904-948-8211',
+            name: {
+                firstName: 'Mark',
+                lastName: 'Eaton'
+            },
+            patients: ['9g8391028366382819382810'],
+            phoneNumber: '904-948-9010',
+            practice: 'Oncology'
+        }
+    ];
+    const loadedDoctorFormData = {
+        _id: '2k750285f928392088143865',
+        address: {
+            street: '193 South Lady Mary Drive',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 39321
+        },
+        company: 'Mayo Clinic',
+        faxNumber: '904-948-8211',
+        name: {
+            firstName: 'Mark',
+            lastName: 'Eaton'
+        },
+        patients: ['5c9067ab7a373130a893ybec'],
+        phoneNumber: '904-948-9010',
+        practice: 'Oncology'
+    };
+    const isDoctorMenuShowing = true;
+    const selectedDoctorToEdit = {
+        _id: '2k750285f748392088149923',
+        address: {
+            street: '21 North Pine Road',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 39012
+        },
+        company: 'Hematologists of Northeast Florida',
+        faxNumber: '904-032-2934',
+        name: {
+            firstName: 'Jessica',
+            lastName: 'Mendoza'
+        },
+        patients: ['9g8391028366382819382810'],
+        phoneNumber: '904-032-1929',
+        practice: 'Hematology'
+    };
     const updatedDoctors = [
         {
             _id: '2k750285f928392088143865',
@@ -1825,8 +1846,8 @@ describe('appReducer', () => {
                 isEditDoctorFormShowing: false
             };
             let newState = appReducer(state, createDoctorSuccess(createdDoctor));
-            let newDoctors = [...doctors, createdDoctor];
-            newDoctors.sort((a, b) => {
+            let currentDoctors = [...doctors, createdDoctor];
+            currentDoctors.sort((a, b) => {
                 if(a.name.lastName < b.name.lastName) { return -1; }
                 if(a.name.lastName > b.name.lastName) { return 1; }
                 return 0;
@@ -1853,7 +1874,7 @@ describe('appReducer', () => {
                 loadedAppointmentFormData: {},
                 isDoctorMenuShowing: false,
                 loadedDoctorFormData: {},
-                doctors: newDoctors,
+                doctors: currentDoctors,
                 areAppointmentsShowing: false,
                 deletedAppointment: null,
                 deletedDoctor: null,
@@ -2065,11 +2086,73 @@ describe('appReducer', () => {
             });
         });
     });
-    // describe('deleteDoctorSuccess', () => {
-    //     it('Should fire when an existing doctor is deleted', () => {
-            
-    //     })
-    // })
+    describe('deleteDoctorSuccess', () => {
+        it('Should fire when an existing doctor is deleted', () => {
+            let state = {
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: doctors,
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            };
+            let newState = appReducer(state, deleteDoctorSuccess(deletedDoctor));
+            expect(newState).toEqual({
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: {},
+                selectedDoctorToEdit: {},
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: newDoctors,
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                deletedDoctor: deletedDoctor,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            });
+        });
+    });
     describe('editSelectedAppointmentById', () => {
         it('Should return the data of the selected appointment', () => {
             let state = {
