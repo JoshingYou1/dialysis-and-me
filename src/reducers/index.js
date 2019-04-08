@@ -247,7 +247,7 @@ export const appReducer = (state=initialState, action) => {
                 if(a.name.lastName < b.name.lastName) { return -1; }
                 if(a.name.lastName > b.name.lastName) { return 1; }
                 return 0;
-            })
+            });
             return Object.assign({}, state, {
                 doctors
             });
@@ -269,14 +269,19 @@ export const appReducer = (state=initialState, action) => {
         });
     }
     else if (action.type === UPDATE_DOCTOR_SUCCESS) {
-        let updatedDoctor = state.doctors.map(d => {
+        let updatedDoctors = state.doctors.map(d => {
             if (d._id === state.selectedDoctorToEdit._id) {
                 return action.updatedDoctor;
             }
             return d;
         });
+        updatedDoctors.sort((a, b) => {
+            if(a.name.lastName < b.name.lastName) { return -1; }
+            if(a.name.lastName > b.name.lastName) { return 1; }
+            return 0;
+        });
         return Object.assign({}, state, {
-            doctors: updatedDoctor
+            doctors: updatedDoctors
         });
     }
     else if (action.type === UPDATE_APPOINTMENT_SUCCESS) {
@@ -296,8 +301,11 @@ export const appReducer = (state=initialState, action) => {
         selectedUpdatedAppointments.sort((a, b) => {
             return new Date(a.date) - new Date(b.date);
         });
+        updatedAppointments.sort((a, b) => {
+            return new Date(a.date) - new Date(b.date);
+        });
         return Object.assign({}, state, {
-            updatedAppointments,
+            appointments: updatedAppointments,
             selectedAppointments: selectedUpdatedAppointments
         });
     }

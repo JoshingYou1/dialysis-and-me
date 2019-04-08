@@ -1,11 +1,11 @@
 import React from 'react';
-import {Field, reduxForm, SubmissionError, focus, getFormValues} from 'redux-form';
+import {Field, reduxForm, SubmissionError, focus} from 'redux-form';
 import InputTwo from './inputTwo';
 import InputHidden from './inputHidden';
 import {API_BASE_URL} from '../config';
 import {required, nonEmpty, isTrimmed, phoneNumber, faxNumber, stateAbbrv, zipCode} from '../validators';
 import { connect } from 'react-redux';
-import { editSelectedDoctorById, successErrorMessage, fetchDoctors, updateCurrentDoctor, updateDoctorSuccess } from '../actions';
+import { editSelectedDoctorById, successErrorMessage, updateDoctorSuccess } from '../actions';
 import PropTypes from 'prop-types';
 
 export class EditDoctorForm extends React.Component {

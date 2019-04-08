@@ -5,10 +5,6 @@ import {Link} from 'react-router-dom';
 import Footer from './footer';
 
 export class PatientEducation extends React.Component {
-    constructor(props) {
-    super(props);    
-  }
-
   render() {
     return (
         <div className="container">

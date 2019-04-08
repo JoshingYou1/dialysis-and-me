@@ -1,5 +1,5 @@
 import React from 'react';
-import { toggleDoctorMenu, deleteDoctor, loadDoctorFormData, editSelectedDoctorById, fetchDoctors, successErrorMessage, toggleDoctorList } from '../actions';
+import { toggleDoctorMenu, deleteDoctor, loadDoctorFormData, editSelectedDoctorById } from '../actions';
 import { connect } from 'react-redux';
 
 export class Doctor extends React.Component {

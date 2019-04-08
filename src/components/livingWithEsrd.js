@@ -1,7 +1,6 @@
 import React from 'react';
 import NavigationBar from './navBar';
 import Footer from './footer';
-import {Link} from 'react-router-dom';
 
 export default function LivingWithESRD(props) {
     return (

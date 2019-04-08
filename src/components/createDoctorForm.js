@@ -5,7 +5,7 @@ import {API_BASE_URL} from '../config';
 import {required, nonEmpty, isTrimmed, zipCode, phoneNumber, faxNumber, stateAbbrv} from '../validators';
 import { connect } from 'react-redux';
 import InputHidden from './inputHidden';
-import { chooseCreateDoctor, successErrorMessage, createDoctorSuccess, toggleDoctorList } from '../actions';
+import { chooseCreateDoctor, successErrorMessage, createDoctorSuccess } from '../actions';
 
 export class CreateDoctorForm extends React.Component {
     showDoctors() {

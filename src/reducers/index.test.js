@@ -358,23 +358,6 @@ describe('appReducer', () => {
         with: 'Mark Cuban',
         _id: '8f85769f7465928374593987'
     };
-    const updatedSelectedAppointmentToEdit = {
-        address: {
-            street: '94 Park Street',
-            city: 'Jacksonville',
-            state: 'FL',
-            zipCode: 35832
-        },
-        date: '2019-05-018T05:00:00.000Z',
-        description: 'Yearly physical',
-        patient: '5c9067ab7a373130a893ybec',
-        phoneNumber: '904-932-8374',
-        time: '11:15 a.m.',
-        title: 'MD',
-        where: 'St. Vincent\'s Medical Center',
-        with: 'Mark Cuban',
-        _id: '8f85769f7465928374593987'
-    };
     const updatedAppointments = [
         {
             address: {
@@ -430,24 +413,6 @@ describe('appReducer', () => {
         patients: ['9g8391028366382819382810'],
         phoneNumber: '904-948-9010',
         practice: 'Immunology'
-    };
-    const updatedDoctor = {
-        _id: '2k750285f928392088143865',
-        address: {
-            street: '193 South Lady Mary Drive',
-            city: 'Jacksonville',
-            state: 'FL',
-            zipCode: 39321
-        },
-        company: 'Mayo Clinic',
-        faxNumber: '904-948-8211',
-        name: {
-            firstName: 'Barbara',
-            lastName: 'Winters'
-        },
-        patients: ['9g8391028366382819382810'],
-        phoneNumber: '904-932-9193',
-        practice: 'Hematology'
     };
     const isEditBasicProfileInfoFormShowing = true;
     const deletedAppointment = {
@@ -580,6 +545,24 @@ describe('appReducer', () => {
         phoneNumber: '904-032-1929',
         practice: 'Hematology'
     };
+    const updatedDoctor = {
+        _id: '2k750285f748392088149923',
+        address: {
+            street: '193 South Lady Mary Drive',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 39321
+        },
+        company: 'Mayo Clinic',
+        faxNumber: '904-948-8211',
+        name: {
+            firstName: 'Barbara',
+            lastName: 'Winters'
+        },
+        patients: ['9g8391028366382819382810'],
+        phoneNumber: '904-932-9193',
+        practice: 'Hematology'
+    };
     const updatedDoctors = [
         {
             _id: '2k750285f928392088143865',
@@ -608,34 +591,16 @@ describe('appReducer', () => {
                 zipCode: 39321
             },
             company: 'Mayo Clinic',
-            faxNumber: '904-948-9212',
+            faxNumber: '904-948-8211',
             name: {
                 firstName: 'Barbara',
                 lastName: 'Winters'
             },
             patients: ['9g8391028366382819382810'],
-            phoneNumber: '904-948-1823',
+            phoneNumber: '904-932-9193',
             practice: 'Hematology'
         }
     ];
-    const updatedSelectedDoctorToEdit = {
-        _id: '2k750285f748392088149923',
-        address: {
-            street: '193 South Lady Mary Drive',
-            city: 'Jacksonville',
-            state: 'FL',
-            zipCode: 39321
-        },
-        company: 'Mayo Clinic',
-        faxNumber: '904-948-9212',
-        name: {
-            firstName: 'Barbara',
-            lastName: 'Winters'
-        },
-        patients: ['9g8391028366382819382810'],
-        phoneNumber: '904-948-1823',
-        practice: 'Hematology'
-    };
     const isMessageShowing = true;
     const loadedBasicProfileInfoFormData = {
         _id: '5c9067ab7a373130a893ybec',
@@ -1643,9 +1608,8 @@ describe('appReducer', () => {
                 isEditDoctorFormShowing: false
             };
             let newState = appReducer(state, updateAppointmentSuccess(updatedAppointment));
-            let selectedUpdatedAppointments = updatedAppointments;
             expect(newState).toEqual({
-                selectedAppointments: selectedUpdatedAppointments,
+                selectedAppointments: updatedAppointments,
                 selectedLabResult: null,
                 isSidebarShowing: false,
                 labResults: [],
@@ -1661,7 +1625,7 @@ describe('appReducer', () => {
                 isCreateAppointmentFormShowing: false,
                 isCreateDoctorFormShowing: false,
                 isEditBasicProfileInfoFormShowing: false,
-                selectedAppointmentToEdit: updatedSelectedAppointmentToEdit,
+                selectedAppointmentToEdit,
                 selectedDoctorToEdit: {},
                 loadedAppointmentFormData: {},
                 isDoctorMenuShowing: false,
@@ -1673,8 +1637,7 @@ describe('appReducer', () => {
                 isLoading: true,
                 animation: false,
                 isEditAppointmentFormShowing: false,
-                isEditDoctorFormShowing: false,
-                updatedAppointments
+                isEditDoctorFormShowing: false
             });
         });
     });
@@ -1937,7 +1900,7 @@ describe('appReducer', () => {
                 isCreateDoctorFormShowing: false,
                 isEditBasicProfileInfoFormShowing: false,
                 selectedAppointmentToEdit: {},
-                selectedDoctorToEdit: updatedSelectedDoctorToEdit,
+                selectedDoctorToEdit,
                 loadedAppointmentFormData: {},
                 isDoctorMenuShowing: false,
                 loadedDoctorFormData: {},
@@ -1949,9 +1912,9 @@ describe('appReducer', () => {
                 animation: false,
                 isEditAppointmentFormShowing: false,
                 isEditDoctorFormShowing: false
-            })
-        })
-    })
+            });
+        });
+    });
     describe('chooseEditBasicProfileInfo', () => {
         it('Should show or hide the edit basic profile info form', () => {
             let state = {

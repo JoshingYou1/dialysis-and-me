@@ -5,8 +5,6 @@ import {
     loadAppointmentFormData,
     editSelectedAppointmentById,
     deleteAppointment,
-    showAppointments,
-    successErrorMessage,
     toggleAppointmentList
 } from '../actions';
 import EditAppointmentForm from './editAppointmentForm';

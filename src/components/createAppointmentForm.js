@@ -4,7 +4,7 @@ import InputTwo from './inputTwo';
 import {API_BASE_URL} from '../config';
 import {required, nonEmpty, isTrimmed, phoneNumber, zipCode, stateAbbrv} from '../validators';
 import { connect } from 'react-redux';
-import { createAppointment, chooseCreateAppointment, successErrorMessage, createAppointmentSuccess } from '../actions';
+import { chooseCreateAppointment, successErrorMessage, createAppointmentSuccess } from '../actions';
 import DateTimePicker from 'react-widgets/lib/DateTimePicker';
 import moment from 'moment';
 import momentLocaliser from 'react-widgets-moment';

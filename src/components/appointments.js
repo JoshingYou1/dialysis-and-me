@@ -3,7 +3,7 @@ import AppointmentsList from './appointmentsList';
 import AppointmentsShow from './appointmentsShow';
 import NavigationBar from './navBar';
 import {connect} from 'react-redux';
-import { fetchAppointments,  toggleAppointmentInfo, selectAppointmentsById, chooseCreateAppointment, discardAppointmentFormChanges } from '../actions';
+import { fetchAppointments,  toggleAppointmentInfo, selectAppointmentsById, chooseCreateAppointment } from '../actions';
 import requiresLogin from './requires-login';
 import Footer from './footer';
 import CreateAppointmentForm from './createAppointmentForm';

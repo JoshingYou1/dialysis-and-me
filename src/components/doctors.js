@@ -2,15 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Doctor from './doctor';
 import { 
-    fetchProfileInfo,
     updateCurrentDoctor, 
-    fetchDoctors, 
-    toggleDoctorMenu, 
-    deleteDoctor, 
+    fetchDoctors,  
     loadDoctorFormData, 
     editSelectedDoctorById,
     chooseCreateDoctor,
-    successErrorMessage,
     toggleDoctorList,
     triggerAnimation
 } from '../actions';

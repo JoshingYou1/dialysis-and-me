@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import NavigationBar from './navBar';
 import Footer from './footer';
-import {Link} from 'react-router-dom';
 
 export function NutritionalInfo(props) {
     return (

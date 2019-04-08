@@ -4,7 +4,7 @@ import InputThree from './inputThree';
 import {API_BASE_URL} from '../config';
 import {required, nonEmpty, isTrimmed, phoneNumber, stateAbbrv, zipCode} from '../validators';
 import { connect } from 'react-redux';
-import { loadAppointmentFormData, updateAppointment, editSelectedAppointmentById, successErrorMessage, updateAppointmentSuccess } from '../actions';
+import { loadAppointmentFormData, editSelectedAppointmentById, successErrorMessage, updateAppointmentSuccess } from '../actions';
 import DateTimePicker from 'react-widgets/lib/DateTimePicker';
 import moment from 'moment';
 import momentLocaliser from 'react-widgets-moment';
