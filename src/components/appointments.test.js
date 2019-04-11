@@ -10,33 +10,27 @@ import CreateAppointmentForm from './createAppointmentForm';
 
 describe('<Appointments />', () => {
     it('Should render without crashing', () => {
-        const dispatch = jest.fn();
-        shallow(<Appointments dispatch={dispatch} />);
+        shallow(<Appointments />);
     });
 
     it('Should render the NavigationBar component', () => {
-        const dispatch = jest.fn();
-        shallow(<NavigationBar dispatch={dispatch} />);
+        shallow(<NavigationBar />);
     });
 
     it('Should render the Footer component', () => {
-        const dispatch = jest.fn();
-        shallow(<Footer dispatch={dispatch} />);
+        shallow(<Footer />);
     });
 
     it('Should render the AppointmentsList component', () => {
-        const dispatch = jest.fn();
-        shallow(<AppointmentsList dispatch={dispatch} />);
+        shallow(<AppointmentsList />);
     });
 
     it('Should render the AppointmentsShow component', () => {
-        const dispatch = jest.fn();
-        shallow(<AppointmentsShow dispatch={dispatch} />);
+        shallow(<AppointmentsShow />);
     });
 
     it('Should render the CreateAppointmentForm component', () => {
-        const dispatch = jest.fn();
-        shallow(<CreateAppointmentForm dispatch={dispatch} />);
+        shallow(<CreateAppointmentForm />);
     });
 
     // it('Should render with a container class', () => {

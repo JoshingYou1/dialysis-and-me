@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import Doctor from './doctor';
 import { 
     updateCurrentDoctor, 
@@ -18,14 +18,6 @@ import CreateDoctorForm from './createDoctorForm';
 import PropTypes from 'prop-types';
 
 export class Doctors extends React.Component {
-    // constructor(props){
-    //     super(props);
-
-    //     this.state = {
-    //         animate: true
-    //     }
-    // }
-
     animationHandler() {
         this.props.dispatch(triggerAnimation());
     }
@@ -45,14 +37,6 @@ export class Doctors extends React.Component {
     componentDidMount() {
         this.props.dispatch(fetchDoctors(this.props.user.id));
     }
-
-    // componentDidUpdate(prevProps){
-    //     if (this.props.currentDoctor !== prevProps.currentDoctor) {
-    //         this.setState({
-    //             animate: !this.state.animate,
-    //         })
-    //     }
-    // }
     
     render() {
         if (this.props.isLoading) {
