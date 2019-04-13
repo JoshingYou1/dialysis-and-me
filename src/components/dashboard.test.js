@@ -22,7 +22,7 @@ describe('<Dashboard />', () => {
     it('Should render the Link component', () => {
         shallow(
             <Router>
-                <Link />
+                <Link to=""/>
             </Router>
         );
     });

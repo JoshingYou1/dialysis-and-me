@@ -10,14 +10,6 @@ import {
 import EditAppointmentForm from './editAppointmentForm';
 
 export class AppointmentsShow extends React.Component {
-    // constructor(props){
-    //     super(props);
-
-    //     this.state = {
-    //         animate: false
-    //     }
-    // }
-
     deleteAppointmentHandler(a, formattedAppointmentDate) {
         if (window.confirm(`Are you sure you want to remove this appointment scheduled for ${formattedAppointmentDate}?`)) {
             this.props.dispatch(deleteAppointment(this.props.user.id, a._id))
@@ -28,18 +20,7 @@ export class AppointmentsShow extends React.Component {
         this.props.dispatch(loadAppointmentFormData(a));
         this.props.dispatch(editSelectedAppointmentById(a));
     }
-
-    // componentDidUpdate(prevProps){
-    //     if (this.props.chosenAppointments !== prevProps.chosenAppointments) {
-    //         this.setState({
-    //             animate: !this.state.animate
-    //         })
-    //     }
-    // }
-
     render() {
-        // let className = this.state.animate ? "appointments-show-section" : "appointments-show-section-2"
-
         if (this.props.deletedAppointment) {
             return (
                 <div className={"message show-a delete-appointment-success-message " + (this.props.selectedAppointments ? 'hidden-1' : '')}>

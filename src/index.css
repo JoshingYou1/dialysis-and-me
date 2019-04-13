@@ -1605,6 +1605,11 @@ footer {
   text-align: center;
 }
 
+.no-secondary-insurance-h3 {
+  text-align: center;
+  font-weight: bold;
+}
+
 .hidden-1, .hidden-3, .hidden-4, .input-hidden {
   display: none;
 }

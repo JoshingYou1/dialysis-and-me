@@ -3,9 +3,8 @@ import {connect} from 'react-redux';
 
 export function SecondaryInsuranceInfo(props) {
 
-    let formattedSsn = props.profile.secondaryInsurance.socialSecurityNumberOfCardHolder.replace(/(\d{3})(\d{2})(\d{4})/, '$1-$2-$3');
-
     if (props.profile.secondaryInsurance) {
+        let formattedSsn = props.profile.secondaryInsurance.socialSecurityNumberOfCardHolder.replace(/(\d{3})(\d{2})(\d{4})/, '$1-$2-$3');
         return (
             <div className="card">
                 <h1 className="secondary-insurance-h1">Secondary Insurance Information</h1>
@@ -30,8 +29,11 @@ export function SecondaryInsuranceInfo(props) {
         );
     }
     return (
-        <div>
-            <p>You do not have any secondary insurance policy on record at this time.</p>
+        <div className="card">
+            <h1 className="secondary-insurance-h1">Secondary Insurance Information</h1>
+            <section className="secondary-insurance-info-section">
+                <h3 className="no-secondary-insurance-h3">You do not have any secondary insurance policy on record at this time.</h3>
+            </section>
         </div>
     );
 }
