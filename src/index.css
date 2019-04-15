@@ -123,6 +123,7 @@ button {
 .login-form-label {
   display: inline-block;
   margin-bottom: 5px;
+  color: #7700B4;
 }
 
 .form-input {
@@ -1610,6 +1611,12 @@ footer {
   font-weight: bold;
 }
 
+.login-p {
+  font-size: 20px;
+  color: #7700B4;
+  text-align: center;
+}
+
 .hidden-1, .hidden-3, .hidden-4, .input-hidden {
   display: none;
 }
@@ -2141,6 +2148,10 @@ footer {
  
   .datetime-picker-input-2 .rw-widget-picker.rw-widget-container input:focus {
     padding: 10px 5px;
+  }
+
+  .login-p {
+    font-size: 22px;
   }
 
   .hidden-4 {
