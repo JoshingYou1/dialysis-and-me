@@ -1111,6 +1111,7 @@ footer {
   grid-column-start: e;
   grid-column-end: e;
   font-weight: bold;
+  padding-right: 5px;
 }
 
 .grid-f-span {
@@ -1118,6 +1119,7 @@ footer {
   text-align: right;
   grid-column-start: f;
   grid-column-end: f;
+  padding-left: 5px;
 }
 
 .create-appointment-div {
@@ -2006,7 +2008,7 @@ footer {
   }
 
   .create-appointment-div {
-    margin-top: 2.5em;
+    margin-top: 1em;
   }
 
   .create-appointment-span, .create-doctor-span {
