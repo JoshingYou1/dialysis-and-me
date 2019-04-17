@@ -1090,7 +1090,7 @@ footer {
     "e f";
   grid-auto-columns: auto;
   grid-template-rows: auto;
-  max-width: 280px;
+  max-width: 300px;
   margin: auto;
   padding-bottom: 25px;
   align-items: center;
