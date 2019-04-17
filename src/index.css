@@ -1090,7 +1090,7 @@ footer {
     "e f";
   grid-auto-columns: auto;
   grid-template-rows: auto;
-  max-width: 300px;
+  max-width: 280px;
   margin: auto;
   padding-bottom: 25px;
   align-items: center;
@@ -1918,6 +1918,10 @@ footer {
     grid-template-columns: 1fr 1fr;
   }
 
+  .appointments-section {
+    height: 350px;
+  }
+
   .appointment-date-h2, .appointments-list-h2 {
     margin-top: 0;
   }
@@ -2002,11 +2006,7 @@ footer {
   }
 
   .create-appointment-div {
-    position: absolute;
-    bottom: 10%;
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
+    margin-top: 2.5em;
   }
 
   .create-appointment-span, .create-doctor-span {
