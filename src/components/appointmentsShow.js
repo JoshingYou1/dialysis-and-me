@@ -96,11 +96,7 @@ export class AppointmentsShow extends React.Component {
                             <span className="grid-f-span">{a.address.street}</span>
 
                             <span className="grid-e-span">City/State/Zip:</span>
-                            <span className="grid-f-span">
-                                {a.address.city},&nbsp;
-                                {a.address.state}&nbsp;
-                                {a.address.zipCode}
-                            </span>
+                            <span className="grid-f-span">{a.address.city},&nbsp;{a.address.state}&nbsp;{a.address.zipCode}</span>
 
                             <span className="grid-e-span">Phone number:</span>
                             <span className="grid-f-span">{a.phoneNumber}</span>
