@@ -12,7 +12,7 @@ export function Login(props) {
     return (
         <div className="login-container">
             <main role="main" className="login">
-                <img className="login-logo" src="/dialysis-and-me-logo.png" alt="Logo" aria-hidden="true"></img>
+                <img className="login-logo" src="/dialysis-and-me-logo-white.png" alt="Logo" aria-hidden="true"></img>
                 <LoginForm />
             </main>
         </div>

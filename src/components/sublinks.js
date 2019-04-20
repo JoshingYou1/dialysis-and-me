@@ -4,6 +4,12 @@ import { connect } from 'react-redux';
 import {toggleSidebar, toggleSublinks} from '../actions';
 
 export class Sublinks extends React.Component {
+    onClick() {
+        this.props.dispatch(toggleSidebar());
+        this.props.dispatch(toggleSublinks());
+        this.forceUpdate()
+    }
+
     render() {
         const sublinks = this.props.sublinks.map((sl, i) => {
             return (
@@ -11,7 +17,7 @@ export class Sublinks extends React.Component {
                     <Link 
                         className="sidebar-sublink" 
                         to={sl.link} 
-                        onClick={() => {this.props.dispatch(toggleSidebar()); this.props.dispatch(toggleSublinks())}}
+                        onClick={this.onClick}
                     >
                         {sl.display}
                     </Link>

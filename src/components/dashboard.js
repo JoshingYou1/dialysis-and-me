@@ -13,31 +13,51 @@ export class Dashboard extends React.Component {
                 <main role="main">
                     <h1 className="dashboard-h1">Welcome to your dashboard!</h1>
                     <section className="dashboard-links">
-                        <Link className="dashboard-link-container" to="/profile">
+                        <Link 
+                            className="dashboard-link-container" 
+                            to="/profile" 
+                            onClick={this.forceUpdate}
+                        >
                             <div className="link-div">
                                 <p className="fa fa-user fa-5x" aria-hidden="true"></p>
                                 <p className="dashboard-link-text">My Profile</p>
                             </div>
                         </Link>
-                        <Link className="dashboard-link-container" to="/patient-education">
+                        <Link 
+                            className="dashboard-link-container" 
+                            to="/patient-education" 
+                            onClick={this.forceUpdate}
+                        >
                             <div className="link-div">
                                 <p className="fa fa-book fa-5x" aria-hidden="true"></p>
                                 <p className="dashboard-link-text">Patient Education</p>
                             </div>
                         </Link>
-                        <Link className="dashboard-link-container" to="/lab-results">
+                        <Link 
+                            className="dashboard-link-container" 
+                            to="/lab-results" 
+                            onClick={this.forceUpdate}
+                        >
                             <div className="link-div">
                                 <p className="fa fa-vial fa-5x" aria-hidden="true"></p>
                                 <p className="dashboard-link-text" to="/lab-results">Lab Results</p>
                             </div>
                         </Link>
-                        <Link className="dashboard-link-container" to="/doctors">
+                        <Link 
+                            className="dashboard-link-container" 
+                            to="/doctors" 
+                            onClick={this.forceUpdate}
+                        >
                             <div className="link-div">
                                 <p className="fa fa-user-md fa-5x" aria-hidden="true"></p>
                                 <p className="dashboard-link-text">Doctors</p>
                             </div>
                         </Link>
-                        <Link className="dashboard-link-container" to="/appointments">
+                        <Link 
+                            className="dashboard-link-container" 
+                            to="/appointments" 
+                            onClick={this.forceUpdate}
+                        >
                             <div className="link-div">
                                 <p className="fa fa-calendar-alt fa-5x" aria-hidden="true"></p>
                                 <p className="dashboard-link-text">Appointments</p>

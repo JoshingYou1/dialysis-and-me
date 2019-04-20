@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, withRouter} from 'react-router-dom';
+import {Route, withRouter} from 'react-router-dom';
 import LandingPage from './landingPage';
 import Login from './login';
 import Dashboard from './dashboard';
@@ -14,6 +14,8 @@ import {connect} from 'react-redux';
 import {refreshAuthToken} from '../actions/auth';
 import About from './about';
 import Doctors from './doctors';
+import { NavigationBar } from './navBar';
+import Footer from './footer';
 
 
 export class AppContainer extends React.Component {
@@ -48,7 +50,7 @@ export class AppContainer extends React.Component {
 
     render() {
         return (
-            <div> 
+            <div>
                 <Route exact path="/" component={LandingPage} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/dashboard" component={Dashboard} />

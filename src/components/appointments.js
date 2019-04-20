@@ -8,7 +8,7 @@ import requiresLogin from './requires-login';
 import Footer from './footer';
 import CreateAppointmentForm from './createAppointmentForm';
 
-export class Appointments extends React.Component {
+class Appointments extends React.Component {
     componentDidMount() {
         this.props.dispatch(fetchAppointments(this.props.user.id));
     }
@@ -137,3 +137,4 @@ const mapStateToProps = state => ({
 });
 
 export default requiresLogin()(connect(mapStateToProps)(Appointments));
+export {Appointments};

@@ -96,6 +96,7 @@ button {
 
 .login-container {
   height: 100vh;
+  background-color: #7700B4;
 }
 
 .login {
@@ -118,6 +119,7 @@ button {
   padding: 2em;
   border: 2px solid #7700B4;
   border-radius: 10px;
+  background-color: white;
 }
 
 .login-form-label {
@@ -1359,6 +1361,10 @@ footer {
   background-color: #388038;
 }
 
+.edit-appointment-submit-button:disabled {
+  cursor: not-allowed;
+}
+
 .cancel-edit-appointment-form-changes-button {
   background-color: #C70000;
 }
@@ -1617,6 +1623,7 @@ footer {
   font-size: 20px;
   color: #7700B4;
   text-align: center;
+  font-weight: bold;
 }
 
 .hidden-1, .hidden-3, .hidden-4, .input-hidden {

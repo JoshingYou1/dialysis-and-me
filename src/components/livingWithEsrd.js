@@ -4,7 +4,7 @@ import Footer from './footer';
 
 export default function LivingWithESRD(props) {
     return (
-        <div class="container">
+        <div className="container">
             <NavigationBar />
             <main role="main">
                 <div className="top-image-div-4">

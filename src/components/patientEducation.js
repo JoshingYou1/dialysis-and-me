@@ -53,7 +53,13 @@ export class PatientEducation extends React.Component {
                                 </p>
                             </div>
                             <div className="patient-education-div-3">
-                                <Link className="patient-education-link-1" to="/patient-education/understanding-esrd">Learn more</Link>
+                                <Link 
+                                    className="patient-education-link-1" 
+                                    to="/patient-education/understanding-esrd"
+                                    onClick={this.forceUpdate}
+                                >
+                                    Learn more
+                                </Link>
                             </div>
                         </div>
                         <div className="patient-education-div-1">
@@ -65,7 +71,13 @@ export class PatientEducation extends React.Component {
                                 </p>
                             </div>
                             <div className="patient-education-div-3">
-                                <Link className="patient-education-link-2" to="/patient-education/living-with-esrd">Learn More</Link>
+                                <Link 
+                                    className="patient-education-link-2" 
+                                    to="/patient-education/living-with-esrd"
+                                    onClick={this.forceUpdate}
+                                >
+                                    Learn More
+                                </Link>
                             </div>
                         </div>
                         <div className="patient-education-div-1">
@@ -77,7 +89,13 @@ export class PatientEducation extends React.Component {
                                 </p>
                             </div>
                             <div className="patient-education-div-3">
-                                <Link className="patient-education-link-3" to="/patient-education/diet-for-dialysis">Learn more</Link>
+                                <Link 
+                                    className="patient-education-link-3" 
+                                    to="/patient-education/diet-for-dialysis"
+                                    onClick={this.forceUpdate}
+                                >
+                                    Learn more
+                                </Link>
                             </div>
                         </div>
                     </div>

@@ -4,6 +4,12 @@ import { toggleLabResultsInfo } from '../actions';
 
 export class LabResultsShow extends React.Component {
 
+    // componentDidUpdate(prevProps) {
+    //     if(this.props.chosenLabResult !== prevProps.chosenLabResult) {
+        
+    //     }
+    // }
+
     render() {
         if (this.props.chosenLabResult) {
             return (

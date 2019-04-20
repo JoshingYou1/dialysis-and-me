@@ -29,30 +29,35 @@ export class NavigationBar extends React.Component {
                         <Link 
                             className="header-quick-link"
                             to="/profile"
+                            onClick={this.forceUpdate}
                         >
                             Profile
                         </Link>
                         <Link 
                             className="header-quick-link"
                             to="/patient-education"
+                            onClick={this.forceUpdate}
                         >
                             Patient Education
                         </Link>
                         <Link 
                             className="header-quick-link"
                             to="/lab-results"
+                            onClick={this.forceUpdate}
                         >
                             Lab Results
                         </Link>
                         <Link 
                             className="header-quick-link"
                             to="/doctors"
+                            onClick={this.forceUpdate}
                         >
                             Doctors
                         </Link>
                         <Link 
                             className="header-quick-link"
                             to="/appointments"
+                            onClick={this.forceUpdate}
                         >
                             Appointments
                         </Link>
