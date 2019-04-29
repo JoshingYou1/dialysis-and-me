@@ -14,8 +14,6 @@ import {connect} from 'react-redux';
 import {refreshAuthToken} from '../actions/auth';
 import About from './about';
 import Doctors from './doctors';
-import { NavigationBar } from './navBar';
-import Footer from './footer';
 
 
 export class AppContainer extends React.Component {

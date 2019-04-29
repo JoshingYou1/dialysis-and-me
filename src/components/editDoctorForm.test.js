@@ -1,5 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
+import { expect } from 'chai';
 
 import {EditDoctorForm} from './editDoctorForm';
 import {Field} from 'redux-form';

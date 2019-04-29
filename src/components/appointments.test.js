@@ -4,6 +4,8 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import {MemoryRouter} from 'react-router';
 import thunk from 'redux-thunk';
+import sinon from 'sinon';
+import { expect } from 'chai';
 
 import Appointments from './appointments';
 import NavigationBar from './navBar';
@@ -59,58 +61,55 @@ const mockStore = configureStore(middlewares);
 
 const appointments = [
     {
-      "address": {
-        "street": "40 South Greenlake Ave",
-        "city": "Jacksonville",
-        "state": "FL",
-        "zipCode": 35421
+      address: {
+        street: '40 South Greenlake Ave',
+        city: 'Jacksonville',
+        state: 'FL',
+        zipCode: 35421
       },
-      "_id": "5cb694034859fh37701f316e",
-      "description": "Access evaluation",
-      "date": "2019-01-04T05:00:00.000Z",
-      "time": "2:15 p.m.",
-      "with": "Jason Strickland",
-      "title": "MD",
-      "where": "Vascular Access Center",
-      "phoneNumber": "904-943-2942",
-      "patient": "5cb694034859f123701f3159",
-      "__v": 0
+      _id: '5cb694034859fh37701f316e',
+      description: 'Access evaluation',
+      date: '2019-01-04T05:00:00.000Z',
+      time: '2:15 p.m.',
+      with: 'Jason Strickland',
+      title: 'MD',
+      where: 'Vascular Access Center',
+      phoneNumber: '904-943-2942',
+      patient: '5cb694034859f123701f3159'
     },
     {
-      "address": {
-        "street": "632 Oak St",
-        "city": "Jacksonville",
-        "state": "FL",
-        "zipCode": 34423
+      address: {
+        street: '632 Oak St',
+        city: 'Jacksonville',
+        state: 'FL',
+        zipCode: 34423
       },
-      "_id": "5cb694034859f123701f316d",
-      "description": "Back pain",
-      "date": "2019-01-19T05:00:00.000Z",
-      "time": "12:30 p.m.",
-      "with": "Jessica Brown",
-      "title": "Primary care physician",
-      "where": "Baptist Primary Care",
-      "phoneNumber": "904-233-1114",
-      "patient": "5cb694034859f123701f3159",
-      "__v": 0
+      _id: '5cb694034859f123701f316d',
+      description: 'Back pain',
+      date: '2019-01-19T05:00:00.000Z',
+      time: '12:30 p.m.',
+      with: 'Jessica Brown',
+      title: 'Primary care physician',
+      where: 'Baptist Primary Care',
+      phoneNumber: '904-233-1114',
+      patient: '5cb694034859f123701f3159'
     },
     {
-      "address": {
-        "street": "402 South Lakeside Dr",
-        "city": "Jacksonville",
-        "state": "FL",
-        "zipCode": 35422
+      address: {
+        street: '402 South Lakeside Dr',
+        city: 'Jacksonville',
+        state: 'FL',
+        zipCode: 35422
       },
-      "_id": "5cb694034859f123701f316f",
-      "description": "Vein mapping",
-      "date": "2019-02-04T05:00:00.000Z",
-      "time": "2:10 p.m.",
-      "with": "Jason Strickland",
-      "title": "MD",
-      "where": "Vascular Access Center",
-      "phoneNumber": "904-943-2942",
-      "patient": "5cb694034859f123701f3159",
-      "__v": 0
+      _id: '5cb694034859f123701f316f',
+      description: 'Vein mapping',
+      date: '2019-02-04T05:00:00.000Z',
+      time: '2:10 p.m.',
+      with: 'Jason Strickland',
+      title: 'MD',
+      where: 'Vascular Access Center',
+      phoneNumber: '904-943-2942',
+      patient: '5cb694034859f123701f3159'
     }
   ];
 
@@ -125,24 +124,95 @@ describe('<Appointments />', () => {
         shallow(<Appointments />);
     });
 
+    it('Should render the div element named .loading-div if the state of the isLoading prop is truthy', () => {
+        initialState.app.isLoading = true;
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/appointments']}>
+                    <Appointments />
+                </MemoryRouter>
+            </Provider>
+        );
+        expect(wrapper.find('.loading-div').length).to.equal(1);
+
+    });
+
+    it('Should render the div element named .sk-circle if the state of the isLoading prop is truthy', () => {
+        initialState.app.isLoading = true;
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/appointments']}>
+                    <Appointments />
+                </MemoryRouter>
+            </Provider>
+        );
+        expect(wrapper.find('.sk-circle').length).to.equal(1);
+
+    });
+
     it('Should render the NavigationBar component', () => {
-        shallow(<NavigationBar />);
+        initialState.app.appointments = appointments;
+        initialState.app.isLoading = false;
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/appointments']}>
+                    <Appointments />
+                </MemoryRouter>
+            </Provider>
+        );
+        expect(wrapper.find(NavigationBar).length).to.equal(1);
     });
 
     it('Should render the Footer component', () => {
-        shallow(<Footer />);
+        initialState.app.appointments = appointments;
+        initialState.app.isLoading = false;
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/appointments']}>
+                    <Appointments />
+                </MemoryRouter>
+            </Provider>
+        );
+        expect(wrapper.find(Footer).length).to.equal(1);
     });
 
     it('Should render the AppointmentsList component', () => {
-        shallow(<AppointmentsList />);
+        initialState.app.appointments = appointments;
+        initialState.app.isLoading = false;
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/appointments']}>
+                    <Appointments />
+                </MemoryRouter>
+            </Provider>
+        );
+        expect(wrapper.find(AppointmentsList).length).to.equal(1);
     });
 
     it('Should render the AppointmentsShow component', () => {
-        shallow(<AppointmentsShow />);
+        initialState.app.appointments = appointments;
+        initialState.app.isLoading = false;
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/appointments']}>
+                    <Appointments />
+                </MemoryRouter>
+            </Provider>
+        );
+        expect(wrapper.find(AppointmentsShow).length).to.equal(1);
     });
 
     it('Should render the CreateAppointmentForm component', () => {
-        shallow(<CreateAppointmentForm />);
+        initialState.app.appointments = appointments;
+        initialState.app.isLoading = false;
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/appointments']}>
+                    <Appointments />
+                </MemoryRouter>
+            </Provider>
+        );
+        expect(wrapper.find(CreateAppointmentForm).length).to.equal(1);
     });
 
     it('Should fire the componentDidMount method and inject appointments into the state', () => {
@@ -157,8 +227,14 @@ describe('<Appointments />', () => {
                 }
             })
         );
-        wrapper = mount(<Provider store={store}><MemoryRouter initalEntries={['/appointments']}><Appointments /></MemoryRouter></Provider>);
-        expect(wrapper.find(Appointments).find('.container').length).toEqual(1);
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/appointments']}>
+                    <Appointments />
+                </MemoryRouter>
+            </Provider>
+        );
+        expect(wrapper.find(Appointments).find('.container').length).to.equal(1);
 
         initialState.app.appointments = appointments;
         initialState.app.isLoading = false;
@@ -166,10 +242,61 @@ describe('<Appointments />', () => {
         store = mockStore(initialState);
         // wrapper.update();
         //Since wrapper.update() is currently broken as of 4/19/19, I had to manually remount the component
-        wrapper = mount(<Provider store={store}><MemoryRouter initalEntries={['/appointments']}><Appointments /></MemoryRouter></Provider>);
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/appointments']}>
+                    <Appointments />
+                </MemoryRouter>
+            </Provider>
+        );
         wrapper.find(Appointments).render();
         // console.log('wrapper.find', wrapper.find(Appointments).html());
-        expect(wrapper.find(Appointments).find('h1').length).toEqual(2);
+        expect(wrapper.find(Appointments).find('h1').length).to.equal(2);
+    });
+
+    it('Should render the h1 header named appointments-h1.hidden-1 if the state of the prop isCreateAppointmentFormShowing is truthy', () => {
+        initialState.app.appointments = appointments;
+        initialState.app.isLoading = false;
+        initialState.app.isCreateAppointmentFormShowing = true;
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/appointments']}>
+                    <Appointments />
+                </MemoryRouter>
+            </Provider>
+        );
+        expect(wrapper.find('h1.appointments-h1.hidden-1').length).to.equal(1);
+    });
+
+    it('Should render the div named create-appointment-div.desktop-hide-2.hidden-1 if the state of the prop isAppointmentInfoShowing is truthy', () => {
+        initialState.app.appointments = appointments;
+        initialState.app.isLoading = false;
+        initialState.app.isAppointmentInfoShowing = true;
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/appointments']}>
+                    <Appointments />
+                </MemoryRouter>
+            </Provider>
+        );
+        expect(wrapper.find('div.create-appointment-div.desktop-hide-2.hidden-1').length).to.equal(1);
+    });
+
+    it('Should simulate a click event when the button that renders the createAppointmentForm component is clicked', () => {
+        initialState.app.appointments = appointments;
+        initialState.app.isLoading = false;
+        initialState.app.isCreateAppointmentFormShowing = false;
+        const onButtonClick = sinon.spy();
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/appointments']}>
+                    <Appointments onButtonClick={onButtonClick}/>
+                </MemoryRouter>
+            </Provider>
+        );
+        expect(wrapper.find('button.create-appointment-button').at(0).length).to.equal(1);
+        wrapper.find('button.create-appointment-button').at(0).simulate('click');
+        expect(onButtonClick).to.have.property('callCount', 1);
     });
 });
 

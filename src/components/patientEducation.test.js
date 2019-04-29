@@ -1,5 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
+import { expect } from 'chai';
 
 import {PatientEducation} from './patientEducation';
 import {BrowserRouter as Router, Link} from 'react-router-dom';

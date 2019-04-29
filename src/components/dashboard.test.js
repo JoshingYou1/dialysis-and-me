@@ -1,5 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
+import { expect } from 'chai';
 
 import {Dashboard} from './dashboard';
 import NavigationBar from './navBar';

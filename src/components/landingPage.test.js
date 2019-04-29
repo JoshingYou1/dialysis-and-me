@@ -1,5 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
+import { expect } from 'chai';
 
 import {LandingPage} from './landingPage';
 import {BrowserRouter as Router, Link, Redirect} from 'react-router-dom';

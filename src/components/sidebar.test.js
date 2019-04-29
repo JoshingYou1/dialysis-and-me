@@ -1,5 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
+import { expect } from 'chai';
 
 import {Sidebar} from './sidebar';
 import {BrowserRouter as Router, Link} from 'react-router-dom';

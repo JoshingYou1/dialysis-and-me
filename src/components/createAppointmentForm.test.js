@@ -1,5 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
+import { expect } from 'chai';
 
 import {CreateAppointmentForm} from './createAppointmentForm';
 import DateTimePicker from 'react-widgets/lib/DateTimePicker';
