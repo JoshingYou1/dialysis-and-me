@@ -1007,6 +1007,8 @@ footer {
 
 .nutritional-info-ul, .esrd-info-ul, .living-with-esrd-ul {
   list-style-type: square;
+  margin-bottom: 3em;
+  margin-top: 0;
 }
 .nutritional-info-li, .esrd-info-li, .living-with-esrd-li {
   margin-bottom: 0.4em;
@@ -2246,7 +2248,7 @@ footer {
   }
 
   .patient-education-p, .nutritional-info-p, .living-with-esrd-p, .esrd-info-p , .about-p{
-    margin-bottom: 3em;
+    margin-bottom: 2.5em;
     font-size: 21px;
   }
 

@@ -11,6 +11,7 @@ describe('<EditBasicProfileInfoForm />', () => {
     });
 
     it('Should render the Field component', () => {
-        shallow(<Field />);
+        const wrapper = shallow(<EditBasicProfileInfoForm />);
+        expect(wrapper.find(Field).length).to.equal(9);
     });
 });

@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import {Dashboard} from './dashboard';
 import NavigationBar from './navBar';
 import Footer from './footer';
-import {BrowserRouter as Router, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 describe('<Dashboard />', () => {
     it('Should render without crashing', () => {
@@ -13,18 +13,27 @@ describe('<Dashboard />', () => {
     });
 
     it('Should render the NavigationBar component', () => {
-        shallow(<NavigationBar />);
+        const wrapper = shallow(<Dashboard />);
+        expect(wrapper.find(NavigationBar).length).to.equal(1);
     });
     
     it('Should render the Footer component', () => {
-        shallow(<Footer />);
+        const wrapper = shallow(<Dashboard />);
+        expect(wrapper.find(Footer).length).to.equal(1);
     });
 
     it('Should render the Link component', () => {
-        shallow(
-            <Router>
-                <Link to=""/>
-            </Router>
-        );
+        const wrapper = shallow(<Dashboard />);
+        expect(wrapper.find(Link).length).to.equal(5);
+    });
+
+    it('Should render the container class', () => {
+        const wrapper = shallow(<Dashboard />);
+        expect(wrapper.find('.container').length).to.equal(1);
+    });
+
+    it('Should render the section element named .dashboard-links', () => {
+        const wrapper = shallow(<Dashboard />);
+        expect(wrapper.find('.dashboard-links').length).to.equal(1);
     });
 });

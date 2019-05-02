@@ -13,10 +13,12 @@ describe('<CreateAppointmentForm />', () => {
     });
 
     it('Should render the DateTimePicker component', () => {
-        shallow(<DateTimePicker />);
+        const wrapper = shallow(<CreateAppointmentForm />);
+        expect(wrapper.find(DateTimePicker).length).to.equal(1);
     });
 
     it('Should render the Field component', () => {
-        shallow(<Field />);
+        const wrapper = shallow(<CreateAppointmentForm />);
+        expect(wrapper.find(Field).length).to.equal(11);
     });
 });

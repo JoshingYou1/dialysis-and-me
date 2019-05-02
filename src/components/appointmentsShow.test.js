@@ -9,47 +9,6 @@ import thunk from 'redux-thunk';
 import {AppointmentsShow} from './appointmentsShow';
 import EditAppointmentForm from './editAppointmentForm';
 
-let initialState = {
-    app: {
-        selectedAppointments: [],
-        selectedLabResult: null,
-        isSidebarShowing: false,
-        labResults: [],
-        isLabResultsInfoShowing: false,
-        profile: [],
-        loadedBasicProfileInfoFormData: {},
-        isUserInfoShowing: false,
-        section: 0,
-        appointments: [],
-        isAppointmentInfoShowing: false,
-        areSublinksShowing: false,
-        currentDoctor: 0,
-        isCreateAppointmentFormShowing: false,
-        isCreateDoctorFormShowing: false,
-        isEditBasicProfileInfoFormShowing: false,
-        selectedAppointmentToEdit: null,
-        selectedDoctorToEdit: null,
-        loadedAppointmentFormData: {},
-        isDoctorMenuShowing: false,
-        loadedDoctorFormData: {},
-        doctors: [],
-        areAppointmentsShowing: false,
-        deletedAppointment: null,
-        deletedDoctor: null,
-        isLoading: true,
-        animation: false,
-        isEditAppointmentFormShowing: false,
-        isEditDoctorFormShowing: false
-    },
-    auth: {
-        loading: false,
-        currentUser: {
-            _id: 1
-        },
-        error: null
-    }
-};
-
 const middlewares = [thunk];
 
 const mockStore = configureStore(middlewares);
@@ -150,7 +109,48 @@ let chosenAppointments = selectedAppointments;
 describe('<AppointmentsShow', () => {
     let wrapper;
     let store;
+    let initialState;
     beforeEach(() => {
+        initialState = {
+            app: {
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: null,
+                selectedDoctorToEdit: null,
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            },
+            auth: {
+                loading: false,
+                currentUser: {
+                    _id: 1
+                },
+                error: null
+            }
+        };
         store = mockStore(initialState);
     })
 

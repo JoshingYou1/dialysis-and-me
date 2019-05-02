@@ -12,47 +12,6 @@ import LabResultsList from './labResultsList';
 import LabResultsShow from './labResultsShow';
 import Footer from './footer';
 
-let initialState = {
-    app: {
-        selectedAppointments: [],
-        selectedLabResult: null,
-        isSidebarShowing: false,
-        labResults: [],
-        isLabResultsInfoShowing: false,
-        profile: [],
-        loadedBasicProfileInfoFormData: {},
-        isUserInfoShowing: false,
-        section: 0,
-        appointments: [],
-        isAppointmentInfoShowing: false,
-        areSublinksShowing: false,
-        currentDoctor: 0,
-        isCreateAppointmentFormShowing: false,
-        isCreateDoctorFormShowing: false,
-        isEditBasicProfileInfoFormShowing: false,
-        selectedAppointmentToEdit: null,
-        selectedDoctorToEdit: null,
-        loadedAppointmentFormData: {},
-        isDoctorMenuShowing: false,
-        loadedDoctorFormData: {},
-        doctors: [],
-        areAppointmentsShowing: false,
-        deletedAppointment: null,
-        deletedDoctor: null,
-        isLoading: true,
-        animation: false,
-        isEditAppointmentFormShowing: false,
-        isEditDoctorFormShowing: false
-    },
-    auth: {
-        loading: false,
-        currentUser: {
-            _id: 1
-        },
-        error: null
-    }
-};
-
 const middlewares = [thunk];
 
 const mockStore = configureStore(middlewares);
@@ -138,28 +97,78 @@ const labResults = [
 describe('<LabResults />', () => {
     let wrapper;
     let store;
+    let initialState;
     beforeEach(() => {
+        initialState = {
+            app: {
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: null,
+                selectedDoctorToEdit: null,
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            },
+            auth: {
+                loading: false,
+                currentUser: {
+                    _id: 1
+                },
+                error: null
+            }
+        };
         store = mockStore(initialState);
     })
     
     it('Should render without crashing', () => {
+        initialState.app.labResults = labResults;
         shallow(<LabResults />);
     });
 
     it('Should render the NavigationBar component', () => {
-        shallow(<NavigationBar />);
+        initialState.app.labResults = labResults;
+        wrapper = shallow(<LabResults />);
+        expect(wrapper.find(NavigationBar).length).to.equal(1);
     });
 
     it('Should render the LabResultsList component', () => {
-        shallow(<LabResultsList />);
+        initialState.app.labResults = labResults;
+        wrapper = shallow(<LabResults />);
+        expect(wrapper.find(LabResultsList).length).to.equal(1);
     });
 
     it('Should render the LabResultsShow component', () => {
-        shallow(<LabResultsShow />);
+        initialState.app.labResults = labResults;
+        wrapper = shallow(<LabResults />);
+        expect(wrapper.find(LabResultsShow).length).to.equal(1);
     });
     
     it('Should render the Footer component', () => {
-        shallow(<Footer />);
+        initialState.app.labResults = labResults;
+        wrapper = shallow(<LabResults />);
+        expect(wrapper.find(Footer).length).to.equal(1);
     });
 
     it('Should fire the componentDidMount method and inject lab results into the state', () => {

@@ -11,6 +11,7 @@ describe('<CreateDoctorForm />', () => {
     });
 
     it('Should render the Field component', () => {
-        shallow(<Field />);
+        const wrapper = shallow(<CreateDoctorForm />);
+        expect(wrapper.find(Field).length).to.equal(11);
     });
 })

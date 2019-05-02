@@ -14,47 +14,6 @@ import AppointmentsList from './appointmentsList';
 import AppointmentsShow from './appointmentsShow';
 import CreateAppointmentForm from './createAppointmentForm';
 
-let initialState = {
-    app: {
-        selectedAppointments: [],
-        selectedLabResult: null,
-        isSidebarShowing: false,
-        labResults: [],
-        isLabResultsInfoShowing: false,
-        profile: [],
-        loadedBasicProfileInfoFormData: {},
-        isUserInfoShowing: false,
-        section: 0,
-        appointments: [],
-        isAppointmentInfoShowing: false,
-        areSublinksShowing: false,
-        currentDoctor: 0,
-        isCreateAppointmentFormShowing: false,
-        isCreateDoctorFormShowing: false,
-        isEditBasicProfileInfoFormShowing: false,
-        selectedAppointmentToEdit: null,
-        selectedDoctorToEdit: null,
-        loadedAppointmentFormData: {},
-        isDoctorMenuShowing: false,
-        loadedDoctorFormData: {},
-        doctors: [],
-        areAppointmentsShowing: false,
-        deletedAppointment: null,
-        deletedDoctor: null,
-        isLoading: true,
-        animation: false,
-        isEditAppointmentFormShowing: false,
-        isEditDoctorFormShowing: false
-    },
-    auth: {
-        loading: false,
-        currentUser: {
-            _id: 1
-        },
-        error: null
-    }
-};
-
 const middlewares = [thunk];
 
 const mockStore = configureStore(middlewares);
@@ -116,9 +75,50 @@ const appointments = [
 describe('<Appointments />', () => {
     let wrapper;
     let store;
+    let initialState;
     beforeEach(() => {
+        initialState = {
+            app: {
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: null,
+                selectedDoctorToEdit: null,
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            },
+            auth: {
+                loading: false,
+                currentUser: {
+                    _id: 1
+                },
+                error: null
+            }
+        };
         store = mockStore(initialState);
-    })
+    });
 
     it('Should render without crashing', () => {
         shallow(<Appointments />);
@@ -285,7 +285,6 @@ describe('<Appointments />', () => {
     it('Should simulate a click event when the button that renders the createAppointmentForm component is clicked', () => {
         initialState.app.appointments = appointments;
         initialState.app.isLoading = false;
-        initialState.app.isCreateAppointmentFormShowing = false;
         const onButtonClick = sinon.spy();
         wrapper = mount(
             <Provider store={store}>
