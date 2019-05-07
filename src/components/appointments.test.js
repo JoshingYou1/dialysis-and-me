@@ -4,19 +4,24 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import {MemoryRouter} from 'react-router';
 import thunk from 'redux-thunk';
-import sinon from 'sinon';
-import { expect } from 'chai';
+import chai, {expect} from 'chai';
+import spies from 'chai-spies';
 
-import Appointments from './appointments';
+import {Appointments} from './appointments';
 import NavigationBar from './navBar';
 import Footer from './footer';
 import AppointmentsList from './appointmentsList';
 import AppointmentsShow from './appointmentsShow';
 import CreateAppointmentForm from './createAppointmentForm';
+import { chooseCreateAppointment } from '../actions';
+import * as actions from '../actions';
+import {fetchAppointments} from '../actions';
 
-const middlewares = [thunk];
+// const middlewares = [thunk];
 
-const mockStore = configureStore(middlewares);
+// const mockStore = configureStore(middlewares);
+
+chai.use(spies);
 
 const appointments = [
     {
@@ -73,229 +78,271 @@ const appointments = [
   ];
 
 describe('<Appointments />', () => {
-    let wrapper;
-    let store;
-    let initialState;
-    beforeEach(() => {
-        initialState = {
-            app: {
-                selectedAppointments: [],
-                selectedLabResult: null,
-                isSidebarShowing: false,
-                labResults: [],
-                isLabResultsInfoShowing: false,
-                profile: [],
-                loadedBasicProfileInfoFormData: {},
-                isUserInfoShowing: false,
-                section: 0,
-                appointments: [],
-                isAppointmentInfoShowing: false,
-                areSublinksShowing: false,
-                currentDoctor: 0,
-                isCreateAppointmentFormShowing: false,
-                isCreateDoctorFormShowing: false,
-                isEditBasicProfileInfoFormShowing: false,
-                selectedAppointmentToEdit: null,
-                selectedDoctorToEdit: null,
-                loadedAppointmentFormData: {},
-                isDoctorMenuShowing: false,
-                loadedDoctorFormData: {},
-                doctors: [],
-                areAppointmentsShowing: false,
-                deletedAppointment: null,
-                deletedDoctor: null,
-                isLoading: true,
-                animation: false,
-                isEditAppointmentFormShowing: false,
-                isEditDoctorFormShowing: false
-            },
-            auth: {
-                loading: false,
-                currentUser: {
-                    _id: 1
-                },
-                error: null
-            }
-        };
-        store = mockStore(initialState);
-    });
+//     let wrapper;
+//     let store;
+//     let initialState;
+//     beforeEach(() => {
+//         initialState = {
+//             app: {
+//                 selectedAppointments: [],
+//                 selectedLabResult: null,
+//                 isSidebarShowing: false,
+//                 labResults: [],
+//                 isLabResultsInfoShowing: false,
+//                 profile: [],
+//                 loadedBasicProfileInfoFormData: {},
+//                 isUserInfoShowing: false,
+//                 section: 0,
+//                 appointments: [],
+//                 isAppointmentInfoShowing: false,
+//                 areSublinksShowing: false,
+//                 currentDoctor: 0,
+//                 isCreateAppointmentFormShowing: false,
+//                 isCreateDoctorFormShowing: false,
+//                 isEditBasicProfileInfoFormShowing: false,
+//                 selectedAppointmentToEdit: null,
+//                 selectedDoctorToEdit: null,
+//                 loadedAppointmentFormData: {},
+//                 isDoctorMenuShowing: false,
+//                 loadedDoctorFormData: {},
+//                 doctors: [],
+//                 areAppointmentsShowing: false,
+//                 deletedAppointment: null,
+//                 deletedDoctor: null,
+//                 isLoading: true,
+//                 animation: false,
+//                 isEditAppointmentFormShowing: false,
+//                 isEditDoctorFormShowing: false
+//             },
+//             auth: {
+//                 loading: false,
+//                 currentUser: {
+//                     _id: 1
+//                 },
+//                 error: null
+//             }
+//         };
+//         store = mockStore(initialState);
+//     });
 
     it('Should render without crashing', () => {
-        shallow(<Appointments />);
+        const props = {
+            dispatch: chai.spy(),
+            user: {
+                _id: 1
+            }
+        };
+        shallow(<Appointments {...props}/>);
+    });
+
+    it('Calls componentDidMount', () => {
+        const props = {
+            dispatch: chai.spy(),
+            user: {
+                _id: 1
+            }
+        };
+        chai.spy.on(Appointments.prototype, 'componentDidMount');
+        const wrapper = shallow(<Appointments {...props}/>);
+        expect(Appointments.prototype.componentDidMount).to.have.been.called.once;
     });
 
     it('Should render the div element named .loading-div if the state of the isLoading prop is truthy', () => {
-        initialState.app.isLoading = true;
-        wrapper = mount(
-            <Provider store={store}>
-                <MemoryRouter initalEntries={['/appointments']}>
-                    <Appointments />
-                </MemoryRouter>
-            </Provider>
-        );
+        const props = {
+            dispatch: chai.spy(),
+            user: {
+                _id: 1
+            },
+            appointments: appointments,
+            isCreateAppointmentFormShowing: false,
+            isAppointmentInfoShowing: false,
+            deletedAppointment: {},
+            isMessageShowing: false,
+            isLoading: true
+        };
+        const wrapper = shallow(<Appointments {...props}/>);
         expect(wrapper.find('.loading-div').length).to.equal(1);
 
     });
 
     it('Should render the div element named .sk-circle if the state of the isLoading prop is truthy', () => {
-        initialState.app.isLoading = true;
-        wrapper = mount(
-            <Provider store={store}>
-                <MemoryRouter initalEntries={['/appointments']}>
-                    <Appointments />
-                </MemoryRouter>
-            </Provider>
-        );
+        const props = {
+            dispatch: chai.spy(),
+            user: {
+                _id: 1
+            },
+            appointments: appointments,
+            isCreateAppointmentFormShowing: false,
+            isAppointmentInfoShowing: false,
+            deletedAppointment: {},
+            isMessageShowing: false,
+            isLoading: true
+        };
+        const wrapper = shallow(<Appointments {...props}/>);
         expect(wrapper.find('.sk-circle').length).to.equal(1);
 
     });
 
     it('Should render the NavigationBar component', () => {
-        initialState.app.appointments = appointments;
-        initialState.app.isLoading = false;
-        wrapper = mount(
-            <Provider store={store}>
-                <MemoryRouter initalEntries={['/appointments']}>
-                    <Appointments />
-                </MemoryRouter>
-            </Provider>
-        );
+        const props = {
+            dispatch: chai.spy(),
+            user: {
+                _id: 1
+            },
+            appointments: appointments,
+            isCreateAppointmentFormShowing: false,
+            isAppointmentInfoShowing: false,
+            deletedAppointment: {},
+            isMessageShowing: false,
+            isLoading: true
+        };
+        const wrapper = shallow(<Appointments {...props}/>);
         expect(wrapper.find(NavigationBar).length).to.equal(1);
     });
 
     it('Should render the Footer component', () => {
-        initialState.app.appointments = appointments;
-        initialState.app.isLoading = false;
-        wrapper = mount(
-            <Provider store={store}>
-                <MemoryRouter initalEntries={['/appointments']}>
-                    <Appointments />
-                </MemoryRouter>
-            </Provider>
-        );
+        const props = {
+            dispatch: chai.spy(),
+            user: {
+                _id: 1
+            },
+            appointments: appointments,
+            isCreateAppointmentFormShowing: false,
+            isAppointmentInfoShowing: false,
+            deletedAppointment: {},
+            isMessageShowing: false,
+            isLoading: true
+        };
+        const wrapper = shallow(<Appointments {...props}/>);
         expect(wrapper.find(Footer).length).to.equal(1);
     });
 
     it('Should render the AppointmentsList component', () => {
-        initialState.app.appointments = appointments;
-        initialState.app.isLoading = false;
-        wrapper = mount(
-            <Provider store={store}>
-                <MemoryRouter initalEntries={['/appointments']}>
-                    <Appointments />
-                </MemoryRouter>
-            </Provider>
-        );
+        const props = {
+            dispatch: chai.spy(),
+            user: {
+                _id: 1
+            },
+            appointments: appointments,
+            isCreateAppointmentFormShowing: false,
+            isAppointmentInfoShowing: false,
+            deletedAppointment: {},
+            isMessageShowing: false,
+            isLoading: false
+        };
+        const wrapper = shallow(<Appointments {...props}/>);
         expect(wrapper.find(AppointmentsList).length).to.equal(1);
     });
 
     it('Should render the AppointmentsShow component', () => {
-        initialState.app.appointments = appointments;
-        initialState.app.isLoading = false;
-        wrapper = mount(
-            <Provider store={store}>
-                <MemoryRouter initalEntries={['/appointments']}>
-                    <Appointments />
-                </MemoryRouter>
-            </Provider>
-        );
+        const props = {
+            dispatch: chai.spy(),
+            user: {
+                _id: 1
+            },
+            appointments: appointments,
+            isCreateAppointmentFormShowing: false,
+            isAppointmentInfoShowing: false,
+            deletedAppointment: {},
+            isMessageShowing: false,
+            isLoading: false
+        };
+        const wrapper = shallow(<Appointments {...props}/>);
         expect(wrapper.find(AppointmentsShow).length).to.equal(1);
     });
 
     it('Should render the CreateAppointmentForm component', () => {
-        initialState.app.appointments = appointments;
-        initialState.app.isLoading = false;
-        wrapper = mount(
-            <Provider store={store}>
-                <MemoryRouter initalEntries={['/appointments']}>
-                    <Appointments />
-                </MemoryRouter>
-            </Provider>
-        );
+        const props = {
+            dispatch: chai.spy(),
+            user: {
+                _id: 1
+            },
+            appointments: appointments,
+            isCreateAppointmentFormShowing: false,
+            isAppointmentInfoShowing: false,
+            deletedAppointment: {},
+            isMessageShowing: false,
+            isLoading: false
+        };
+        const wrapper = shallow(<Appointments {...props}/>);
         expect(wrapper.find(CreateAppointmentForm).length).to.equal(1);
     });
 
-    it('Should fire the componentDidMount method and inject appointments into the state', () => {
-        const dispatch = jest.fn();
-        shallow(<Appointments dispatch={dispatch}/>);
-
-        global.fetch = jest.fn().mockImplementation(() =>
-            Promise.resolve({
-                ok: true,
-                json() {
-                    return appointments;
-                }
-            })
-        );
-        wrapper = mount(
-            <Provider store={store}>
-                <MemoryRouter initalEntries={['/appointments']}>
-                    <Appointments />
-                </MemoryRouter>
-            </Provider>
-        );
-        expect(wrapper.find(Appointments).find('.container').length).to.equal(1);
-
-        initialState.app.appointments = appointments;
-        initialState.app.isLoading = false;
-        wrapper.unmount();
-        store = mockStore(initialState);
-        // wrapper.update();
-        //Since wrapper.update() is currently broken as of 4/19/19, I had to manually remount the component
-        wrapper = mount(
-            <Provider store={store}>
-                <MemoryRouter initalEntries={['/appointments']}>
-                    <Appointments />
-                </MemoryRouter>
-            </Provider>
-        );
-        wrapper.find(Appointments).render();
-        // console.log('wrapper.find', wrapper.find(Appointments).html());
-        expect(wrapper.find(Appointments).find('h1').length).to.equal(2);
-    });
-
     it('Should render the h1 header named appointments-h1.hidden-1 if the state of the prop isCreateAppointmentFormShowing is truthy', () => {
-        initialState.app.appointments = appointments;
-        initialState.app.isLoading = false;
-        initialState.app.isCreateAppointmentFormShowing = true;
-        wrapper = mount(
-            <Provider store={store}>
-                <MemoryRouter initalEntries={['/appointments']}>
-                    <Appointments />
-                </MemoryRouter>
-            </Provider>
-        );
+        const props = {
+            user: {
+                _id: 1
+            },
+            dispatch: chai.spy(),
+            appointments: [],
+            isCreateAppointmentFormShowing: true,
+            isAppointmentInfoShowing: false,
+            deletedAppointment: {},
+            isMessageShowing: false,
+            isLoading: false
+        };
+        const wrapper = shallow(<Appointments {...props}/>);
         expect(wrapper.find('h1.appointments-h1.hidden-1').length).to.equal(1);
     });
 
     it('Should render the div named create-appointment-div.desktop-hide-2.hidden-1 if the state of the prop isAppointmentInfoShowing is truthy', () => {
-        initialState.app.appointments = appointments;
-        initialState.app.isLoading = false;
-        initialState.app.isAppointmentInfoShowing = true;
-        wrapper = mount(
-            <Provider store={store}>
-                <MemoryRouter initalEntries={['/appointments']}>
-                    <Appointments />
-                </MemoryRouter>
-            </Provider>
-        );
+        const props = {
+            user: {
+                _id: 1
+            },
+            dispatch: chai.spy(),
+            appointments: [],
+            isCreateAppointmentFormShowing: false,
+            isAppointmentInfoShowing: true,
+            deletedAppointment: {},
+            isMessageShowing: false,
+            isLoading: false
+        };
+        const wrapper = shallow(<Appointments {...props}/>);
         expect(wrapper.find('div.create-appointment-div.desktop-hide-2.hidden-1').length).to.equal(1);
     });
 
-    it('Should simulate a click event when the button that renders the createAppointmentForm component is clicked', () => {
-        initialState.app.appointments = appointments;
-        initialState.app.isLoading = false;
-        const onButtonClick = sinon.spy();
-        wrapper = mount(
-            <Provider store={store}>
-                <MemoryRouter initalEntries={['/appointments']}>
-                    <Appointments onButtonClick={onButtonClick}/>
-                </MemoryRouter>
-            </Provider>
-        );
-        expect(wrapper.find('button.create-appointment-button').at(0).length).to.equal(1);
+    it('Should dispatch the chooseCreateAppointment action when the button that renders the createAppointmentForm component is clicked', () => {
+        const props = {
+            appointments: appointments,
+            user: {},
+            isCreateAppointmentFormShowing: false,
+            isAppointmentInfoShowing: false,
+            deletedAppointment: {},
+            isMessageShowing: false,
+            isLoading: false,
+            dispatch: chai.spy()
+        };
+           // Mock the actions we expect to be called
+        actions.chooseCreateAppointment = chai.spy();
+
+        const wrapper = shallow(<Appointments {...props} />);
         wrapper.find('button.create-appointment-button').at(0).simulate('click');
-        expect(onButtonClick).to.have.property('callCount', 1);
+        expect(props.dispatch).to.have.been.called.with(chooseCreateAppointment());
+    });
+
+    it('Should dispatch fetchAppointments from actions', () => {
+        const props = {
+            user: {
+                _id: 1
+            },
+            dispatch: chai.spy(),
+            appointments: [],
+            isCreateAppointmentFormShowing: false,
+            isAppointmentInfoShowing: false,
+            deletedAppointment: {},
+            isMessageShowing: false,
+            isLoading: false
+        };
+        const wrapper = shallow(<Appointments dispatch={dispatch} {...props}/>);
+        const instance = wrapper.instance();
+        console.log(instance.props.dispatch);
+        const fetchedAppointments = appointments;
+        instance.props.dispatch(fetchAppointments(fetchedAppointments));
+        expect(instance.props.dispatch).to.have.been.called.with(fetchAppointments());
+        // expect(wrapper.find('.container').length).to.equal(1);
+        // // console.log('wrapper.find', wrapper.find(Appointments).html());
+        // expect(wrapper.find('h1').length).to.equal(2);
     });
 });
 

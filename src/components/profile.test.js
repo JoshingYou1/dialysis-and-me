@@ -4,7 +4,8 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import {MemoryRouter} from 'react-router';
 import thunk from 'redux-thunk';
-import { expect } from 'chai';
+import chai, { expect } from 'chai';
+import spies from 'chai-spies';
 
 import {Profile} from './profile';
 import NavigationBar from './navBar';
@@ -13,47 +14,6 @@ import SecondaryInsuranceInfo from './secondaryInsuranceInfo';
 import TreatmentInfo from './treatmentInfo';
 import EditBasicProfileInfoForm from './editBasicProfileInfoForm';
 import Footer from './footer';
-
-let initialState = {
-    app: {
-        selectedAppointments: [],
-        selectedLabResult: null,
-        isSidebarShowing: false,
-        labResults: [],
-        isLabResultsInfoShowing: false,
-        profile: [],
-        loadedBasicProfileInfoFormData: {},
-        isUserInfoShowing: false,
-        section: 0,
-        appointments: [],
-        isAppointmentInfoShowing: false,
-        areSublinksShowing: false,
-        currentDoctor: 0,
-        isCreateAppointmentFormShowing: false,
-        isCreateDoctorFormShowing: false,
-        isEditBasicProfileInfoFormShowing: false,
-        selectedAppointmentToEdit: null,
-        selectedDoctorToEdit: null,
-        loadedAppointmentFormData: {},
-        isDoctorMenuShowing: false,
-        loadedDoctorFormData: {},
-        doctors: [],
-        areAppointmentsShowing: false,
-        deletedAppointment: null,
-        deletedDoctor: null,
-        isLoading: true,
-        animation: false,
-        isEditAppointmentFormShowing: false,
-        isEditDoctorFormShowing: false
-    },
-    auth: {
-        loading: false,
-        currentUser: {
-            _id: 1
-        },
-        error: null
-    }
-};
 
 const middlewares = [thunk];
 
@@ -123,9 +83,50 @@ const profile = {
 describe('<Profile />', () => {
     let wrapper;
     let store;
+    let initialState;
     beforeEach(() => {
+        initialState = {
+            app: {
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: null,
+                selectedDoctorToEdit: null,
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            },
+            auth: {
+                loading: false,
+                currentUser: {
+                    _id: 1
+                },
+                error: null
+            }
+        };
         store = mockStore(initialState);
-    })
+    });
 
     it('Should render without crashing', () => {
         shallow(<Profile />);
@@ -156,7 +157,7 @@ describe('<Profile />', () => {
     });
 
     it('Should fire the componentDidMount method and inject lab results into the state', () => {
-        const dispatch = jest.fn();
+        const dispatch = chai.spy();
         shallow(<Profile dispatch={dispatch}/>);
 
         global.fetch = jest.fn().mockImplementation(() =>
@@ -167,7 +168,13 @@ describe('<Profile />', () => {
                 }
             })
         );
-        wrapper = mount(<Provider store={store}><MemoryRouter initalEntries={['/profile']}><Profile /></MemoryRouter></Provider>);
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/profile']}>
+                    <Profile />
+                </MemoryRouter>
+            </Provider>
+        );
         expect(wrapper.find(Profile).find('.container').length).to.equal(1);
 
         initialState.app.doctors = profile;
@@ -176,7 +183,13 @@ describe('<Profile />', () => {
         store = mockStore(initialState);
         // wrapper.update();
         //Since wrapper.update() is currently broken as of 4/19/19, I had to manually remount the component
-        wrapper = mount(<Provider store={store}><MemoryRouter initalEntries={['/profile']}><Profile /></MemoryRouter></Provider>);
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/profile']}>
+                    <Profile />
+                </MemoryRouter>
+            </Provider>
+        );
         wrapper.find(Profile).render();
         // console.log('wrapper.find', wrapper.find(Profile).html());
         expect(wrapper.find(Profile).find('h1').length).to.equal(2);

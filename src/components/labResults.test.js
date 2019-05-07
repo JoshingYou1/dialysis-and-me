@@ -4,7 +4,8 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import {MemoryRouter} from 'react-router';
 import thunk from 'redux-thunk';
-import { expect } from 'chai';
+import chai, { expect } from 'chai';
+import spies from 'chai-spies';
 
 import {LabResults} from './labResults';
 import NavigationBar from './navBar';
@@ -15,6 +16,8 @@ import Footer from './footer';
 const middlewares = [thunk];
 
 const mockStore = configureStore(middlewares);
+
+chai.use(spies);
 
 const labResults = [
     {
@@ -140,11 +143,24 @@ describe('<LabResults />', () => {
             }
         };
         store = mockStore(initialState);
-    })
+    });
     
     it('Should render without crashing', () => {
         initialState.app.labResults = labResults;
         shallow(<LabResults />);
+    });
+
+    it('Should render the div element named .loading-div if the state of the isLoading prop is truthy', () => {
+        initialState.app.isLoading = true;
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/lab-results']}>
+                    <LabResults />
+                </MemoryRouter>
+            </Provider>
+        );
+        expect(wrapper.find('.loading-div').length).to.equal(1);
+
     });
 
     it('Should render the NavigationBar component', () => {
@@ -172,7 +188,7 @@ describe('<LabResults />', () => {
     });
 
     it('Should fire the componentDidMount method and inject lab results into the state', () => {
-        const dispatch = jest.fn();
+        const dispatch = chai.spy();
         shallow(<LabResults dispatch={dispatch}/>);
 
         global.fetch = jest.fn().mockImplementation(() =>
@@ -183,7 +199,13 @@ describe('<LabResults />', () => {
                 }
             })
         );
-        wrapper = mount(<Provider store={store}><MemoryRouter initalEntries={['/lab-results']}><LabResults /></MemoryRouter></Provider>);
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/lab-results']}>
+                    <LabResults />
+                </MemoryRouter>
+            </Provider>
+        );
         expect(wrapper.find(LabResults).find('.container').length).to.equal(1);
 
         initialState.app.doctors = labResults;
@@ -192,7 +214,13 @@ describe('<LabResults />', () => {
         store = mockStore(initialState);
         // wrapper.update();
         //Since wrapper.update() is currently broken as of 4/19/19, I had to manually remount the component
-        wrapper = mount(<Provider store={store}><MemoryRouter initalEntries={['/lab-results']}><LabResults /></MemoryRouter></Provider>);
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/lab-results']}>
+                    <LabResults />
+                </MemoryRouter>
+            </Provider>
+        );
         wrapper.find(LabResults).render();
         // console.log('wrapper.find', wrapper.find(LabResults).html());
         expect(wrapper.find(LabResults).find('h1').length).to.equal(1);

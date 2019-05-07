@@ -4,58 +4,21 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import {MemoryRouter} from 'react-router';
 import thunk from 'redux-thunk';
+import chai, {expect} from 'chai';
+import spies from 'chai-spies';
 
-import {Doctors} from './doctors';
+import Doctors from './doctors';
 import NavigationBar from './navBar';
 import Footer from './footer';
 import Doctor from './doctor';
 import CreateDoctorForm from './createDoctorForm';
 import EditDoctorForm from './editDoctorForm';
 
-let initialState = {
-    app: {
-        selectedAppointments: [],
-        selectedLabResult: null,
-        isSidebarShowing: false,
-        labResults: [],
-        isLabResultsInfoShowing: false,
-        profile: [],
-        loadedBasicProfileInfoFormData: {},
-        isUserInfoShowing: false,
-        section: 0,
-        appointments: [],
-        isAppointmentInfoShowing: false,
-        areSublinksShowing: false,
-        currentDoctor: 0,
-        isCreateAppointmentFormShowing: false,
-        isCreateDoctorFormShowing: false,
-        isEditBasicProfileInfoFormShowing: false,
-        selectedAppointmentToEdit: null,
-        selectedDoctorToEdit: null,
-        loadedAppointmentFormData: {},
-        isDoctorMenuShowing: false,
-        loadedDoctorFormData: {},
-        doctors: [],
-        areAppointmentsShowing: false,
-        deletedAppointment: null,
-        deletedDoctor: null,
-        isLoading: true,
-        animation: false,
-        isEditAppointmentFormShowing: false,
-        isEditDoctorFormShowing: false
-    },
-    auth: {
-        loading: false,
-        currentUser: {
-            _id: 1
-        },
-        error: null
-    }
-};
-
 const middlewares = [thunk];
 
 const mockStore = configureStore(middlewares);
+
+chai.use(spies);
 
 const doctors = [
     {
@@ -99,16 +62,72 @@ const doctors = [
 describe('<Doctors />', () => {
     let wrapper;
     let store;
+    let initialState;
     beforeEach(() => {
+        initialState = {
+            app: {
+                selectedAppointments: [],
+                selectedLabResult: null,
+                isSidebarShowing: false,
+                labResults: [],
+                isLabResultsInfoShowing: false,
+                profile: [],
+                loadedBasicProfileInfoFormData: {},
+                isUserInfoShowing: false,
+                section: 0,
+                appointments: [],
+                isAppointmentInfoShowing: false,
+                areSublinksShowing: false,
+                currentDoctor: 0,
+                isCreateAppointmentFormShowing: false,
+                isCreateDoctorFormShowing: false,
+                isEditBasicProfileInfoFormShowing: false,
+                selectedAppointmentToEdit: null,
+                selectedDoctorToEdit: null,
+                loadedAppointmentFormData: {},
+                isDoctorMenuShowing: false,
+                loadedDoctorFormData: {},
+                doctors: [],
+                areAppointmentsShowing: false,
+                deletedAppointment: null,
+                deletedDoctor: null,
+                isLoading: true,
+                animation: false,
+                isEditAppointmentFormShowing: false,
+                isEditDoctorFormShowing: false
+            },
+            auth: {
+                loading: false,
+                currentUser: {
+                    _id: 1
+                },
+                error: null
+            }
+        };
         store = mockStore(initialState);
     })
 
     it('Should render without crashing', () => {
-        shallow(<Doctors />);
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/doctors']}>
+                    <Doctors />
+                </MemoryRouter>
+            </Provider>
+        );
     });
 
     it('Should render the NavigationBar component', () => {
-        shallow(<NavigationBar />);
+        initialState.app.doctors = doctors;
+        initialState.app.isLoading = false;
+        wrapper = mount(
+            <Provider store={store}>
+                <MemoryRouter initalEntries={['/doctors']}>
+                    <Doctors />
+                </MemoryRouter>
+            </Provider>
+        );
+        expect(wrapper.find(NavigationBar).length).to.equal(1);
     });
 
     it('Should render the Footer component', () => {
@@ -128,7 +147,7 @@ describe('<Doctors />', () => {
     });
 
     it('Should fire the componentDidMount method and inject appointments into the state', () => {
-        const dispatch = jest.fn();
+        const dispatch = chai.spy();
         shallow(<Doctors dispatch={dispatch}/>);
 
         global.fetch = jest.fn().mockImplementation(() =>
@@ -140,7 +159,7 @@ describe('<Doctors />', () => {
             })
         );
         wrapper = mount(<Provider store={store}><MemoryRouter initalEntries={['/doctors']}><Doctors /></MemoryRouter></Provider>);
-        expect(wrapper.find(Doctors).find('.container').length).toEqual(1);
+        expect(wrapper.find(Doctors).find('.container').length).to.equal(1);
 
         initialState.app.doctors = doctors;
         initialState.app.isLoading = false;
@@ -151,6 +170,6 @@ describe('<Doctors />', () => {
         wrapper = mount(<Provider store={store}><MemoryRouter initalEntries={['/doctors']}><Doctors /></MemoryRouter></Provider>);
         wrapper.find(Doctors).render();
         // console.log('wrapper.find', wrapper.find(Doctors).html());
-        expect(wrapper.find(Doctors).find('h1').length).toEqual(3);
+        expect(wrapper.find(Doctors).find('h1').length).to.equal(3);
     });
 });

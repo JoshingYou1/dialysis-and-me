@@ -83,7 +83,7 @@ describe('<Input />', () => {
         expect(wrapper.find('div.form-error.a').length).to.equal(1);
     });
 
-    it('Should render the div element named .form-warning.a if meta.error is called and meta.touched is truthy', () => {
+    it('Should render the div element named .form-warning.a if meta.warning is called and meta.touched is truthy', () => {
         let meta = initialState.form.meta;
         let input = initialState.form.input;
         initialState.form.meta.touched = true;
