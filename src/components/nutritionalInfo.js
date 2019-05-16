@@ -5,7 +5,7 @@ import Footer from './footer';
 
 export function NutritionalInfo(props) {
     return (
-        <div class="container">
+        <div className="container">
             <NavigationBar />
                 <main role="main">
                     <div className="top-image-div-3">
@@ -113,7 +113,7 @@ export function NutritionalInfo(props) {
                     </section>
                 </main>
             <Footer />
-        </div>
+        </div>                    
     );
 }
 

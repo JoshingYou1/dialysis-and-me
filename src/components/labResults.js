@@ -13,16 +13,16 @@ export class LabResults extends React.Component {
         this.props.dispatch(fetchLabResults(this.props.user.id));
     }
 
+    toggleLabResultsInfo() {
+        this.props.dispatch(toggleLabResultsInfo(true));
+    }
+
     chooseLabResults(choice) {
         const labResults = this.props.labResults.find(result => {
             return result._id === choice;
         });
         this.props.dispatch(selectLabResultsById(labResults));
         this.toggleLabResultsInfo();
-    }
-
-    toggleLabResultsInfo() {
-        this.props.dispatch(toggleLabResultsInfo(true));
     }
 
     render() {
@@ -107,8 +107,8 @@ export class LabResults extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        labResults: state.app.labResults,
         user: state.auth.currentUser,
+        labResults: state.app.labResults,
         isLabResultsInfoShowing: state.app.isLabResultsInfoShowing,
         isLoading: state.app.isLoading
     };

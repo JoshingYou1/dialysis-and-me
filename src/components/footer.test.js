@@ -17,5 +17,5 @@ describe('<Footer />', () => {
     it('Should render the footer element', () => {
         const wrapper = shallow(<Footer />);
         expect(wrapper.find('footer').length).to.equal(1);
-    })
+    });
 });

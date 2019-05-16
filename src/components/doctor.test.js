@@ -1,17 +1,12 @@
 import React from 'react';
-import {shallow, mount} from 'enzyme';
-import { expect } from 'chai';
-import thunk from 'redux-thunk';
-import configureStore from 'redux-mock-store';
-import {Provider} from 'react-redux';
-import {MemoryRouter} from 'react-router';
-import sinon from 'sinon';
+import {shallow} from 'enzyme';
+import chai, { expect } from 'chai';
+import spies from 'chai-spies';
 
 import {Doctor} from './doctor';
+import { toggleDoctorMenu } from '../actions';
 
-const middlewares = [thunk];
-
-const mockStore = configureStore(middlewares);
+chai.use(spies);
 
 const doctor = {
     _id: '2k750285f749351627149923',
@@ -33,74 +28,100 @@ const doctor = {
 };
 
 describe('<Doctor />', () => {
-    let wrapper;
-    let initialState;
-    let store;
-    let d;
-    beforeEach(() => {
-        d = doctor;
-        initialState = {
-            app: {
-                selectedAppointments: [],
-                selectedLabResult: null,
-                isSidebarShowing: false,
-                labResults: [],
-                isLabResultsInfoShowing: false,
-                profile: [],
-                loadedBasicProfileInfoFormData: {},
-                isUserInfoShowing: false,
-                section: 0,
-                appointments: [],
-                isAppointmentInfoShowing: false,
-                areSublinksShowing: false,
-                currentDoctor: 0,
-                isCreateAppointmentFormShowing: false,
-                isCreateDoctorFormShowing: false,
-                isEditBasicProfileInfoFormShowing: false,
-                selectedAppointmentToEdit: null,
-                selectedDoctorToEdit: null,
-                loadedAppointmentFormData: {},
-                isDoctorMenuShowing: false,
-                loadedDoctorFormData: {},
-                doctors: [],
-                areAppointmentsShowing: false,
-                deletedAppointment: null,
-                deletedDoctor: null,
-                isLoading: true,
-                animation: false,
-                isEditAppointmentFormShowing: false,
-                isEditDoctorFormShowing: false
-            },
-            auth: {
-                loading: false,
-                currentUser: {
-                    _id: 1
-                },
-                error: null
-            }
-        };
-        store = mockStore(initialState);
-    });
-
     it('Should render without crashing', () => {
-        shallow(<Doctor doctor={d}/>);
+        const props = {
+            user: {
+                _id: 1
+            },
+            isDoctorMenuShowing: false,
+            loadedDoctorFormData: {},
+            selectedDoctorToEdit: null,
+            currentDoctor: 0
+        };
+        shallow(<Doctor doctor={doctor} {...props} />);
     });
 
     it('Should render the section element named .doctor-section', () => {
-        wrapper = shallow(<Doctor doctor={d} />);
+        const props = {
+            user: {
+                _id: 1
+            },
+            isDoctorMenuShowing: false,
+            loadedDoctorFormData: {},
+            selectedDoctorToEdit: null,
+            currentDoctor: 0
+        };
+        const wrapper = shallow(<Doctor doctor={doctor} {...props} />);
         expect(wrapper.find('.doctor-section').length).to.equal(1);
     });
 
-    it('Should render the div element named .doctor-menu if the state of the isDoctorMenuShowing prop is truthy', () => {
-        initialState.app.isDoctorMenuShowing = true;
-        expect(wrapper.find('.doctor-menu').length).to.equal(1);
+    it('Should render the div element named .doctor-menu.hidden-1 if the state of the isDoctorMenuShowing prop is falsy', () => {
+        const props = {
+            user: {
+                _id: 1
+            },
+            isDoctorMenuShowing: false,
+            loadedDoctorFormData: {},
+            selectedDoctorToEdit: null,
+            currentDoctor: 0
+        };
+        const wrapper = shallow(<Doctor doctor={doctor} {...props} />);
+        expect(wrapper.find('div.doctor-menu.hidden-1').length).to.equal(1);
+    });
+
+    it('Should simulate a click event when the hamburger menu is clicked', () => {
+        const props = {
+            user: {
+                _id: 1
+            },
+            isDoctorMenuShowing: false,
+            loadedDoctorFormData: {},
+            selectedDoctorToEdit: null,
+            currentDoctor: 0,
+            dispatch: chai.spy()
+        };
+        const wrapper = shallow(<Doctor doctor={doctor} {...props} />);
+        const instance = wrapper.instance();
+        expect(wrapper.find('span.fas.fa-ellipsis-v').length).to.equal(1);
+        wrapper.find('span.fas.fa-ellipsis-v').simulate('click');
+        expect(instance.props.dispatch).to.have.been.called.with(toggleDoctorMenu());
     });
 
     it('Should simulate a click event when the button that triggers the showEditDoctorForm method is clicked', () => {
-        const onButtonClick = sinon.spy();
-        wrapper = shallow(<Doctor doctor={d} onButtonClick={onButtonClick} />);
+        const props = {
+            user: {
+                _id: 1
+            },
+            isDoctorMenuShowing: false,
+            loadedDoctorFormData: {},
+            selectedDoctorToEdit: null,
+            currentDoctor: 0,
+            dispatch: chai.spy()
+        };
+        const wrapper = shallow(<Doctor doctor={doctor} {...props} />);
+        const instance = wrapper.instance();
         expect(wrapper.find('.edit-doctor-button').length).to.equal(1);
         wrapper.find('.edit-doctor-button').simulate('click');
-        expect(onButtonClick).to.have.property('callCount', 1);
+        expect(instance.props.dispatch).to.be.called;
+    });
+
+    it('Should dispatch the action deleteAppointment when the button named .delete-appointment-button is clicked', () => {
+        const props = {
+            user: {
+                _id: 1
+            },
+            isDoctorMenuShowing: false,
+            loadedDoctorFormData: {},
+            selectedDoctorToEdit: null,
+            currentDoctor: 0,
+            dispatch: chai.spy()
+        };
+        window.confirm = chai.spy(() => true);
+        const wrapper = shallow(<Doctor doctor={doctor} {...props} />);
+        const instance = wrapper.instance();
+        expect(wrapper.find('.delete-doctor-button')).to.exist;
+        wrapper.find('.delete-doctor-button').simulate('click');
+        expect(window.confirm).to.be.called();
+        expect(instance.props.dispatch).to.have.been.called;
     });
 });

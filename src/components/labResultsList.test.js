@@ -1,15 +1,9 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 import chai, { expect } from 'chai';
-import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
 import spies from 'chai-spies';
 
 import {LabResultsList} from './labResultsList';
-
-const middlewares = [thunk];
-
-const mockStore = configureStore(middlewares);
 
 chai.use(spies);
 
@@ -113,62 +107,31 @@ function chooseLabResults(choice) {
 }
 
 describe('<LabResultsList />', () => {
-    let wrapper;
-    let store;
-    let initialState;
-    beforeEach(() => {
-        initialState = {
-            app: {
-                selectedAppointments: [],
-                selectedLabResult: null,
-                isSidebarShowing: false,
-                labResults: [],
-                isLabResultsInfoShowing: false,
-                profile: [],
-                loadedBasicProfileInfoFormData: {},
-                isUserInfoShowing: false,
-                section: 0,
-                appointments: [],
-                isAppointmentInfoShowing: false,
-                areSublinksShowing: false,
-                currentDoctor: 0,
-                isCreateAppointmentFormShowing: false,
-                isCreateDoctorFormShowing: false,
-                isEditBasicProfileInfoFormShowing: false,
-                selectedAppointmentToEdit: null,
-                selectedDoctorToEdit: null,
-                loadedAppointmentFormData: {},
-                isDoctorMenuShowing: false,
-                loadedDoctorFormData: {},
-                doctors: [],
-                areAppointmentsShowing: false,
-                deletedAppointment: null,
-                deletedDoctor: null,
-                isLoading: true,
-                animation: false,
-                isEditAppointmentFormShowing: false,
-                isEditDoctorFormShowing: false
-            },
-            auth: {
-                loading: false,
-                currentUser: {
-                    _id: 1
-                },
-                error: null
-            }
-        };
-        store = mockStore(initialState);
-    });
-    
     it('Should render without crashing', () => {
-        shallow(<LabResultsList list={list}/>);
+        const props = {
+            isLabResultsInfoShowing: false
+        };
+        shallow(<LabResultsList list={list} {...props} />);
     });
 
-    it('Should simulate a click event when the li element named .lab-results-list-item is clicked on', () => {
-        const dispatch = chai.spy();
-        wrapper = shallow(<LabResultsList list={list} chooseLabResults={() => chooseLabResults} dispatch={dispatch}/>);
+    it(`Should dispatch the actions triggerAnimation, selectLabResultsById, and toggleLabResultsInfo when the li element
+    named .lab-results-list-item is clicked on`, () => {
+        const props = {
+            isLabResultsInfoShowing: false,
+            dispatch: chai.spy()
+        };
+        const wrapper = shallow(<LabResultsList list={list} chooseLabResults={() => chooseLabResults} {...props} />);
+        const instance = wrapper.instance();
         expect(wrapper.find('.lab-results-list-item').length).to.equal(3);
-        wrapper.find('li').first().simulate('click');
-        expect(dispatch).to.have.been.called();
+        wrapper.find('li').at(0).simulate('click');
+        expect(instance.props.dispatch).to.have.been.called;
+    });
+
+    it('Should render the div element named .lab-results-list-div', () => {
+        const props = {
+            isLabResultsInfoShowing: false
+        };
+        const wrapper = shallow(<LabResultsList list={list} {...props} />);
+        expect(wrapper.find('.lab-results-list-div').length).to.equal(1);
     });
 });

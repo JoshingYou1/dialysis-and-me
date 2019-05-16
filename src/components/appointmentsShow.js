@@ -100,16 +100,16 @@ export class AppointmentsShow extends React.Component {
 
                             <span className="grid-e-span">Phone number:</span>
                             <span className="grid-f-span">{a.phoneNumber}</span>
-                            <div className="appointment-button-holder-sm">
+                            <div className="appointment-button-holder">
                                 <button
-                                    className="edit-appointment-button-sm"
+                                    className="edit-appointment-button"
                                     onClick={() => this.showAppointmentForm(a)}
                                 >
                                     <span className="fas fa-edit">&nbsp;&nbsp;</span>
                                     Edit
                             </button>
                                 <button
-                                    className="delete-appointment-button-sm"
+                                    className="delete-appointment-button"
                                     onClick={() => this.deleteAppointmentHandler(a, formattedAppointmentDate)}
                                 >
                                     <span className="fas fa-trash-alt">&nbsp;&nbsp;</span>

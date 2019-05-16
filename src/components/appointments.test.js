@@ -13,9 +13,7 @@ import Footer from './footer';
 import AppointmentsList from './appointmentsList';
 import AppointmentsShow from './appointmentsShow';
 import CreateAppointmentForm from './createAppointmentForm';
-import { chooseCreateAppointment } from '../actions';
 import * as actions from '../actions';
-import {fetchAppointments} from '../actions';
 
 // const middlewares = [thunk];
 
@@ -143,7 +141,7 @@ describe('<Appointments />', () => {
             }
         };
         chai.spy.on(Appointments.prototype, 'componentDidMount');
-        const wrapper = shallow(<Appointments {...props}/>);
+        const wrapper = shallow(<Appointments {...props} />);
         expect(Appointments.prototype.componentDidMount).to.have.been.called.once;
     });
 
@@ -334,7 +332,7 @@ describe('<Appointments />', () => {
             isMessageShowing: false,
             isLoading: false
         };
-        const wrapper = shallow(<Appointments dispatch={dispatch} {...props}/>);
+        const wrapper = shallow(<Appointments {...props}/>);
         const instance = wrapper.instance();
         console.log(instance.props.dispatch);
         const fetchedAppointments = appointments;

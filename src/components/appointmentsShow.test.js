@@ -1,17 +1,20 @@
 import React from 'react';
-import {shallow, mount} from 'enzyme';
-import { expect } from 'chai';
-import configureStore from 'redux-mock-store';
-import {Provider} from 'react-redux';
-import {MemoryRouter} from 'react-router';
-import thunk from 'redux-thunk';
+import {shallow} from 'enzyme';
+import chai, { expect } from 'chai';
+import spies from 'chai-spies';
 
 import {AppointmentsShow} from './appointmentsShow';
 import EditAppointmentForm from './editAppointmentForm';
+import { 
+  loadAppointmentFormData, 
+  editSelectedAppointmentById, 
+  deleteAppointment, 
+  deleteAppointmentSuccess, 
+  toggleAppointmentInfo, 
+  toggleAppointmentList 
+} from '../actions';
 
-const middlewares = [thunk];
-
-const mockStore = configureStore(middlewares);
+chai.use(spies);
 
 const appointments = [
     {
@@ -104,70 +107,145 @@ const selectedAppointments = [
     }
 ];
 
+const deletedAppointment = {
+    address: {
+      street: '632 Oak St',
+      city: 'Jacksonville',
+      state: 'FL',
+      zipCode: 34423
+    },
+    _id: '5cb694034859f123701f316d',
+    description: 'Back pain',
+    date: '2019-01-19T05:00:00.000Z',
+    time: '12:30 p.m.',
+    with: 'Jessica Brown',
+    title: 'Primary care physician',
+    where: 'Baptist Primary Care',
+    phoneNumber: '904-233-1114',
+    patient: '5cb694034859f123701f3159'
+};
+
 let chosenAppointments = selectedAppointments;
 
 describe('<AppointmentsShow', () => {
-    let wrapper;
-    let store;
-    let initialState;
-    beforeEach(() => {
-        initialState = {
-            app: {
-                selectedAppointments: [],
-                selectedLabResult: null,
-                isSidebarShowing: false,
-                labResults: [],
-                isLabResultsInfoShowing: false,
-                profile: [],
-                loadedBasicProfileInfoFormData: {},
-                isUserInfoShowing: false,
-                section: 0,
-                appointments: [],
-                isAppointmentInfoShowing: false,
-                areSublinksShowing: false,
-                currentDoctor: 0,
-                isCreateAppointmentFormShowing: false,
-                isCreateDoctorFormShowing: false,
-                isEditBasicProfileInfoFormShowing: false,
-                selectedAppointmentToEdit: null,
-                selectedDoctorToEdit: null,
-                loadedAppointmentFormData: {},
-                isDoctorMenuShowing: false,
-                loadedDoctorFormData: {},
-                doctors: [],
-                areAppointmentsShowing: false,
-                deletedAppointment: null,
-                deletedDoctor: null,
-                isLoading: true,
-                animation: false,
-                isEditAppointmentFormShowing: false,
-                isEditDoctorFormShowing: false
-            },
-            auth: {
-                loading: false,
-                currentUser: {
-                    _id: 1
-                },
-                error: null
-            }
-        };
-        store = mockStore(initialState);
-    })
-
+  
     it('Should render without crashing', () => {
-        shallow(<AppointmentsShow />);
+        const props = {
+          user: {
+            _id: 1
+          },
+          chosenAppointments: [],
+          isAppointmentInfoShowing: false,
+          selectedAppointmentToEdit: null,
+          loadedAppointmentFormData: {},
+          isMessageShowing: false,
+          deletedAppointment: null,
+          animation: false
+        };
+        shallow(<AppointmentsShow {...props}/>);
     });
     
-    it('Should render the EditAppointmentForm', () => {
-        initialState.app.appointments = appointments;
-        initialState.app.selectedAppointments = chosenAppointments;
-        wrapper = mount(
-            <Provider store={store}>
-                <MemoryRouter initalEntries={['/appointments']}>
-                    <AppointmentsShow />
-                </MemoryRouter>
-            </Provider>
-        );
-        expect(wrapper.find(EditAppointmentForm).length).to.equal(1);
+    it('Should render the EditAppointmentForm component if chosenAppointments is not empty', () => {
+        const props = {
+          user: {
+            _id: 1
+          },
+          chosenAppointments: chosenAppointments,
+          isAppointmentInfoShowing: false,
+          selectedAppointmentToEdit: null,
+          loadedAppointmentFormData: {},
+          isMessageShowing: false,
+          deletedAppointment: null,
+          animation: false
+        };
+        const wrapper = shallow(<AppointmentsShow {...props}/>);
+        expect(wrapper.find(EditAppointmentForm)).to.exist;
+    });
+
+    it('Should dispatch two actions, loadAppointmentFormData and editSelectedAppointmentById, when the button named .edit-appointment-button is clicked', () => {
+      const props = {
+        user: {
+          _id: 1
+        },
+        chosenAppointments: chosenAppointments,
+        isAppointmentInfoShowing: false,
+        selectedAppointmentToEdit: null,
+        loadedAppointmentFormData: {},
+        isMessageShowing: false,
+        deletedAppointment: null,
+        animation: false,
+        dispatch: chai.spy()
+      };
+      const wrapper = shallow(<AppointmentsShow {...props}/>);
+      const instance = wrapper.instance();
+      console.log(instance.props);
+      expect(wrapper.find('.edit-appointment-button')).to.exist;
+      wrapper.find('.edit-appointment-button').at(0).simulate('click');
+      expect(instance.props.dispatch).to.have.been.called.twice;
+    });
+
+    it('Should dispatch the action deleteAppointment when the button named .delete-appointment-button is clicked', () => {
+      const props = {
+        user: {
+          _id: 1
+        },
+        chosenAppointments: chosenAppointments,
+        isAppointmentInfoShowing: false,
+        selectedAppointmentToEdit: null,
+        loadedAppointmentFormData: {},
+        isMessageShowing: false,
+        deletedAppointment: null,
+        animation: false,
+        dispatch: chai.spy()
+      };
+      window.confirm = chai.spy(() => true);
+      const wrapper = shallow(<AppointmentsShow {...props}/>);
+      const instance = wrapper.instance();
+      expect(wrapper.find('.delete-appointment-button')).to.exist;
+      wrapper.find('.delete-appointment-button').at(0).simulate('click');
+      expect(window.confirm).to.be.called();
+      expect(instance.props.dispatch).to.have.been.called.once;
+    });
+
+    it('Should dispatch the action toggleAppointmentInfo when chosenAppointments is not empty and the button named .desktop-hide is clicked. ', () => {
+      const props = {
+        user: {
+          _id: 1
+        },
+        chosenAppointments: chosenAppointments,
+        isAppointmentInfoShowing: false,
+        selectedAppointmentToEdit: null,
+        loadedAppointmentFormData: {},
+        isMessageShowing: false,
+        deletedAppointment: null,
+        animation: false,
+        dispatch: chai.spy()
+      };
+      const wrapper = shallow(<AppointmentsShow {...props}/>);
+      const instance = wrapper.instance();
+      expect(wrapper.find('.desktop-hide')).to.exist;
+      wrapper.find('.desktop-hide').simulate('click');
+      expect(instance.props.dispatch).to.have.been.called.once;
+    });
+
+    it('Should dispatch the action toggleAppointmentList when deletedAppointment is not empty and the button named .message-button is clicked. ', () => {
+      const props = {
+        user: {
+          _id: 1
+        },
+        chosenAppointments: [],
+        isAppointmentInfoShowing: false,
+        selectedAppointmentToEdit: null,
+        loadedAppointmentFormData: {},
+        isMessageShowing: false,
+        deletedAppointment: deletedAppointment,
+        animation: false,
+        dispatch: chai.spy()
+      };
+      const wrapper = shallow(<AppointmentsShow {...props}/>);
+      const instance = wrapper.instance();
+      expect(wrapper.find('.message-button')).to.exist;
+      wrapper.find('.message-button').simulate('click');
+      expect(instance.props.dispatch).to.have.been.called.with(toggleAppointmentList());
     });
 });

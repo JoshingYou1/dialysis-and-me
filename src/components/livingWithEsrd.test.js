@@ -12,10 +12,22 @@ describe('<LivingWithESRD />', () => {
     });
 
     it('Should render the NavigationBar component', () => {
-        shallow(<NavigationBar />);
+        const wrapper = shallow(<LivingWithESRD />);
+        expect(wrapper.find(NavigationBar).length).to.equal(1);
     });
 
     it('Should render the Footer component', () => {
-        shallow(<Footer />);
+        const wrapper = shallow(<LivingWithESRD />);
+        expect(wrapper.find(Footer).length).to.equal(1);
+    });
+
+    it('Should render the div element named .container', () => {
+        const wrapper = shallow(<LivingWithESRD />);
+        expect(wrapper.find('.container').length).to.equal(1);
+    });
+
+    it('Should render the section element named .living-with-esrd-section', () => {
+        const wrapper = shallow(<LivingWithESRD />);
+        expect(wrapper.find('.living-with-esrd-section').length).to.equal(1);
     });
 });

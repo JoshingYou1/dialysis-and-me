@@ -8,7 +8,6 @@ export class LabResultsList extends React.Component {
     }
 
     render() {
-
         const list = this.props.list.map((l, i) => (
             <li 
                 className="lab-results-list-item" 

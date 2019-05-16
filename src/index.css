@@ -1164,9 +1164,9 @@ footer {
   margin-bottom: 1em;
 }
 
-.appointment-button-holder-lg {
+/* .appointment-button-holder-lg {
   display: none;
-}
+} */
 
 .fa-ellipsis-v {
   grid-area: d;
@@ -1222,7 +1222,7 @@ footer {
   background-color: #C70000
 }
 
-.appointment-button-holder-sm {
+.appointment-button-holder {
   grid-column-start: e;
   grid-column-end: f;
   text-align: center;
@@ -1268,7 +1268,7 @@ footer {
   background-color: #EB0000;
 }
 
-.edit-appointment-button-sm, .delete-appointment-button-sm {
+.edit-appointment-button, .delete-appointment-button {
   width: 6em;
   padding: 8px;
   border-radius: 4px;
@@ -1277,27 +1277,27 @@ footer {
   cursor: pointer;
 }
 
-.edit-appointment-button-sm {
+.edit-appointment-button {
   background-color: #7700B4;
 }
 
-.edit-appointment-button-sm:hover {
+.edit-appointment-button:hover {
   background-color: #A000F0;
 }
 
-.delete-appointment-button-sm {
+.delete-appointment-button {
   background-color: #C70000;
 }
 
-.delete-appointment-button-sm:hover {
+.delete-appointment-button:hover {
   background-color: #EB0000;
 }
 
-.delete-appointment-button-sm {
+.delete-appointment-button {
   margin-left: 3em;
 }
 
-.edit-appointment-button-sm {
+.edit-appointment-button {
   margin-right: 3em;
 }
 
@@ -2296,9 +2296,9 @@ footer {
     width: 80%;
   }
 
-  .appointment-button-holder-lg {
+  /* .appointment-button-holder-lg {
     margin-left: 130px;
-  }
+  } */
 
   .edit-appointment-form {
     width: 375px;

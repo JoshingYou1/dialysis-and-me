@@ -1,6 +1,5 @@
 import React from 'react';
-import {shallow, mount} from 'enzyme';
-import {Provider} from 'react-redux';
+import {shallow} from 'enzyme';
 import chai, { expect } from 'chai';
 import spies from 'chai-spies';
 
@@ -104,17 +103,6 @@ describe('<AppointmentsList />', () => {
         };
         const wrapper = shallow(<AppointmentsList {...props}/>);
         expect(wrapper.find('.appointments-list').length).to.equal(1);
-    });
-
-    it('Should simulate click events', () => {
-        const props = {
-            isAppointmentInfoShowing: false,
-            animation: false,
-            dispatch: chai.spy()
-        };
-        const wrapper = shallow(<AppointmentsList {...props} chooseAppointmentsByMonth={chooseAppointmentsByMonth}/>);
-        wrapper.find('.appointments-list-item').at(0).simulate('click');
-        expect(props.dispatch).to.have.been.called();
     });
 
     it('Should dispatch the action triggerAnimation when a month is clicked', () => {

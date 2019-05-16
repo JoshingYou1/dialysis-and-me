@@ -1,9 +1,5 @@
 import React from 'react';
-import {shallow, mount} from 'enzyme';
-import configureStore from 'redux-mock-store';
-import {Provider} from 'react-redux';
-import {MemoryRouter} from 'react-router';
-import thunk from 'redux-thunk';
+import {shallow} from 'enzyme';
 import chai, { expect } from 'chai';
 import spies from 'chai-spies';
 
@@ -12,10 +8,6 @@ import NavigationBar from './navBar';
 import LabResultsList from './labResultsList';
 import LabResultsShow from './labResultsShow';
 import Footer from './footer';
-
-const middlewares = [thunk];
-
-const mockStore = configureStore(middlewares);
 
 chai.use(spies);
 
@@ -98,131 +90,130 @@ const labResults = [
 ];
 
 describe('<LabResults />', () => {
-    let wrapper;
-    let store;
-    let initialState;
-    beforeEach(() => {
-        initialState = {
-            app: {
-                selectedAppointments: [],
-                selectedLabResult: null,
-                isSidebarShowing: false,
-                labResults: [],
-                isLabResultsInfoShowing: false,
-                profile: [],
-                loadedBasicProfileInfoFormData: {},
-                isUserInfoShowing: false,
-                section: 0,
-                appointments: [],
-                isAppointmentInfoShowing: false,
-                areSublinksShowing: false,
-                currentDoctor: 0,
-                isCreateAppointmentFormShowing: false,
-                isCreateDoctorFormShowing: false,
-                isEditBasicProfileInfoFormShowing: false,
-                selectedAppointmentToEdit: null,
-                selectedDoctorToEdit: null,
-                loadedAppointmentFormData: {},
-                isDoctorMenuShowing: false,
-                loadedDoctorFormData: {},
-                doctors: [],
-                areAppointmentsShowing: false,
-                deletedAppointment: null,
-                deletedDoctor: null,
-                isLoading: true,
-                animation: false,
-                isEditAppointmentFormShowing: false,
-                isEditDoctorFormShowing: false
-            },
-            auth: {
-                loading: false,
-                currentUser: {
-                    _id: 1
-                },
-                error: null
-            }
-        };
-        store = mockStore(initialState);
-    });
-    
     it('Should render without crashing', () => {
-        initialState.app.labResults = labResults;
-        shallow(<LabResults />);
+        const props = {
+            user: {
+                _id: 1
+            },
+            labResults: [],
+            isLabResultsInfoShowing: false,
+            isLoading: true,
+            dispatch: chai.spy()
+        }
+        shallow(<LabResults {...props} />);
     });
 
     it('Should render the div element named .loading-div if the state of the isLoading prop is truthy', () => {
-        initialState.app.isLoading = true;
-        wrapper = mount(
-            <Provider store={store}>
-                <MemoryRouter initalEntries={['/lab-results']}>
-                    <LabResults />
-                </MemoryRouter>
-            </Provider>
-        );
+        const props = {
+            user: {
+                _id: 1
+            },
+            labResults: [],
+            isLabResultsInfoShowing: false,
+            isLoading: true,
+            dispatch: chai.spy()
+        }
+        const wrapper = shallow(<LabResults {...props} />);
         expect(wrapper.find('.loading-div').length).to.equal(1);
 
     });
 
     it('Should render the NavigationBar component', () => {
-        initialState.app.labResults = labResults;
-        wrapper = shallow(<LabResults />);
+        const props = {
+            user: {
+                _id: 1
+            },
+            labResults: labResults,
+            isLabResultsInfoShowing: false,
+            isLoading: false,
+            dispatch: chai.spy()
+        }
+        const wrapper = shallow(<LabResults {...props} />);
         expect(wrapper.find(NavigationBar).length).to.equal(1);
     });
 
     it('Should render the LabResultsList component', () => {
-        initialState.app.labResults = labResults;
-        wrapper = shallow(<LabResults />);
+        const props = {
+            user: {
+                _id: 1
+            },
+            labResults: labResults,
+            isLabResultsInfoShowing: false,
+            isLoading: false,
+            dispatch: chai.spy()
+        }
+        const wrapper = shallow(<LabResults {...props} />);
         expect(wrapper.find(LabResultsList).length).to.equal(1);
     });
 
     it('Should render the LabResultsShow component', () => {
-        initialState.app.labResults = labResults;
-        wrapper = shallow(<LabResults />);
+        const props = {
+            user: {
+                _id: 1
+            },
+            labResults: labResults,
+            isLabResultsInfoShowing: false,
+            isLoading: false,
+            dispatch: chai.spy()
+        }
+        const wrapper = shallow(<LabResults {...props} />);
         expect(wrapper.find(LabResultsShow).length).to.equal(1);
     });
     
     it('Should render the Footer component', () => {
-        initialState.app.labResults = labResults;
-        wrapper = shallow(<LabResults />);
+        const props = {
+            user: {
+                _id: 1
+            },
+            labResults: labResults,
+            isLabResultsInfoShowing: false,
+            isLoading: false,
+            dispatch: chai.spy()
+        }
+        const wrapper = shallow(<LabResults {...props} />);
         expect(wrapper.find(Footer).length).to.equal(1);
     });
 
-    it('Should fire the componentDidMount method and inject lab results into the state', () => {
-        const dispatch = chai.spy();
-        shallow(<LabResults dispatch={dispatch}/>);
+    it('Calls componentDidMount', () => {
+        const props = {
+            user: {
+                _id: 1
+            },
+            labResults: [],
+            isLabResultsInfoShowing: false,
+            isLoading: true,
+            dispatch: chai.spy()
+        };
+        chai.spy.on(LabResults.prototype, 'componentDidMount');
+        const wrapper = shallow(<LabResults {...props} />);
+        expect(LabResults.prototype.componentDidMount).to.have.been.called.once;
+    });
 
-        global.fetch = jest.fn().mockImplementation(() =>
-            Promise.resolve({
-                ok: true,
-                json() {
-                    return labResults;
-                }
-            })
-        );
-        wrapper = mount(
-            <Provider store={store}>
-                <MemoryRouter initalEntries={['/lab-results']}>
-                    <LabResults />
-                </MemoryRouter>
-            </Provider>
-        );
-        expect(wrapper.find(LabResults).find('.container').length).to.equal(1);
+    it('Should render the section element named .lab-results-section if there are lab results', () => {
+        const props = {
+            user: {
+                _id: 1
+            },
+            labResults: labResults,
+            isLabResultsInfoShowing: false,
+            isLoading: false,
+            dispatch: chai.spy()
+        }
+        const wrapper = shallow(<LabResults {...props} />);
+        expect(wrapper.find('.lab-results-section').length).to.equal(1);
+    });
 
-        initialState.app.doctors = labResults;
-        initialState.app.isLoading = false;
-        wrapper.unmount();
-        store = mockStore(initialState);
-        // wrapper.update();
-        //Since wrapper.update() is currently broken as of 4/19/19, I had to manually remount the component
-        wrapper = mount(
-            <Provider store={store}>
-                <MemoryRouter initalEntries={['/lab-results']}>
-                    <LabResults />
-                </MemoryRouter>
-            </Provider>
-        );
-        wrapper.find(LabResults).render();
-        // console.log('wrapper.find', wrapper.find(LabResults).html());
-        expect(wrapper.find(LabResults).find('h1').length).to.equal(1);
+    it('Should render the div element named .no-lab-results-div if there are no lab results', () => {
+        const props = {
+            user: {
+                _id: 1
+            },
+            labResults: [],
+            isLabResultsInfoShowing: false,
+            isLoading: false,
+            dispatch: chai.spy()
+        }
+        const wrapper = shallow(<LabResults {...props} />);
+        expect(wrapper.find('.no-lab-results-div').length).to.equal(1);
     });
 });
