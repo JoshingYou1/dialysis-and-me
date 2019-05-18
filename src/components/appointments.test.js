@@ -1,9 +1,5 @@
 import React from 'react';
-import {shallow, mount} from 'enzyme';
-import configureStore from 'redux-mock-store';
-import {Provider} from 'react-redux';
-import {MemoryRouter} from 'react-router';
-import thunk from 'redux-thunk';
+import {shallow} from 'enzyme';
 import chai, {expect} from 'chai';
 import spies from 'chai-spies';
 
@@ -13,11 +9,7 @@ import Footer from './footer';
 import AppointmentsList from './appointmentsList';
 import AppointmentsShow from './appointmentsShow';
 import CreateAppointmentForm from './createAppointmentForm';
-import * as actions from '../actions';
-
-// const middlewares = [thunk];
-
-// const mockStore = configureStore(middlewares);
+import { chooseCreateAppointment } from '../actions';
 
 chai.use(spies);
 
@@ -76,53 +68,6 @@ const appointments = [
   ];
 
 describe('<Appointments />', () => {
-//     let wrapper;
-//     let store;
-//     let initialState;
-//     beforeEach(() => {
-//         initialState = {
-//             app: {
-//                 selectedAppointments: [],
-//                 selectedLabResult: null,
-//                 isSidebarShowing: false,
-//                 labResults: [],
-//                 isLabResultsInfoShowing: false,
-//                 profile: [],
-//                 loadedBasicProfileInfoFormData: {},
-//                 isUserInfoShowing: false,
-//                 section: 0,
-//                 appointments: [],
-//                 isAppointmentInfoShowing: false,
-//                 areSublinksShowing: false,
-//                 currentDoctor: 0,
-//                 isCreateAppointmentFormShowing: false,
-//                 isCreateDoctorFormShowing: false,
-//                 isEditBasicProfileInfoFormShowing: false,
-//                 selectedAppointmentToEdit: null,
-//                 selectedDoctorToEdit: null,
-//                 loadedAppointmentFormData: {},
-//                 isDoctorMenuShowing: false,
-//                 loadedDoctorFormData: {},
-//                 doctors: [],
-//                 areAppointmentsShowing: false,
-//                 deletedAppointment: null,
-//                 deletedDoctor: null,
-//                 isLoading: true,
-//                 animation: false,
-//                 isEditAppointmentFormShowing: false,
-//                 isEditDoctorFormShowing: false
-//             },
-//             auth: {
-//                 loading: false,
-//                 currentUser: {
-//                     _id: 1
-//                 },
-//                 error: null
-//             }
-//         };
-//         store = mockStore(initialState);
-//     });
-
     it('Should render without crashing', () => {
         const props = {
             dispatch: chai.spy(),
@@ -311,8 +256,6 @@ describe('<Appointments />', () => {
             isLoading: false,
             dispatch: chai.spy()
         };
-           // Mock the actions we expect to be called
-        actions.chooseCreateAppointment = chai.spy();
 
         const wrapper = shallow(<Appointments {...props} />);
         wrapper.find('button.create-appointment-button').at(0).simulate('click');

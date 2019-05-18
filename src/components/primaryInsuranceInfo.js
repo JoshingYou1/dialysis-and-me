@@ -30,7 +30,12 @@ export function PrimaryInsuranceInfo(props) {
         );
     }
     return (
-        <div></div>
+        <div className="card">
+            <h1 className="primary-insurance-h1">Primary Insurance Information</h1>
+            <section className="primary-insurance-info-section">
+                <h3 className="no-primary-insurance-h3">You do not have any primary insurance policy on record at this time.</h3>
+            </section>
+        </div>
     );
 }
 

@@ -1616,7 +1616,7 @@ footer {
   text-align: center;
 }
 
-.no-secondary-insurance-h3 {
+.no-primary-insurance-h3, .no-secondary-insurance-h3 {
   text-align: center;
   font-weight: bold;
 }

@@ -10,7 +10,7 @@ import {
     toggleDoctorList,
     triggerAnimation
 } from '../actions';
-import requiresLogin from './requires-login';
+import requiresLogin from './requiresLogin';
 import NavigationBar from './navBar';
 import Footer from './footer';
 import EditDoctorForm from './editDoctorForm';

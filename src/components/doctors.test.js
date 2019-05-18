@@ -66,7 +66,7 @@ describe('<Doctors />', () => {
             isLoading: true,
             animation: false
         };
-        shallow(<Doctor {...props} />);
+        shallow(<Doctors {...props} />);
     });
 
     it('Should render the NavigationBar component', () => {
@@ -80,10 +80,10 @@ describe('<Doctors />', () => {
             isCreateDoctorFormShowing: false,
             isMessageShowing: false,
             deletedDoctor: null,
-            isLoading: true,
+            isLoading: false,
             animation: false
         };
-        const wrapper = shallow(<Doctor {...props} />);
+        const wrapper = shallow(<Doctors {...props} />);
         expect(wrapper.find(NavigationBar).length).to.equal(1);
     });
 
@@ -98,10 +98,10 @@ describe('<Doctors />', () => {
             isCreateDoctorFormShowing: false,
             isMessageShowing: false,
             deletedDoctor: null,
-            isLoading: true,
+            isLoading: false,
             animation: false
         };
-        const wrapper = shallow(<Doctor {...props} />);
+        const wrapper = shallow(<Doctors {...props} />);
         expect(wrapper.find(Footer).length).to.equal(1);
     });
 
@@ -116,10 +116,10 @@ describe('<Doctors />', () => {
             isCreateDoctorFormShowing: false,
             isMessageShowing: false,
             deletedDoctor: null,
-            isLoading: true,
+            isLoading: false,
             animation: false
         };
-        const wrapper = shallow(<Doctor {...props} />);
+        const wrapper = shallow(<Doctors {...props} />);
         expect(wrapper.find(Doctor).length).to.equal(1);
     });
 
@@ -134,10 +134,10 @@ describe('<Doctors />', () => {
             isCreateDoctorFormShowing: false,
             isMessageShowing: false,
             deletedDoctor: null,
-            isLoading: true,
+            isLoading: false,
             animation: false
         };
-        const wrapper = shallow(<Doctor {...props} />);
+        const wrapper = shallow(<Doctors {...props} />);
         expect(wrapper.find(CreateDoctorForm).length).to.equal(1);
     });
 
@@ -152,10 +152,10 @@ describe('<Doctors />', () => {
             isCreateDoctorFormShowing: false,
             isMessageShowing: false,
             deletedDoctor: null,
-            isLoading: true,
+            isLoading: false,
             animation: false
         };
-        const wrapper = shallow(<Doctor {...props} />);
+        const wrapper = shallow(<Doctors {...props} />);
         expect(wrapper.find(EditDoctorForm).length).to.equal(1);
     });
 });

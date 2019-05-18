@@ -32,22 +32,24 @@ export default () => Component => {
                     <Footer />
                 </div>
             );
-        } else if (!loggedIn || error) {
+        } 
+        else if (!loggedIn || error) {
             return <Redirect to="/" />;
         }
 
         return <Component {...passThroughProps} />;
-    }
+}
 
-    const displayName = Component.displayName || Component.name || 'Component';
-    RequiresLogin.displayName = `RequiresLogin(${displayName})`;
+const displayName = Component.displayName || Component.name || 'Component';
+RequiresLogin.displayName = `RequiresLogin(${displayName})`;
 
-    const mapStateToProps = (state, props) => {
-        return {
+const mapStateToProps = state => {
+    return {
         authenticating: state.auth.loading,
         loggedIn: state.auth.currentUser !== null,
         error: state.auth.error
-    }};
+    }
+};
 
     return connect(mapStateToProps)(RequiresLogin);
 };

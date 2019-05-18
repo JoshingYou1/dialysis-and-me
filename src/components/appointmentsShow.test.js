@@ -5,14 +5,7 @@ import spies from 'chai-spies';
 
 import {AppointmentsShow} from './appointmentsShow';
 import EditAppointmentForm from './editAppointmentForm';
-import { 
-  loadAppointmentFormData, 
-  editSelectedAppointmentById, 
-  deleteAppointment, 
-  deleteAppointmentSuccess, 
-  toggleAppointmentInfo, 
-  toggleAppointmentList 
-} from '../actions';
+import { toggleAppointmentList } from '../actions';
 
 chai.use(spies);
 

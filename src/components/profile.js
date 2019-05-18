@@ -2,12 +2,12 @@ import React from 'react';
 import NavigationBar from './navBar';
 import {connect} from 'react-redux';
 import { fetchProfileInfo, selectProfileInfoSection, chooseEditBasicProfileInfo, loadBasicProfileInfoFormData } from '../actions';
-import requiresLogin from './requires-login';
+import requiresLogin from './requiresLogin';
 import Footer from './footer';
 import PrimaryInsuranceInfo from './primaryInsuranceInfo';
 import SecondaryInsuranceInfo from './secondaryInsuranceInfo';
 import TreatmentInfo from './treatmentInfo';
-import { EditBasicProfileInfoForm } from './editBasicProfileInfoForm';
+import EditBasicProfileInfoForm from './editBasicProfileInfoForm';
 
 export class Profile extends React.Component {
 

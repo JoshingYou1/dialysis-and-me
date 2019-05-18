@@ -44,7 +44,7 @@ const initialState = {
     isSidebarShowing: false,
     labResults: [],
     isLabResultsInfoShowing: false,
-    profile: [],
+    profile: {},
     loadedBasicProfileInfoFormData: {},
     isUserInfoShowing: false,
     section: 0,

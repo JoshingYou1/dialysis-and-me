@@ -4,7 +4,7 @@ import LabResultsShow from './labResultsShow';
 import NavigationBar from './navBar';
 import {connect} from 'react-redux';
 import { fetchLabResults, selectLabResultsById, toggleLabResultsInfo } from '../actions';
-import requiresLogin from './requires-login';
+import requiresLogin from './requiresLogin';
 import Footer from './footer';
 
 export class LabResults extends React.Component {
