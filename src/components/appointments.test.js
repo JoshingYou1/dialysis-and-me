@@ -261,29 +261,5 @@ describe('<Appointments />', () => {
         wrapper.find('button.create-appointment-button').at(0).simulate('click');
         expect(props.dispatch).to.have.been.called.with(chooseCreateAppointment());
     });
-
-    it('Should dispatch fetchAppointments from actions', () => {
-        const props = {
-            user: {
-                _id: 1
-            },
-            dispatch: chai.spy(),
-            appointments: [],
-            isCreateAppointmentFormShowing: false,
-            isAppointmentInfoShowing: false,
-            deletedAppointment: {},
-            isMessageShowing: false,
-            isLoading: false
-        };
-        const wrapper = shallow(<Appointments {...props}/>);
-        const instance = wrapper.instance();
-        console.log(instance.props.dispatch);
-        const fetchedAppointments = appointments;
-        instance.props.dispatch(fetchAppointments(fetchedAppointments));
-        expect(instance.props.dispatch).to.have.been.called.with(fetchAppointments());
-        // expect(wrapper.find('.container').length).to.equal(1);
-        // // console.log('wrapper.find', wrapper.find(Appointments).html());
-        // expect(wrapper.find('h1').length).to.equal(2);
-    });
 });
 

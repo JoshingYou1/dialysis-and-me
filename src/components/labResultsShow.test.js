@@ -74,6 +74,6 @@ describe('<LabResultsShow />', () => {
         const wrapper = shallow(<LabResultsShow {...props} />);
         const instance = wrapper.instance();
         wrapper.find('.desktop-hide').simulate('click');
-        expect(instance.props.dispatch).to.have.been.called;
+        expect(instance.props.dispatch).to.have.been.called.with(toggleLabResultsInfo(false));
     });
 });

@@ -26,10 +26,6 @@ export class Appointments extends React.Component {
         this.toggleAppointmentInfo();
     }
 
-    dispatchChooseCreateAppointment() {
-        this.props.dispatch(chooseCreateAppointment());
-      }
-
     render() {
         if (this.props.isLoading) {
             return (
@@ -103,7 +99,7 @@ export class Appointments extends React.Component {
                             </span>
                             <button
                                 className={"create-appointment-button "  + (this.props.isCreateAppointmentFormShowing ? 'hidden-1' : '')}
-                                onClick={this.dispatchChooseCreateAppointment()}
+                                onClick={() => this.props.dispatch(chooseCreateAppointment())}
                             >
                                 Click here
                             </button>
@@ -114,7 +110,7 @@ export class Appointments extends React.Component {
                             </span>
                             <button
                                 className={"create-appointment-button "  + (this.props.isCreateAppointmentFormShowing ? 'hidden-1' : '')}
-                                onClick={this.dispatchChooseCreateAppointment()}
+                                onClick={() => this.props.dispatch(chooseCreateAppointment())}
                             >
                                 Click here
                             </button>

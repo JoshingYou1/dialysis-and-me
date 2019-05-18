@@ -4,6 +4,7 @@ import chai, { expect } from 'chai';
 import spies from 'chai-spies';
 
 import {LabResultsList} from './labResultsList';
+import { triggerAnimation } from '../actions';
 
 chai.use(spies);
 
@@ -114,8 +115,7 @@ describe('<LabResultsList />', () => {
         shallow(<LabResultsList list={list} {...props} />);
     });
 
-    it(`Should dispatch the actions triggerAnimation, selectLabResultsById, and toggleLabResultsInfo when the li element
-    named .lab-results-list-item is clicked on`, () => {
+    it('Should dispatch the action triggerAnimation when the li element named .lab-results-list-item is clicked on', () => {
         const props = {
             isLabResultsInfoShowing: false,
             dispatch: chai.spy()
@@ -124,7 +124,7 @@ describe('<LabResultsList />', () => {
         const instance = wrapper.instance();
         expect(wrapper.find('.lab-results-list-item').length).to.equal(3);
         wrapper.find('li').at(0).simulate('click');
-        expect(instance.props.dispatch).to.have.been.called;
+        expect(instance.props.dispatch).to.have.been.called.with(triggerAnimation());
     });
 
     it('Should render the div element named .lab-results-list-div', () => {

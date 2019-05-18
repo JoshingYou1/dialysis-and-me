@@ -4,7 +4,7 @@ import chai, { expect } from 'chai';
 import spies from 'chai-spies';
 
 import {Sidebar} from './sidebar';
-import {BrowserRouter as Router, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Sublinks from './sublinks';
 import { toggleSidebar, toggleSublinks } from '../actions';
 
@@ -65,5 +65,16 @@ describe('<Sidebar />', () => {
         const instance = wrapper.instance();
         wrapper.find('.fas.fa-caret-up.fa-2x').simulate('click');
         expect(instance.props.dispatch).to.have.been.called.with(toggleSublinks());
+    });
+
+    it('Should dispatch the action toggleSidebar when the button named .sidebar-button is clicked', () => {
+        const props = {
+            areSublinksShowing: false,
+            dispatch: chai.spy()
+        };
+        const wrapper = shallow(<Sidebar {...props} />);
+        const instance = wrapper.instance();
+        wrapper.find('.sidebar-button').simulate('click');
+        expect(instance.props.dispatch).to.have.been.called.with(toggleSidebar());
     });
 });

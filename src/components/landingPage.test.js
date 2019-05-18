@@ -3,8 +3,7 @@ import {shallow} from 'enzyme';
 import { expect } from 'chai';
 
 import {LandingPage} from './landingPage';
-import Redirect from './landingPage';
-import Link from './landingPage';
+import {Link, Redirect} from 'react-router-dom';
 
 const currentUser = {
     id: '5cc3ad03c618433734f719be', 
@@ -32,7 +31,7 @@ describe('<LandingPage />', () => {
             currentUser: null
         };
         const wrapper = shallow(<LandingPage {...props} />);
-        expect(wrapper.find(Link)).to.exist;
+        expect(wrapper.find(Link).length).to.equal(1);
     });
 
     it('Should render the div element named .landing-page-container', () => {

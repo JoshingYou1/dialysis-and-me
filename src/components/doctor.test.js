@@ -69,7 +69,7 @@ describe('<Doctor />', () => {
         expect(wrapper.find('div.doctor-menu.hidden-1').length).to.equal(1);
     });
 
-    it('Should simulate a click event when the hamburger menu is clicked', () => {
+    it('Should dispatch the action toggleDoctorMenu when the hamburger menu is clicked', () => {
         const props = {
             user: {
                 _id: 1
@@ -87,7 +87,8 @@ describe('<Doctor />', () => {
         expect(instance.props.dispatch).to.have.been.called.with(toggleDoctorMenu());
     });
 
-    it('Should simulate a click event when the button that triggers the showEditDoctorForm method is clicked', () => {
+    it(`Should dispatch the actions loadDoctorFormData and editSelectedDoctorById when the button named .edit-doctor-button is 
+    clicked`, () => {
         const props = {
             user: {
                 _id: 1
@@ -102,7 +103,7 @@ describe('<Doctor />', () => {
         const instance = wrapper.instance();
         expect(wrapper.find('.edit-doctor-button').length).to.equal(1);
         wrapper.find('.edit-doctor-button').simulate('click');
-        expect(instance.props.dispatch).to.be.called;
+        expect(instance.props.dispatch).to.be.called.twice;
     });
 
     it('Should dispatch the action deleteAppointment when the button named .delete-appointment-button is clicked', () => {
@@ -122,6 +123,6 @@ describe('<Doctor />', () => {
         expect(wrapper.find('.delete-doctor-button')).to.exist;
         wrapper.find('.delete-doctor-button').simulate('click');
         expect(window.confirm).to.be.called();
-        expect(instance.props.dispatch).to.have.been.called;
+        expect(instance.props.dispatch).to.have.been.called.once;
     });
 });

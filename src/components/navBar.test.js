@@ -8,6 +8,7 @@ import Link from './navBar';
 import User from './user';
 import Sidebar from './sidebar';
 import { toggleUserInfo, toggleSidebar } from '../actions';
+import { clearAuth } from '../actions/auth';
 
 chai.use(spies);
 
@@ -86,7 +87,8 @@ describe('<NavigationBar />', () => {
         const wrapper = shallow(<NavigationBar {...props} />);
         const instance = wrapper.instance();
         wrapper.find('.logout-button').simulate('click');
-        expect(instance.props.dispatch).to.have.been.called.twice;
+        expect(instance.props.dispatch).to.have.been.called.with(toggleUserInfo());
+        expect(instance.props.dispatch).to.have.been.called.with(clearAuth());
     });
 
     it('Should dispatch the action toggleSidebar when the span element named .fas fa-bars is clicked', () => {

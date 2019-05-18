@@ -3,7 +3,7 @@ import {shallow} from 'enzyme';
 import { expect } from 'chai';
 
 import {Login} from './login';
-import Redirect from './login';
+import {Redirect} from 'react-router-dom';
 import LoginForm from './loginForm';
 
 const currentUser = {
@@ -38,6 +38,6 @@ describe('<Login />', () => {
             }
         };
         const wrapper = shallow(<Login {...props} />);
-        expect(wrapper.find(LoginForm).length).to.exist;
+        expect(wrapper.find(LoginForm).length).to.equal(1);
     });
 });

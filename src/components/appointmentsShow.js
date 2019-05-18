@@ -20,6 +20,7 @@ export class AppointmentsShow extends React.Component {
         this.props.dispatch(loadAppointmentFormData(a));
         this.props.dispatch(editSelectedAppointmentById(a));
     }
+    
     render() {
         if (this.props.deletedAppointment) {
             return (

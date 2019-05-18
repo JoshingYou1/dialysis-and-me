@@ -5,7 +5,7 @@ import spies from 'chai-spies';
 
 import {AppointmentsShow} from './appointmentsShow';
 import EditAppointmentForm from './editAppointmentForm';
-import { toggleAppointmentList } from '../actions';
+import { toggleAppointmentList, loadAppointmentFormData, editSelectedAppointmentById, deleteAppointment, toggleAppointmentInfo } from '../actions';
 
 chai.use(spies);
 
@@ -171,10 +171,10 @@ describe('<AppointmentsShow', () => {
       };
       const wrapper = shallow(<AppointmentsShow {...props}/>);
       const instance = wrapper.instance();
-      console.log(instance.props);
       expect(wrapper.find('.edit-appointment-button')).to.exist;
       wrapper.find('.edit-appointment-button').at(0).simulate('click');
-      expect(instance.props.dispatch).to.have.been.called.twice;
+      expect(instance.props.dispatch).to.have.been.called.with(loadAppointmentFormData(selectedAppointments[0]));
+      expect(instance.props.dispatch).to.have.been.called.with(editSelectedAppointmentById(selectedAppointments[0]));
     });
 
     it('Should dispatch the action deleteAppointment when the button named .delete-appointment-button is clicked', () => {
@@ -218,7 +218,7 @@ describe('<AppointmentsShow', () => {
       const instance = wrapper.instance();
       expect(wrapper.find('.desktop-hide')).to.exist;
       wrapper.find('.desktop-hide').simulate('click');
-      expect(instance.props.dispatch).to.have.been.called.once;
+      expect(instance.props.dispatch).to.have.been.called.with(toggleAppointmentInfo(false));
     });
 
     it('Should dispatch the action toggleAppointmentList when deletedAppointment is not empty and the button named .message-button is clicked. ', () => {

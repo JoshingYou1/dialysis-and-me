@@ -10,7 +10,7 @@ import SecondaryInsuranceInfo from './secondaryInsuranceInfo';
 import TreatmentInfo from './treatmentInfo';
 import EditBasicProfileInfoForm from './editBasicProfileInfoForm';
 import Footer from './footer';
-import { selectProfileInfoSection } from '../actions';
+import { selectProfileInfoSection, chooseEditBasicProfileInfo, loadBasicProfileInfoFormData } from '../actions';
 
 chai.use(spies);
 
@@ -73,7 +73,30 @@ const profile = {
         ],
         username: 'robert.jones',
         password: 'hello'
-}
+};
+
+const cards = [
+    {
+        previous: null,
+        next: 1,
+        name: 'Basic Info'
+    },
+    {
+        previous: 0,
+        next: 2,
+        name: 'Primary Insurance Info'
+    },
+    {
+        previous: 1,
+        next: 3,
+        name: 'Secondary Insurance Info'
+    },
+    {
+        previous: 2,
+        next: null,
+        name: 'Treatment Info'
+    }
+];
 
 describe('<Profile />', () => {
     it('Should render without crashing', () => {
@@ -229,7 +252,8 @@ describe('<Profile />', () => {
         const wrapper = shallow(<Profile {...props} />);
         const instance = wrapper.instance();
         wrapper.find('.edit-profile-button').simulate('click');
-        expect(instance.props.dispatch.chooseEditBasicProfileInfo).to.have.been.called.once;
+        expect(instance.props.dispatch).to.have.been.called.with(chooseEditBasicProfileInfo());
+        expect(instance.props.dispatch).to.have.been.called.with(loadBasicProfileInfoFormData(profile));
     });
 
     it('Should dispatch the action selectProfileInfoSection when the button named .display-profile-section-button-1 is clicked', () => {
@@ -249,6 +273,6 @@ describe('<Profile />', () => {
         const wrapper = shallow(<Profile {...props} />);
         const instance = wrapper.instance();
         wrapper.find('.display-profile-section-button-1').simulate('click');
-        expect(instance.props.dispatch).to.have.been.called.once;
+        expect(instance.props.dispatch).to.have.been.called.with(selectProfileInfoSection(cards[props.section].previous));
     });
 });
