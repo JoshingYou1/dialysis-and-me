@@ -10,6 +10,13 @@ import {
 import EditAppointmentForm from './editAppointmentForm';
 
 export class AppointmentsShow extends React.Component {
+    componentDidUpdate(prevProps) {
+        if (this.props.chosenAppointments !== prevProps.chosenAppointments) {
+            console.log('Hello world!!')
+            document.getElementsByClassName('appointments-show-list').scrollTop = 320;
+        }
+    }
+
     deleteAppointmentHandler(a, formattedAppointmentDate) {
         if (window.confirm(`Are you sure you want to remove this appointment scheduled for ${formattedAppointmentDate}?`)) {
             this.props.dispatch(deleteAppointment(this.props.user.id, a._id))
@@ -20,7 +27,7 @@ export class AppointmentsShow extends React.Component {
         this.props.dispatch(loadAppointmentFormData(a));
         this.props.dispatch(editSelectedAppointmentById(a));
     }
-    
+
     render() {
         if (this.props.deletedAppointment) {
             return (
