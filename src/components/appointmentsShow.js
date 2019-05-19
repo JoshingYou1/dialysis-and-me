@@ -13,8 +13,6 @@ export class AppointmentsShow extends React.Component {
     componentDidUpdate(prevProps) {
         if (this.props.chosenAppointments !== prevProps.chosenAppointments) {
             console.log('Hello world!!')
-            let scrollbar = document.getElementsByClassName('appointments-show-list');
-            return scrollbar[0].scrollTop = 320;
         }
     }
 
