@@ -10,9 +10,10 @@ import {
 import EditAppointmentForm from './editAppointmentForm';
 
 export class AppointmentsShow extends React.Component {
+
     componentDidUpdate(prevProps) {
         if (this.props.chosenAppointments !== prevProps.chosenAppointments) {
-            console.log('Hello world!!')
+            this.refs.scroller.scrollTop = 0;
         }
     }
 
@@ -47,12 +48,15 @@ export class AppointmentsShow extends React.Component {
         if (this.props.chosenAppointments.length === 0 && this.props.isAppointmentInfoShowing) {
             return (
                 <div 
+                    ref="scroller"
                     className={"no-appointments-div " + (this.props.chosenAppointments.length !== 0 && this.props.animation === true ? 'hidden-1 ' : '')
                     + (this.props.animation ? 'fade-in-1' : 'fade-in-2')}
                 >
-                    <button className="desktop-hide" onClick={() => this.props.dispatch(toggleAppointmentInfo(false))}>
-                        <span className="fas fa-times 2x a"></span>
-                    </button>
+                    <div className="desktop-hide-button-container">
+                        <button className="desktop-hide-3" onClick={() => this.props.dispatch(toggleAppointmentInfo(false))}>
+                            <span className="fas fa-times 2x a"></span>
+                        </button>
+                    </div>
                     <h2 className="no-appointments-h2-mobile desktop-hide-2">
                         No appointments for this month
                     </h2>
@@ -134,11 +138,13 @@ export class AppointmentsShow extends React.Component {
             });
             return (
                 <div className={"show-a " + (this.props.isAppointmentInfoShowing ? '' : 'hidden-1')}>
-                    <button className="desktop-hide" onClick={() => this.props.dispatch(toggleAppointmentInfo(false))}>
-                        <span className="fas fa-times 2x a"></span>
-                    </button>
+                    <div className="desktop-hide-button-container">
+                        <button className="desktop-hide-3" onClick={() => this.props.dispatch(toggleAppointmentInfo(false))}>
+                            <span className="fas fa-times 2x a"></span>
+                        </button>
+                    </div>
                     <section className={"appointments-show-section " + (this.props.animation ? 'fade-in-1' : 'fade-in-2')}>
-                        <ul className={"appointments-show-list " + (this.props.chosenAppointments.length !== 0 ? '' : 'hidden-1')}>
+                        <ul ref="scroller" className={"appointments-show-list " + (this.props.chosenAppointments.length !== 0 ? '' : 'hidden-1')}>
                             {list}
                         </ul>
                     </section>

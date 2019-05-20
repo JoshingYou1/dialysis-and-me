@@ -1,5 +1,5 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import {shallow, mount} from 'enzyme';
 import chai, { expect } from 'chai';
 import spies from 'chai-spies';
 
@@ -216,8 +216,8 @@ describe('<AppointmentsShow', () => {
       };
       const wrapper = shallow(<AppointmentsShow {...props}/>);
       const instance = wrapper.instance();
-      expect(wrapper.find('.desktop-hide')).to.exist;
-      wrapper.find('.desktop-hide').simulate('click');
+      expect(wrapper.find('.desktop-hide-3')).to.exist;
+      wrapper.find('.desktop-hide-3').simulate('click');
       expect(instance.props.dispatch).to.have.been.called.with(toggleAppointmentInfo(false));
     });
 
@@ -240,5 +240,27 @@ describe('<AppointmentsShow', () => {
       expect(wrapper.find('.message-button')).to.exist;
       wrapper.find('.message-button').simulate('click');
       expect(instance.props.dispatch).to.have.been.called.with(toggleAppointmentList());
+    });
+
+    it('Calls componentDidUpdate', () => {
+      const props = {
+        user: {
+          _id: 1
+        },
+        chosenAppointments: [],
+        isAppointmentInfoShowing: false,
+        selectedAppointmentToEdit: null,
+        loadedAppointmentFormData: {},
+        isMessageShowing: false,
+        deletedAppointment: deletedAppointment,
+        animation: false,
+        dispatch: chai.spy(),
+      };
+      chai.spy.on(AppointmentsShow.prototype, 'componentDidUpdate');
+      const wrapper = mount(<AppointmentsShow {...props} />);
+      const instance = wrapper.instance();
+      console.log(instance);
+      wrapper.setProps({chosenAppointments: chosenAppointments});
+      expect(AppointmentsShow.prototype.componentDidUpdate).to.have.been.called.once;
     });
 });

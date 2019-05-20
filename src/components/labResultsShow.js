@@ -4,17 +4,17 @@ import { toggleLabResultsInfo } from '../actions';
 
 export class LabResultsShow extends React.Component {
 
-    // componentDidUpdate(prevProps) {
-    //     if(this.props.chosenLabResult !== prevProps.chosenLabResult) {
-        
-    //     }
-    // }
+    componentDidUpdate(prevProps) {
+        if (this.props.chosenLabResult !== prevProps.chosenLabResult) {
+            this.refs.scroller.scrollTop = 0;
+        }
+    }
 
     render() {
         if (this.props.chosenLabResult) {
             return (
                 <div className={"show-b " + (this.props.isLabResultsInfoShowing ? '' : 'hidden-1')}>
-                    <section className={"lab-results-show-section " + (this.props.animation ? 'fade-in-1' : 'fade-in-2')}>
+                    <section ref="scroller" className={"lab-results-show-section " + (this.props.animation ? 'fade-in-1' : 'fade-in-2')}>
                         <button className="desktop-hide" onClick={() => this.props.dispatch(toggleLabResultsInfo(false))}>
                             <span className="fas fa-times 2x a"></span>
                         </button>

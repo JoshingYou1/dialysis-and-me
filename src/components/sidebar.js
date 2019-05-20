@@ -6,7 +6,6 @@ import {toggleSidebar, toggleSublinks} from '../actions';
 
 
 export class Sidebar extends React.Component {
-
     render() {
         const sidebarLinks = [
             {
@@ -89,7 +88,7 @@ export class Sidebar extends React.Component {
                     <Link 
                         className="sidebar-link-2"
                         to={l.link}
-                        onClick={() => this.props.dispatch(toggleSidebar())}
+                        onClick={this.props.dispatch(toggleSidebar())}
                     >
                         {l.display}
                     </Link>

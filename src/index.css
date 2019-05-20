@@ -511,15 +511,31 @@ h2 {
   border: none;
   padding: 10px;
   font-size: 1.5em;
-  position: absolute;
-  top: 2.5em;
-  right: 8px;
+  margin-top: 2.5em;
+  justify-self: end;
   grid-column-start: measurement-method;
   grid-column-end: measurement-method;
 }
 
 .desktop-hide-2 {
   display: block;
+}
+
+.desktop-hide-3 {
+  display: block;
+  background: none;
+  border: none;
+  padding: 10px;
+  font-size: 1.5em;
+  margin-top: 2.5em;
+  justify-self: end;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.desktop-hide-button-container {
+  max-width: 300px;
+  margin: auto;
 }
 
 .lab-results-main {
@@ -569,7 +585,6 @@ h2 {
 }
 
 .show-a, .show-b {
-  margin-top: 5.5em;
   width: 100%;
   animation: fade-1 0.25s linear;
 }
@@ -1455,10 +1470,9 @@ footer {
 }
 
 .no-appointments-h2-desktop {
-  position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 350px;
   text-align: center;
 }
 
@@ -1973,7 +1987,7 @@ footer {
     display: block;
   }
 
-  .desktop-hide, .desktop-hide-2 {
+  .desktop-hide, .desktop-hide-2, desktop-hide-3, .desktop-hide-button-container {
     display: none;
   }
 
@@ -1991,10 +2005,16 @@ footer {
     height: 350px;
   }
 
-  .appointments-show-instruction-h2, .lab-results-show-instruction-h2 {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+  .appointments-show-instruction-h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 350px;
+  }
+
+  .lab-results-show-instruction-h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 320px;
   }
 
   .lab-results-list-section, .appointments-list-section {

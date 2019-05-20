@@ -7,7 +7,6 @@ export class Sublinks extends React.Component {
     onClick() {
         this.props.dispatch(toggleSidebar());
         this.props.dispatch(toggleSublinks());
-        this.forceUpdate()
     }
 
     render() {

@@ -75,7 +75,7 @@ describe('<InputTwo />', () => {
         expect(wrapper.find('.form-input-2')).to.exist;
     });
 
-    it('Call componentDidUpdate', () => {
+    it('Calls componentDidUpdate', () => {
         const props = {
             form: {
                 meta: {
