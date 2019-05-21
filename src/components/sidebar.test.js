@@ -13,14 +13,16 @@ chai.use(spies);
 describe('<Sidebar />', () => {
     it('Should render without crashing', () => {
         const props = {
-            areSublinksShowing: false
+            areSublinksShowing: false,
+            dispatch: chai.spy()
         };
         shallow(<Sidebar {...props} />);
     });
 
     it('Should render seven Link components', () => {
         const props = {
-            areSublinksShowing: false
+            areSublinksShowing: false,
+            dispatch: chai.spy()
         };
         const wrapper = shallow(<Sidebar {...props} />);
         expect(wrapper.find(Link).length).to.equal(7);
@@ -28,7 +30,8 @@ describe('<Sidebar />', () => {
 
     it('Should render the Sublinks component', () => {
         const props = {
-            areSublinksShowing: false
+            areSublinksShowing: false,
+            dispatch: chai.spy()
         };
         const wrapper = shallow(<Sidebar {...props} />);
         expect(wrapper.find(Sublinks).length).to.equal(1);

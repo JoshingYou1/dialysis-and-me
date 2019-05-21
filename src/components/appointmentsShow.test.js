@@ -256,8 +256,10 @@ describe('<AppointmentsShow', () => {
         animation: false,
         dispatch: chai.spy(),
       };
+
+      const scroller = React.createRef();
       chai.spy.on(AppointmentsShow.prototype, 'componentDidUpdate');
-      const wrapper = mount(<AppointmentsShow {...props} />);
+      const wrapper = mount(<AppointmentsShow {...props} ref={scroller} />);
       const instance = wrapper.instance();
       console.log(instance);
       wrapper.setProps({chosenAppointments: chosenAppointments});

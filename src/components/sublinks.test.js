@@ -1,54 +1,12 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {BrowserRouter as Router, Link} from 'react-router-dom';
-import { expect } from 'chai';
+import {Link} from 'react-router-dom';
+import chai, { expect } from 'chai';
+import spies from 'chai-spies';
 
 import {Sublinks} from './sublinks';
 
-const sidebarLinks = [
-    {
-        display: 'Dashboard',
-        link: '/dashboard'
-    },
-    {
-        display: 'Appointments',
-        link: '/appointments'
-    },
-    {
-        display: 'Doctors',
-        link: '/doctors'
-    },
-    {
-        display: 'Lab Results',
-        link: '/lab-results'
-    },
-    {
-        display: 'My Profile',
-        link: '/profile'
-    },
-    {
-        display: 'Patient Education',
-        link: '/patient-education',
-        sublinks: [
-            {
-                display: 'Understanding ESRD',
-                link: '/patient-education/understanding-esrd'
-            },
-            {
-                display: 'Living with ESRD',
-                link:'/patient-education/living-with-esrd'
-            },
-            {
-                display: 'Diet for Dialysis',
-                link: '/patient-education/diet-for-dialysis'
-            }
-        ]
-    },
-    {
-        display: 'About',
-        link: '/about'
-    }
-];
+chai.use(spies);
 
 describe('<Sublinks />', () => {
     it('Should render without crashing', () => {
@@ -76,25 +34,25 @@ describe('<Sublinks />', () => {
                 },
                 {
                     display: 'Patient Education',
-                    link: '/patient-education',
-                    sublinks: [
-                        {
-                            display: 'Understanding ESRD',
-                            link: '/patient-education/understanding-esrd'
-                        },
-                        {
-                            display: 'Living with ESRD',
-                            link:'/patient-education/living-with-esrd'
-                        },
-                        {
-                            display: 'Diet for Dialysis',
-                            link: '/patient-education/diet-for-dialysis'
-                        }
-                    ]
+                    link: '/patient-education'
                 },
                 {
                     display: 'About',
                     link: '/about'
+                }
+            ],
+            sublinks: [
+                {
+                    display: 'Understanding ESRD',
+                    link: '/patient-education/understanding-esrd'
+                },
+                {
+                    display: 'Living with ESRD',
+                    link:'/patient-education/living-with-esrd'
+                },
+                {
+                    display: 'Diet for Dialysis',
+                    link: '/patient-education/diet-for-dialysis'
                 }
             ]
         }
@@ -102,10 +60,53 @@ describe('<Sublinks />', () => {
     });
 
     it('Should render the Link component', () => {
-        shallow(
-            <Router>
-                <Link to=""/>
-            </Router>
-        );
+        const props = {
+            sidebarLinks: [
+                {
+                    display: 'Dashboard',
+                    link: '/dashboard'
+                },
+                {
+                    display: 'Appointments',
+                    link: '/appointments'
+                },
+                {
+                    display: 'Doctors',
+                    link: '/doctors'
+                },
+                {
+                    display: 'Lab Results',
+                    link: '/lab-results'
+                },
+                {
+                    display: 'My Profile',
+                    link: '/profile'
+                },
+                {
+                    display: 'Patient Education',
+                    link: '/patient-education'
+                },
+                {
+                    display: 'About',
+                    link: '/about'
+                }
+            ],
+            sublinks: [
+                {
+                    display: 'Understanding ESRD',
+                    link: '/patient-education/understanding-esrd'
+                },
+                {
+                    display: 'Living with ESRD',
+                    link:'/patient-education/living-with-esrd'
+                },
+                {
+                    display: 'Diet for Dialysis',
+                    link: '/patient-education/diet-for-dialysis'
+                }
+            ]
+        }
+        const wrapper = shallow(<Sublinks {...props} />);
+        expect(wrapper.find(Link).length).to.equal(3);
     });
 });

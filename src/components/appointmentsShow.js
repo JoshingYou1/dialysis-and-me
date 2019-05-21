@@ -10,10 +10,14 @@ import {
 import EditAppointmentForm from './editAppointmentForm';
 
 export class AppointmentsShow extends React.Component {
+    constructor(props) {
+        super(props);
+        this.scroller = React.createRef();
+    }
 
     componentDidUpdate(prevProps) {
         if (this.props.chosenAppointments !== prevProps.chosenAppointments) {
-            this.refs.scroller.scrollTop = 0;
+            this.scroller.current.scrollTop = 0;
         }
     }
 
@@ -48,7 +52,7 @@ export class AppointmentsShow extends React.Component {
         if (this.props.chosenAppointments.length === 0 && this.props.isAppointmentInfoShowing) {
             return (
                 <div 
-                    ref="scroller"
+                    ref={this.scroller}
                     className={"no-appointments-div " + (this.props.chosenAppointments.length !== 0 && this.props.animation === true ? 'hidden-1 ' : '')
                     + (this.props.animation ? 'fade-in-1' : 'fade-in-2')}
                 >
@@ -144,7 +148,7 @@ export class AppointmentsShow extends React.Component {
                         </button>
                     </div>
                     <section className={"appointments-show-section " + (this.props.animation ? 'fade-in-1' : 'fade-in-2')}>
-                        <ul ref="scroller" className={"appointments-show-list " + (this.props.chosenAppointments.length !== 0 ? '' : 'hidden-1')}>
+                        <ul ref={this.scroller} className={"appointments-show-list " + (this.props.chosenAppointments.length !== 0 ? '' : 'hidden-1')}>
                             {list}
                         </ul>
                     </section>
