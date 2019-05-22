@@ -7,6 +7,7 @@ export class Sublinks extends React.Component {
     onClick() {
         this.props.dispatch(toggleSidebar());
         this.props.dispatch(toggleSublinks());
+        this.window.location.reload();
     }
 
     render() {
@@ -16,7 +17,7 @@ export class Sublinks extends React.Component {
                     <Link 
                         className="sidebar-sublink" 
                         to={sl.link} 
-                        onClick={this.onClick}
+                        onClick={() => this.onClick()}
                     >
                         {sl.display}
                     </Link>

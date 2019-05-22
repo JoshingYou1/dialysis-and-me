@@ -14,6 +14,10 @@ export class NavigationBar extends React.Component {
         clearAuthToken();
     }
 
+    refreshPage() {
+        this.window.location.reload();
+    }
+
     render() {
         return (
             <header>
@@ -29,35 +33,35 @@ export class NavigationBar extends React.Component {
                         <Link 
                             className="header-quick-link"
                             to="/profile"
-                            onClick={this.forceUpdate}
+                            onClick={() => this.refreshPage()}
                         >
                             Profile
                         </Link>
                         <Link 
                             className="header-quick-link"
                             to="/patient-education"
-                            onClick={this.forceUpdate}
+                            onClick={() => this.refreshPage()}
                         >
                             Patient Education
                         </Link>
                         <Link 
                             className="header-quick-link"
                             to="/lab-results"
-                            onClick={this.forceUpdate}
+                            onClick={() => this.refreshPage()}
                         >
                             Lab Results
                         </Link>
                         <Link 
                             className="header-quick-link"
                             to="/doctors"
-                            onClick={this.forceUpdate}
+                            onClick={() => this.refreshPage()}
                         >
                             Doctors
                         </Link>
                         <Link 
                             className="header-quick-link"
                             to="/appointments"
-                            onClick={this.forceUpdate}
+                            onClick={() => this.refreshPage()}
                         >
                             Appointments
                         </Link>
