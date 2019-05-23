@@ -70,7 +70,7 @@ const initialState = {
     isEditDoctorFormShowing: false
 };
 
-export const appReducer = (state=initialState, action) => {
+export const appReducer = (state = initialState, action) => {
     if (action.type === SELECT_LAB_RESULTS_BY_ID) {
         return Object.assign({}, state, {
             selectedLabResult: action.labResults

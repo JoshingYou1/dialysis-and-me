@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 export function TreatmentInfo(props) {
-    if (props.profile.primaryInsurance) {
+    if (props.profile.treatmentDays) {
         let treatmentDays = props.profile.treatmentDays ? props.profile.treatmentDays : 'N/A';
         
         let treatmentTime = props.profile.treatmentTime ? props.profile.treatmentTime : 'N/A';
@@ -43,7 +43,7 @@ export function TreatmentInfo(props) {
         );
     }
     return (
-        <div></div>
+        <div className="no-treatment-info-div"></div>
     );
 }
 

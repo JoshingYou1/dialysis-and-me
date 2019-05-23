@@ -42,9 +42,16 @@ describe('<Sidebar />', () => {
             areSublinksShowing: false,
             dispatch: chai.spy()
         };
+        Object.defineProperty(window.location, 'reload', {
+            configurable: true,
+          });
+        delete window.location;
+        window.location = { reload: chai.spy() };
         const wrapper = shallow(<Sidebar {...props} />);
         const instance = wrapper.instance();
         wrapper.find(Link).at(0).simulate('click');
+        window.location.reload();
+        expect(window.location.reload).to.have.been.called();
         expect(instance.props.dispatch).to.have.been.called.with(toggleSidebar());
     });
 
