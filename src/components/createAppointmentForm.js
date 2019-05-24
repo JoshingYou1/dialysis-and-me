@@ -118,7 +118,7 @@ export class CreateAppointmentForm extends React.Component {
             <div className="create-appointment-form-div">
                 {successMessage}
                 {errorMessage}
-                <form 
+                <form
                     className={"create-appointment-form " + (this.props.isMessageShowing ? 'hidden-1' : '')}
                     onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
                 >
