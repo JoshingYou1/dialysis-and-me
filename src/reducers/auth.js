@@ -33,5 +33,6 @@ export default function reducer(state = initialState, action) {
             error: action.error
         });
     }
+    console.log('Auth state', state);
     return state;
 }

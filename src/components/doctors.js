@@ -10,12 +10,12 @@ import {
     toggleDoctorList,
     triggerAnimation
 } from '../actions';
-import requiresLogin from './requiresLogin';
 import NavigationBar from './navBar';
 import Footer from './footer';
 import EditDoctorForm from './editDoctorForm';
 import CreateDoctorForm from './createDoctorForm';
 import PropTypes from 'prop-types';
+import requiresLogin from './requiresLogin';
 
 export class Doctors extends React.Component {
     animationHandler() {

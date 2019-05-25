@@ -2,10 +2,10 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import { expect } from 'chai';
 
-import {RequiresLogin} from './requiresLogin';
 import NavigationBar from './navBar';
 import {Redirect} from 'react-router-dom';
 import Footer from './footer';
+import RequiresLogin from './requiresLogin';
 
 describe('<RequiresLogin />', () => {
     it('Should render without crashing', () => {
@@ -24,7 +24,7 @@ describe('<RequiresLogin />', () => {
             error: null
         };
         const wrapper = shallow(<RequiresLogin {...props} />);
-        expect(wrapper.find(NavigationBar).length).to.equal(1);
+        expect(wrapper.find(NavigationBar)).to.exist;
     });
 
     it('Should render the Redirect component if the loggedIn prop or the error prop are not null', () => {
@@ -37,7 +37,7 @@ describe('<RequiresLogin />', () => {
             error: null
         };
         const wrapper = shallow(<RequiresLogin {...props} />);
-        expect(wrapper.find(Redirect).length).to.equal(1);
+        expect(wrapper.find(Redirect)).to.exist;
     });
 
     it('Should render the Footer component if the authenticating prop is truthy', () => {
@@ -47,6 +47,6 @@ describe('<RequiresLogin />', () => {
             error: null
         };
         const wrapper = shallow(<RequiresLogin {...props} />);
-        expect(wrapper.find(Footer).length).to.equal(1);
+        expect(wrapper.find(Footer)).to.exist;
     });
 });

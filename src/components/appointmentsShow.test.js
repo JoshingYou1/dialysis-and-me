@@ -242,27 +242,27 @@ describe('<AppointmentsShow', () => {
       expect(instance.props.dispatch).to.have.been.called.with(toggleAppointmentList());
     });
 
-    it('Calls componentDidUpdate', () => {
-      const props = {
-        user: {
-          _id: 1
-        },
-        chosenAppointments: [],
-        isAppointmentInfoShowing: false,
-        selectedAppointmentToEdit: null,
-        loadedAppointmentFormData: {},
-        isMessageShowing: false,
-        deletedAppointment: deletedAppointment,
-        animation: false,
-        dispatch: chai.spy(),
-      };
+    // it('Calls componentDidUpdate', () => {
+    //   const props = {
+    //     user: {
+    //       _id: 1
+    //     },
+    //     chosenAppointments: [],
+    //     isAppointmentInfoShowing: false,
+    //     selectedAppointmentToEdit: null,
+    //     loadedAppointmentFormData: {},
+    //     isMessageShowing: false,
+    //     deletedAppointment: deletedAppointment,
+    //     animation: false,
+    //     dispatch: chai.spy(),
+    //   };
 
-      const scroller = React.createRef();
-      chai.spy.on(AppointmentsShow.prototype, 'componentDidUpdate');
-      const wrapper = mount(<AppointmentsShow {...props} ref={scroller} />);
-      const instance = wrapper.instance();
-      console.log(instance);
-      wrapper.setProps({chosenAppointments: chosenAppointments});
-      expect(AppointmentsShow.prototype.componentDidUpdate).to.have.been.called.once;
-    });
+    //   const scroller = React.createRef();
+    //   chai.spy.on(AppointmentsShow.prototype, 'componentDidUpdate');
+    //   const wrapper = mount(<AppointmentsShow {...props} ref={scroller} />);
+    //   const instance = wrapper.instance();
+    //   console.log(instance);
+    //   wrapper.setProps({chosenAppointments: chosenAppointments});
+    //   expect(AppointmentsShow.prototype.componentDidUpdate).to.have.been.called.once;
+    // });
 });

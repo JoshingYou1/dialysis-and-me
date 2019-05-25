@@ -1,12 +1,12 @@
 import React from 'react';
 import User from './user';
 import {connect} from 'react-redux';
-import requiresLogin from './requiresLogin';
 import { clearAuthToken } from '../localStorage';
 import {clearAuth} from '../actions/auth';
 import {Link} from 'react-router-dom';
 import { toggleUserInfo, toggleSidebar } from '../actions';
 import Sidebar from './sidebar';
+import requiresLogin from './requiresLogin';
 
 export class NavigationBar extends React.Component {
     logout() {
