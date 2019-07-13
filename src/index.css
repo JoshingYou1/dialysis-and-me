@@ -191,6 +191,16 @@ button {
   border-radius: 4px;
 }
 
+.login-form p {
+  text-align: center;
+  font-size: 17px;
+}
+
+.login-form span {
+  color: #7700B4;
+  font-weight: bold;
+}
+
 .datetime-picker-input-3 .rw-widget-picker.rw-widget-container input {
   margin-bottom: 0;
   align-self: center;
@@ -790,8 +800,6 @@ main {
   color: white;
   height: 2.5em;
 }
-
-
 
 footer {
   line-height: 2.5em;

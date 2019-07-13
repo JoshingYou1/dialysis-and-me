@@ -1,12 +1,8 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import chai, { expect } from 'chai';
-import spies from 'chai-spies';
+import { expect } from 'chai';
 
 import {EditBasicProfileInfoForm} from './editBasicProfileInfoForm';
-import {Field} from 'redux-form';
-
-chai.use(spies);
 
 describe('<EditBasicProfileInfoForm />', () => {
     it('Should render without crashing', () => {
@@ -20,9 +16,4 @@ describe('<EditBasicProfileInfoForm />', () => {
         }
         shallow(<EditBasicProfileInfoForm {...props} />);
     });
-
-    // it('Should render the Field component', () => {
-    //     const wrapper = shallow(<EditBasicProfileInfoForm />);
-    //     expect(wrapper.find(Field).length).to.equal(9);
-    // });
 });
