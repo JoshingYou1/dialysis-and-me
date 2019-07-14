@@ -7,7 +7,7 @@ import {toggleSidebar, toggleSublinks} from '../actions';
 
 export class Sidebar extends React.Component {
     refreshPage() {
-        window.location.reload();
+        this.window.location.reload();
     }
 
     render() {
