@@ -775,10 +775,7 @@ h2 {
   border: none;
   color: white;
   cursor: pointer;
-  padding-right: 15.625px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 15.625px;
+  padding: 2px 14px;
 }
 
 .hidden-2 {
