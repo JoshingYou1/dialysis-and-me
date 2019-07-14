@@ -56,15 +56,15 @@ export class LabResults extends React.Component {
             const list = this.props.labResults.map(l => {
                     let resultsDate = new Date(l.date);
                     
-                    let day = resultsDate.getDate();
+                    let day = resultsDate.getUTCDate();
                     if (day < 10) {
                         day = `0${day}`
                     }
-                    let month = resultsDate.getMonth() + 1;
+                    let month = resultsDate.getUTCMonth() + 1;
                     if (month < 10) {
                         month = `0${month}`;
                     }
-                    const year = resultsDate.getFullYear();
+                    const year = resultsDate.getUTCFullYear();
             
                     let formattedResultsDate = `${month}/${day}/${year}`;
                 return {
