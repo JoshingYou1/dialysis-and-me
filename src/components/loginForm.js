@@ -10,6 +10,7 @@ export class LoginForm extends React.Component {
     }
 
     render() {
+        console.log('LoginPage:', this.props.error); 
         let errorMessage;
         if (this.props.error) {
             console.log(this.props.error);
