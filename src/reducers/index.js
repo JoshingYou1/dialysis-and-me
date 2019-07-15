@@ -319,6 +319,5 @@ export const appReducer = (state = initialState, action) => {
             animation: !state.animation
         });
     }
-    console.log('state', state);
     return state;
 }
