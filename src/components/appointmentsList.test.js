@@ -112,7 +112,6 @@ describe('<AppointmentsList />', () => {
             dispatch: chai.spy()
         };
         const wrapper = shallow(<AppointmentsList {...props} chooseAppointmentsByMonth={chooseAppointmentsByMonth}/>);
-        console.log(wrapper.instance().props);
         const instance = wrapper.instance();
         wrapper.find('.appointments-list-item').at(0).simulate('click');
         expect(instance.props.dispatch).to.have.been.called.with(triggerAnimation());

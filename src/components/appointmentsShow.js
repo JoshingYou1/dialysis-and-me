@@ -17,7 +17,6 @@ export class AppointmentsShow extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.chosenAppointments !== prevProps.chosenAppointments) {
-            console.log('In componentDidUpdate');
             this.scroller.current.scrollTop = 0;
         }
     }

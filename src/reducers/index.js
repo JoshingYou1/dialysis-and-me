@@ -238,7 +238,6 @@ export const appReducer = (state = initialState, action) => {
                 selectedAppointments
             });
         }
-        console.log(action);
     }
     else if (action.type === CREATE_DOCTOR_SUCCESS) {
         if (action.createdDoctor) {
