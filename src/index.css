@@ -120,6 +120,7 @@ button {
   border: 2px solid #7700B4;
   border-radius: 10px;
   background-color: white;
+  width: 280px;
 }
 
 .login-form-label {
@@ -152,6 +153,7 @@ button {
   font-size: 15px;
   border-radius: 4px;
   border: 1px solid #ccc !important;
+  width: 100%;
 }
 
 .input-one:focus {
@@ -191,13 +193,14 @@ button {
   border-radius: 4px;
 }
 
-.login-form p {
+.login-p-2 {
   text-align: center;
   font-size: 17px;
 }
 
-.login-form span {
+.login-span {
   font-weight: bold;
+  color: #7700B4;
 }
 
 .datetime-picker-input-3 .rw-widget-picker.rw-widget-container input {
@@ -1673,6 +1676,11 @@ footer {
 }
 
 @media only screen and (min-width: 425px) {
+  .login-form {
+    width: 320px;
+    padding-left: 2.5em;
+    padding-right: 2.5em;
+  }
   .dashboard-links {
     grid-column-gap: 3.5em;
     grid-row-gap: 3.5em;
